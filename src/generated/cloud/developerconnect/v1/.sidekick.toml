@@ -18,3 +18,8 @@ service-config = 'google/cloud/developerconnect/v1/developerconnect_v1.yaml'
 
 [codec]
 copyright-year = '2025'
+
+[[documentation-overrides]]
+id      = '.google.cloud.developerconnect.v1.ArtifactConfig.google_artifact_registry'
+match   = 'regsitry'
+replace = 'registry'

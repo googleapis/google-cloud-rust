@@ -768,6 +768,59 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::BigtableTableAdmin::create_schema_bundle].
+    fn create_schema_bundle(
+        &self,
+        _req: crate::model::CreateSchemaBundleRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BigtableTableAdmin::update_schema_bundle].
+    fn update_schema_bundle(
+        &self,
+        _req: crate::model::UpdateSchemaBundleRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BigtableTableAdmin::get_schema_bundle].
+    fn get_schema_bundle(
+        &self,
+        _req: crate::model::GetSchemaBundleRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SchemaBundle>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BigtableTableAdmin::list_schema_bundles].
+    fn list_schema_bundles(
+        &self,
+        _req: crate::model::ListSchemaBundlesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListSchemaBundlesResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BigtableTableAdmin::delete_schema_bundle].
+    fn delete_schema_bundle(
+        &self,
+        _req: crate::model::DeleteSchemaBundleRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::BigtableTableAdmin::list_operations].
     fn list_operations(
         &self,

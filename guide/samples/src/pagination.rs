@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Examples showing itearting Google API List methods with paginator.
+//! Examples showing iterating Google API List methods with paginator.
 
 use google_cloud_gax as gax;
 
@@ -182,7 +182,7 @@ pub async fn pagination_page_token(project_id: &str) -> crate::Result<()> {
         .for_each(|secret| println!("    secret={}", secret.name));
 
     while !next_page_token.is_empty() {
-        println!("  next_page_token={}", next_page_token);
+        println!("  next_page_token={next_page_token}");
 
         let page = client
             .list_secrets()

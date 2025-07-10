@@ -42,7 +42,7 @@ mod test {
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
         let creds = Builder::default().build().unwrap();
-        let fmt = format!("{:?}", creds);
+        let fmt = format!("{creds:?}");
         assert!(fmt.contains("ServiceAccountCredentials"));
 
         creds

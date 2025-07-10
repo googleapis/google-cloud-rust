@@ -151,8 +151,7 @@ type packageOption struct {
 func parsePackageOption(key, definition string) (*packageOption, error) {
 	var specificationPackages []string
 	pkg := &packagez{
-		name:            strings.TrimPrefix(key, "package:"),
-		defaultFeatures: true,
+		name: strings.TrimPrefix(key, "package:"),
 	}
 	for _, element := range strings.Split(definition, ",") {
 		s := strings.SplitN(element, "=", 2)
@@ -162,20 +161,10 @@ func parsePackageOption(key, definition string) (*packageOption, error) {
 		switch s[0] {
 		case "package":
 			pkg.packageName = s[1]
-		case "path":
-			pkg.path = s[1]
-		case "version":
-			pkg.version = s[1]
 		case "source":
 			specificationPackages = append(specificationPackages, s[1])
 		case "feature":
-			pkg.features = append(pkg.features, strings.Split(s[1], ",")...)
-		case "default-features":
-			value, err := strconv.ParseBool(s[1])
-			if err != nil {
-				return nil, fmt.Errorf("cannot convert `default-features` value %q (part of %q) to boolean: %w", definition, s[1], err)
-			}
-			pkg.defaultFeatures = value
+			pkg.features = append(pkg.features, s[1])
 		case "ignore":
 			value, err := strconv.ParseBool(s[1])
 			if err != nil {
@@ -264,10 +253,6 @@ type packagez struct {
 	ignore bool
 	// What the Rust package calls itself.
 	packageName string
-	// The path to file the package locally, unused if empty.
-	path string
-	// The version of the package, unused if empty.
-	version string
 	// Optional features enabled for the package.
 	features []string
 	// If true, this package was referenced by a generated message, service, or
@@ -277,8 +262,6 @@ type packagez struct {
 	// present. For example, the LRO support helpers are used if LROs are found,
 	// and the service support functions are used if any service is found.
 	usedIf []string
-	// If true, the default features are enabled.
-	defaultFeatures bool
 }
 
 var wellKnownMessages = []*api.Message{
@@ -338,14 +321,18 @@ func loadWellKnownTypes(s *api.APIState) {
 func resolveUsedPackages(model *api.API, extraPackages []*packagez) {
 	hasServices := len(model.State.ServiceByID) > 0
 	hasLROs := false
+	hasAutoPopulation := false
 	for _, s := range model.Services {
-		if hasLROs {
-			break
-		}
+		// In practice, barely any services have auto-population. We are
+		// almost always performing the full loop. `break`ing early does
+		// not save us any computations.
+
 		for _, m := range s.Methods {
 			if m.OperationInfo != nil {
 				hasLROs = true
-				break
+			}
+			if len(m.AutoPopulated) != 0 {
+				hasAutoPopulation = true
 			}
 		}
 	}
@@ -359,6 +346,10 @@ func resolveUsedPackages(model *api.API, extraPackages []*packagez) {
 				break
 			}
 			if namedFeature == "lro" && hasLROs {
+				pkg.used = true
+				break
+			}
+			if namedFeature == "autopopulated" && hasAutoPopulation {
 				pkg.used = true
 				break
 			}
@@ -689,94 +680,6 @@ func httpPathFmt(t *api.PathTemplate) string {
 		fmt = fmt + ":" + *t.Verb
 	}
 	return fmt
-}
-
-func derefFieldExpr(name string, optional bool, nextMessage *api.Message) (string, *api.Message) {
-	const (
-		optionalFmt = `.%s.as_ref().ok_or_else(|| gaxi::path_parameter::missing("%s"))?`
-	)
-	if optional {
-		return fmt.Sprintf(optionalFmt, name, name), nextMessage
-	}
-	return fmt.Sprintf(`.%s`, name), nextMessage
-}
-
-func derefFieldSingle(name string, message *api.Message, state *api.APIState) (string, *api.Message) {
-	for _, field := range message.Fields {
-		if name != field.Name {
-			continue
-		}
-		if field.Typez == api.MESSAGE_TYPE {
-			if nextMessage, ok := state.MessageByID[field.TypezID]; ok {
-				return derefFieldExpr(name, field.Optional, nextMessage)
-			}
-			slog.Error("cannot find next message for field", "currentMessage", message, "fieldName", name)
-		}
-		return derefFieldExpr(name, field.Optional, nil)
-	}
-	return "", nil
-}
-
-func derefFieldPath(fieldPath []string, message *api.Message, state *api.APIState) string {
-	var expression strings.Builder
-	msg := message
-	for _, name := range fieldPath {
-		if msg == nil {
-			slog.Error("cannot build full expression", "fieldPath", fieldPath, "message", msg)
-		}
-		expr, nextMessage := derefFieldSingle(name, msg, state)
-		expression.WriteString(expr)
-		msg = nextMessage
-	}
-	return expression.String()
-}
-
-func leafFieldTypez(fieldPath []string, message *api.Message, state *api.APIState) api.Typez {
-	typez := api.UNDEFINED_TYPE
-	msg := message
-	for _, name := range fieldPath {
-		if msg == nil {
-			slog.Error("cannot find leaf field type", "fieldPath", fieldPath, "message", msg)
-			return typez
-		}
-		for _, field := range msg.Fields {
-			if name != field.Name {
-				continue
-			}
-			typez = field.Typez
-			if field.Typez == api.MESSAGE_TYPE {
-				msg = state.MessageByID[field.TypezID]
-			}
-			break
-		}
-	}
-	return typez
-}
-
-type pathArg struct {
-	Name          string
-	Accessor      string
-	CheckForEmpty bool
-}
-
-func httpPathArgs(h *api.PathInfo, method *api.Method, state *api.APIState) []pathArg {
-	message, ok := state.MessageByID[method.InputTypeID]
-	if !ok {
-		slog.Error("cannot find input message for", "method", method)
-		return []pathArg{}
-	}
-	var params []pathArg
-	for _, arg := range h.Bindings[0].PathTemplate.Segments {
-		if arg.Variable != nil {
-			leafTypez := leafFieldTypez(arg.Variable.FieldPath, message, state)
-			params = append(params, pathArg{
-				Name:          strings.Join(arg.Variable.FieldPath, "."),
-				Accessor:      derefFieldPath(arg.Variable.FieldPath, message, state),
-				CheckForEmpty: leafTypez == api.STRING_TYPE,
-			})
-		}
-	}
-	return params
 }
 
 // Convert a name to `snake_case`. The Rust naming conventions use this style

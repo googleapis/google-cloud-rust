@@ -68,17 +68,19 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
         req: {{InputType.Codec.QualifiedName}},
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<{{Codec.ReturnType}}>> {
-        let options = gax::options::internal::set_default_idempotency(
-            options,
-            {{PathInfo.Codec.IsIdempotent}},
-        );
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         {{#Codec.HasBindingSubstitutions}}
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         {{/Codec.HasBindingSubstitutions}}
-        let builder = None
+        {{#HasAutoPopulatedFields}}
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            true,
+        );
+        {{/HasAutoPopulatedFields}}
+        let (builder, method) = None
         {{#PathInfo.Bindings}}
         .or_else(|| {
             {{#Codec.HasVariablePath}}
@@ -103,14 +105,14 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
                 {{/Codec.QueryParams}}
                 Ok(builder)
             })();
-            Some(builder)
             {{/Codec.QueryParamsCanFail}}
             {{^Codec.QueryParamsCanFail}}
             {{#Codec.QueryParams}}
             {{{Codec.AddQueryParameter}}}
             {{/Codec.QueryParams}}
-            Some(Ok(builder))
+            let builder = Ok(builder);
             {{/Codec.QueryParamsCanFail}}
+            Some(builder.map(|b| (b, reqwest::Method::{{Verb}})))
         })
         {{/PathInfo.Bindings}}
         .ok_or_else(|| {
@@ -130,6 +132,11 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
             {{/PathInfo.Bindings}}
             gax::error::Error::binding(BindingError { paths })
         })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            {{! TODO(#2588) - return idempotency from the above closure }}
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder
                 {{#Codec.SystemParameters}}
                 .query(&[("{{Name}}", "{{Value}}")])
@@ -141,12 +148,7 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
             Some(req{{Codec.BodyAccessor}}),
             {{/PathInfo.Codec.HasBody}}
             {{^PathInfo.Codec.HasBody}}
-            {{#PathInfo.Codec.RequiresContentLength}}
-            Some(gaxi::http::NoBody),
-            {{/PathInfo.Codec.RequiresContentLength}}
-            {{^PathInfo.Codec.RequiresContentLength}}
-            None::<gaxi::http::NoBody>,
-            {{/PathInfo.Codec.RequiresContentLength}}
+            gaxi::http::NoBody::new(&method),
             {{/PathInfo.Codec.HasBody}}
             options,
         ).await

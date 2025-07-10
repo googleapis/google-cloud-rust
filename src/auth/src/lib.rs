@@ -55,6 +55,9 @@ pub(crate) mod token_cache;
 /// A `Result` alias where the `Err` case is [CredentialsError][errors::CredentialsError].
 pub(crate) type Result<T> = std::result::Result<T, errors::CredentialsError>;
 
+/// The retry module
+pub(crate) mod retry;
+
 /// Headers utility functions to work with Google Cloud authentication [Credentials].
 ///
 /// [Credentials]: https://cloud.google.com/docs/authentication#credentials

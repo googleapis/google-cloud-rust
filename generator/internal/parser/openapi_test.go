@@ -983,7 +983,7 @@ func TestOpenAPI_AutoPopulated(t *testing.T) {
 		Publishing: &annotations.Publishing{
 			MethodSettings: []*annotations.MethodSettings{
 				{
-					Selector: ".test.TestService.CreateFoo",
+					Selector: "test.TestService.CreateFoo",
 					AutoPopulatedFields: []string{
 						"requestId",
 						"requestIdExplicitlyNotRequired",
@@ -1012,6 +1012,26 @@ func TestOpenAPI_AutoPopulated(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.CreateFooRequest")
 	}
+	request_id := &api.Field{
+		Name:          "requestId",
+		JSONName:      "requestId",
+		Documentation: "Test-only Description",
+		Typez:         api.STRING_TYPE,
+		TypezID:       "string",
+		Synthetic:     true,
+		Optional:      true,
+		AutoPopulated: true,
+	}
+	request_id_explicit := &api.Field{
+		Name:          "requestIdExplicitlyNotRequired",
+		JSONName:      "requestIdExplicitlyNotRequired",
+		Documentation: "Test-only Description",
+		Typez:         api.STRING_TYPE,
+		TypezID:       "string",
+		Synthetic:     true,
+		Optional:      true,
+		AutoPopulated: true,
+	}
 	checkMessage(t, message, &api.Message{
 		Name:          "CreateFooRequest",
 		ID:            ".test.CreateFooRequest",
@@ -1036,26 +1056,8 @@ func TestOpenAPI_AutoPopulated(t *testing.T) {
 				Synthetic:     true,
 				Behavior:      []api.FieldBehavior{api.FIELD_BEHAVIOR_REQUIRED},
 			},
-			{
-				Name:          "requestId",
-				JSONName:      "requestId",
-				Documentation: "Test-only Description",
-				Typez:         api.STRING_TYPE,
-				TypezID:       "string",
-				Synthetic:     true,
-				Optional:      true,
-				AutoPopulated: true,
-			},
-			{
-				Name:          "requestIdExplicitlyNotRequired",
-				JSONName:      "requestIdExplicitlyNotRequired",
-				Documentation: "Test-only Description",
-				Typez:         api.STRING_TYPE,
-				TypezID:       "string",
-				Synthetic:     true,
-				Optional:      true,
-				AutoPopulated: true,
-			},
+			request_id,
+			request_id_explicit,
 			{
 				Name:          "notRequestIdRequired",
 				Documentation: "Test-only Description",
@@ -1082,9 +1084,21 @@ func TestOpenAPI_AutoPopulated(t *testing.T) {
 				JSONName:      "notRequestIdMissingServiceConfig",
 				Synthetic:     true,
 				Optional:      true,
+				// This just denotes that the field is eligible
+				// to be auto-populated
+				AutoPopulated: true,
 			},
 		},
 	})
+
+	method, ok := test.State.MethodByID[".test.TestService.CreateFoo"]
+	if !ok {
+		t.Fatalf("Cannot find method %s in API State", ".test.TestService.CreateFoo")
+	}
+	want := []*api.Field{request_id, request_id_explicit}
+	if diff := cmp.Diff(want, method.AutoPopulated); diff != "" {
+		t.Errorf("incorrect auto-populated fields on method (-want, +got)\n:%s", diff)
+	}
 }
 
 func TestOpenAPI_Deprecated(t *testing.T) {

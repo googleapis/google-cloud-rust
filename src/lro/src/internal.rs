@@ -454,7 +454,7 @@ mod test {
         };
 
         use futures::StreamExt;
-        let mut stream = new_poller(
+        let stream = new_poller(
             Arc::new(AlwaysContinue),
             Arc::new(ExponentialBackoff::default()),
             start,
@@ -607,7 +607,7 @@ mod test {
         };
 
         use futures::StreamExt;
-        let mut stream = new_unit_response_poller(
+        let stream = new_unit_response_poller(
             Arc::new(AlwaysContinue),
             Arc::new(ExponentialBackoff::default()),
             start,
@@ -758,7 +758,7 @@ mod test {
         };
 
         use futures::StreamExt;
-        let mut stream = new_unit_metadata_poller(
+        let stream = new_unit_metadata_poller(
             Arc::new(AlwaysContinue),
             Arc::new(ExponentialBackoff::default()),
             start,

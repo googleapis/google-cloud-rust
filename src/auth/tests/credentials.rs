@@ -14,6 +14,15 @@
 
 #[cfg(test)]
 mod test {
+    use std::error::Error;
+    use std::fmt;
+
+    use google_cloud_auth::credentials::external_account::ProgrammaticBuilder;
+    use google_cloud_auth::credentials::subject_token::{
+        Builder as SubjectTokenBuilder, SubjectToken, SubjectTokenProvider,
+    };
+    use google_cloud_auth::errors::SubjectTokenProviderError;
+
     use google_cloud_auth::credentials::EntityTag;
     use google_cloud_auth::credentials::mds::Builder as MdsBuilder;
     use google_cloud_auth::credentials::service_account::Builder as ServiceAccountBuilder;
@@ -29,6 +38,7 @@ mod test {
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use scoped_env::ScopedEnv;
     use serde_json::json;
+    use test_case::test_case;
 
     type Result<T> = anyhow::Result<T>;
     type TestResult = anyhow::Result<(), Box<dyn std::error::Error>>;
@@ -41,7 +51,7 @@ mod test {
         let _e3 = ScopedEnv::remove("APPDATA"); // For windows
 
         let mds = AccessTokenCredentialBuilder::default().build().unwrap();
-        let fmt = format!("{:?}", mds);
+        let fmt = format!("{mds:?}");
         assert!(fmt.contains("MDSCredentials"));
     }
 
@@ -107,7 +117,7 @@ mod test {
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
         let uc = AccessTokenCredentialBuilder::default().build().unwrap();
-        let fmt = format!("{:?}", uc);
+        let fmt = format!("{uc:?}");
         assert!(fmt.contains("UserCredentials"));
     }
 
@@ -127,7 +137,7 @@ mod test {
             .build()
             .unwrap();
 
-        let fmt = format!("{:?}", uc);
+        let fmt = format!("{uc:?}");
         assert!(fmt.contains("UserCredentials"));
         assert!(fmt.contains(quota_project));
     }
@@ -152,7 +162,7 @@ mod test {
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
         let ic = AccessTokenCredentialBuilder::default().build().unwrap();
-        let fmt = format!("{:?}", ic);
+        let fmt = format!("{ic:?}");
         assert!(fmt.contains("ImpersonatedServiceAccount"));
     }
 
@@ -176,7 +186,7 @@ mod test {
             .build()
             .unwrap();
 
-        let fmt = format!("{:?}", ic);
+        let fmt = format!("{ic:?}");
         assert!(fmt.contains("ImpersonatedServiceAccount"));
         assert!(fmt.contains(quota_project));
     }
@@ -199,7 +209,7 @@ mod test {
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
         let sac = AccessTokenCredentialBuilder::default().build().unwrap();
-        let fmt = format!("{:?}", sac);
+        let fmt = format!("{sac:?}");
         assert!(fmt.contains("ServiceAccountCredentials"));
     }
 
@@ -220,7 +230,7 @@ mod test {
             .with_quota_project_id(quota_project)
             .build()
             .unwrap();
-        let fmt = format!("{:?}", sac);
+        let fmt = format!("{sac:?}");
         assert!(fmt.contains("ServiceAccountCredentials"));
         assert!(fmt.contains(quota_project));
     }
@@ -228,7 +238,7 @@ mod test {
     #[tokio::test]
     async fn create_api_key_credentials_success() {
         let creds = ApiKeyCredentialsBuilder::new("test-api-key").build();
-        let fmt = format!("{:?}", creds);
+        let fmt = format!("{creds:?}");
         assert!(fmt.contains("ApiKeyCredentials"), "{fmt:?}");
         assert!(!fmt.contains("test-api-key"), "{fmt:?}");
     }
@@ -299,8 +309,7 @@ mod test {
                 .unwrap();
 
         // Use the debug output to verify the right kind of credentials are created.
-        let fmt = format!("{:?}", creds);
-        print!("{:?}", creds);
+        let fmt = format!("{creds:?}");
         assert!(fmt.contains("ExternalAccountCredentials"));
 
         let cached_headers = creds.headers(Extensions::new()).await?;
@@ -317,6 +326,57 @@ mod test {
                 unreachable!("Expecting a header to be present");
             }
         };
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn create_external_account_access_token_fail() -> TestResult {
+        let source_token_response_body = json!({
+            "error":"invalid_token",
+        })
+        .to_string();
+
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("GET", "/source_token"),
+                request::headers(contains(("metadata", "True",))),
+            ])
+            .respond_with(status_code(400).body(source_token_response_body)),
+        );
+
+        let contents = json!({
+          "type": "external_account",
+          "audience": "some-audience",
+          "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+          "token_url": server.url("/token").to_string(),
+          "credential_source": {
+            "url": server.url("/source_token").to_string(),
+            "headers": {
+              "Metadata": "True"
+            },
+            "format": {
+              "type": "json",
+              "subject_token_field_name": "access_token"
+            }
+          }
+        })
+        .to_string();
+
+        let creds =
+            AccessTokenCredentialBuilder::new(serde_json::from_str(contents.as_str()).unwrap())
+                .build()
+                .unwrap();
+
+        let error = creds.headers(Extensions::new()).await.unwrap_err();
+        let original_error = error
+            .source()
+            .expect("should have a source")
+            .downcast_ref::<CredentialsError>()
+            .expect("source should be a CredentialsError");
+        assert!(original_error.to_string().contains("invalid_token"));
+        assert!(!error.is_transient());
 
         Ok(())
     }
@@ -439,7 +499,7 @@ mod test {
             .with_quota_project_id(test_quota_project)
             .with_universe_domain(test_universe_domain)
             .build()?;
-        let fmt = format!("{:?}", mdcs);
+        let fmt = format!("{mdcs:?}");
         assert!(fmt.contains("MDSCredentials"));
         assert!(fmt.contains(test_quota_project));
         assert!(fmt.contains(test_universe_domain));
@@ -459,7 +519,7 @@ mod test {
         let service_account = ServiceAccountBuilder::new(service_account_info_json)
             .with_quota_project_id(test_quota_project)
             .build()?;
-        let fmt = format!("{:?}", service_account);
+        let fmt = format!("{service_account:?}");
         assert!(fmt.contains("ServiceAccountCredentials"));
         assert!(fmt.contains(test_quota_project));
         Ok(())
@@ -477,9 +537,128 @@ mod test {
         let user_account = UserAccountCredentialBuilder::new(authorized_user)
             .with_quota_project_id(test_quota_project)
             .build()?;
-        let fmt = format!("{:?}", user_account);
+        let fmt = format!("{user_account:?}");
         assert!(fmt.contains("UserCredentials"), "{fmt:?}");
         assert!(fmt.contains(test_quota_project));
+        Ok(())
+    }
+
+    #[derive(Debug)]
+    struct TestProviderError;
+
+    impl fmt::Display for TestProviderError {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            write!(f, "TestProviderError")
+        }
+    }
+
+    impl Error for TestProviderError {}
+
+    impl SubjectTokenProviderError for TestProviderError {
+        fn is_transient(&self) -> bool {
+            false
+        }
+    }
+
+    #[derive(Debug)]
+    struct TestSubjectTokenProvider;
+
+    impl SubjectTokenProvider for TestSubjectTokenProvider {
+        type Error = TestProviderError;
+
+        async fn subject_token(&self) -> std::result::Result<SubjectToken, Self::Error> {
+            Ok(SubjectTokenBuilder::new("test-subject-token".to_string()).build())
+        }
+    }
+
+    #[test_case(Some(vec!["scope1".to_string(), "scope2".to_string()]), vec!["scope1", "scope2"]; "with custom scopes")]
+    #[test_case(None, vec!["https://www.googleapis.com/auth/cloud-platform"]; "with default scopes")]
+    #[tokio::test]
+    async fn create_programmatic_external_account_access_token(
+        scopes: Option<Vec<String>>,
+        expected_scopes: Vec<&str>,
+    ) -> TestResult {
+        let token_response_body = json!({
+            "access_token":"an_exchanged_token",
+            "issued_token_type":"urn:ietf:params:oauth:token-type:access_token",
+            "token_type":"Bearer",
+            "expires_in":3600,
+            "scope": expected_scopes.join(" "),
+        })
+        .to_string();
+
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/token"),
+                request::body(url_decoded(all_of![
+                    contains(("subject_token", "test-subject-token")),
+                    contains(("scope", expected_scopes.join(" "))),
+                ]))
+            ])
+            .respond_with(status_code(200).body(token_response_body)),
+        );
+
+        let provider = TestSubjectTokenProvider;
+        let mut builder = ProgrammaticBuilder::new(std::sync::Arc::new(provider))
+            .with_audience("some-audience")
+            .with_subject_token_type("urn:ietf:params:oauth:token-type:jwt")
+            .with_token_url(server.url("/token").to_string());
+
+        if let Some(scopes) = scopes {
+            builder = builder.with_scopes(scopes);
+        }
+
+        let creds = builder.build().unwrap();
+
+        let cached_headers = creds.headers(Extensions::new()).await?;
+        match cached_headers {
+            CacheableResource::New { data, .. } => {
+                let token = data
+                    .get(AUTHORIZATION)
+                    .and_then(|token_value| token_value.to_str().ok())
+                    .map(|s| s.to_string())
+                    .unwrap();
+                assert_eq!(token, "Bearer an_exchanged_token");
+            }
+            CacheableResource::NotModified => {
+                unreachable!("Expecting a header to be present");
+            }
+        };
+
+        Ok(())
+    }
+
+    #[derive(Debug)]
+    struct FailingSubjectTokenProvider;
+
+    impl SubjectTokenProvider for FailingSubjectTokenProvider {
+        type Error = TestProviderError;
+
+        async fn subject_token(&self) -> std::result::Result<SubjectToken, Self::Error> {
+            Err(TestProviderError)
+        }
+    }
+
+    #[tokio::test]
+    async fn create_programmatic_token_provider_user_error() -> TestResult {
+        let provider = FailingSubjectTokenProvider;
+        let creds = ProgrammaticBuilder::new(std::sync::Arc::new(provider))
+            .with_audience("some-audience")
+            .with_subject_token_type("urn:ietf:params:oauth:token-type:jwt")
+            .with_token_url("http://dummy.com/token")
+            .build()
+            .unwrap();
+
+        let error = creds.headers(Extensions::new()).await.unwrap_err();
+
+        assert!(!error.is_transient(), "Error should not be transient");
+        let original_error = error
+            .source()
+            .expect("should have a source")
+            .downcast_ref::<TestProviderError>()
+            .expect("source should be a TestProviderError");
+        assert!(original_error.to_string().contains("TestProviderError"));
         Ok(())
     }
 }

@@ -97,7 +97,13 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
         use gaxi::prost::ToProto;
         let options = gax::options::internal::set_default_idempotency(
             options,
+            {{! TODO(#2588) - resolve this in the model }}
+            {{#HasAutoPopulatedFields}}
+            true,
+            {{/HasAutoPopulatedFields}}
+            {{^HasAutoPopulatedFields}}
             {{PathInfo.Codec.IsIdempotent}},
+            {{/HasAutoPopulatedFields}}
         );
         let extensions = {
             let mut e = tonic::Extensions::new();
@@ -122,13 +128,17 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
         {{/HasRouting}}
         {{^HasRouting}}
         let x_goog_request_params = [
-            {{#PathInfo.Codec.PathArgs}}
-            format!("{{Name}}={}", req{{{Accessor}}}),
-            {{/PathInfo.Codec.PathArgs}}
-            {{^PathInfo.Codec.PathArgs}}
+            {{#PathInfo.Codec.UniqueParameters}}
+                {{{FieldAccessor}}}.map(|v| format!("{{FieldName}}={v}")),
+            {{/PathInfo.Codec.UniqueParameters}}
+            {{^PathInfo.Codec.UniqueParameters}}
             ""; 0
-            {{/PathInfo.Codec.PathArgs}}
-        ].into_iter().fold(String::new(), |b, p| b + "&" + &p);
+            {{/PathInfo.Codec.UniqueParameters}}
+        ]
+        .into_iter()
+        .flatten()
+        {{! TODO(#2548) - skip empty strings, and don't lead with a '&' }}
+        .fold(String::new(), |b, p| b + "&" + &p);
         {{/HasRouting}}
 
         {{#ReturnsEmpty}}

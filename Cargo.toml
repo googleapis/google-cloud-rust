@@ -147,6 +147,7 @@ members = [
   "src/generated/cloud/location",
   "src/generated/cloud/lustre/v1",
   "src/generated/cloud/managedidentities/v1",
+  "src/generated/cloud/managedkafka/schemaregistry/v1",
   "src/generated/cloud/managedkafka/v1",
   "src/generated/cloud/memcache/v1",
   "src/generated/cloud/memorystore/v1",
@@ -312,10 +313,13 @@ tonic-build        = { default-features = false, version = "0.13" }
 tracing            = { default-features = false, version = "0.1", features = ["attributes"] }
 tracing-subscriber = { default-features = false, version = "0.3" }
 url                = { default-features = false, version = "2" }
+uuid               = { default-features = false, version = "1", features = ["v4"] }
 # Test packages
 anyhow         = { default-features = false, version = "1" }
 axum           = { default-features = false, version = "0.8" }
+flate2         = { default-features = false, version = "1" }
 httptest       = { default-features = false, version = "0.16.3" }
+md5            = { default-features = false, version = "0.8" }
 mockall        = { default-features = false, version = "0.13" }
 mutants        = { default-features = false, version = "0.0.3" }
 paste          = { default-features = false, version = "1" }

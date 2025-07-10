@@ -16,13 +16,17 @@ limitations under the License.
 
 # Setting up Rust on Cloud Shell
 
-Cloud Shell is a great environment to run small examples and tests.
+Cloud Shell is a great environment to run small examples and tests. This guide
+shows you how to configure Rust and install one of the Cloud Client Libraries in
+Cloud Shell.
 
 ## Start up Cloud Shell
 
-1. Open <https://shell.cloud.google.com> to start a new shell.
+1. In the Google Cloud console [project selector], select a project.
 
-1. Select a project.
+1. Open <https://shell.cloud.google.com> to start a new shell. You might be
+   prompted to [authorize Cloud Shell] to use your credentials for Google Cloud
+   API calls.
 
 ## Configure Rust
 
@@ -53,19 +57,19 @@ Cloud Shell is a great environment to run small examples and tests.
    cd my-project
    ```
 
-1. Add the [Secret Manager] client library to the new project
+1. Add the [Secret Manager] client library to the new project:
 
    ```shell
    cargo add google-cloud-secretmanager-v1
    ```
 
-1. Add the [google-cloud-gax] crate to the new project
+1. Add the [google-cloud-gax] crate to the new project:
 
    ```shell
    cargo add google-cloud-gax
    ```
 
-1. Add the [tokio] crate to the new project
+1. Add the [tokio] crate to the new project:
 
    ```shell
    cargo add tokio --features macros
@@ -79,16 +83,25 @@ Cloud Shell is a great environment to run small examples and tests.
 
 <!-- markdownlint-disable MD029 -->
 
-6. Run your program, replacing `[PROJECT ID]` with the id of your project:
+1. Run your program, supplying your Google Cloud Platform project's ID:
 
    ```shell
-   cargo run [PROJECT ID]
+   PROJECT_ID=$(gcloud config get project)
+   cargo run ${PROJECT_ID}
    ```
+
+   The program will print the secrets associated with your project ID. If you
+   don't see any secrets, you might not have any in Secret Manager. You can
+   [create a secret] and rerun the program, and you should see the secret
+   printed in the output.
 
 <!-- markdownlint-enable MD029 -->
 
+[authorize cloud shell]: https://cloud.google.com/shell/docs/auth
 [cloud shell]: https://cloud.google.com/shell
+[create a secret]: https://cloud.google.com/secret-manager/docs/creating-and-accessing-secrets
 [google-cloud-gax]: https://crates.io/crates/google-cloud-gax
+[project selector]: https://console.cloud.google.com/projectselector2/home/dashboard
 [rustup]: https://rust-lang.github.io/rustup/
 [secret manager]: https://cloud.google.com/secret-manager/docs/overview
 [tokio]: https://crates.io/crates/tokio

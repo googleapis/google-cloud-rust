@@ -40,7 +40,7 @@ func TestRustProstConvert(t *testing.T) {
 			Name:          "rpc",
 			ExtraOptions: map[string]string{
 				"module-path": "crate::error::rpc::generated",
-				"package:wkt": "package=google-cloud-wkt,path=src/wkt,source=google.protobuf",
+				"package:wkt": "package=google-cloud-wkt,source=google.protobuf",
 			},
 		},
 	}

@@ -106,7 +106,7 @@ func TestFindServiceDependencies(t *testing.T) {
 			Methods: []*Method{
 				{
 					Name:         "Method0",
-					ID:           ".test.Service1.Method0",
+					ID:           ".test.Service2.Method0",
 					InputTypeID:  ".test.Empty",
 					OutputTypeID: ".test.Empty",
 					OperationInfo: &OperationInfo{

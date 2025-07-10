@@ -365,14 +365,14 @@ mod test {
     };
     use crate::credentials::{DEFAULT_UNIVERSE_DOMAIN, QUOTA_PROJECT_KEY};
     use crate::token::test::MockTokenProvider;
-    use axum::extract::Json;
     use http::StatusCode;
     use http::header::AUTHORIZATION;
+    use httptest::matchers::{all_of, json_decoded, request};
+    use httptest::responders::{json_encoded, status_code};
+    use httptest::{Expectation, Server};
     use std::error::Error;
-    use std::sync::Mutex;
-    use tokio::task::JoinHandle;
 
-    type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
+    type TestResult = anyhow::Result<()>;
 
     #[test]
     fn debug_token_provider() {
@@ -623,54 +623,17 @@ mod test {
         assert_eq!(response, roundtrip);
     }
 
-    // Starts a server running locally. Returns an (endpoint, handler) pair.
-    async fn start(
-        response_code: StatusCode,
-        response_body: Value,
-        call_count: Arc<Mutex<i32>>,
-    ) -> (String, JoinHandle<()>) {
-        let code = response_code;
-        let body = response_body.clone();
-        let handler = move |req| async move { handle_token_factory(code, body, call_count)(req) };
-        let app = axum::Router::new().route("/token", axum::routing::post(handler));
-        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
-        let addr = listener.local_addr().unwrap();
-        let server = tokio::spawn(async {
-            axum::serve(listener, app).await.unwrap();
-        });
-
-        (
-            format!("http://{}:{}/token", addr.ip(), addr.port()),
-            server,
-        )
-    }
-
-    // Creates a handler that
-    // - verifies fields in an Oauth2RefreshRequest
-    // - returns a pre-canned HTTP response
-    fn handle_token_factory(
-        response_code: StatusCode,
-        response_body: Value,
-        call_count: Arc<std::sync::Mutex<i32>>,
-    ) -> impl Fn(Json<Oauth2RefreshRequest>) -> (StatusCode, String) {
-        move |request: Json<Oauth2RefreshRequest>| -> (StatusCode, String) {
-            let mut count = call_count.lock().unwrap();
-            *count += 1;
-            assert_eq!(request.client_id, "test-client-id");
-            assert_eq!(request.client_secret, "test-client-secret");
-            assert_eq!(request.refresh_token, "test-refresh-token");
-            assert_eq!(request.grant_type, RefreshGrantType::RefreshToken);
-            assert_eq!(
-                request.scopes,
-                response_body["scope"].as_str().map(|s| s.to_owned())
-            );
-
-            (response_code, response_body.to_string())
-        }
+    fn check_request(request: &Oauth2RefreshRequest, expected_scopes: Option<String>) -> bool {
+        request.client_id == "test-client-id"
+            && request.client_secret == "test-client-secret"
+            && request.refresh_token == "test-refresh-token"
+            && request.grant_type == RefreshGrantType::RefreshToken
+            && request.scopes == expected_scopes
     }
 
     #[tokio::test(start_paused = true)]
     async fn token_provider_full() -> TestResult {
+        let server = Server::run();
         let response = Oauth2RefreshResponse {
             access_token: "test-access-token".to_string(),
             expires_in: Some(3600),
@@ -678,16 +641,21 @@ mod test {
             scope: Some("scope1 scope2".to_string()),
             token_type: "test-token-type".to_string(),
         };
-        let response_body = serde_json::to_value(&response).unwrap();
-        let (endpoint, _server) =
-            start(StatusCode::OK, response_body, Arc::new(Mutex::new(0))).await;
-        println!("endpoint = {endpoint}");
+        server.expect(
+            Expectation::matching(all_of![
+                request::path("/token"),
+                request::body(json_decoded(|req: &Oauth2RefreshRequest| {
+                    check_request(req, Some("scope1 scope2".to_string()))
+                }))
+            ])
+            .respond_with(json_encoded(response)),
+        );
 
         let tp = UserTokenProvider {
             client_id: "test-client-id".to_string(),
             client_secret: "test-client-secret".to_string(),
             refresh_token: "test-refresh-token".to_string(),
-            endpoint,
+            endpoint: server.url("/token").to_string(),
             scopes: Some("scope1 scope2".to_string()),
         };
         let now = Instant::now();
@@ -708,6 +676,7 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn credential_full_with_quota_project() -> TestResult {
+        let server = Server::run();
         let response = Oauth2RefreshResponse {
             access_token: "test-access-token".to_string(),
             expires_in: Some(3600),
@@ -715,17 +684,22 @@ mod test {
             scope: None,
             token_type: "test-token-type".to_string(),
         };
-        let response_body = serde_json::to_value(&response).unwrap();
-        let (endpoint, _server) =
-            start(StatusCode::OK, response_body, Arc::new(Mutex::new(0))).await;
-        println!("endpoint = {endpoint}");
+        server.expect(
+            Expectation::matching(all_of![
+                request::path("/token"),
+                request::body(json_decoded(|req: &Oauth2RefreshRequest| {
+                    check_request(req, None)
+                }))
+            ])
+            .respond_with(json_encoded(response)),
+        );
 
         let authorized_user = serde_json::json!({
             "client_id": "test-client-id",
             "client_secret": "test-client-secret",
             "refresh_token": "test-refresh-token",
             "type": "authorized_user",
-            "token_uri": endpoint,
+            "token_uri": server.url("/token").to_string(),
         });
         let cred = Builder::new(authorized_user)
             .with_quota_project_id("test-project")
@@ -752,6 +726,7 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn creds_from_json_custom_uri_with_caching() -> TestResult {
+        let mut server = Server::run();
         let response = Oauth2RefreshResponse {
             access_token: "test-access-token".to_string(),
             expires_in: Some(3600),
@@ -759,10 +734,16 @@ mod test {
             scope: Some("scope1 scope2".to_string()),
             token_type: "test-token-type".to_string(),
         };
-        let response_body = serde_json::to_value(&response).unwrap();
-        let call_count = Arc::new(Mutex::new(0));
-        let (endpoint, _server) = start(StatusCode::OK, response_body, call_count.clone()).await;
-        println!("endpoint = {endpoint}");
+        server.expect(
+            Expectation::matching(all_of![
+                request::path("/token"),
+                request::body(json_decoded(|req: &Oauth2RefreshRequest| {
+                    check_request(req, Some("scope1 scope2".to_string()))
+                }))
+            ])
+            .times(1)
+            .respond_with(json_encoded(response)),
+        );
 
         let json = serde_json::json!({
             "client_id": "test-client-id",
@@ -771,7 +752,7 @@ mod test {
             "type": "authorized_user",
             "universe_domain": "googleapis.com",
             "quota_project_id": "test-project",
-            "token_uri": endpoint,
+            "token_uri": server.url("/token").to_string(),
         });
 
         let cred = Builder::new(json)
@@ -784,15 +765,14 @@ mod test {
         let token = get_token_from_headers(cred.headers(Extensions::new()).await?);
         assert_eq!(token.unwrap(), "test-access-token");
 
-        // Test that the inner token provider was called only
-        // once even though token was called twice.
-        assert_eq!(*call_count.lock().unwrap(), 1);
+        server.verify_and_clear();
 
         Ok(())
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn credential_provider_partial() -> TestResult {
+        let server = Server::run();
         let response = Oauth2RefreshResponse {
             access_token: "test-access-token".to_string(),
             expires_in: None,
@@ -800,17 +780,23 @@ mod test {
             scope: None,
             token_type: "test-token-type".to_string(),
         };
-        let response_body = serde_json::to_value(&response).unwrap();
-        let (endpoint, _server) =
-            start(StatusCode::OK, response_body, Arc::new(Mutex::new(0))).await;
-        println!("endpoint = {endpoint}");
+        server.expect(
+            Expectation::matching(all_of![
+                request::path("/token"),
+                request::body(json_decoded(|req: &Oauth2RefreshRequest| {
+                    check_request(req, None)
+                }))
+            ])
+            .respond_with(json_encoded(response)),
+        );
 
         let authorized_user = serde_json::json!({
             "client_id": "test-client-id",
             "client_secret": "test-client-secret",
             "refresh_token": "test-refresh-token",
             "type": "authorized_user",
-            "token_uri": endpoint});
+            "token_uri": server.url("/token").to_string()
+        });
 
         let uc = Builder::new(authorized_user).build()?;
         let headers = uc.headers(Extensions::new()).await?;
@@ -828,6 +814,7 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn credential_provider_with_token_uri() -> TestResult {
+        let server = Server::run();
         let response = Oauth2RefreshResponse {
             access_token: "test-access-token".to_string(),
             expires_in: None,
@@ -835,20 +822,26 @@ mod test {
             scope: None,
             token_type: "test-token-type".to_string(),
         };
-        let response_body = serde_json::to_value(&response).unwrap();
-        let (endpoint, _server) =
-            start(StatusCode::OK, response_body, Arc::new(Mutex::new(0))).await;
-        println!("endpoint = {endpoint}");
+        server.expect(
+            Expectation::matching(all_of![
+                request::path("/token"),
+                request::body(json_decoded(|req: &Oauth2RefreshRequest| {
+                    check_request(req, None)
+                }))
+            ])
+            .respond_with(json_encoded(response)),
+        );
 
         let authorized_user = serde_json::json!({
             "client_id": "test-client-id",
             "client_secret": "test-client-secret",
             "refresh_token": "test-refresh-token",
             "type": "authorized_user",
-            "token_uri": "test-endpoint"});
+            "token_uri": "test-endpoint"
+        });
 
         let uc = Builder::new(authorized_user)
-            .with_token_uri(endpoint)
+            .with_token_uri(server.url("/token").to_string())
             .build()?;
         let headers = uc.headers(Extensions::new()).await?;
         assert_eq!(
@@ -865,6 +858,7 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn credential_provider_with_scopes() -> TestResult {
+        let server = Server::run();
         let response = Oauth2RefreshResponse {
             access_token: "test-access-token".to_string(),
             expires_in: None,
@@ -872,20 +866,26 @@ mod test {
             scope: Some("scope1 scope2".to_string()),
             token_type: "test-token-type".to_string(),
         };
-        let response_body = serde_json::to_value(&response).unwrap();
-        let (endpoint, _server) =
-            start(StatusCode::OK, response_body, Arc::new(Mutex::new(0))).await;
-        println!("endpoint = {endpoint}");
+        server.expect(
+            Expectation::matching(all_of![
+                request::path("/token"),
+                request::body(json_decoded(|req: &Oauth2RefreshRequest| {
+                    check_request(req, Some("scope1 scope2".to_string()))
+                }))
+            ])
+            .respond_with(json_encoded(response)),
+        );
 
         let authorized_user = serde_json::json!({
             "client_id": "test-client-id",
             "client_secret": "test-client-secret",
             "refresh_token": "test-refresh-token",
             "type": "authorized_user",
-            "token_uri": "test-endpoint"});
+            "token_uri": "test-endpoint"
+        });
 
         let uc = Builder::new(authorized_user)
-            .with_token_uri(endpoint)
+            .with_token_uri(server.url("/token").to_string())
             .with_scopes(vec!["scope1", "scope2"])
             .build()?;
         let headers = uc.headers(Extensions::new()).await?;
@@ -903,25 +903,21 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn credential_provider_retryable_error() -> TestResult {
-        let (endpoint, _server) = start(
-            StatusCode::SERVICE_UNAVAILABLE,
-            serde_json::to_value("try again".to_string())?,
-            Arc::new(Mutex::new(0)),
-        )
-        .await;
-        println!("endpoint = {endpoint}");
+        let server = Server::run();
+        server
+            .expect(Expectation::matching(request::path("/token")).respond_with(status_code(503)));
 
         let authorized_user = serde_json::json!({
             "client_id": "test-client-id",
             "client_secret": "test-client-secret",
             "refresh_token": "test-refresh-token",
             "type": "authorized_user",
-            "token_uri": endpoint});
+            "token_uri": server.url("/token").to_string()
+        });
 
         let uc = Builder::new(authorized_user).build()?;
         let err = uc.headers(Extensions::new()).await.unwrap_err();
         assert!(err.is_transient(), "{err}");
-        assert!(err.to_string().contains("try again"), "{err:?}");
         let source = err
             .source()
             .and_then(|e| e.downcast_ref::<reqwest::Error>());
@@ -935,25 +931,21 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn token_provider_nonretryable_error() -> TestResult {
-        let (endpoint, _server) = start(
-            StatusCode::UNAUTHORIZED,
-            serde_json::to_value("epic fail".to_string())?,
-            Arc::new(Mutex::new(0)),
-        )
-        .await;
-        println!("endpoint = {endpoint}");
+        let server = Server::run();
+        server
+            .expect(Expectation::matching(request::path("/token")).respond_with(status_code(401)));
 
         let authorized_user = serde_json::json!({
             "client_id": "test-client-id",
             "client_secret": "test-client-secret",
             "refresh_token": "test-refresh-token",
             "type": "authorized_user",
-            "token_uri": endpoint});
+            "token_uri": server.url("/token").to_string()
+        });
 
         let uc = Builder::new(authorized_user).build()?;
         let err = uc.headers(Extensions::new()).await.unwrap_err();
         assert!(!err.is_transient(), "{err:?}");
-        assert!(err.to_string().contains("epic fail"), "{err:?}");
         let source = err
             .source()
             .and_then(|e| e.downcast_ref::<reqwest::Error>());
@@ -967,20 +959,18 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn token_provider_malformed_response_is_nonretryable() -> TestResult {
-        let (endpoint, _server) = start(
-            StatusCode::OK,
-            serde_json::to_value("bad json".to_string())?,
-            Arc::new(Mutex::new(0)),
-        )
-        .await;
-        println!("endpoint = {endpoint}");
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(request::path("/token"))
+                .respond_with(json_encoded("bad json".to_string())),
+        );
 
         let authorized_user = serde_json::json!({
             "client_id": "test-client-id",
             "client_secret": "test-client-secret",
             "refresh_token": "test-refresh-token",
             "type": "authorized_user",
-            "token_uri": endpoint
+            "token_uri": server.url("/token").to_string()
         });
 
         let uc = Builder::new(authorized_user).build()?;

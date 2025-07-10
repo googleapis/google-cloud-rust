@@ -6665,6 +6665,531 @@ pub mod bigtable_table_admin {
         }
     }
 
+    /// The request builder for [BigtableTableAdmin::create_schema_bundle][crate::client::BigtableTableAdmin::create_schema_bundle] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::CreateSchemaBundle;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateSchemaBundle {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateSchemaBundle(RequestBuilder<crate::model::CreateSchemaBundleRequest>);
+
+    impl CreateSchemaBundle {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateSchemaBundleRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_schema_bundle][crate::client::BigtableTableAdmin::create_schema_bundle].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_schema_bundle(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `create_schema_bundle`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::SchemaBundle, crate::model::CreateSchemaBundleMetadata>
+        {
+            type Operation = lro::internal::Operation<
+                crate::model::SchemaBundle,
+                crate::model::CreateSchemaBundleMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [parent][crate::model::CreateSchemaBundleRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [schema_bundle_id][crate::model::CreateSchemaBundleRequest::schema_bundle_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_schema_bundle_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.schema_bundle_id = v.into();
+            self
+        }
+
+        /// Sets the value of [schema_bundle][crate::model::CreateSchemaBundleRequest::schema_bundle].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_schema_bundle<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SchemaBundle>,
+        {
+            self.0.request.schema_bundle = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [schema_bundle][crate::model::CreateSchemaBundleRequest::schema_bundle].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_schema_bundle<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SchemaBundle>,
+        {
+            self.0.request.schema_bundle = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateSchemaBundle {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [BigtableTableAdmin::update_schema_bundle][crate::client::BigtableTableAdmin::update_schema_bundle] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::UpdateSchemaBundle;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateSchemaBundle {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateSchemaBundle(RequestBuilder<crate::model::UpdateSchemaBundleRequest>);
+
+    impl UpdateSchemaBundle {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateSchemaBundleRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_schema_bundle][crate::client::BigtableTableAdmin::update_schema_bundle].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_schema_bundle(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `update_schema_bundle`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::SchemaBundle, crate::model::UpdateSchemaBundleMetadata>
+        {
+            type Operation = lro::internal::Operation<
+                crate::model::SchemaBundle,
+                crate::model::UpdateSchemaBundleMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [schema_bundle][crate::model::UpdateSchemaBundleRequest::schema_bundle].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_schema_bundle<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SchemaBundle>,
+        {
+            self.0.request.schema_bundle = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [schema_bundle][crate::model::UpdateSchemaBundleRequest::schema_bundle].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_schema_bundle<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SchemaBundle>,
+        {
+            self.0.request.schema_bundle = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateSchemaBundleRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSchemaBundleRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [ignore_warnings][crate::model::UpdateSchemaBundleRequest::ignore_warnings].
+        pub fn set_ignore_warnings<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.ignore_warnings = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateSchemaBundle {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [BigtableTableAdmin::get_schema_bundle][crate::client::BigtableTableAdmin::get_schema_bundle] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::GetSchemaBundle;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSchemaBundle {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetSchemaBundle(RequestBuilder<crate::model::GetSchemaBundleRequest>);
+
+    impl GetSchemaBundle {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetSchemaBundleRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::SchemaBundle> {
+            (*self.0.stub)
+                .get_schema_bundle(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetSchemaBundleRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetSchemaBundle {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [BigtableTableAdmin::list_schema_bundles][crate::client::BigtableTableAdmin::list_schema_bundles] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::ListSchemaBundles;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSchemaBundles {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListSchemaBundles(RequestBuilder<crate::model::ListSchemaBundlesRequest>);
+
+    impl ListSchemaBundles {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListSchemaBundlesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListSchemaBundlesResponse> {
+            (*self.0.stub)
+                .list_schema_bundles(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListSchemaBundlesResponse, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSchemaBundlesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListSchemaBundlesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListSchemaBundlesRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListSchemaBundlesRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListSchemaBundles {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [BigtableTableAdmin::delete_schema_bundle][crate::client::BigtableTableAdmin::delete_schema_bundle] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::DeleteSchemaBundle;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteSchemaBundle {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteSchemaBundle(RequestBuilder<crate::model::DeleteSchemaBundleRequest>);
+
+    impl DeleteSchemaBundle {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteSchemaBundleRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<()> {
+            (*self.0.stub)
+                .delete_schema_bundle(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::DeleteSchemaBundleRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [etag][crate::model::DeleteSchemaBundleRequest::etag].
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.etag = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteSchemaBundle {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [BigtableTableAdmin::list_operations][crate::client::BigtableTableAdmin::list_operations] calls.
     ///
     /// # Example

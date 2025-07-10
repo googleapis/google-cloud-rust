@@ -81,10 +81,21 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Folder> {
+            let req = Self::auto_populate(self.0.request, false);
             (*self.0.stub)
-                .create_folder(self.0.request, self.0.options)
+                .create_folder(req, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        fn auto_populate(
+            mut req: crate::model::CreateFolderRequest,
+            force: bool,
+        ) -> crate::model::CreateFolderRequest {
+            if force || req.request_id.is_empty() {
+                req = req.set_request_id(uuid::Uuid::new_v4().to_string())
+            }
+            req
         }
 
         /// Sets the value of [parent][crate::model::CreateFolderRequest::parent].
@@ -186,10 +197,21 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
+            let req = Self::auto_populate(self.0.request, false);
             (*self.0.stub)
-                .delete_folder(self.0.request, self.0.options)
+                .delete_folder(req, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        fn auto_populate(
+            mut req: crate::model::DeleteFolderRequest,
+            force: bool,
+        ) -> crate::model::DeleteFolderRequest {
+            if force || req.request_id.is_empty() {
+                req = req.set_request_id(uuid::Uuid::new_v4().to_string())
+            }
+            req
         }
 
         /// Sets the value of [name][crate::model::DeleteFolderRequest::name].
@@ -294,10 +316,21 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Folder> {
+            let req = Self::auto_populate(self.0.request, false);
             (*self.0.stub)
-                .get_folder(self.0.request, self.0.options)
+                .get_folder(req, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        fn auto_populate(
+            mut req: crate::model::GetFolderRequest,
+            force: bool,
+        ) -> crate::model::GetFolderRequest {
+            if force || req.request_id.is_empty() {
+                req = req.set_request_id(uuid::Uuid::new_v4().to_string())
+            }
+            req
         }
 
         /// Sets the value of [name][crate::model::GetFolderRequest::name].
@@ -541,8 +574,9 @@ pub mod storage_control {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [rename_folder][crate::client::StorageControl::rename_folder].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
+            let req = Self::auto_populate(self.0.request, false);
             (*self.0.stub)
-                .rename_folder(self.0.request, self.0.options)
+                .rename_folder(req, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
@@ -578,6 +612,16 @@ pub mod storage_control {
             };
 
             lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        fn auto_populate(
+            mut req: crate::model::RenameFolderRequest,
+            force: bool,
+        ) -> crate::model::RenameFolderRequest {
+            if force || req.request_id.is_empty() {
+                req = req.set_request_id(uuid::Uuid::new_v4().to_string())
+            }
+            req
         }
 
         /// Sets the value of [name][crate::model::RenameFolderRequest::name].
@@ -693,10 +737,21 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::StorageLayout> {
+            let req = Self::auto_populate(self.0.request, false);
             (*self.0.stub)
-                .get_storage_layout(self.0.request, self.0.options)
+                .get_storage_layout(req, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        fn auto_populate(
+            mut req: crate::model::GetStorageLayoutRequest,
+            force: bool,
+        ) -> crate::model::GetStorageLayoutRequest {
+            if force || req.request_id.is_empty() {
+                req = req.set_request_id(uuid::Uuid::new_v4().to_string())
+            }
+            req
         }
 
         /// Sets the value of [name][crate::model::GetStorageLayoutRequest::name].
@@ -771,10 +826,21 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ManagedFolder> {
+            let req = Self::auto_populate(self.0.request, false);
             (*self.0.stub)
-                .create_managed_folder(self.0.request, self.0.options)
+                .create_managed_folder(req, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        fn auto_populate(
+            mut req: crate::model::CreateManagedFolderRequest,
+            force: bool,
+        ) -> crate::model::CreateManagedFolderRequest {
+            if force || req.request_id.is_empty() {
+                req = req.set_request_id(uuid::Uuid::new_v4().to_string())
+            }
+            req
         }
 
         /// Sets the value of [parent][crate::model::CreateManagedFolderRequest::parent].
@@ -873,10 +939,21 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
+            let req = Self::auto_populate(self.0.request, false);
             (*self.0.stub)
-                .delete_managed_folder(self.0.request, self.0.options)
+                .delete_managed_folder(req, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        fn auto_populate(
+            mut req: crate::model::DeleteManagedFolderRequest,
+            force: bool,
+        ) -> crate::model::DeleteManagedFolderRequest {
+            if force || req.request_id.is_empty() {
+                req = req.set_request_id(uuid::Uuid::new_v4().to_string())
+            }
+            req
         }
 
         /// Sets the value of [name][crate::model::DeleteManagedFolderRequest::name].
@@ -990,10 +1067,21 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ManagedFolder> {
+            let req = Self::auto_populate(self.0.request, false);
             (*self.0.stub)
-                .get_managed_folder(self.0.request, self.0.options)
+                .get_managed_folder(req, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        fn auto_populate(
+            mut req: crate::model::GetManagedFolderRequest,
+            force: bool,
+        ) -> crate::model::GetManagedFolderRequest {
+            if force || req.request_id.is_empty() {
+                req = req.set_request_id(uuid::Uuid::new_v4().to_string())
+            }
+            req
         }
 
         /// Sets the value of [name][crate::model::GetManagedFolderRequest::name].
@@ -1105,8 +1193,9 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListManagedFoldersResponse> {
+            let req = Self::auto_populate(self.0.request, false);
             (*self.0.stub)
-                .list_managed_folders(self.0.request, self.0.options)
+                .list_managed_folders(req, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
@@ -1120,6 +1209,8 @@ pub mod storage_control {
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
+                let initial = builder.0.request.page_token == token;
+                builder.0.request = Self::auto_populate(builder.0.request, !initial);
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
@@ -1135,6 +1226,16 @@ pub mod storage_control {
         > {
             use gax::paginator::Paginator;
             self.by_page().items()
+        }
+
+        fn auto_populate(
+            mut req: crate::model::ListManagedFoldersRequest,
+            force: bool,
+        ) -> crate::model::ListManagedFoldersRequest {
+            if force || req.request_id.is_empty() {
+                req = req.set_request_id(uuid::Uuid::new_v4().to_string())
+            }
+            req
         }
 
         /// Sets the value of [parent][crate::model::ListManagedFoldersRequest::parent].
@@ -1227,8 +1328,9 @@ pub mod storage_control {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_anywhere_cache][crate::client::StorageControl::create_anywhere_cache].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
+            let req = Self::auto_populate(self.0.request, false);
             (*self.0.stub)
-                .create_anywhere_cache(self.0.request, self.0.options)
+                .create_anywhere_cache(req, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
@@ -1267,6 +1369,16 @@ pub mod storage_control {
             };
 
             lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        fn auto_populate(
+            mut req: crate::model::CreateAnywhereCacheRequest,
+            force: bool,
+        ) -> crate::model::CreateAnywhereCacheRequest {
+            if force || req.request_id.is_empty() {
+                req = req.set_request_id(uuid::Uuid::new_v4().to_string())
+            }
+            req
         }
 
         /// Sets the value of [parent][crate::model::CreateAnywhereCacheRequest::parent].
@@ -1363,8 +1475,9 @@ pub mod storage_control {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_anywhere_cache][crate::client::StorageControl::update_anywhere_cache].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
+            let req = Self::auto_populate(self.0.request, false);
             (*self.0.stub)
-                .update_anywhere_cache(self.0.request, self.0.options)
+                .update_anywhere_cache(req, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
@@ -1403,6 +1516,16 @@ pub mod storage_control {
             };
 
             lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        fn auto_populate(
+            mut req: crate::model::UpdateAnywhereCacheRequest,
+            force: bool,
+        ) -> crate::model::UpdateAnywhereCacheRequest {
+            if force || req.request_id.is_empty() {
+                req = req.set_request_id(uuid::Uuid::new_v4().to_string())
+            }
+            req
         }
 
         /// Sets the value of [anywhere_cache][crate::model::UpdateAnywhereCacheRequest::anywhere_cache].
@@ -1507,10 +1630,21 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AnywhereCache> {
+            let req = Self::auto_populate(self.0.request, false);
             (*self.0.stub)
-                .disable_anywhere_cache(self.0.request, self.0.options)
+                .disable_anywhere_cache(req, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        fn auto_populate(
+            mut req: crate::model::DisableAnywhereCacheRequest,
+            force: bool,
+        ) -> crate::model::DisableAnywhereCacheRequest {
+            if force || req.request_id.is_empty() {
+                req = req.set_request_id(uuid::Uuid::new_v4().to_string())
+            }
+            req
         }
 
         /// Sets the value of [name][crate::model::DisableAnywhereCacheRequest::name].
@@ -1579,10 +1713,21 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AnywhereCache> {
+            let req = Self::auto_populate(self.0.request, false);
             (*self.0.stub)
-                .pause_anywhere_cache(self.0.request, self.0.options)
+                .pause_anywhere_cache(req, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        fn auto_populate(
+            mut req: crate::model::PauseAnywhereCacheRequest,
+            force: bool,
+        ) -> crate::model::PauseAnywhereCacheRequest {
+            if force || req.request_id.is_empty() {
+                req = req.set_request_id(uuid::Uuid::new_v4().to_string())
+            }
+            req
         }
 
         /// Sets the value of [name][crate::model::PauseAnywhereCacheRequest::name].
@@ -1651,10 +1796,21 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AnywhereCache> {
+            let req = Self::auto_populate(self.0.request, false);
             (*self.0.stub)
-                .resume_anywhere_cache(self.0.request, self.0.options)
+                .resume_anywhere_cache(req, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        fn auto_populate(
+            mut req: crate::model::ResumeAnywhereCacheRequest,
+            force: bool,
+        ) -> crate::model::ResumeAnywhereCacheRequest {
+            if force || req.request_id.is_empty() {
+                req = req.set_request_id(uuid::Uuid::new_v4().to_string())
+            }
+            req
         }
 
         /// Sets the value of [name][crate::model::ResumeAnywhereCacheRequest::name].
@@ -1723,10 +1879,21 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AnywhereCache> {
+            let req = Self::auto_populate(self.0.request, false);
             (*self.0.stub)
-                .get_anywhere_cache(self.0.request, self.0.options)
+                .get_anywhere_cache(req, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
+        }
+
+        fn auto_populate(
+            mut req: crate::model::GetAnywhereCacheRequest,
+            force: bool,
+        ) -> crate::model::GetAnywhereCacheRequest {
+            if force || req.request_id.is_empty() {
+                req = req.set_request_id(uuid::Uuid::new_v4().to_string())
+            }
+            req
         }
 
         /// Sets the value of [name][crate::model::GetAnywhereCacheRequest::name].
@@ -1799,8 +1966,9 @@ pub mod storage_control {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListAnywhereCachesResponse> {
+            let req = Self::auto_populate(self.0.request, false);
             (*self.0.stub)
-                .list_anywhere_caches(self.0.request, self.0.options)
+                .list_anywhere_caches(req, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
@@ -1814,6 +1982,8 @@ pub mod storage_control {
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
                 let mut builder = self.clone();
+                let initial = builder.0.request.page_token == token;
+                builder.0.request = Self::auto_populate(builder.0.request, !initial);
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
@@ -1829,6 +1999,16 @@ pub mod storage_control {
         > {
             use gax::paginator::Paginator;
             self.by_page().items()
+        }
+
+        fn auto_populate(
+            mut req: crate::model::ListAnywhereCachesRequest,
+            force: bool,
+        ) -> crate::model::ListAnywhereCachesRequest {
+            if force || req.request_id.is_empty() {
+                req = req.set_request_id(uuid::Uuid::new_v4().to_string())
+            }
+            req
         }
 
         /// Sets the value of [parent][crate::model::ListAnywhereCachesRequest::parent].

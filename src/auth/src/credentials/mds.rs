@@ -191,7 +191,7 @@ impl Builder {
         // Determine the endpoint and whether it was overridden
         if let Ok(host_from_env) = std::env::var(GCE_METADATA_HOST_ENV_VAR) {
             // Check GCE_METADATA_HOST environment variable first
-            final_endpoint = format!("http://{}", host_from_env);
+            final_endpoint = format!("http://{host_from_env}");
             endpoint_overridden = true;
         } else if let Some(builder_endpoint) = self.endpoint {
             // Else, check if an endpoint was provided to the mds::Builder
@@ -372,11 +372,10 @@ mod test {
 
     #[test]
     fn validate_default_endpoint_urls() {
-        let default_endpoint_address = Url::parse(&format!("{}{}", METADATA_ROOT, MDS_DEFAULT_URI));
+        let default_endpoint_address = Url::parse(&format!("{METADATA_ROOT}{MDS_DEFAULT_URI}"));
         assert!(default_endpoint_address.is_ok());
 
-        let token_endpoint_address =
-            Url::parse(&format!("{}{}/token", METADATA_ROOT, MDS_DEFAULT_URI));
+        let token_endpoint_address = Url::parse(&format!("{METADATA_ROOT}{MDS_DEFAULT_URI}/token"));
         assert!(token_endpoint_address.is_ok());
     }
 
@@ -580,7 +579,7 @@ mod test {
         let response_body = serde_json::to_value(&response).unwrap();
 
         let (endpoint, _server) = start(Handlers::from([(
-            format!("{}/token", MDS_DEFAULT_URI),
+            format!("{MDS_DEFAULT_URI}/token"),
             (
                 StatusCode::OK,
                 response_body,
@@ -623,7 +622,7 @@ mod test {
         let response_body = serde_json::to_value(&response).unwrap();
 
         let (endpoint, _server) = start(Handlers::from([(
-            format!("{}/token", MDS_DEFAULT_URI),
+            format!("{MDS_DEFAULT_URI}/token"),
             (
                 StatusCode::OK,
                 response_body,
@@ -671,7 +670,7 @@ mod test {
 
         let call_count = Arc::new(Mutex::new(0));
         let (endpoint, _server) = start(Handlers::from([(
-            format!("{}/token", MDS_DEFAULT_URI),
+            format!("{MDS_DEFAULT_URI}/token"),
             (
                 StatusCode::OK,
                 response_body,
@@ -717,7 +716,7 @@ mod test {
         let response_body = serde_json::to_value(&response).unwrap();
 
         let (endpoint, _server) = start(Handlers::from([(
-            format!("{}/token", MDS_DEFAULT_URI),
+            format!("{MDS_DEFAULT_URI}/token"),
             (
                 StatusCode::OK,
                 response_body,
@@ -761,7 +760,7 @@ mod test {
         let response_body = serde_json::to_value(&response).unwrap();
 
         let (endpoint, _server) = start(Handlers::from([(
-            format!("{}/token", MDS_DEFAULT_URI),
+            format!("{MDS_DEFAULT_URI}/token"),
             (
                 StatusCode::OK,
                 response_body,
@@ -803,7 +802,7 @@ mod test {
         };
         let response_body = serde_json::to_value(&response).unwrap();
         let (endpoint, _server) = start(Handlers::from([(
-            format!("{}/token", MDS_DEFAULT_URI),
+            format!("{MDS_DEFAULT_URI}/token"),
             (
                 StatusCode::OK,
                 response_body,
@@ -839,7 +838,7 @@ mod test {
     async fn credentials_headers_retryable_error() -> TestResult {
         let scopes = vec!["scope1".to_string()];
         let (endpoint, _server) = start(Handlers::from([(
-            format!("{}/token", MDS_DEFAULT_URI),
+            format!("{MDS_DEFAULT_URI}/token"),
             (
                 StatusCode::SERVICE_UNAVAILABLE,
                 serde_json::to_value("try again")?,
@@ -875,7 +874,7 @@ mod test {
     async fn credentials_headers_nonretryable_error() -> TestResult {
         let scopes = vec!["scope1".to_string()];
         let (endpoint, _server) = start(Handlers::from([(
-            format!("{}/token", MDS_DEFAULT_URI),
+            format!("{MDS_DEFAULT_URI}/token"),
             (
                 StatusCode::UNAUTHORIZED,
                 serde_json::to_value("epic fail".to_string())?,
@@ -912,7 +911,7 @@ mod test {
     async fn credentials_headers_malformed_response_is_nonretryable() -> TestResult {
         let scopes = vec!["scope1".to_string()];
         let (endpoint, _server) = start(Handlers::from([(
-            format!("{}/token", MDS_DEFAULT_URI),
+            format!("{MDS_DEFAULT_URI}/token"),
             (
                 StatusCode::OK,
                 serde_json::to_value("bad json".to_string())?,

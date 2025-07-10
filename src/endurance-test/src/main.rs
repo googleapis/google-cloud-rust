@@ -214,7 +214,7 @@ fn report_error(error: anyhow::Error, task: &str) {
         },
         "message": format!("{error}"),
     });
-    eprintln!("{}", structured);
+    eprintln!("{structured}");
 }
 
 fn report_info(msg: String, task: &str) {
@@ -227,5 +227,5 @@ fn report_info(msg: String, task: &str) {
         },
         "message": msg,
     });
-    println!("{}", structured);
+    println!("{structured}");
 }

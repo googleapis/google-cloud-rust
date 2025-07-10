@@ -9,7 +9,7 @@ require (
 	github.com/ghodss/yaml v1.0.0
 	github.com/google/go-cmp v0.7.0
 	github.com/iancoleman/strcase v0.3.0
-	github.com/pb33f/libopenapi v0.22.3
+	github.com/pb33f/libopenapi v0.23.0
 	github.com/pelletier/go-toml/v2 v2.2.4
 	github.com/walle/targz v0.0.0-20140417120357-57fe4206da5a
 	github.com/yuin/goldmark v1.7.12
@@ -17,6 +17,7 @@ require (
 	google.golang.org/genproto/googleapis/api v0.0.0-20250414145226-207652e42e2e
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20250414145226-207652e42e2e
 	google.golang.org/protobuf v1.36.6
+	gopkg.in/yaml.v3 v3.0.1
 )
 
 require (
@@ -34,5 +35,4 @@ require (
 	google.golang.org/grpc v1.71.1 // indirect
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
-	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
