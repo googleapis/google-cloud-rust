@@ -116,6 +116,7 @@ func serviceAnnotationsModel() *api.API {
 		[]*api.Message{request, response},
 		[]*api.Enum{},
 		[]*api.Service{service})
+	loadWellKnownTypes(model.State)
 	api.CrossReference(model)
 	return model
 }
@@ -238,11 +239,6 @@ func TestServiceAnnotationsLROTypes(t *testing.T) {
 		ID:      ".test.OperationMetadata",
 		Package: "test",
 	}
-	empty := &api.Message{
-		Name:    "Empty",
-		ID:      ".google.protobuf.Empty",
-		Package: "google.protobuf",
-	}
 	service := &api.Service{
 		Name:    "LroService",
 		ID:      ".test.LroService",
@@ -284,6 +280,7 @@ func TestServiceAnnotationsLROTypes(t *testing.T) {
 		t.Fatal(err)
 	}
 	annotateModel(model, codec)
+	empty := model.State.MessageByID[".google.protobuf.Empty"]
 	wantService := &serviceAnnotations{
 		Name:              "LroService",
 		PackageModuleName: "test",

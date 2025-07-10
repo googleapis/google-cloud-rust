@@ -217,9 +217,9 @@ pub async fn workload_identity_provider_url_sourced(
 ) -> anyhow::Result<()> {
     let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
     let audience = get_oidc_audience();
-    let (service_account, client_email) = get_byoid_service_account_and_email();
+    let target_principal_email = get_external_account_service_account_email();
 
-    let id_token = generate_id_token(audience.clone(), client_email, service_account).await?;
+    let id_token = generate_id_token(audience.clone(), target_principal_email).await?;
 
     let source_token_response_body = serde_json::json!({
         "id_token": id_token,
@@ -287,9 +287,9 @@ pub async fn workload_identity_provider_executable_sourced(
     let _e = ScopedEnv::set("GOOGLE_EXTERNAL_ACCOUNT_ALLOW_EXECUTABLES", "1");
     let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
     let audience = get_oidc_audience();
-    let (service_account, client_email) = get_byoid_service_account_and_email();
+    let target_principal_email = get_external_account_service_account_email();
 
-    let id_token = generate_id_token(audience.clone(), client_email, service_account).await?;
+    let id_token = generate_id_token(audience.clone(), target_principal_email).await?;
 
     let source_token_output_file = serde_json::json!({
         "success": true,
@@ -349,9 +349,9 @@ pub async fn workload_identity_provider_executable_sourced(
 pub async fn workload_identity_provider_programmatic_sourced() -> anyhow::Result<()> {
     let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
     let audience = get_oidc_audience();
-    let (service_account, client_email) = get_byoid_service_account_and_email();
+    let target_principal_email = get_external_account_service_account_email();
 
-    let id_token = generate_id_token(audience.clone(), client_email, service_account).await?;
+    let id_token = generate_id_token(audience.clone(), target_principal_email).await?;
 
     let subject_token_provider = Arc::new(TestSubjectTokenProvider {
         subject_token: id_token,
@@ -385,15 +385,19 @@ pub async fn workload_identity_provider_programmatic_sourced() -> anyhow::Result
 /// https://cloud.google.com/iam/docs/creating-short-lived-service-account-credentials#sa-credentials-oidc
 async fn generate_id_token(
     audience: String,
-    client_email: String,
-    service_account: serde_json::Value,
+    target_principal_email: String,
 ) -> anyhow::Result<String> {
-    let creds = AccessTokenCredentialBuilder::new(service_account.clone())
+    let creds = AccessTokenCredentialBuilder::default()
         .build()
-        .expect("failed to setup service account credentials for IAM");
+        .expect("failed to get default credentials for IAM");
+
+    let impersonated_cred = ImpersonatedCredentialsBuilder::from_source_credentials(creds)
+        .with_target_principal(target_principal_email.clone())
+        .build()
+        .expect("failed to create impersonated credentials");
 
     let client = IAMCredentials::builder()
-        .with_credentials(creds)
+        .with_credentials(impersonated_cred)
         .build()
         .await
         .expect("failed to setup IAM client");
@@ -402,7 +406,9 @@ async fn generate_id_token(
         .generate_id_token()
         .set_audience(audience)
         .set_include_email(true)
-        .set_name(format!("projects/-/serviceAccounts/{client_email}"))
+        .set_name(format!(
+            "projects/-/serviceAccounts/{target_principal_email}"
+        ))
         .send()
         .await?;
 
@@ -414,28 +420,9 @@ fn get_oidc_audience() -> String {
         .expect("GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE not set")
 }
 
-fn get_byoid_service_account_and_email() -> (serde_json::Value, String) {
-    let service_account = get_byoid_service_account();
-    let client_email = match service_account.get("client_email") {
-        Some(serde_json::Value::String(v)) => v.clone(),
-        None | Some(_) => {
-            panic!("missing `client_email` string in service account: {service_account:?}")
-        }
-    };
-
-    (service_account, client_email)
-}
-
-fn get_byoid_service_account() -> serde_json::Value {
-    let path = std::env::var("GOOGLE_WORKLOAD_IDENTITY_SERVICE_ACCOUNT")
-        .expect("GOOGLE_WORKLOAD_IDENTITY_SERVICE_ACCOUNT not set");
-
-    let service_account_content =
-        std::fs::read_to_string(path).expect("unable to read service account");
-    let service_account: serde_json::Value = serde_json::from_str(service_account_content.as_str())
-        .expect("unable to parse service account");
-
-    service_account
+fn get_external_account_service_account_email() -> String {
+    std::env::var("EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL")
+        .expect("EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL not set")
 }
 
 #[derive(Debug)]
