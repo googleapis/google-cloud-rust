@@ -183,8 +183,9 @@ impl Builder {
     /// Configure the retry policy for fetching tokens.
     ///
     /// The authentication library can automatically retry operations that fail. The
-    /// retry policy controls how to handle retryable and non-retryable errors, and sets
-    /// limits on the number of attempts or the total time spent retrying.
+    /// retry policy controls how to handle retryable and non-retryable
+    /// [CredentialsError], and sets limits on the number of attempts or the
+    /// total time spent retrying.
     ///
     /// ```
     /// # use google_cloud_auth::credentials::mds::Builder;
