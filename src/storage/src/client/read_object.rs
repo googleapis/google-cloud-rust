@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use serde_with::DeserializeAs;
+
 use super::*;
 
 /// The request builder for [Storage::read_object][crate::client::Storage::read_object] calls.
@@ -225,7 +227,7 @@ impl ReadObject {
 
     /// Sends the request.
     pub async fn send(self) -> Result<ReadObjectResponse> {
-        let checksum_check_enabled = self.request.read_offset == 0 && self.request.read_limit == 0;
+        let full_content_requested = self.request.read_offset == 0 && self.request.read_limit == 0;
 
         let builder = self.http_request_builder().await?;
 
@@ -237,7 +239,7 @@ impl ReadObject {
         }
         Ok(ReadObjectResponse {
             inner: response,
-            full_content_requested: checksum_check_enabled,
+            full_content_requested,
             crc32c: 0,
         })
     }
@@ -445,6 +447,7 @@ enum ReadError {
     BadCrc { got: u32, want: u32 },
 }
 
+// helper to make testing easier.
 fn check_crc32c_helper(
     full_content_requested: bool,
     status: http::StatusCode,
@@ -844,7 +847,7 @@ mod tests {
         Ok(())
     }
 
-    #[test_case(false, vec![("x-goog-hash", "crc32c=SZYC0g==")], http::StatusCode::OK, None; "did not request all")]
+    #[test_case(false, vec![("x-goog-hash", "crc32c=SZYC0g==")], http::StatusCode::OK, None; "full content not requested")]
     #[test_case(true, vec![], http::StatusCode::PARTIAL_CONTENT, None; "No x-goog-hash")]
     #[test_case(true, vec![("x-goog-hash", "crc32c=SZYC0g=="), ("x-goog-stored-content-encoding", "gzip"), ("content-encoding", "json")], http::StatusCode::OK, None; "server uncompressed")]
     #[test_case(true, vec![("x-goog-hash", "crc32c=SZYC0g=="), ("x-goog-stored-content-encoding", "gzip"), ("content-encoding", "gzip")], http::StatusCode::OK, Some(1234567890_u32); "both gzip")]
