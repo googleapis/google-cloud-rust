@@ -40,7 +40,6 @@ pub(crate) struct Builder<T: TokenProvider> {
     retry_throttler: Option<SharedRetryThrottler>,
 }
 
-#[allow(dead_code)]
 impl<T: TokenProvider> Builder<T> {
     pub(crate) fn with_token_provider(mut self, inner: T) -> Self {
         self.inner = Some(Arc::new(inner));
