@@ -346,6 +346,60 @@ pub async fn workload_identity_provider_executable_sourced(
     Ok(())
 }
 
+
+pub async fn workload_identity_provider_file_sourced(
+    with_impersonation: bool,
+) -> anyhow::Result<()> {
+    let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
+    let audience = get_oidc_audience();
+    let target_principal_email = get_external_account_service_account_email();
+
+    let id_token = generate_id_token(audience.clone(), target_principal_email).await?;
+
+    let file = tempfile::NamedTempFile::new().unwrap();
+    let path = file.into_temp_path();
+    std::fs::write(&path, id_token).expect("Unable to write to temp file with id token");
+
+    let path = path.to_str().unwrap();
+    let mut contents = serde_json::json!({
+      "type": "external_account",
+      "audience": audience,
+      "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+      "token_url": "https://sts.googleapis.com/v1/token",
+      "credential_source": {
+        "file": path,
+      }
+    });
+
+    if with_impersonation {
+        let impersonated_email = format!("impersonation-target@{project}.iam.gserviceaccount.com");
+        let impersonation_url = format!(
+            "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/{impersonated_email}:generateAccessToken"
+        );
+        contents["service_account_impersonation_url"] =
+            serde_json::Value::String(impersonation_url);
+    }
+
+    // Create external account with File sourced creds
+    let creds = ExternalAccountCredentialsBuilder::new(contents).build()?;
+
+    // Construct a BigQuery client using the credentials.
+    // Using BigQuery as it doesn't require a billing account.
+    let client = DatasetService::builder()
+        .with_credentials(creds)
+        .build()
+        .await?;
+
+    // Make a request using the external account credentials
+    client
+        .list_datasets()
+        .set_project_id(project)
+        .send()
+        .await?;
+
+    Ok(())
+}
+
 pub async fn workload_identity_provider_programmatic_sourced() -> anyhow::Result<()> {
     let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
     let audience = get_oidc_audience();
@@ -449,57 +503,4 @@ impl SubjectTokenProvider for TestSubjectTokenProvider {
     async fn subject_token(&self) -> std::result::Result<SubjectToken, Self::Error> {
         Ok(SubjectTokenBuilder::new(self.subject_token.clone()).build())
     }
-}
-
-pub async fn workload_identity_provider_file_sourced(
-    with_impersonation: bool,
-) -> anyhow::Result<()> {
-    let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
-    let audience = get_oidc_audience();
-    let (service_account, client_email) = get_byoid_service_account_and_email();
-
-    let id_token = generate_id_token(audience.clone(), client_email, service_account).await?;
-
-    let file = tempfile::NamedTempFile::new().unwrap();
-    let path = file.into_temp_path();
-    std::fs::write(&path, id_token).expect("Unable to write to temp file with id token");
-
-    let path = path.to_str().unwrap();
-    let mut contents = serde_json::json!({
-      "type": "external_account",
-      "audience": audience,
-      "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
-      "token_url": "https://sts.googleapis.com/v1/token",
-      "credential_source": {
-        "file": path,
-      }
-    });
-
-    if with_impersonation {
-        let impersonated_email = format!("impersonation-target@{project}.iam.gserviceaccount.com");
-        let impersonation_url = format!(
-            "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/{impersonated_email}:generateAccessToken"
-        );
-        contents["service_account_impersonation_url"] =
-            serde_json::Value::String(impersonation_url);
-    }
-
-    // Create external account with File sourced creds
-    let creds = ExternalAccountCredentialsBuilder::new(contents).build()?;
-
-    // Construct a BigQuery client using the credentials.
-    // Using BigQuery as it doesn't require a billing account.
-    let client = DatasetService::builder()
-        .with_credentials(creds)
-        .build()
-        .await?;
-
-    // Make a request using the external account credentials
-    client
-        .list_datasets()
-        .set_project_id(project)
-        .send()
-        .await?;
-
-    Ok(())
 }
