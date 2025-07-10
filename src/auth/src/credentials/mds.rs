@@ -536,7 +536,6 @@ mod test {
             .respond_with(json_encoded(response)),
         );
 
-        // Trim out 'http://' from the endpoint provided by the fake server
         let addr = server.addr().to_string();
         let _e = ScopedEnv::set(super::GCE_METADATA_HOST_ENV_VAR, &addr);
         let mdsc = Builder::default()
