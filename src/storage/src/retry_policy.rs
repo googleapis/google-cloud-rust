@@ -27,8 +27,6 @@
 //! In addition, resumable uploads return [308 - Resume Incomplete]. This is
 //! not handled by the retry policy.
 //!
-//! The types in this
-//!
 //! [recommends]: https://cloud.google.com/storage/docs/retry-strategy
 //! [408]: https://cloud.google.com/storage/docs/json_api/v1/status-codes#408_Request_Timeout
 //! [429]: https://cloud.google.com/storage/docs/json_api/v1/status-codes#429_Too_Many_Requests
