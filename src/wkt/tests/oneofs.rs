@@ -18,7 +18,7 @@
 //! and (2) that this serializes as we want.
 
 #[cfg(test)]
-mod test {
+mod tests {
     use common::MessageWithOneOf;
     use common::message_with_one_of::{Message, Mixed, SingleString, TwoStrings};
     use google_cloud_wkt::Duration;

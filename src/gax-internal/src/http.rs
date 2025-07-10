@@ -283,7 +283,7 @@ async fn to_http_response<O: serde::de::DeserializeOwned + Default>(
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use http::{HeaderMap, HeaderValue, Method};
     use test_case::test_case;
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;

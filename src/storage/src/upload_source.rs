@@ -206,7 +206,7 @@ impl Seek for BytesSource {
 }
 
 #[cfg(test)]
-pub(crate) mod test {
+pub(crate) mod tests {
     use super::*;
     use std::{collections::VecDeque, io::Write};
     use tempfile::NamedTempFile;

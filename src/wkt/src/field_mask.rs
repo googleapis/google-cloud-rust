@@ -332,7 +332,7 @@ impl serde::de::Visitor<'_> for PathVisitor {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use serde_json::{Value, json};
     use test_case::test_case;

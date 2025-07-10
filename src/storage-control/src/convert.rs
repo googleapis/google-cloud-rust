@@ -106,7 +106,7 @@ impl FromProto<longrunning::model::Operation> for google::longrunning::Operation
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use test_case::test_case;
 

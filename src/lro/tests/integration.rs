@@ -16,7 +16,7 @@
 mod fake;
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::fake::library::client;
     use super::fake::library::model;
     use super::fake::responses;

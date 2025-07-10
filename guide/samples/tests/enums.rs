@@ -15,7 +15,7 @@
 //! Examples showing how to use enumerations.
 
 #[cfg(test)]
-mod test {
+mod tests {
     use test_case::test_case;
 
     #[test]

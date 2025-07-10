@@ -13,7 +13,7 @@
 // limitations under the License.
 
 #[cfg(test)]
-mod test {
+mod tests {
     use serde_json::json;
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 

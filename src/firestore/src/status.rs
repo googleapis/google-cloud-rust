@@ -151,7 +151,7 @@ fn any_from_prost(value: prost_types::Any) -> Option<wkt::Any> {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use gaxi::prost::FromProto;
     use gaxi::prost::ToProto;

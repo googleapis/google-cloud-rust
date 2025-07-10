@@ -17,7 +17,7 @@
 //! This shows how the generator could handle unknown fields in the future.
 
 #[cfg(test)]
-mod test {
+mod tests {
     use serde_json::json;
     use std::collections::HashMap;
 

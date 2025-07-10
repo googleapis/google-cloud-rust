@@ -149,10 +149,10 @@ where
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use crate::credentials::QUOTA_PROJECT_KEY;
-    use crate::credentials::test::get_headers_from_cache;
+    use crate::credentials::tests::get_headers_from_cache;
     use http::HeaderValue;
     use scoped_env::ScopedEnv;
 

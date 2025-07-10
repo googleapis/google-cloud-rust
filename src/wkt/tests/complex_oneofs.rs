@@ -13,7 +13,7 @@
 // limitations under the License.
 
 #[cfg(test)]
-mod test {
+mod tests {
     use common::{
         MessageWithComplexOneOf,
         message_with_complex_one_of::{Inner, TestEnum},

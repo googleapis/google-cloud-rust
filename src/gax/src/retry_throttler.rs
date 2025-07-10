@@ -394,7 +394,7 @@ impl RetryThrottler for CircuitBreaker {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use rand::Rng;
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
