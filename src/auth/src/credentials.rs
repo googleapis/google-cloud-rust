@@ -18,11 +18,12 @@ use crate::errors::{self, CredentialsError};
 use crate::{BuildResult, Result};
 use gax::backoff_policy::BackoffPolicy;
 use gax::retry_policy::RetryPolicy;
-use gax::retry_throttler::SharedRetryThrottler;
+use gax::retry_throttler::{RetryThrottler, SharedRetryThrottler};
 use http::{Extensions, HeaderMap};
 use serde_json::Value;
 use std::future::Future;
 use std::sync::Arc;
+use std::sync::Mutex;
 use std::sync::atomic::{AtomicU64, Ordering};
 
 pub mod api_key_credentials;
@@ -38,17 +39,35 @@ pub mod user_account;
 pub(crate) const QUOTA_PROJECT_KEY: &str = "x-goog-user-project";
 pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
 
-/// A helper type to use [RetryPolicy] in auth builders.
+/// A helper type to use [RetryPolicy] in auth library.
 #[derive(Clone)]
 pub struct RetryPolicyArg(pub(crate) Arc<dyn RetryPolicy>);
 
-/// A helper type to use [BackoffPolicy] in auth builders.
+impl<T: RetryPolicy + Send + Sync + 'static> From<T> for RetryPolicyArg {
+    fn from(value: T) -> Self {
+        Self(Arc::new(value))
+    }
+}
+
+/// A helper type to use [BackoffPolicy] in auth library.
 #[derive(Clone)]
 pub struct BackoffPolicyArg(pub(crate) Arc<dyn BackoffPolicy>);
 
-/// A helper type to use [RetryThrottler] in auth builders.
+impl<T: BackoffPolicy + Send + Sync + 'static> From<T> for BackoffPolicyArg {
+    fn from(value: T) -> Self {
+        Self(Arc::new(value))
+    }
+}
+
+/// A helper type to use [RetryThrottler] in auth library.
 #[derive(Clone)]
 pub struct RetryThrottlerArg(pub(crate) SharedRetryThrottler);
+
+impl<T: RetryThrottler + Send + Sync + 'static> From<T> for RetryThrottlerArg {
+    fn from(value: T) -> Self {
+        Self(Arc::new(Mutex::new(value)))
+    }
+}
 
 /// Represents an Entity Tag for a [CacheableResource].
 ///
@@ -704,13 +723,73 @@ pub mod testing {
 mod tests {
     use super::*;
     use base64::Engine;
+    use gax::retry_result::RetryResult;
     use num_bigint_dig::BigUint;
     use reqwest::header::AUTHORIZATION;
     use rsa::RsaPrivateKey;
     use rsa::pkcs8::{EncodePrivateKey, LineEnding};
     use scoped_env::ScopedEnv;
+    use std::error::Error;
     use std::sync::LazyLock;
+    use std::sync::atomic::{AtomicBool, Ordering};
     use test_case::test_case;
+
+    #[derive(Debug)]
+    pub struct AuthRetryPolicy {
+        pub max_attempts: u32,
+    }
+
+    impl RetryPolicy for AuthRetryPolicy {
+        fn on_error(
+            &self,
+            _loop_start: std::time::Instant,
+            attempt_count: u32,
+            _idempotent: bool,
+            error: gax::error::Error,
+        ) -> RetryResult {
+            if attempt_count >= self.max_attempts {
+                return RetryResult::Exhausted(error);
+            }
+
+            if error.is_authentication() {
+                if error
+                    .source()
+                    .and_then(|e| e.downcast_ref::<CredentialsError>())
+                    .is_some_and(|ce| ce.is_transient())
+                {
+                    RetryResult::Continue(error)
+                } else {
+                    RetryResult::Permanent(error)
+                }
+            } else {
+                RetryResult::Permanent(error)
+            }
+        }
+    }
+
+    #[derive(Debug)]
+    pub struct TestBackoffPolicy {
+        was_called: Arc<AtomicBool>,
+    }
+
+    impl Default for TestBackoffPolicy {
+        fn default() -> Self {
+            Self {
+                was_called: Arc::new(AtomicBool::new(false)),
+            }
+        }
+    }
+
+    impl BackoffPolicy for TestBackoffPolicy {
+        fn on_failure(
+            &self,
+            _loop_start: std::time::Instant,
+            _attempt_count: u32,
+        ) -> std::time::Duration {
+            self.was_called.store(true, Ordering::SeqCst);
+            std::time::Duration::from_millis(1)
+        }
+    }
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 

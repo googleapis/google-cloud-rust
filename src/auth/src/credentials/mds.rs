@@ -183,13 +183,11 @@ impl Builder {
     /// Configure the retry policy for fetching tokens.
     ///
     /// The authentication library can automatically retry operations that fail. The
-    /// retry policy controls how to handle retryable and non-retryable
-    /// [CredentialsError], and sets limits on the number of attempts or the
-    /// total time spent retrying.
+    /// retry policy controls how to handle retries, and sets limits on the
+    /// number of attempts or the total time spent retrying.
     ///
     /// ```
     /// # use google_cloud_auth::credentials::mds::Builder;
-    /// # use google_cloud_auth::gax;
     /// # use gax::retry_policy;
     /// # use gax::retry_policy::RetryPolicyExt;
     /// # tokio_test::block_on(async {
@@ -210,7 +208,6 @@ impl Builder {
     ///
     /// ```
     /// # use google_cloud_auth::credentials::mds::Builder;
-    /// # use google_cloud_auth::gax;
     /// # use gax::exponential_backoff::ExponentialBackoffBuilder;
     /// # use std::time::Duration;
     /// # tokio_test::block_on(async {
@@ -238,11 +235,10 @@ impl Builder {
     /// customize the default retry throttler.
     ///
     /// [Handling Overload]: https://sre.google/sre-book/handling-overload/
-    /// [Addressing Cascading Failures]: https://sre.google/sre-book/addressing-cascading-failures/
+    /// [Address Cascading Failures]: https://sre.google/sre-book/addressing-cascading-failures/
     ///
     /// ```
     /// # use google_cloud_auth::credentials::mds::Builder;
-    /// # use google_cloud_auth::gax;
     /// # use gax::retry_throttler::AdaptiveThrottler;
     /// # tokio_test::block_on(async {
     /// let credentials = Builder::default()
@@ -439,6 +435,51 @@ mod tests {
     use url::Url;
 
     type TestResult = anyhow::Result<()>;
+
+    #[test_case(
+        true,
+        &[
+            "retry_policy: Some(AuthRetryPolicy", 
+            "max_attempts: 5", 
+            "backoff_policy: TestBackoffPolicy", 
+            "retry_throttler: Mutex { data: AdaptiveThrottler", 
+            "factor: 4.0"
+        ];
+        "with_custom_values"
+    )]
+    #[test_case(
+        false,
+        &[
+            "retry_policy: None", 
+            "backoff_policy: ExponentialBackoff", 
+            "retry_throttler: Mutex { data: AdaptiveThrottler", 
+            "factor: 2.0"
+        ];
+        "with_default_values"
+    )]
+    fn test_mds_retry_policies(use_custom_config: bool, expected_substrings: &[&str]) {
+        let mut builder = Builder::default();
+
+        if use_custom_config {
+            let retry_policy = crate::credentials::tests::AuthRetryPolicy { max_attempts: 5 };
+            let backoff_policy = crate::credentials::tests::TestBackoffPolicy::default();
+            let retry_throttler = gax::retry_throttler::AdaptiveThrottler::new(4.0).unwrap();
+            builder = builder
+                .with_retry_policy(retry_policy)
+                .with_backoff_policy(backoff_policy)
+                .with_retry_throttler(retry_throttler);
+        }
+
+        let provider = builder.build_token_provider().unwrap();
+        let debug_str = format!("{provider:?}");
+
+        for sub in expected_substrings {
+            assert!(
+                debug_str.contains(sub),
+                "Expected to find '{sub}' in '{debug_str:?}'"
+            );
+        }
+    }
 
     #[test]
     fn validate_default_endpoint_urls() {
