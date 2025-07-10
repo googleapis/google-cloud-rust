@@ -122,6 +122,14 @@ resource "google_secret_manager_secret_iam_member" "test-api-key-secret-member" 
   member    = "serviceAccount:${data.google_service_account.integration-test-runner.email}"
 }
 
+# The default Cloud Build service account needs permission to act as the
+# integration test runner service account.
+resource "google_service_account_iam_member" "cloudbuild_can_act_as_runner" {
+  service_account_id = data.google_service_account.integration-test-runner.name
+  role               = "roles/iam.serviceAccountUser"
+  member             = "serviceAccount:${data.google_project.project.number}@cloudbuild.gserviceaccount.com"
+}
+
 locals {
   # Google Cloud Build installs an application on the GitHub organization or
   # repository. This id is hard-coded here because there is no easy way [^1] to

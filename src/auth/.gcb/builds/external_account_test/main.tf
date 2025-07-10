@@ -36,10 +36,6 @@ data "google_service_account" "build_runner_service_account" {
   account_id = "integration-test-runner"
 }
 
-# Grant the GCB runner service account the ability to mint tokens for any
-# service account in this project. This allows the test code to use the
-# `projects/-/serviceAccounts/...` syntax, which works for both local
-# user credentials and the GCB service account.
 resource "google_project_iam_member" "token_creator" {
   provider = google.external_account_project
   project  = var.project
