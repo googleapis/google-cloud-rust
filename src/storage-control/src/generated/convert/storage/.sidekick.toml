@@ -34,9 +34,7 @@ included-ids = """\
     .google.storage.v2.Storage.UpdateObject,\
     .google.storage.v2.Storage.ListObjects,\
     .google.storage.v2.Storage.RewriteObject,\
-    .google.storage.v2.Storage.MoveObject,\
-    .google.storage.v2.ReadObjectRequest,\
-    .google.storage.v2.WriteObjectSpec\
+    .google.storage.v2.Storage.MoveObject\
     """
 
 [codec]
