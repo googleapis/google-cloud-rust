@@ -36,16 +36,15 @@ impl<T> UploadObject<T> {
     ///
     /// # Example
     /// ```
-    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_if_generation_match(0)
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
     ///
     /// [request precondition]: https://cloud.google.com/storage/docs/request-preconditions
@@ -64,16 +63,15 @@ impl<T> UploadObject<T> {
     ///
     /// # Example
     /// ```
-    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_if_generation_not_match(0)
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
     ///
     /// [request precondition]: https://cloud.google.com/storage/docs/request-preconditions
@@ -93,16 +91,15 @@ impl<T> UploadObject<T> {
     ///
     /// # Example
     /// ```
-    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_if_metageneration_match(1234)
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
     ///
     /// [request precondition]: https://cloud.google.com/storage/docs/request-preconditions
@@ -123,16 +120,15 @@ impl<T> UploadObject<T> {
     ///
     /// # Example
     /// ```
-    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_if_metageneration_not_match(1234)
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
     ///
     /// [request precondition]: https://cloud.google.com/storage/docs/request-preconditions
@@ -148,17 +144,16 @@ impl<T> UploadObject<T> {
     ///
     /// # Example
     /// ```
-    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// # use control::model::ObjectAccessControl;
-    /// # let client = Storage::builder().build().await?;
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_acl([ObjectAccessControl::new().set_entity("allAuthenticatedUsers").set_role("READER")])
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
     pub fn with_acl<I, V>(mut self, v: I) -> Self
     where
@@ -175,16 +170,15 @@ impl<T> UploadObject<T> {
     ///
     /// # Example
     /// ```
-    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_cache_control("public; max-age=7200")
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
     ///
     /// [public objects]: https://cloud.google.com/storage/docs/access-control/making-data-public
@@ -202,16 +196,15 @@ impl<T> UploadObject<T> {
     ///
     /// # Example
     /// ```
-    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_content_disposition("inline")
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
     ///
     /// [content disposition]: https://datatracker.ietf.org/doc/html/rfc6266
@@ -227,9 +220,8 @@ impl<T> UploadObject<T> {
     ///
     /// # Example
     /// ```
-    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// use flate2::write::GzEncoder;
     /// use std::io::Write;
     /// let mut e = GzEncoder::new(Vec::new(), flate2::Compression::default());
@@ -240,7 +232,7 @@ impl<T> UploadObject<T> {
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
     ///
     /// [transcoding]: https://cloud.google.com/storage/docs/transcoding
@@ -258,16 +250,15 @@ impl<T> UploadObject<T> {
     ///
     /// # Example
     /// ```
-    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_content_language("en")
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
     ///
     /// [content language]: https://cloud.google.com/storage/docs/metadata#content-language
@@ -284,16 +275,15 @@ impl<T> UploadObject<T> {
     ///
     /// # Example
     /// ```
-    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_content_type("text/plain")
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
     ///
     /// [content type]: https://datatracker.ietf.org/doc/html/rfc7231#section-3.1.1.5
@@ -309,9 +299,8 @@ impl<T> UploadObject<T> {
     ///
     /// # Example
     /// ```
-    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let time = wkt::Timestamp::try_from("2025-07-07T18:30:00Z")?;
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
@@ -319,7 +308,7 @@ impl<T> UploadObject<T> {
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
     ///
     /// [DaysSinceCustomTime]: https://cloud.google.com/storage/docs/lifecycle#dayssincecustomtime
@@ -336,16 +325,15 @@ impl<T> UploadObject<T> {
     ///
     /// # Example
     /// ```
-    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_event_based_hold(true)
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
     ///
     /// [event based hold]: https://cloud.google.com/storage/docs/object-holds
@@ -361,9 +349,8 @@ impl<T> UploadObject<T> {
     ///
     /// # Example
     /// ```
-    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let time = wkt::Timestamp::try_from("2025-07-07T18:30:00Z")?;
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
@@ -371,7 +358,7 @@ impl<T> UploadObject<T> {
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
     ///
     /// [custom metadata]: https://cloud.google.com/storage/docs/metadata#custom-metadata
@@ -389,10 +376,9 @@ impl<T> UploadObject<T> {
     ///
     /// # Example
     /// ```
-    /// # tokio_test::block_on(async {
-    /// # use control::model::object::{Retention, retention};
     /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// # use control::model::object::{Retention, retention};
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_retention(
@@ -402,7 +388,7 @@ impl<T> UploadObject<T> {
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
     ///
     /// [retention configuration]: https://cloud.google.com/storage/docs/metadata#retention-config
@@ -418,16 +404,15 @@ impl<T> UploadObject<T> {
     ///
     /// # Example
     /// ```
-    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_storage_class("ARCHIVE")
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
     ///
     /// [storage class]: https://cloud.google.com/storage/docs/storage-classes
@@ -446,9 +431,8 @@ impl<T> UploadObject<T> {
     ///
     /// # Example
     /// ```
-    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let time = wkt::Timestamp::try_from("2025-07-07T18:30:00Z")?;
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
@@ -456,7 +440,7 @@ impl<T> UploadObject<T> {
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
     ///
     /// [temporary hold]: https://cloud.google.com/storage/docs/object-holds
@@ -476,16 +460,15 @@ impl<T> UploadObject<T> {
     ///
     /// # Example
     /// ```
-    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_kms_key("projects/test-project/locations/us-central1/keyRings/test-ring/cryptoKeys/test-key")
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
     ///
     /// [Customer-managed encryption key]: https://cloud.google.com/storage/docs/encryption/customer-managed-keys
@@ -501,16 +484,15 @@ impl<T> UploadObject<T> {
     ///
     /// # Example
     /// ```
-    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_predefined_acl("private")
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
     ///
     /// [predefined ACLs]: https://cloud.google.com/storage/docs/access-control/lists#predefined-acl
@@ -527,10 +509,9 @@ impl<T> UploadObject<T> {
     ///
     /// # Example
     /// ```
-    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// # use google_cloud_storage::client::KeyAes256;
-    /// # let client = Storage::builder().build().await?;
     /// let key: &[u8] = &[97; 32];
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
@@ -538,7 +519,7 @@ impl<T> UploadObject<T> {
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
     pub fn with_key(mut self, v: KeyAes256) -> Self {
         self.params = Some(v.into());
@@ -603,15 +584,14 @@ where
     ///
     /// # Example
     /// ```
-    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
     pub async fn send(self) -> crate::Result<Object> {
         let upload_url = self.start_resumable_upload().await?;
