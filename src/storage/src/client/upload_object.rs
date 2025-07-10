@@ -16,8 +16,10 @@ use super::*;
 use futures::stream::unfold;
 use std::collections::VecDeque;
 
+mod unbuffered;
+
 /// A request builder for uploads without rewind.
-pub struct UploadObjectBuffered<T> {
+pub struct UploadObject<T> {
     inner: std::sync::Arc<StorageInner>,
     resource: control::model::Object,
     spec: control::model::WriteObjectSpec,
@@ -25,7 +27,7 @@ pub struct UploadObjectBuffered<T> {
     payload: InsertPayload<T>,
 }
 
-impl<T> UploadObjectBuffered<T> {
+impl<T> UploadObject<T> {
     /// Set a [request precondition] on the object generation to match.
     ///
     /// With this precondition the request fails if the current object
@@ -38,7 +40,7 @@ impl<T> UploadObjectBuffered<T> {
     /// # use google_cloud_storage::client::Storage;
     /// # let client = Storage::builder().build().await?;
     /// let response = client
-    ///     .upload_object_buffered("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_if_generation_match(0)
     ///     .send()
     ///     .await?;
@@ -66,7 +68,7 @@ impl<T> UploadObjectBuffered<T> {
     /// # use google_cloud_storage::client::Storage;
     /// # let client = Storage::builder().build().await?;
     /// let response = client
-    ///     .upload_object_buffered("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_if_generation_not_match(0)
     ///     .send()
     ///     .await?;
@@ -95,7 +97,7 @@ impl<T> UploadObjectBuffered<T> {
     /// # use google_cloud_storage::client::Storage;
     /// # let client = Storage::builder().build().await?;
     /// let response = client
-    ///     .upload_object_buffered("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_if_metageneration_match(1234)
     ///     .send()
     ///     .await?;
@@ -125,7 +127,7 @@ impl<T> UploadObjectBuffered<T> {
     /// # use google_cloud_storage::client::Storage;
     /// # let client = Storage::builder().build().await?;
     /// let response = client
-    ///     .upload_object_buffered("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_if_metageneration_not_match(1234)
     ///     .send()
     ///     .await?;
@@ -151,7 +153,7 @@ impl<T> UploadObjectBuffered<T> {
     /// # use control::model::ObjectAccessControl;
     /// # let client = Storage::builder().build().await?;
     /// let response = client
-    ///     .upload_object_buffered("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_acl([ObjectAccessControl::new().set_entity("allAuthenticatedUsers").set_role("READER")])
     ///     .send()
     ///     .await?;
@@ -177,7 +179,7 @@ impl<T> UploadObjectBuffered<T> {
     /// # use google_cloud_storage::client::Storage;
     /// # let client = Storage::builder().build().await?;
     /// let response = client
-    ///     .upload_object_buffered("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_cache_control("public; max-age=7200")
     ///     .send()
     ///     .await?;
@@ -204,7 +206,7 @@ impl<T> UploadObjectBuffered<T> {
     /// # use google_cloud_storage::client::Storage;
     /// # let client = Storage::builder().build().await?;
     /// let response = client
-    ///     .upload_object_buffered("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_content_disposition("inline")
     ///     .send()
     ///     .await?;
@@ -233,7 +235,7 @@ impl<T> UploadObjectBuffered<T> {
     /// let mut e = GzEncoder::new(Vec::new(), flate2::Compression::default());
     /// e.write_all(b"hello world");
     /// let response = client
-    ///     .upload_object_buffered("projects/_/buckets/my-bucket", "my-object", bytes::Bytes::from_owner(e.finish()?))
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", bytes::Bytes::from_owner(e.finish()?))
     ///     .with_content_encoding("gzip")
     ///     .send()
     ///     .await?;
@@ -260,7 +262,7 @@ impl<T> UploadObjectBuffered<T> {
     /// # use google_cloud_storage::client::Storage;
     /// # let client = Storage::builder().build().await?;
     /// let response = client
-    ///     .upload_object_buffered("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_content_language("en")
     ///     .send()
     ///     .await?;
@@ -286,7 +288,7 @@ impl<T> UploadObjectBuffered<T> {
     /// # use google_cloud_storage::client::Storage;
     /// # let client = Storage::builder().build().await?;
     /// let response = client
-    ///     .upload_object_buffered("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_content_type("text/plain")
     ///     .send()
     ///     .await?;
@@ -312,7 +314,7 @@ impl<T> UploadObjectBuffered<T> {
     /// # let client = Storage::builder().build().await?;
     /// let time = wkt::Timestamp::try_from("2025-07-07T18:30:00Z")?;
     /// let response = client
-    ///     .upload_object_buffered("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_custom_time(time)
     ///     .send()
     ///     .await?;
@@ -338,7 +340,7 @@ impl<T> UploadObjectBuffered<T> {
     /// # use google_cloud_storage::client::Storage;
     /// # let client = Storage::builder().build().await?;
     /// let response = client
-    ///     .upload_object_buffered("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_event_based_hold(true)
     ///     .send()
     ///     .await?;
@@ -364,7 +366,7 @@ impl<T> UploadObjectBuffered<T> {
     /// # let client = Storage::builder().build().await?;
     /// let time = wkt::Timestamp::try_from("2025-07-07T18:30:00Z")?;
     /// let response = client
-    ///     .upload_object_buffered("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_metadata([("test-only", "true"), ("environment", "qa")])
     ///     .send()
     ///     .await?;
@@ -392,7 +394,7 @@ impl<T> UploadObjectBuffered<T> {
     /// # use google_cloud_storage::client::Storage;
     /// # let client = Storage::builder().build().await?;
     /// let response = client
-    ///     .upload_object_buffered("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_retention(
     ///         Retention::new()
     ///             .set_mode(retention::Mode::Locked)
@@ -420,7 +422,7 @@ impl<T> UploadObjectBuffered<T> {
     /// # use google_cloud_storage::client::Storage;
     /// # let client = Storage::builder().build().await?;
     /// let response = client
-    ///     .upload_object_buffered("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_storage_class("ARCHIVE")
     ///     .send()
     ///     .await?;
@@ -449,7 +451,7 @@ impl<T> UploadObjectBuffered<T> {
     /// # let client = Storage::builder().build().await?;
     /// let time = wkt::Timestamp::try_from("2025-07-07T18:30:00Z")?;
     /// let response = client
-    ///     .upload_object_buffered("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_temporary_hold(true)
     ///     .send()
     ///     .await?;
@@ -478,7 +480,7 @@ impl<T> UploadObjectBuffered<T> {
     /// # use google_cloud_storage::client::Storage;
     /// # let client = Storage::builder().build().await?;
     /// let response = client
-    ///     .upload_object_buffered("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_kms_key("projects/test-project/locations/us-central1/keyRings/test-ring/cryptoKeys/test-key")
     ///     .send()
     ///     .await?;
@@ -503,7 +505,7 @@ impl<T> UploadObjectBuffered<T> {
     /// # use google_cloud_storage::client::Storage;
     /// # let client = Storage::builder().build().await?;
     /// let response = client
-    ///     .upload_object_buffered("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_predefined_acl("private")
     ///     .send()
     ///     .await?;
@@ -531,7 +533,7 @@ impl<T> UploadObjectBuffered<T> {
     /// # let client = Storage::builder().build().await?;
     /// let key: &[u8] = &[97; 32];
     /// let response = client
-    ///     .upload_object_buffered("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_key(KeyAes256::new(key)?)
     ///     .send()
     ///     .await?;
@@ -580,7 +582,7 @@ impl<T> UploadObjectBuffered<T> {
         O: Into<String>,
         P: Into<InsertPayload<T>>,
     {
-        UploadObjectBuffered {
+        UploadObject {
             inner,
             resource: control::model::Object::new()
                 .set_bucket(bucket)
@@ -592,7 +594,7 @@ impl<T> UploadObjectBuffered<T> {
     }
 }
 
-impl<T> UploadObjectBuffered<T>
+impl<T> UploadObject<T>
 where
     T: StreamingSource + Send + Sync + 'static,
     T::Error: std::error::Error + Send + Sync + 'static,
@@ -605,7 +607,7 @@ where
     /// # use google_cloud_storage::client::Storage;
     /// # let client = Storage::builder().build().await?;
     /// let response = client
-    ///     .upload_object_buffered("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -986,7 +988,7 @@ mod tests {
             .build()
             .await?;
         let response = client
-            .upload_object_buffered("projects/_/buckets/test-bucket", "test-object", "")
+            .upload_object("projects/_/buckets/test-bucket", "test-object", "")
             .send()
             .await?;
         assert_eq!(response.name, "test-object");
@@ -1018,7 +1020,7 @@ mod tests {
             .build()
             .await?;
         let err = client
-            .upload_object_buffered("projects/_/buckets/test-bucket", "test-object", "")
+            .upload_object("projects/_/buckets/test-bucket", "test-object", "")
             .send()
             .await
             .expect_err("expected a not found error");
@@ -1030,11 +1032,10 @@ mod tests {
     #[tokio::test]
     async fn start_resumable_upload() -> Result {
         let inner = test_inner_client(gaxi::options::ClientConfig::default());
-        let mut request =
-            UploadObjectBuffered::new(inner, "projects/_/buckets/bucket", "object", "hello")
-                .start_resumable_upload_request()
-                .await?
-                .build()?;
+        let mut request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
+            .start_resumable_upload_request()
+            .await?
+            .build()?;
 
         assert_eq!(request.method(), reqwest::Method::POST);
         assert_eq!(
@@ -1054,12 +1055,11 @@ mod tests {
         let (key, key_base64, _, key_sha256_base64) = create_key_helper();
 
         let inner = test_inner_client(gaxi::options::ClientConfig::default());
-        let request =
-            UploadObjectBuffered::new(inner, "projects/_/buckets/bucket", "object", "hello")
-                .with_key(KeyAes256::new(&key)?)
-                .start_resumable_upload_request()
-                .await?
-                .build()?;
+        let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
+            .with_key(KeyAes256::new(&key)?)
+            .start_resumable_upload_request()
+            .await?
+            .build()?;
 
         assert_eq!(request.method(), reqwest::Method::POST);
         assert_eq!(
@@ -1085,7 +1085,7 @@ mod tests {
     #[tokio::test]
     async fn start_resumable_upload_bad_bucket() -> Result {
         let inner = test_inner_client(gaxi::options::ClientConfig::default());
-        UploadObjectBuffered::new(inner, "malformed", "object", "hello")
+        UploadObject::new(inner, "malformed", "object", "hello")
             .start_resumable_upload_request()
             .await
             .expect_err("malformed bucket string should error");
@@ -1096,37 +1096,36 @@ mod tests {
     async fn upload_object_unbuffered_metadata() -> Result {
         use control::model::ObjectAccessControl;
         let inner = test_inner_client(gaxi::options::ClientConfig::default());
-        let mut request =
-            UploadObjectBuffered::new(inner, "projects/_/buckets/bucket", "object", "")
-                .with_if_generation_match(10)
-                .with_if_generation_not_match(20)
-                .with_if_metageneration_match(30)
-                .with_if_metageneration_not_match(40)
-                .with_predefined_acl("private")
-                .with_acl([ObjectAccessControl::new()
-                    .set_entity("allAuthenticatedUsers")
-                    .set_role("READER")])
-                .with_cache_control("public; max-age=7200")
-                .with_content_disposition("inline")
-                .with_content_encoding("gzip")
-                .with_content_language("en")
-                .with_content_type("text/plain")
-                .with_crc32c(crc32c::crc32c(b""))
-                .with_custom_time(wkt::Timestamp::try_from("2025-07-07T18:11:00Z")?)
-                .with_event_based_hold(true)
-                .with_md5_hash(md5::compute(b"").0)
-                .with_metadata([("k0", "v0"), ("k1", "v1")])
-                .with_retention(
-                    control::model::object::Retention::new()
-                        .set_mode(control::model::object::retention::Mode::Locked)
-                        .set_retain_until_time(wkt::Timestamp::try_from("2035-07-07T18:14:00Z")?),
-                )
-                .with_storage_class("ARCHIVE")
-                .with_temporary_hold(true)
-                .with_kms_key("test-key")
-                .start_resumable_upload_request()
-                .await?
-                .build()?;
+        let mut request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "")
+            .with_if_generation_match(10)
+            .with_if_generation_not_match(20)
+            .with_if_metageneration_match(30)
+            .with_if_metageneration_not_match(40)
+            .with_predefined_acl("private")
+            .with_acl([ObjectAccessControl::new()
+                .set_entity("allAuthenticatedUsers")
+                .set_role("READER")])
+            .with_cache_control("public; max-age=7200")
+            .with_content_disposition("inline")
+            .with_content_encoding("gzip")
+            .with_content_language("en")
+            .with_content_type("text/plain")
+            .with_crc32c(crc32c::crc32c(b""))
+            .with_custom_time(wkt::Timestamp::try_from("2025-07-07T18:11:00Z")?)
+            .with_event_based_hold(true)
+            .with_md5_hash(md5::compute(b"").0)
+            .with_metadata([("k0", "v0"), ("k1", "v1")])
+            .with_retention(
+                control::model::object::Retention::new()
+                    .set_mode(control::model::object::retention::Mode::Locked)
+                    .set_retain_until_time(wkt::Timestamp::try_from("2035-07-07T18:14:00Z")?),
+            )
+            .with_storage_class("ARCHIVE")
+            .with_temporary_hold(true)
+            .with_kms_key("test-key")
+            .start_resumable_upload_request()
+            .await?
+            .build()?;
 
         assert_eq!(request.method(), reqwest::Method::POST);
         let want_pairs: BTreeMap<String, String> = [
@@ -1181,7 +1180,7 @@ mod tests {
             ..Default::default()
         };
         let inner = test_inner_client(config);
-        let _ = UploadObjectBuffered::new(inner, "projects/_/buckets/bucket", "object", "hello")
+        let _ = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
             .start_resumable_upload_request()
             .await
             .inspect_err(|e| assert!(e.is_authentication()))
@@ -1204,7 +1203,7 @@ mod tests {
     #[tokio::test]
     async fn test_percent_encoding_object_name(name: &str, want: &str) -> Result {
         let inner = test_inner_client(gaxi::options::ClientConfig::default());
-        let request = UploadObjectBuffered::new(inner, "projects/_/buckets/bucket", name, "hello")
+        let request = UploadObject::new(inner, "projects/_/buckets/bucket", name, "hello")
             .start_resumable_upload_request()
             .await?
             .build()?;
@@ -1240,11 +1239,10 @@ mod tests {
         use reqwest::header::HeaderValue;
 
         let inner = test_inner_client(gaxi::options::ClientConfig::default());
-        let mut request =
-            UploadObjectBuffered::new(inner, "projects/_/buckets/bucket", "object", "hello")
-                .upload_request(SESSION.to_string())
-                .await?
-                .build()?;
+        let mut request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
+            .upload_request(SESSION.to_string())
+            .await?
+            .build()?;
 
         assert_eq!(request.method(), reqwest::Method::PUT);
         assert_eq!(request.url().as_str(), SESSION);
@@ -1268,11 +1266,10 @@ mod tests {
             .to_vec(),
         );
         let inner = test_inner_client(gaxi::options::ClientConfig::default());
-        let mut request =
-            UploadObjectBuffered::new(inner, "projects/_/buckets/bucket", "object", stream)
-                .upload_request(SESSION.to_string())
-                .await?
-                .build()?;
+        let mut request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", stream)
+            .upload_request(SESSION.to_string())
+            .await?
+            .build()?;
 
         assert_eq!(request.method(), reqwest::Method::PUT);
         assert_eq!(request.url().as_str(), SESSION);
@@ -1288,12 +1285,11 @@ mod tests {
         let (key, key_base64, _, key_sha256_base64) = create_key_helper();
 
         let inner = test_inner_client(gaxi::options::ClientConfig::default());
-        let request =
-            UploadObjectBuffered::new(inner, "projects/_/buckets/bucket", "object", "hello")
-                .with_key(KeyAes256::new(&key)?)
-                .upload_request(SESSION.to_string())
-                .await?
-                .build()?;
+        let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
+            .with_key(KeyAes256::new(&key)?)
+            .upload_request(SESSION.to_string())
+            .await?
+            .build()?;
 
         assert_eq!(request.method(), reqwest::Method::PUT);
         assert_eq!(request.url().as_str(), SESSION);
@@ -1371,8 +1367,7 @@ mod tests {
         let stream = VecStream::new((0..5).map(|i| new_line(i, LEN)).collect::<Vec<_>>());
 
         let inner = test_inner_client(gaxi::options::ClientConfig::default());
-        let upload =
-            UploadObjectBuffered::new(inner, "projects/_/buckets/bucket", "object", stream);
+        let upload = UploadObject::new(inner, "projects/_/buckets/bucket", "object", stream);
         let response = upload
             .upload_by_chunks(session.to_string().as_str(), 2 * LEN)
             .await?;
@@ -1390,7 +1385,7 @@ mod tests {
     async fn partial_upload_request_empty() -> Result {
         use reqwest::header::HeaderValue;
         let inner = test_inner_client(gaxi::options::ClientConfig::default());
-        let upload = UploadObjectBuffered::new(inner, "projects/_/buckets/bucket", "object", "");
+        let upload = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "");
 
         let chunk = VecDeque::new();
         let (builder, size) = upload
@@ -1422,7 +1417,7 @@ mod tests {
         use reqwest::header::HeaderValue;
         const LEN: usize = 32;
         let inner = test_inner_client(gaxi::options::ClientConfig::default());
-        let upload = UploadObjectBuffered::new(inner, "projects/_/buckets/bucket", "object", "");
+        let upload = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "");
 
         let chunk = VecDeque::from_iter([new_line(0, LEN), new_line(1, LEN)]);
         let expected = chunk.iter().fold(Vec::new(), |mut a, b| {
@@ -1458,7 +1453,7 @@ mod tests {
         use reqwest::header::HeaderValue;
         const LEN: usize = 32;
         let inner = test_inner_client(gaxi::options::ClientConfig::default());
-        let upload = UploadObjectBuffered::new(inner, "projects/_/buckets/bucket", "object", "");
+        let upload = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "");
 
         let chunk = VecDeque::from_iter([new_line(2, LEN), new_line(3, LEN)]);
         let expected = chunk.iter().fold(Vec::new(), |mut a, b| {
@@ -1494,7 +1489,7 @@ mod tests {
         use reqwest::header::HeaderValue;
         const LEN: usize = 32;
         let inner = test_inner_client(gaxi::options::ClientConfig::default());
-        let upload = UploadObjectBuffered::new(inner, "projects/_/buckets/bucket", "object", "");
+        let upload = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "");
 
         let chunk = VecDeque::from_iter([new_line(2, LEN)]);
         let expected = chunk.iter().fold(Vec::new(), |mut a, b| {
