@@ -670,9 +670,14 @@ where
         let mut remainder = None;
         let mut offset = 0_usize;
         loop {
-            let (chunk, r) = self::next_chunk(&mut self.payload, remainder, target_size).await?;
+            let (chunk, chunk_size, r) = self::next_chunk(&mut self.payload, remainder, target_size).await?;
+            let full_size = if chunk_size < target_size {
+                Some(offset + chunk_size)
+            } else {
+                None
+            };
             let (builder, chunk_size) = self
-                .partial_upload_request(upload_url, offset, chunk, target_size)
+                .partial_upload_request(upload_url, offset, chunk, chunk_size, full_size)
                 .await?;
             let response = builder.send().await.map_err(Error::io)?;
             match self::partial_upload_handle_response(response, offset + chunk_size).await? {
@@ -697,13 +702,14 @@ where
         upload_url: &str,
         offset: usize,
         chunk: VecDeque<bytes::Bytes>,
-        target_size: usize,
+        chunk_size: usize,
+        full_size: Option<usize>,
     ) -> Result<(reqwest::RequestBuilder, usize)> {
-        let chunk_size = chunk.iter().fold(0, |s, b| s + b.len());
-        let range = match chunk_size {
-            0 => format!("bytes */{offset}"),
-            n if n == target_size => format!("bytes {}-{}/*", offset, offset + n - 1),
-            n => format!("bytes {}-{}/{}", offset, offset + n - 1, offset + n),
+        let range = match (chunk_size, full_size) {
+            (0, Some(s)) => format!("bytes */{s}"),
+            (0, None) => format!("bytes */{offset}"),
+            (n, Some(s)) => format!("bytes {offset}-{}/{s}", offset + n - 1),
+            (n, None) => format!("bytes {offset}-{}/*", offset + n - 1),
         };
         let builder = self
             .inner
@@ -730,20 +736,17 @@ where
     }
 
     async fn upload_request(mut self, upload_url: String) -> Result<reqwest::RequestBuilder> {
-        let (chunk, full_size) = {
+        let (chunk, chunk_size, full_size) = {
             let mut chunk = VecDeque::new();
             let mut size = 0_usize;
             while let Some(b) = self.payload.next().await.transpose().map_err(Error::io)? {
                 size += b.len();
                 chunk.push_back(b);
             }
-            (chunk, size)
+            (chunk, size, Some(size))
         };
-        // This is a bit of a hack. We pass a target size larger than
-        // `full_size` to force a finalized upload.
-        let target_size = full_size.div_ceil(RESUMABLE_UPLOAD_QUANTUM);
         let (builder, _size) = self
-            .partial_upload_request(upload_url.as_str(), 0, chunk, target_size)
+            .partial_upload_request(upload_url.as_str(), 0, chunk, chunk_size, full_size)
             .await?;
         Ok(builder)
     }
@@ -797,7 +800,7 @@ async fn next_chunk<T>(
     payload: &mut InsertPayload<T>,
     remainder: Option<bytes::Bytes>,
     target_size: usize,
-) -> Result<(VecDeque<bytes::Bytes>, Option<bytes::Bytes>)>
+) -> Result<(VecDeque<bytes::Bytes>, usize, Option<bytes::Bytes>)>
 where
     T: StreamingSource,
 {
@@ -806,15 +809,17 @@ where
     let mut process_buffer = |mut b: bytes::Bytes| match b.len() {
         n if size + n > target_size => {
             let remainder = b.split_off(target_size - size);
+            size += b.len();
             partial.push_back(b);
             Some(Some(remainder))
         }
         n if size + n == target_size => {
+            size += n;
             partial.push_back(b);
             Some(None)
         }
-        _ => {
-            size += b.len();
+        n => {
+            size += n;
             partial.push_back(b);
             None
         }
@@ -822,16 +827,16 @@ where
 
     if let Some(b) = remainder {
         if let Some(p) = process_buffer(b) {
-            return Ok((partial, p));
+            return Ok((partial, size, p));
         }
     }
 
     while let Some(b) = payload.next().await.transpose().map_err(Error::io)? {
         if let Some(p) = process_buffer(b) {
-            return Ok((partial, p));
+            return Ok((partial, size, p));
         }
     }
-    Ok((partial, None))
+    Ok((partial, size, None))
 }
 
 async fn partial_upload_handle_response(
@@ -1357,13 +1362,12 @@ mod tests {
     #[tokio::test]
     async fn partial_upload_request_empty() -> Result {
         use reqwest::header::HeaderValue;
-        const LEN: usize = 32;
         let inner = test_inner_client(gaxi::options::ClientConfig::default());
         let upload = UploadObjectBuffered::new(inner, "projects/_/buckets/bucket", "object", "");
 
         let chunk = VecDeque::new();
         let (builder, size) = upload
-            .partial_upload_request("http://localhost/chunk-0", 0_usize, chunk, 2 * LEN)
+            .partial_upload_request("http://localhost/chunk-0", 0_usize, chunk, 0_usize, None)
             .await?;
         assert_eq!(size, 0);
         let mut request = builder.build()?;
@@ -1399,7 +1403,7 @@ mod tests {
             a
         });
         let (builder, size) = upload
-            .partial_upload_request("http://localhost/chunk-0", 0_usize, chunk, 2 * LEN)
+            .partial_upload_request("http://localhost/chunk-0", 0_usize, chunk, 2 * LEN, None)
             .await?;
         assert_eq!(size, 2 * LEN);
         let mut request = builder.build()?;
@@ -1435,7 +1439,7 @@ mod tests {
             a
         });
         let (builder, size) = upload
-            .partial_upload_request("http://localhost/chunk-1", 2 * LEN, chunk, 2 * LEN)
+            .partial_upload_request("http://localhost/chunk-1", 2 * LEN, chunk, 2 * LEN, None)
             .await?;
         assert_eq!(size, 2 * LEN);
         let mut request = builder.build()?;
@@ -1471,7 +1475,7 @@ mod tests {
             a
         });
         let (builder, size) = upload
-            .partial_upload_request("http://localhost/chunk-finalize", 4 * LEN, chunk, 2 * LEN)
+            .partial_upload_request("http://localhost/chunk-finalize", 4 * LEN, chunk, LEN, Some(5 * LEN))
             .await?;
         assert_eq!(size, LEN);
         let mut request = builder.build()?;
@@ -1500,17 +1504,20 @@ mod tests {
         let stream = VecStream::new((0..5).map(|i| new_line(i, LEN)).collect::<Vec<_>>());
         let mut payload = InsertPayload::from(stream);
 
-        let (vec, remainder) = super::next_chunk(&mut payload, None, LEN * 2).await?;
+        let (vec, size, remainder) = super::next_chunk(&mut payload, None, LEN * 2).await?;
         assert!(remainder.is_none(), "{remainder:?}");
         assert_eq!(vec, vec![new_line(0, LEN), new_line(1, LEN)]);
+        assert_eq!(size, 2 * LEN);
 
-        let (vec, remainder) = super::next_chunk(&mut payload, remainder, LEN * 2).await?;
+        let (vec, size, remainder) = super::next_chunk(&mut payload, remainder, LEN * 2).await?;
         assert!(remainder.is_none(), "{remainder:?}");
         assert_eq!(vec, vec![new_line(2, LEN), new_line(3, LEN)]);
+        assert_eq!(size, 2 * LEN);
 
-        let (vec, remainder) = super::next_chunk(&mut payload, remainder, LEN * 2).await?;
+        let (vec, size, remainder) = super::next_chunk(&mut payload, remainder, LEN * 2).await?;
         assert!(remainder.is_none(), "{remainder:?}");
         assert_eq!(vec, vec![new_line(4, LEN)]);
+        assert_eq!(size, LEN);
 
         Ok(())
     }
@@ -1521,7 +1528,7 @@ mod tests {
         let stream = VecStream::new((0..5).map(|i| new_line(i, LEN)).collect::<Vec<_>>());
         let mut payload = InsertPayload::from(stream);
 
-        let (vec, remainder) = super::next_chunk(&mut payload, None, LEN * 2 + LEN / 2).await?;
+        let (vec, size, remainder) = super::next_chunk(&mut payload, None, LEN * 2 + LEN / 2).await?;
         assert_eq!(remainder, Some(new_line(2, LEN).split_off(LEN / 2)));
         assert_eq!(
             vec,
@@ -1531,8 +1538,9 @@ mod tests {
                 new_line(2, LEN).split_to(LEN / 2)
             ]
         );
+        assert_eq!(size, 2 * LEN + LEN / 2);
 
-        let (vec, remainder) =
+        let (vec, size, remainder) =
             super::next_chunk(&mut payload, remainder, LEN * 2 + LEN / 2).await?;
         assert!(remainder.is_none());
         assert_eq!(
@@ -1543,6 +1551,7 @@ mod tests {
                 new_line(4, LEN)
             ]
         );
+        assert_eq!(size, 2 * LEN + LEN / 2);
 
         Ok(())
     }
@@ -1558,21 +1567,25 @@ mod tests {
         let mut payload = InsertPayload::from(stream);
 
         let remainder = None;
-        let (vec, remainder) = super::next_chunk(&mut payload, remainder, LEN).await?;
+        let (vec, size, remainder) = super::next_chunk(&mut payload, remainder, LEN).await?;
         assert!(remainder.is_some());
         assert_eq!(vec, vec![new_line(0, LEN)]);
+        assert_eq!(size, LEN);
 
-        let (vec, remainder) = super::next_chunk(&mut payload, remainder, LEN).await?;
+        let (vec, size, remainder) = super::next_chunk(&mut payload, remainder, LEN).await?;
         assert!(remainder.is_some());
         assert_eq!(vec, vec![new_line(1, LEN)]);
+        assert_eq!(size, LEN);
 
-        let (vec, remainder) = super::next_chunk(&mut payload, remainder, LEN).await?;
+        let (vec, size, remainder) = super::next_chunk(&mut payload, remainder, LEN).await?;
         assert!(remainder.is_none());
         assert_eq!(vec, vec![new_line(2, LEN)]);
+        assert_eq!(size, LEN);
 
-        let (vec, remainder) = super::next_chunk(&mut payload, remainder, LEN).await?;
+        let (vec, size, remainder) = super::next_chunk(&mut payload, remainder, LEN).await?;
         assert!(remainder.is_none());
         assert_eq!(vec, vec![new_line(3, LEN)]);
+        assert_eq!(size, LEN);
 
         Ok(())
     }
@@ -1591,14 +1604,15 @@ mod tests {
         let mut payload = InsertPayload::from(stream);
 
         let remainder = None;
-        let (vec, remainder) = super::next_chunk(&mut payload, remainder, 2 * LEN).await?;
+        let (vec, size, remainder) = super::next_chunk(&mut payload, remainder, 2 * LEN).await?;
         assert!(remainder.is_some());
         assert_eq!(
             vec,
             vec![bytes::Bytes::from_owner(buffer.clone()).slice(0..(2 * LEN))]
         );
+        assert_eq!(size, 2 * LEN);
 
-        let (vec, remainder) = super::next_chunk(&mut payload, remainder, 2 * LEN).await?;
+        let (vec, size, remainder) = super::next_chunk(&mut payload, remainder, 2 * LEN).await?;
         assert!(remainder.is_none());
         assert_eq!(
             vec,
@@ -1607,6 +1621,7 @@ mod tests {
                 new_line(3, LEN)
             ]
         );
+        assert_eq!(size, 2 * LEN);
 
         Ok(())
     }
@@ -1617,13 +1632,15 @@ mod tests {
         let stream = VecStream::new((0..2).map(|i| new_line(i, LEN)).collect::<Vec<_>>());
         let mut payload = InsertPayload::from(stream);
 
-        let (vec, remainder) = super::next_chunk(&mut payload, None, LEN * 4).await?;
+        let (vec, size, remainder) = super::next_chunk(&mut payload, None, LEN * 4).await?;
         assert!(remainder.is_none(), "{remainder:?}");
         assert_eq!(vec, vec![new_line(0, LEN), new_line(1, LEN)]);
+        assert_eq!(size, 2 * LEN);
 
-        let (vec, remainder) = super::next_chunk(&mut payload, remainder, LEN * 4).await?;
+        let (vec, size, remainder) = super::next_chunk(&mut payload, remainder, LEN * 4).await?;
         assert!(remainder.is_none(), "{remainder:?}");
         assert!(vec.is_empty(), "{vec:?}");
+        assert_eq!(size, 0);
 
         Ok(())
     }
