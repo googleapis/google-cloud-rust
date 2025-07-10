@@ -12,8 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::build_errors::Error as BuilderError;
 use crate::token::{Token, TokenProvider};
-use crate::{Result, constants};
+use crate::{BuildResult, Result, constants};
 use gax::backoff_policy::BackoffPolicy;
 use gax::error::CredentialsError;
 use gax::exponential_backoff::ExponentialBackoff;
@@ -31,9 +32,9 @@ pub(crate) struct TokenProviderWithRetry<T: TokenProvider> {
     retry_throttler: SharedRetryThrottler,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Default)]
 pub(crate) struct Builder<T: TokenProvider> {
-    inner: Arc<T>,
+    inner: Option<Arc<T>>,
     retry_policy: Option<Arc<dyn RetryPolicy>>,
     backoff_policy: Option<Arc<dyn BackoffPolicy>>,
     retry_throttler: Option<SharedRetryThrottler>,
@@ -41,13 +42,9 @@ pub(crate) struct Builder<T: TokenProvider> {
 
 #[allow(dead_code)]
 impl<T: TokenProvider> Builder<T> {
-    pub(crate) fn new(inner: T) -> Self {
-        Self {
-            inner: Arc::new(inner),
-            retry_policy: None,
-            backoff_policy: None,
-            retry_throttler: None,
-        }
+    pub(crate) fn with_token_provider(mut self, inner: T) -> Self {
+        self.inner = Some(Arc::new(inner));
+        self
     }
 
     pub(crate) fn with_retry_policy(mut self, retry_policy: Arc<dyn RetryPolicy>) -> Self {
@@ -65,19 +62,23 @@ impl<T: TokenProvider> Builder<T> {
         self
     }
 
-    pub(crate) fn build(self) -> TokenProviderWithRetry<T> {
+    pub(crate) fn build(self) -> BuildResult<TokenProviderWithRetry<T>> {
         let backoff_policy = self
             .backoff_policy
             .unwrap_or_else(|| Arc::new(ExponentialBackoff::default()));
         let retry_throttler = self
             .retry_throttler
             .unwrap_or_else(|| Arc::new(Mutex::new(AdaptiveThrottler::default())));
-        TokenProviderWithRetry {
-            inner: self.inner,
+        let inner = self
+            .inner
+            .ok_or(BuilderError::missing_field("token_provider"))?;
+
+        Ok(TokenProviderWithRetry {
+            inner,
             retry_policy: self.retry_policy,
             backoff_policy,
             retry_throttler,
-        }
+        })
     }
 }
 
@@ -236,9 +237,11 @@ mod tests {
             .times(1)
             .return_once(|| Ok(token));
 
-        let provider = Builder::new(mock_provider)
+        let provider = Builder::default()
+            .with_token_provider(mock_provider)
             .with_retry_policy(Arc::new(AuthRetryPolicy { max_attempts: 2 }))
-            .build();
+            .build()
+            .unwrap();
 
         let token = provider.token().await.unwrap();
         assert_eq!(token.token, "test_token");
@@ -267,9 +270,11 @@ mod tests {
                 })
             });
 
-        let provider = Builder::new(mock_provider)
+        let provider = Builder::default()
+            .with_token_provider(mock_provider)
             .with_retry_policy(Arc::new(AuthRetryPolicy { max_attempts: 2 }))
-            .build();
+            .build()
+            .unwrap();
 
         let token = provider.token().await.unwrap();
         assert_eq!(token.token, "test_token");
@@ -283,9 +288,11 @@ mod tests {
             .times(2)
             .returning(|| Err(CredentialsError::from_msg(true, "transient error")));
 
-        let provider = Builder::new(mock_provider)
+        let provider = Builder::default()
+            .with_token_provider(mock_provider)
             .with_retry_policy(Arc::new(AuthRetryPolicy { max_attempts: 2 }))
-            .build();
+            .build()
+            .unwrap();
 
         let error = provider.token().await.unwrap_err();
         assert!(error.is_transient());
@@ -306,9 +313,11 @@ mod tests {
             .times(1)
             .returning(|| Err(CredentialsError::from_msg(false, "non transient error")));
 
-        let provider = Builder::new(mock_provider)
+        let provider = Builder::default()
+            .with_token_provider(mock_provider)
             .with_retry_policy(Arc::new(AuthRetryPolicy { max_attempts: 2 }))
-            .build();
+            .build()
+            .unwrap();
 
         let error = provider.token().await.unwrap_err();
         assert!(!error.is_transient());
@@ -337,7 +346,10 @@ mod tests {
             .times(1)
             .return_once(|| Ok(token));
 
-        let provider = Builder::new(mock_provider).build();
+        let provider = Builder::default()
+            .with_token_provider(mock_provider)
+            .build()
+            .unwrap();
 
         let token = provider.token().await.unwrap();
         assert_eq!(token.token, "test_token");
@@ -354,7 +366,10 @@ mod tests {
             .times(1)
             .returning(move || Err(CredentialsError::from_msg(is_transient, ERROR_MESSAGE)));
 
-        let provider = Builder::new(mock_provider).build();
+        let provider = Builder::default()
+            .with_token_provider(mock_provider)
+            .build()
+            .unwrap();
 
         let error = provider.token().await.unwrap_err();
         assert_eq!(error.is_transient(), is_transient);
@@ -374,7 +389,7 @@ mod tests {
     )]
     fn test_builder(use_custom_config: bool, expected_substrings: &[&str]) {
         let mock_provider = MockTokenProvider::new();
-        let mut builder = Builder::new(mock_provider);
+        let mut builder = Builder::default().with_token_provider(mock_provider);
 
         if use_custom_config {
             let retry_policy = Arc::new(AuthRetryPolicy { max_attempts: 5 });
@@ -386,7 +401,7 @@ mod tests {
                 .with_retry_throttler(retry_throttler);
         }
 
-        let provider = builder.build();
+        let provider = builder.build().unwrap();
         let debug_str = format!("{provider:?}");
 
         for sub in expected_substrings {
@@ -449,11 +464,13 @@ mod tests {
         let retry_throttler = Arc::new(Mutex::new(mock_throttler));
 
         // 4. Build and run
-        let provider = Builder::new(mock_provider)
+        let provider = Builder::default()
+            .with_token_provider(mock_provider)
             .with_retry_policy(retry_policy)
             .with_backoff_policy(backoff_policy)
             .with_retry_throttler(retry_throttler)
-            .build();
+            .build()
+            .unwrap();
 
         // 5. Assert
         let token = provider.token().await.unwrap();

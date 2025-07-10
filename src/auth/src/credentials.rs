@@ -16,6 +16,9 @@ use crate::build_errors::Error as BuilderError;
 use crate::constants::GOOGLE_CLOUD_QUOTA_PROJECT_VAR;
 use crate::errors::{self, CredentialsError};
 use crate::{BuildResult, Result};
+use gax::backoff_policy::BackoffPolicy;
+use gax::retry_policy::RetryPolicy;
+use gax::retry_throttler::SharedRetryThrottler;
 use http::{Extensions, HeaderMap};
 use serde_json::Value;
 use std::future::Future;
@@ -34,6 +37,18 @@ pub mod subject_token;
 pub mod user_account;
 pub(crate) const QUOTA_PROJECT_KEY: &str = "x-goog-user-project";
 pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
+
+/// A helper type to use [RetryPolicy] in auth builders.
+#[derive(Clone)]
+pub struct RetryPolicyArg(pub(crate) Arc<dyn RetryPolicy>);
+
+/// A helper type to use [BackoffPolicy] in auth builders.
+#[derive(Clone)]
+pub struct BackoffPolicyArg(pub(crate) Arc<dyn BackoffPolicy>);
+
+/// A helper type to use [RetryThrottler] in auth builders.
+#[derive(Clone)]
+pub struct RetryThrottlerArg(pub(crate) SharedRetryThrottler);
 
 /// Represents an Entity Tag for a [CacheableResource].
 ///
