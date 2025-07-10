@@ -166,7 +166,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn send_unbuffered_bytes() -> Result {
+    async fn upload_object_bytes() -> Result {
         let inner = test_inner_client(gaxi::options::ClientConfig::default());
         let mut request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
             .http_request_builder()
@@ -185,7 +185,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn send_unbuffered_stream() -> Result {
+    async fn upload_object_stream() -> Result {
         let stream = VecStream::new(
             [
                 "the ", "quick ", "brown ", "fox ", "jumps ", "over ", "the ", "lazy ", "dog",
@@ -211,7 +211,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn send_unbuffered_error_credentials() -> Result {
+    async fn upload_object_error_credentials() -> Result {
         let config = gaxi::options::ClientConfig {
             cred: Some(auth::credentials::testing::error_credentials(false)),
             ..Default::default()
@@ -226,7 +226,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn send_unbuffered_bad_bucket() -> Result {
+    async fn upload_object_bad_bucket() -> Result {
         let inner = test_inner_client(gaxi::options::ClientConfig::default());
         UploadObject::new(inner, "malformed", "object", "hello")
             .http_request_builder()
@@ -236,7 +236,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn send_unbuffered_headers() -> Result {
+    async fn upload_object_headers() -> Result {
         // Make a 32-byte key.
         let (key, key_base64, _, key_sha256_base64) = create_key_helper();
 
