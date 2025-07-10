@@ -42,7 +42,7 @@ use gax::{retry_policy::RetryPolicy, retry_result::RetryResult};
 
 /// The default retry policy for Google Cloud Storage requests.
 ///
-/// This policy must be decorated to limit the number of retry atempts or the
+/// This policy must be decorated to limit the number of retry attempts or the
 /// duration of the retry loop.
 ///
 /// The policy follows the [retry strategy] recommended by Google Cloud Storage.
