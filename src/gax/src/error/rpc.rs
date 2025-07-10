@@ -448,7 +448,7 @@ impl From<wkt::Any> for StatusDetails {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use anyhow::Result;
     use rpc::model::BadRequest;

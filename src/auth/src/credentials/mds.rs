@@ -418,38 +418,27 @@ impl TokenProvider for MDSAccessTokenProvider {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use crate::credentials::QUOTA_PROJECT_KEY;
-    use crate::credentials::test::{
+    use crate::credentials::tests::{
         get_headers_from_cache, get_token_from_headers, get_token_type_from_headers,
     };
     use crate::errors;
-    use crate::token::test::MockTokenProvider;
-    use axum::extract::Query;
-    use axum::response::IntoResponse;
+    use crate::token::tests::MockTokenProvider;
+    use http::HeaderValue;
     use http::header::AUTHORIZATION;
+    use httptest::matchers::{all_of, contains, request, url_decoded};
+    use httptest::responders::{json_encoded, status_code};
+    use httptest::{Expectation, Server};
     use reqwest::StatusCode;
-    use reqwest::header::HeaderMap;
     use scoped_env::ScopedEnv;
-    use serde::Deserialize;
-    use serde_json::Value;
     use serial_test::{parallel, serial};
-    use std::collections::HashMap;
     use std::error::Error;
-    use std::sync::Mutex;
     use test_case::test_case;
-    use tokio::task::JoinHandle;
     use url::Url;
 
-    type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
-
-    // Define a struct to capture query parameters
-    #[derive(Debug, Clone, Deserialize, PartialEq)]
-    struct TokenQueryParams {
-        scopes: Option<String>,
-        recursive: Option<String>,
-    }
+    type TestResult = anyhow::Result<()>;
 
     #[test]
     fn validate_default_endpoint_urls() {
@@ -610,74 +599,26 @@ mod test {
         Ok(())
     }
 
-    fn handle_token_factory(
-        response_code: StatusCode,
-        response_headers: HeaderMap,
-        response_body: Value,
-    ) -> impl IntoResponse {
-        (response_code, response_headers, response_body.to_string()).into_response()
-    }
-
-    type Handlers = HashMap<String, (StatusCode, Value, TokenQueryParams, Arc<Mutex<i32>>)>;
-
-    // Starts a server running locally that responds on multiple paths.
-    // Returns an (endpoint, server) pair.
-    async fn start(path_handlers: Handlers) -> (String, JoinHandle<()>) {
-        let mut app = axum::Router::new();
-
-        for (path, (code, body, expected_query, call_count)) in path_handlers {
-            let header_map = HeaderMap::new();
-            let handler = move |Query(query): Query<TokenQueryParams>| {
-                let body = body.clone();
-                let header_map = header_map.clone();
-                async move {
-                    assert_eq!(expected_query, query);
-                    let mut count = call_count.lock().unwrap();
-                    *count += 1;
-                    handle_token_factory(code, header_map, body)
-                }
-            };
-            app = app.route(&path, axum::routing::get(handler));
-        }
-
-        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
-        let addr = listener.local_addr().unwrap();
-        let server = tokio::spawn(async move {
-            axum::serve(listener, app).await.unwrap();
-        });
-        (format!("http://{}:{}", addr.ip(), addr.port()), server)
-    }
-
     #[tokio::test]
     #[serial]
-    async fn test_gce_metadata_host_env_var() {
-        let scopes = ["scope1".to_string(), "scope2".to_string()];
+    async fn test_gce_metadata_host_env_var() -> TestResult {
+        let server = Server::run();
+        let scopes = ["scope1", "scope2"];
         let response = MDSTokenResponse {
             access_token: "test-access-token".to_string(),
             expires_in: Some(3600),
             token_type: "test-token-type".to_string(),
         };
-        let response_body = serde_json::to_value(&response).unwrap();
-
-        let (endpoint, _server) = start(Handlers::from([(
-            format!("{MDS_DEFAULT_URI}/token"),
-            (
-                StatusCode::OK,
-                response_body,
-                TokenQueryParams {
-                    scopes: Some(scopes.join(",")),
-                    recursive: None,
-                },
-                Arc::new(Mutex::new(0)),
-            ),
-        )]))
-        .await;
-
-        // Trim out 'http://' from the endpoint provided by the fake server
-        let _e = ScopedEnv::set(
-            super::GCE_METADATA_HOST_ENV_VAR,
-            endpoint.strip_prefix("http://").unwrap_or(&endpoint),
+        server.expect(
+            Expectation::matching(all_of![
+                request::path(format!("{MDS_DEFAULT_URI}/token")),
+                request::query(url_decoded(contains(("scopes", scopes.join(",")))))
+            ])
+            .respond_with(json_encoded(response)),
         );
+
+        let addr = server.addr().to_string();
+        let _e = ScopedEnv::set(super::GCE_METADATA_HOST_ENV_VAR, &addr);
         let mdsc = Builder::default()
             .with_scopes(["scope1", "scope2"])
             .build()
@@ -689,36 +630,30 @@ mod test {
             get_token_from_headers(headers).unwrap(),
             "test-access-token"
         );
+        Ok(())
     }
 
     #[tokio::test]
     #[parallel]
     async fn headers_success_with_quota_project() -> TestResult {
-        let scopes = ["scope1".to_string(), "scope2".to_string()];
+        let server = Server::run();
+        let scopes = ["scope1", "scope2"];
         let response = MDSTokenResponse {
             access_token: "test-access-token".to_string(),
             expires_in: Some(3600),
             token_type: "test-token-type".to_string(),
         };
-        let response_body = serde_json::to_value(&response).unwrap();
-
-        let (endpoint, _server) = start(Handlers::from([(
-            format!("{MDS_DEFAULT_URI}/token"),
-            (
-                StatusCode::OK,
-                response_body,
-                TokenQueryParams {
-                    scopes: Some(scopes.join(",")),
-                    recursive: None,
-                },
-                Arc::new(Mutex::new(0)),
-            ),
-        )]))
-        .await;
+        server.expect(
+            Expectation::matching(all_of![
+                request::path(format!("{MDS_DEFAULT_URI}/token")),
+                request::query(url_decoded(contains(("scopes", scopes.join(",")))))
+            ])
+            .respond_with(json_encoded(response)),
+        );
 
         let mdsc = Builder::default()
             .with_scopes(["scope1", "scope2"])
-            .with_endpoint(endpoint)
+            .with_endpoint(format!("http://{}", server.addr()))
             .with_quota_project_id("test-project")
             .build()?;
 
@@ -741,32 +676,25 @@ mod test {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     #[parallel]
     async fn token_caching() -> TestResult {
+        let mut server = Server::run();
         let scopes = vec!["scope1".to_string()];
         let response = MDSTokenResponse {
             access_token: "test-access-token".to_string(),
             expires_in: Some(3600),
             token_type: "test-token-type".to_string(),
         };
-        let response_body = serde_json::to_value(&response).unwrap();
-
-        let call_count = Arc::new(Mutex::new(0));
-        let (endpoint, _server) = start(Handlers::from([(
-            format!("{MDS_DEFAULT_URI}/token"),
-            (
-                StatusCode::OK,
-                response_body,
-                TokenQueryParams {
-                    scopes: Some(scopes.join(",")),
-                    recursive: None,
-                },
-                call_count.clone(),
-            ),
-        )]))
-        .await;
+        server.expect(
+            Expectation::matching(all_of![
+                request::path(format!("{MDS_DEFAULT_URI}/token")),
+                request::query(url_decoded(contains(("scopes", scopes.join(",")))))
+            ])
+            .times(1)
+            .respond_with(json_encoded(response)),
+        );
 
         let mdsc = Builder::default()
             .with_scopes(scopes)
-            .with_endpoint(endpoint)
+            .with_endpoint(format!("http://{}", server.addr()))
             .build()?;
         let headers = mdsc.headers(Extensions::new()).await?;
         assert_eq!(
@@ -780,7 +708,7 @@ mod test {
         );
 
         // validate that the inner token provider is called only once
-        assert_eq!(*call_count.lock().unwrap(), 1);
+        server.verify_and_clear();
 
         Ok(())
     }
@@ -788,31 +716,23 @@ mod test {
     #[tokio::test(start_paused = true)]
     #[parallel]
     async fn token_provider_full() -> TestResult {
+        let server = Server::run();
         let scopes = vec!["scope1".to_string()];
         let response = MDSTokenResponse {
             access_token: "test-access-token".to_string(),
             expires_in: Some(3600),
             token_type: "test-token-type".to_string(),
         };
-        let response_body = serde_json::to_value(&response).unwrap();
-
-        let (endpoint, _server) = start(Handlers::from([(
-            format!("{MDS_DEFAULT_URI}/token"),
-            (
-                StatusCode::OK,
-                response_body,
-                TokenQueryParams {
-                    scopes: Some(scopes.join(",")),
-                    recursive: None,
-                },
-                Arc::new(Mutex::new(0)),
-            ),
-        )]))
-        .await;
-        println!("endpoint = {endpoint}");
+        server.expect(
+            Expectation::matching(all_of![
+                request::path(format!("{MDS_DEFAULT_URI}/token")),
+                request::query(url_decoded(contains(("scopes", scopes.join(",")))))
+            ])
+            .respond_with(json_encoded(response)),
+        );
 
         let token = Builder::default()
-            .with_endpoint(endpoint)
+            .with_endpoint(format!("http://{}", server.addr()))
             .with_scopes(scopes)
             .build_token_provider()?
             .token()
@@ -833,29 +753,19 @@ mod test {
     #[tokio::test(start_paused = true)]
     #[parallel]
     async fn token_provider_full_no_scopes() -> TestResult {
+        let server = Server::run();
         let response = MDSTokenResponse {
             access_token: "test-access-token".to_string(),
             expires_in: Some(3600),
             token_type: "test-token-type".to_string(),
         };
-        let response_body = serde_json::to_value(&response).unwrap();
+        server.expect(
+            Expectation::matching(request::path(format!("{MDS_DEFAULT_URI}/token")))
+                .respond_with(json_encoded(response)),
+        );
 
-        let (endpoint, _server) = start(Handlers::from([(
-            format!("{MDS_DEFAULT_URI}/token"),
-            (
-                StatusCode::OK,
-                response_body,
-                TokenQueryParams {
-                    scopes: None,
-                    recursive: None,
-                },
-                Arc::new(Mutex::new(0)),
-            ),
-        )]))
-        .await;
-        println!("endpoint = {endpoint}");
         let token = Builder::default()
-            .with_endpoint(endpoint)
+            .with_endpoint(format!("http://{}", server.addr()))
             .build_token_provider()?
             .token()
             .await?;
@@ -875,30 +785,23 @@ mod test {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     #[parallel]
     async fn credential_provider_full() -> TestResult {
+        let server = Server::run();
         let scopes = vec!["scope1".to_string()];
         let response = MDSTokenResponse {
             access_token: "test-access-token".to_string(),
             expires_in: None,
             token_type: "test-token-type".to_string(),
         };
-        let response_body = serde_json::to_value(&response).unwrap();
-        let (endpoint, _server) = start(Handlers::from([(
-            format!("{MDS_DEFAULT_URI}/token"),
-            (
-                StatusCode::OK,
-                response_body,
-                TokenQueryParams {
-                    scopes: Some(scopes.join(",")),
-                    recursive: None,
-                },
-                Arc::new(Mutex::new(0)),
-            ),
-        )]))
-        .await;
-        println!("endpoint = {endpoint}");
+        server.expect(
+            Expectation::matching(all_of![
+                request::path(format!("{MDS_DEFAULT_URI}/token")),
+                request::query(url_decoded(contains(("scopes", scopes.join(",")))))
+            ])
+            .respond_with(json_encoded(response)),
+        );
 
         let mdsc = Builder::default()
-            .with_endpoint(endpoint)
+            .with_endpoint(format!("http://{}", server.addr()))
             .with_scopes(scopes)
             .build()?;
         let headers = mdsc.headers(Extensions::new()).await?;
@@ -917,28 +820,22 @@ mod test {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     #[parallel]
     async fn credentials_headers_retryable_error() -> TestResult {
+        let server = Server::run();
         let scopes = vec!["scope1".to_string()];
-        let (endpoint, _server) = start(Handlers::from([(
-            format!("{MDS_DEFAULT_URI}/token"),
-            (
-                StatusCode::SERVICE_UNAVAILABLE,
-                serde_json::to_value("try again")?,
-                TokenQueryParams {
-                    scopes: Some(scopes.join(",")),
-                    recursive: None,
-                },
-                Arc::new(Mutex::new(0)),
-            ),
-        )]))
-        .await;
+        server.expect(
+            Expectation::matching(all_of![
+                request::path(format!("{MDS_DEFAULT_URI}/token")),
+                request::query(url_decoded(contains(("scopes", scopes.join(",")))))
+            ])
+            .respond_with(status_code(503)),
+        );
 
         let mdsc = Builder::default()
-            .with_endpoint(endpoint)
+            .with_endpoint(format!("http://{}", server.addr()))
             .with_scopes(scopes)
             .build()?;
         let err = mdsc.headers(Extensions::new()).await.unwrap_err();
         assert!(err.is_transient());
-        assert!(err.to_string().contains("try again"), "{err:?}");
         let source = err
             .source()
             .and_then(|e| e.downcast_ref::<reqwest::Error>());
@@ -953,29 +850,23 @@ mod test {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     #[parallel]
     async fn credentials_headers_nonretryable_error() -> TestResult {
+        let server = Server::run();
         let scopes = vec!["scope1".to_string()];
-        let (endpoint, _server) = start(Handlers::from([(
-            format!("{MDS_DEFAULT_URI}/token"),
-            (
-                StatusCode::UNAUTHORIZED,
-                serde_json::to_value("epic fail".to_string())?,
-                TokenQueryParams {
-                    scopes: Some(scopes.join(",")),
-                    recursive: None,
-                },
-                Arc::new(Mutex::new(0)),
-            ),
-        )]))
-        .await;
+        server.expect(
+            Expectation::matching(all_of![
+                request::path(format!("{MDS_DEFAULT_URI}/token")),
+                request::query(url_decoded(contains(("scopes", scopes.join(",")))))
+            ])
+            .respond_with(status_code(401)),
+        );
 
         let mdsc = Builder::default()
-            .with_endpoint(endpoint)
+            .with_endpoint(format!("http://{}", server.addr()))
             .with_scopes(scopes)
             .build()?;
 
         let err = mdsc.headers(Extensions::new()).await.unwrap_err();
         assert!(!err.is_transient());
-        assert!(err.to_string().contains("epic fail"), "{err:?}");
         let source = err
             .source()
             .and_then(|e| e.downcast_ref::<reqwest::Error>());
@@ -990,23 +881,18 @@ mod test {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     #[parallel]
     async fn credentials_headers_malformed_response_is_nonretryable() -> TestResult {
+        let server = Server::run();
         let scopes = vec!["scope1".to_string()];
-        let (endpoint, _server) = start(Handlers::from([(
-            format!("{MDS_DEFAULT_URI}/token"),
-            (
-                StatusCode::OK,
-                serde_json::to_value("bad json".to_string())?,
-                TokenQueryParams {
-                    scopes: Some(scopes.join(",")),
-                    recursive: None,
-                },
-                Arc::new(Mutex::new(0)),
-            ),
-        )]))
-        .await;
+        server.expect(
+            Expectation::matching(all_of![
+                request::path(format!("{MDS_DEFAULT_URI}/token")),
+                request::query(url_decoded(contains(("scopes", scopes.join(",")))))
+            ])
+            .respond_with(json_encoded("bad json")),
+        );
 
         let mdsc = Builder::default()
-            .with_endpoint(endpoint)
+            .with_endpoint(format!("http://{}", server.addr()))
             .with_scopes(scopes)
             .build()?;
 

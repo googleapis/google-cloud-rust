@@ -172,7 +172,7 @@ fn enc(value: &str) -> percent_encoding::PercentEncode {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use Segment::*;
     use test_case::test_case;

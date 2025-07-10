@@ -236,7 +236,7 @@ impl ExecutableSourcedCredentials {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use crate::constants::JWT_TOKEN_TYPE;
     use scoped_env::ScopedEnv;

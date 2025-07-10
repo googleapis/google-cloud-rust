@@ -13,62 +13,8 @@
 // limitations under the License.
 
 use super::*;
-use futures::stream::unfold;
 
-pub struct UploadObjectUnbuffered<T> {
-    inner: std::sync::Arc<StorageInner>,
-    resource: control::model::Object,
-    params: Option<control::model::CommonObjectRequestParams>,
-    payload: InsertPayload<T>,
-}
-
-impl<T> UploadObjectUnbuffered<T> {
-    /// The encryption key used with the Customer-Supplied Encryption Keys
-    /// feature. In raw bytes format (not base64-encoded).
-    ///
-    /// # Example
-    /// ```
-    /// # tokio_test::block_on(async {
-    /// # use google_cloud_storage::client::Storage;
-    /// # use google_cloud_storage::client::KeyAes256;
-    /// # let client = Storage::builder().build().await?;
-    /// let key: &[u8] = &[97; 32];
-    /// let response = client
-    ///     .upload_object_unbuffered("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_key(KeyAes256::new(key)?)
-    ///     .send()
-    ///     .await?;
-    /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
-    /// ```
-    pub fn with_key(mut self, v: KeyAes256) -> Self {
-        self.params = Some(v.into());
-        self
-    }
-
-    pub(crate) fn new<B, O, P>(
-        inner: std::sync::Arc<StorageInner>,
-        bucket: B,
-        object: O,
-        payload: P,
-    ) -> Self
-    where
-        B: Into<String>,
-        O: Into<String>,
-        P: Into<InsertPayload<T>>,
-    {
-        UploadObjectUnbuffered {
-            inner,
-            resource: control::model::Object::new()
-                .set_bucket(bucket)
-                .set_name(object),
-            params: None,
-            payload: payload.into(),
-        }
-    }
-}
-
-impl<T> UploadObjectUnbuffered<T>
+impl<T> UploadObject<T>
 where
     T: StreamingSource + Send + Sync + 'static,
     T::Error: std::error::Error + Send + Sync + 'static,
@@ -77,17 +23,16 @@ where
     ///
     /// # Example
     /// ```
-    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
-    ///     .upload_object_unbuffered("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .send()
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .send_unbuffered()
     ///     .await?;
     /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
-    pub async fn send(self) -> crate::Result<Object> {
+    pub async fn send_unbuffered(self) -> crate::Result<Object> {
         let builder = self.http_request_builder().await?;
         let response = builder.send().await.map_err(Error::io)?;
         if !response.status().is_success() {
@@ -139,17 +84,16 @@ where
 
 #[cfg(test)]
 mod tests {
-    use super::super::tests::create_key_helper;
-    use super::super::tests::test_inner_client;
     use super::*;
-    use crate::upload_source::test::VecStream;
+    use crate::client::tests::create_key_helper;
+    use crate::client::tests::test_inner_client;
+    use crate::upload_source::tests::VecStream;
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
-    use test_case::test_case;
 
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
     #[tokio::test]
-    async fn upload_object_unbuffered_normal() -> Result {
+    async fn send_unbuffered_normal() -> Result {
         let payload = serde_json::json!({
             "name": "test-object",
             "bucket": "test-bucket",
@@ -179,8 +123,8 @@ mod tests {
             .build()
             .await?;
         let response = client
-            .upload_object_unbuffered("projects/_/buckets/test-bucket", "test-object", "")
-            .send()
+            .upload_object("projects/_/buckets/test-bucket", "test-object", "")
+            .send_unbuffered()
             .await?;
         assert_eq!(response.name, "test-object");
         assert_eq!(response.bucket, "projects/_/buckets/test-bucket");
@@ -193,7 +137,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn insert_object_not_found() -> Result {
+    async fn send_unbuffered_not_found() -> Result {
         let server = Server::run();
         server.expect(
             Expectation::matching(all_of![
@@ -211,8 +155,8 @@ mod tests {
             .build()
             .await?;
         let err = client
-            .upload_object_unbuffered("projects/_/buckets/test-bucket", "test-object", "")
-            .send()
+            .upload_object("projects/_/buckets/test-bucket", "test-object", "")
+            .send_unbuffered()
             .await
             .expect_err("expected a not found error");
         assert_eq!(err.http_status_code(), Some(404));
@@ -221,13 +165,12 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn upload_object_unbuffered() -> Result {
+    async fn upload_object_bytes() -> Result {
         let inner = test_inner_client(gaxi::options::ClientConfig::default());
-        let mut request =
-            UploadObjectUnbuffered::new(inner, "projects/_/buckets/bucket", "object", "hello")
-                .http_request_builder()
-                .await?
-                .build()?;
+        let mut request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
+            .http_request_builder()
+            .await?
+            .build()?;
 
         assert_eq!(request.method(), reqwest::Method::POST);
         assert_eq!(
@@ -241,7 +184,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn upload_object_unbuffered_stream() -> Result {
+    async fn upload_object_stream() -> Result {
         let stream = VecStream::new(
             [
                 "the ", "quick ", "brown ", "fox ", "jumps ", "over ", "the ", "lazy ", "dog",
@@ -250,11 +193,10 @@ mod tests {
             .to_vec(),
         );
         let inner = test_inner_client(gaxi::options::ClientConfig::default());
-        let mut request =
-            UploadObjectUnbuffered::new(inner, "projects/_/buckets/bucket", "object", stream)
-                .http_request_builder()
-                .await?
-                .build()?;
+        let mut request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", stream)
+            .http_request_builder()
+            .await?
+            .build()?;
 
         assert_eq!(request.method(), reqwest::Method::POST);
         assert_eq!(
@@ -268,13 +210,13 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn upload_object_unbuffered_error_credentials() -> Result {
+    async fn upload_object_error_credentials() -> Result {
         let config = gaxi::options::ClientConfig {
             cred: Some(auth::credentials::testing::error_credentials(false)),
             ..Default::default()
         };
         let inner = test_inner_client(config);
-        let _ = UploadObjectUnbuffered::new(inner, "projects/_/buckets/bucket", "object", "hello")
+        let _ = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
             .http_request_builder()
             .await
             .inspect_err(|e| assert!(e.is_authentication()))
@@ -283,9 +225,9 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn upload_object_unbuffered_bad_bucket() -> Result {
+    async fn upload_object_bad_bucket() -> Result {
         let inner = test_inner_client(gaxi::options::ClientConfig::default());
-        UploadObjectUnbuffered::new(inner, "malformed", "object", "hello")
+        UploadObject::new(inner, "malformed", "object", "hello")
             .http_request_builder()
             .await
             .expect_err("malformed bucket string should error");
@@ -293,17 +235,16 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn upload_object_unbuffered_headers() -> Result {
+    async fn upload_object_headers() -> Result {
         // Make a 32-byte key.
         let (key, key_base64, _, key_sha256_base64) = create_key_helper();
 
         let inner = test_inner_client(gaxi::options::ClientConfig::default());
-        let request =
-            UploadObjectUnbuffered::new(inner, "projects/_/buckets/bucket", "object", "hello")
-                .with_key(KeyAes256::new(&key)?)
-                .http_request_builder()
-                .await?
-                .build()?;
+        let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
+            .with_key(KeyAes256::new(&key)?)
+            .http_request_builder()
+            .await?
+            .build()?;
 
         assert_eq!(request.method(), reqwest::Method::POST);
         assert_eq!(
@@ -323,39 +264,6 @@ mod tests {
                 bytes::Bytes::from(value)
             );
         }
-        Ok(())
-    }
-
-    #[test_case("projects/p", "projects%2Fp")]
-    #[test_case("kebab-case", "kebab-case")]
-    #[test_case("dot.name", "dot.name")]
-    #[test_case("under_score", "under_score")]
-    #[test_case("tilde~123", "tilde~123")]
-    #[test_case("exclamation!point!", "exclamation%21point%21")]
-    #[test_case("spaces   spaces", "spaces%20%20%20spaces")]
-    #[test_case("preserve%percent%21", "preserve%percent%21")]
-    #[test_case(
-        "testall !#$&'()*+,/:;=?@[]",
-        "testall%20%21%23%24%26%27%28%29%2A%2B%2C%2F%3A%3B%3D%3F%40%5B%5D"
-    )]
-    #[tokio::test]
-    async fn test_percent_encoding_object_name(name: &str, want: &str) -> Result {
-        let inner = test_inner_client(gaxi::options::ClientConfig::default());
-        let request =
-            UploadObjectUnbuffered::new(inner, "projects/_/buckets/bucket", name, "hello")
-                .http_request_builder()
-                .await?
-                .build()?;
-
-        let got = request
-            .url()
-            .query_pairs()
-            .find_map(|(key, val)| match key.to_string().as_str() {
-                "name" => Some(val.to_string()),
-                _ => None,
-            })
-            .unwrap();
-        assert_eq!(got, want);
         Ok(())
     }
 }

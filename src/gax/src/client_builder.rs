@@ -522,7 +522,7 @@ pub mod examples {
 
     // We use the examples as scaffolding for the tests.
     #[cfg(test)]
-    mod test {
+    mod tests {
         use super::*;
 
         #[tokio::test]
@@ -644,7 +644,7 @@ pub mod examples {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use std::error::Error as _;
 

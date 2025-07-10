@@ -143,7 +143,7 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::token::{Token, TokenProvider, test::MockTokenProvider};
+    use crate::token::{Token, TokenProvider, tests::MockTokenProvider};
     use gax::error::CredentialsError;
     use gax::retry_policy::RetryPolicy;
     use gax::retry_result::RetryResult;

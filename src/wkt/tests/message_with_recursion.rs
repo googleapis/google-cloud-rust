@@ -13,7 +13,7 @@
 // limitations under the License.
 
 #[cfg(test)]
-mod test {
+mod tests {
     use common::{
         MessageWithRecursion,
         message_with_recursion::{Level0, NonRecursive},

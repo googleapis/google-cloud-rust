@@ -13,7 +13,7 @@
 // limitations under the License.
 
 #[cfg(test)]
-mod test {
+mod tests {
     #[cfg(any(feature = "_internal-grpc-client", feature = "_internal-http-client"))]
     const DEFAULT_ENDPOINT: &str = "https://kms.googleapis.com";
 

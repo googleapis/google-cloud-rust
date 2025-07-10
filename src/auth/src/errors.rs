@@ -126,7 +126,7 @@ fn is_retryable_code(code: StatusCode) -> bool {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use std::num::ParseIntError;
     use test_case::test_case;

@@ -701,7 +701,7 @@ pub mod testing {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use base64::Engine;
     use num_bigint_dig::BigUint;

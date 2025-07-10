@@ -79,7 +79,9 @@ func refreshDir(rootConfig *config.Config, cmdLine *CommandLine, output string) 
 	if err := api.CrossReference(model); err != nil {
 		return err
 	}
-	api.SkipModelElements(model, config.Source)
+	if err := api.SkipModelElements(model, config.Source); err != nil {
+		return err
+	}
 	if err := api.PatchDocumentation(model, config); err != nil {
 		return err
 	}

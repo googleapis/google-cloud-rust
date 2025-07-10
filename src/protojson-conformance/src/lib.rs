@@ -20,7 +20,7 @@ pub mod conformance {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use generated::test_protos::TestAllTypesProto3;
     use serde_json::json;

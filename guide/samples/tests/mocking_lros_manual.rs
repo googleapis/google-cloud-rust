@@ -92,7 +92,7 @@ mod my_application {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::my_application::*;
     use super::*;
 
