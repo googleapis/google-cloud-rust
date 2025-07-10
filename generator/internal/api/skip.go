@@ -19,7 +19,7 @@ import (
 	"strings"
 )
 
-func SkipModelElements(model *API, options map[string]string) {
+func SkipModelElements(model *API, options map[string]string) error {
 	included_ids, included_ok := options["included-ids"]
 	skipped_ids, skipped_ok := options["skipped-ids"]
 	if included_ok && skipped_ok {
@@ -29,7 +29,7 @@ func SkipModelElements(model *API, options map[string]string) {
 	if included_ok {
 		includedIds, err := FindDependencies(model, strings.Split(included_ids, ","))
 		if err != nil {
-			panic(err)
+			return err
 		}
 		skip := func(id string) bool { return !includedIds[id] }
 		skipModelElementsImpl(model, skip)
@@ -43,6 +43,7 @@ func SkipModelElements(model *API, options map[string]string) {
 		skip := func(id string) bool { return skippedIDs[id] }
 		skipModelElementsImpl(model, skip)
 	}
+	return nil
 }
 
 func skipModelElementsImpl(model *API, skip func(id string) bool) {

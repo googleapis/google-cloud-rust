@@ -15,6 +15,7 @@
 package api
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -222,6 +223,21 @@ func TestSkipMethods(t *testing.T) {
 	}
 	if diff := cmp.Diff(wantMethods, s1.Methods); diff != "" {
 		t.Errorf("mismatch in methods (-want, +got)\n:%s", diff)
+	}
+}
+
+func TestIncludeUnknownIdError(t *testing.T) {
+	model := NewTestAPI([]*Message{}, []*Enum{}, []*Service{})
+	err := SkipModelElements(model, map[string]string{
+		"included-ids": ".test.UnknownId",
+	})
+	if err == nil {
+		t.Errorf("SkipModelElements should error on unknown IDs")
+	}
+
+	msg := err.Error()
+	if !strings.Contains(msg, ".test.UnknownId") {
+		t.Errorf("SkipModelElements should report unknown IDs in its error message. message=`%s`", msg)
 	}
 }
 
