@@ -131,7 +131,7 @@ pub fn effective_timeout(
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use crate::error::{Error, rpc::Code, rpc::Status, rpc::StatusDetails};
     use std::error::Error as _;

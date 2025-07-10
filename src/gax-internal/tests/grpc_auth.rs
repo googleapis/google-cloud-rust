@@ -13,7 +13,7 @@
 // limitations under the License.
 
 #[cfg(all(test, feature = "_internal-grpc-client"))]
-mod test {
+mod tests {
     use auth::credentials::{CacheableResource, Credentials, CredentialsProvider, EntityTag};
     use auth::errors::CredentialsError;
     use gax::options::*;

@@ -16,8 +16,7 @@ pub use crate::Error;
 pub use crate::Result;
 pub use control::model::Object;
 pub use read_object::ReadObject;
-pub use upload_object_buffered::UploadObjectBuffered;
-pub use upload_object_unbuffered::UploadObjectUnbuffered;
+pub use upload_object::UploadObject;
 
 use crate::upload_source::{InsertPayload, Seek, StreamingSource};
 use auth::credentials::CacheableResource;
@@ -27,8 +26,7 @@ use http::Extensions;
 use sha2::{Digest, Sha256};
 
 mod read_object;
-mod upload_object_buffered;
-mod upload_object_unbuffered;
+mod upload_object;
 mod v1;
 
 /// Implements a client for the Cloud Storage API.
@@ -132,59 +130,26 @@ impl Storage {
     ///
     /// # Example
     /// ```
-    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
-    ///     .upload_object_buffered("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
-    ///
-    /// # Parameters
-    /// * `bucket` - the bucket name containing the object. In
-    ///   `projects/_/buckets/{bucket_id}` format.
-    /// * `object` - the object name.
-    /// * `payload` - the object data.
-    pub fn upload_object_buffered<B, O, T, P>(
-        &self,
-        bucket: B,
-        object: O,
-        payload: T,
-    ) -> UploadObjectBuffered<P>
-    where
-        B: Into<String>,
-        O: Into<String>,
-        T: Into<InsertPayload<P>>,
-        InsertPayload<P>: StreamingSource + Seek,
-    {
-        UploadObjectBuffered::new(self.inner.clone(), bucket, object, payload)
-    }
-
-    /// Upload an object without local buffering.
-    ///
-    /// If the data source implements [Seek], the client library can perform
-    /// uploads without local data buffering, and without any need to
-    /// periodically flush the data. Such data flushing can introduce stalls in
-    /// the upload and reduce effective throughput.
-    ///
-    /// The most common sources that support such uploads are in-memory buffers,
-    /// local files, data from object storage systems and simple transformations
-    /// of these sources.
     ///
     /// # Example
     /// ```
-    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
-    ///     .upload_object_unbuffered("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .send()
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .send_unbuffered()
     ///     .await?;
     /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
     ///
     /// # Parameters
@@ -192,20 +157,14 @@ impl Storage {
     ///   `projects/_/buckets/{bucket_id}` format.
     /// * `object` - the object name.
     /// * `payload` - the object data.
-    ///
-    pub fn upload_object_unbuffered<B, O, T, P>(
-        &self,
-        bucket: B,
-        object: O,
-        payload: T,
-    ) -> UploadObjectUnbuffered<P>
+    pub fn upload_object<B, O, T, P>(&self, bucket: B, object: O, payload: T) -> UploadObject<P>
     where
         B: Into<String>,
         O: Into<String>,
         T: Into<InsertPayload<P>>,
         InsertPayload<P>: StreamingSource + Seek,
     {
-        UploadObjectUnbuffered::new(self.inner.clone(), bucket, object, payload)
+        UploadObject::new(self.inner.clone(), bucket, object, payload)
     }
 
     /// A simple download into a buffer.
@@ -217,9 +176,8 @@ impl Storage {
     ///
     /// # Example
     /// ```
-    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # let client = Storage::builder().build().await?;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let contents = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .send()
@@ -227,7 +185,7 @@ impl Storage {
     ///     .all_bytes()
     ///     .await?;
     /// println!("object contents={contents:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
+    /// # Ok(()) }
     /// ```
     pub fn read_object<B, O>(&self, bucket: B, object: O) -> ReadObject
     where

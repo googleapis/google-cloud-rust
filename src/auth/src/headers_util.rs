@@ -103,7 +103,7 @@ fn build_headers(
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use crate::{credentials::EntityTag, token::Token};
     use std::error::Error as _;

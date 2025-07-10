@@ -15,7 +15,7 @@
 use google_cloud_auth::credentials::*;
 
 #[cfg(test)]
-mod test {
+mod tests {
     use std::error::Error;
 
     use super::*;

@@ -80,7 +80,7 @@ pub(crate) trait CachedTokenProvider: std::fmt::Debug + Send + Sync {
 }
 
 #[cfg(test)]
-pub(crate) mod test {
+pub(crate) mod tests {
     use super::*;
     use std::time::Duration;
 

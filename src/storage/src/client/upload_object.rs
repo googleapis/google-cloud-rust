@@ -1,0 +1,660 @@
+// Copyright 2025 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+use super::*;
+use futures::stream::unfold;
+use std::collections::VecDeque;
+
+mod buffered;
+mod unbuffered;
+
+/// A request builder for uploads without rewind.
+pub struct UploadObject<T> {
+    inner: std::sync::Arc<StorageInner>,
+    resource: control::model::Object,
+    spec: control::model::WriteObjectSpec,
+    params: Option<control::model::CommonObjectRequestParams>,
+    payload: InsertPayload<T>,
+}
+
+impl<T> UploadObject<T> {
+    /// Set a [request precondition] on the object generation to match.
+    ///
+    /// With this precondition the request fails if the current object
+    /// generation matches the provided value. A common value is `0`, which
+    /// prevents uploads from succeeding if the object already exists.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .with_if_generation_match(0)
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [request precondition]: https://cloud.google.com/storage/docs/request-preconditions
+    pub fn with_if_generation_match<V>(mut self, v: V) -> Self
+    where
+        V: Into<i64>,
+    {
+        self.spec.if_generation_match = Some(v.into());
+        self
+    }
+
+    /// Set a [request precondition] on the object generation to match.
+    ///
+    /// With this precondition the request fails if the current object
+    /// generation does not match the provided value.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .with_if_generation_not_match(0)
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [request precondition]: https://cloud.google.com/storage/docs/request-preconditions
+    pub fn with_if_generation_not_match<V>(mut self, v: V) -> Self
+    where
+        V: Into<i64>,
+    {
+        self.spec.if_generation_not_match = Some(v.into());
+        self
+    }
+
+    /// Set a [request precondition] on the object meta generation.
+    ///
+    /// With this precondition the request fails if the current object metadata
+    /// generation does not match the provided value. This may be useful to
+    /// prevent changes when the metageneration is known.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .with_if_metageneration_match(1234)
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [request precondition]: https://cloud.google.com/storage/docs/request-preconditions
+    pub fn with_if_metageneration_match<V>(mut self, v: V) -> Self
+    where
+        V: Into<i64>,
+    {
+        self.spec.if_metageneration_match = Some(v.into());
+        self
+    }
+
+    /// Set a [request precondition] on the object meta-generation.
+    ///
+    /// With this precondition the request fails if the current object metadata
+    /// generation matches the provided value. This is rarely useful in uploads,
+    /// it is more commonly used on downloads to prevent downloads if the value
+    /// is already cached.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .with_if_metageneration_not_match(1234)
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [request precondition]: https://cloud.google.com/storage/docs/request-preconditions
+    pub fn with_if_metageneration_not_match<V>(mut self, v: V) -> Self
+    where
+        V: Into<i64>,
+    {
+        self.spec.if_metageneration_not_match = Some(v.into());
+        self
+    }
+
+    /// Sets the ACL for the new object.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// # use control::model::ObjectAccessControl;
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .with_acl([ObjectAccessControl::new().set_entity("allAuthenticatedUsers").set_role("READER")])
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    pub fn with_acl<I, V>(mut self, v: I) -> Self
+    where
+        I: IntoIterator<Item = V>,
+        V: Into<control::model::ObjectAccessControl>,
+    {
+        self.resource.acl = v.into_iter().map(|a| a.into()).collect();
+        self
+    }
+
+    /// Sets the [cache control] for the new object.
+    ///
+    /// This can be used to control caching in [public objects].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .with_cache_control("public; max-age=7200")
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [public objects]: https://cloud.google.com/storage/docs/access-control/making-data-public
+    /// [cache control]: https://datatracker.ietf.org/doc/html/rfc7234#section-5.2
+    pub fn with_cache_control<V: Into<String>>(mut self, v: V) -> Self {
+        self.resource.cache_control = v.into();
+        self
+    }
+
+    /// Sets the [content disposition] for the new object.
+    ///
+    /// Google Cloud Storage can serve content directly to web browsers. This
+    /// attribute sets the `Content-Disposition` header, which may change how
+    /// the browser displays the contents.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .with_content_disposition("inline")
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [content disposition]: https://datatracker.ietf.org/doc/html/rfc6266
+    pub fn with_content_disposition<V: Into<String>>(mut self, v: V) -> Self {
+        self.resource.content_disposition = v.into();
+        self
+    }
+
+    /// Sets the [content encoding] for the object data.
+    ///
+    /// This can be used to upload compressed data and enable [transcoding] of
+    /// the data during downloads.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use flate2::write::GzEncoder;
+    /// use std::io::Write;
+    /// let mut e = GzEncoder::new(Vec::new(), flate2::Compression::default());
+    /// e.write_all(b"hello world");
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", bytes::Bytes::from_owner(e.finish()?))
+    ///     .with_content_encoding("gzip")
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [transcoding]: https://cloud.google.com/storage/docs/transcoding
+    /// [content encoding]: https://datatracker.ietf.org/doc/html/rfc7231#section-3.1.2.2
+    pub fn with_content_encoding<V: Into<String>>(mut self, v: V) -> Self {
+        self.resource.content_encoding = v.into();
+        self
+    }
+
+    /// Sets the [content language] for the new object.
+    ///
+    /// Google Cloud Storage can serve content directly to web browsers. This
+    /// attribute sets the `Content-Language` header, which may change how the
+    /// browser displays the contents.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .with_content_language("en")
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [content language]: https://cloud.google.com/storage/docs/metadata#content-language
+    pub fn with_content_language<V: Into<String>>(mut self, v: V) -> Self {
+        self.resource.content_language = v.into();
+        self
+    }
+
+    /// Sets the [content type] for the new object.
+    ///
+    /// Google Cloud Storage can serve content directly to web browsers. This
+    /// attribute sets the `Content-Type` header, which may change how the
+    /// browser interprets the contents.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .with_content_type("text/plain")
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [content type]: https://datatracker.ietf.org/doc/html/rfc7231#section-3.1.1.5
+    pub fn with_content_type<V: Into<String>>(mut self, v: V) -> Self {
+        self.resource.content_type = v.into();
+        self
+    }
+
+    /// Sets the [custom time] for the new object.
+    ///
+    /// This field is typically set in order to use the [DaysSinceCustomTime]
+    /// condition in Object Lifecycle Management.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let time = wkt::Timestamp::try_from("2025-07-07T18:30:00Z")?;
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .with_custom_time(time)
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [DaysSinceCustomTime]: https://cloud.google.com/storage/docs/lifecycle#dayssincecustomtime
+    /// [custom time]: https://cloud.google.com/storage/docs/metadata#custom-time
+    pub fn with_custom_time<V: Into<wkt::Timestamp>>(mut self, v: V) -> Self {
+        self.resource.custom_time = Some(v.into());
+        self
+    }
+
+    /// Sets the [event based hold] flag for the new object.
+    ///
+    /// This field is typically set in order to prevent objects from being
+    /// deleted or modified.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .with_event_based_hold(true)
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [event based hold]: https://cloud.google.com/storage/docs/object-holds
+    pub fn with_event_based_hold<V: Into<bool>>(mut self, v: V) -> Self {
+        self.resource.event_based_hold = Some(v.into());
+        self
+    }
+
+    /// Sets the [custom metadata] for the new object.
+    ///
+    /// This field is typically set to annotate the object with
+    /// application-specific metadata.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let time = wkt::Timestamp::try_from("2025-07-07T18:30:00Z")?;
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .with_metadata([("test-only", "true"), ("environment", "qa")])
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [custom metadata]: https://cloud.google.com/storage/docs/metadata#custom-metadata
+    pub fn with_metadata<I, K, V>(mut self, i: I) -> Self
+    where
+        I: IntoIterator<Item = (K, V)>,
+        K: Into<String>,
+        V: Into<String>,
+    {
+        self.resource.metadata = i.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the [retention configuration] for the new object.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// # use control::model::object::{Retention, retention};
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .with_retention(
+    ///         Retention::new()
+    ///             .set_mode(retention::Mode::Locked)
+    ///             .set_retain_until_time(wkt::Timestamp::try_from("2035-01-01T00:00:00Z")?))
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [retention configuration]: https://cloud.google.com/storage/docs/metadata#retention-config
+    pub fn with_retention<V>(mut self, v: V) -> Self
+    where
+        V: Into<control::model::object::Retention>,
+    {
+        self.resource.retention = Some(v.into());
+        self
+    }
+
+    /// Sets the [storage class] for the new object.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .with_storage_class("ARCHIVE")
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [storage class]: https://cloud.google.com/storage/docs/storage-classes
+    pub fn with_storage_class<V>(mut self, v: V) -> Self
+    where
+        V: Into<String>,
+    {
+        self.resource.storage_class = v.into();
+        self
+    }
+
+    /// Sets the [temporary hold] flag for the new object.
+    ///
+    /// This field is typically set in order to prevent objects from being
+    /// deleted or modified.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let time = wkt::Timestamp::try_from("2025-07-07T18:30:00Z")?;
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .with_temporary_hold(true)
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [temporary hold]: https://cloud.google.com/storage/docs/object-holds
+    pub fn with_temporary_hold<V: Into<bool>>(mut self, v: V) -> Self {
+        self.resource.temporary_hold = v.into();
+        self
+    }
+
+    /// Sets the resource name of the [Customer-managed encryption key] for this
+    /// object.
+    ///
+    /// The service imposes a number of restrictions on the keys used to encrypt
+    /// Google Cloud Storage objects. Read the documentation in full before
+    /// trying to use customer-managed encryption keys. In particular, verify
+    /// the service has the necessary permissions, and the key is in a
+    /// compatible location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .with_kms_key("projects/test-project/locations/us-central1/keyRings/test-ring/cryptoKeys/test-key")
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [Customer-managed encryption key]: https://cloud.google.com/storage/docs/encryption/customer-managed-keys
+    pub fn with_kms_key<V>(mut self, v: V) -> Self
+    where
+        V: Into<String>,
+    {
+        self.resource.kms_key = v.into();
+        self
+    }
+
+    /// Configure this object to use one of the [predefined ACLs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .with_predefined_acl("private")
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [predefined ACLs]: https://cloud.google.com/storage/docs/access-control/lists#predefined-acl
+    pub fn with_predefined_acl<V>(mut self, v: V) -> Self
+    where
+        V: Into<String>,
+    {
+        self.spec.predefined_acl = v.into();
+        self
+    }
+
+    /// The encryption key used with the Customer-Supplied Encryption Keys
+    /// feature. In raw bytes format (not base64-encoded).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// # use google_cloud_storage::client::KeyAes256;
+    /// let key: &[u8] = &[97; 32];
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .with_key(KeyAes256::new(key)?)
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    pub fn with_key(mut self, v: KeyAes256) -> Self {
+        self.params = Some(v.into());
+        self
+    }
+
+    // TODO(#2050) - this should be automatically computed?
+    #[allow(dead_code)]
+    fn with_crc32c<V>(mut self, v: V) -> Self
+    where
+        V: Into<u32>,
+    {
+        let mut checksum = self.resource.checksums.take().unwrap_or_default();
+        checksum.crc32c = Some(v.into());
+        self.resource.checksums = Some(checksum);
+        self
+    }
+
+    // TODO(#2050) - this should be automatically computed?
+    #[allow(dead_code)]
+    fn with_md5_hash<I, V>(mut self, i: I) -> Self
+    where
+        I: IntoIterator<Item = V>,
+        V: Into<u8>,
+    {
+        let mut checksum = self.resource.checksums.take().unwrap_or_default();
+        checksum.md5_hash = i.into_iter().map(|v| v.into()).collect();
+        // TODO(#2050) - should we return an error (or panic?) if the size is wrong?
+        self.resource.checksums = Some(checksum);
+        self
+    }
+
+    pub(crate) fn new<B, O, P>(
+        inner: std::sync::Arc<StorageInner>,
+        bucket: B,
+        object: O,
+        payload: P,
+    ) -> Self
+    where
+        B: Into<String>,
+        O: Into<String>,
+        P: Into<InsertPayload<T>>,
+    {
+        UploadObject {
+            inner,
+            resource: control::model::Object::new()
+                .set_bucket(bucket)
+                .set_name(object),
+            spec: control::model::WriteObjectSpec::new(),
+            params: None,
+            payload: payload.into(),
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::super::tests::test_inner_client;
+    use super::*;
+    use control::model::WriteObjectSpec;
+
+    #[test]
+    fn upload_object_unbuffered_metadata() -> anyhow::Result<()> {
+        use control::model::ObjectAccessControl;
+        let inner = test_inner_client(gaxi::options::ClientConfig::default());
+        let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "")
+            .with_if_generation_match(10)
+            .with_if_generation_not_match(20)
+            .with_if_metageneration_match(30)
+            .with_if_metageneration_not_match(40)
+            .with_predefined_acl("private")
+            .with_acl([ObjectAccessControl::new()
+                .set_entity("allAuthenticatedUsers")
+                .set_role("READER")])
+            .with_cache_control("public; max-age=7200")
+            .with_content_disposition("inline")
+            .with_content_encoding("gzip")
+            .with_content_language("en")
+            .with_content_type("text/plain")
+            .with_crc32c(crc32c::crc32c(b""))
+            .with_custom_time(wkt::Timestamp::try_from("2025-07-07T18:11:00Z")?)
+            .with_event_based_hold(true)
+            .with_md5_hash(md5::compute(b"").0)
+            .with_metadata([("k0", "v0"), ("k1", "v1")])
+            .with_retention(
+                control::model::object::Retention::new()
+                    .set_mode(control::model::object::retention::Mode::Locked)
+                    .set_retain_until_time(wkt::Timestamp::try_from("2035-07-07T18:14:00Z")?),
+            )
+            .with_storage_class("ARCHIVE")
+            .with_temporary_hold(true)
+            .with_kms_key("test-key");
+
+        assert_eq!(
+            request.spec,
+            WriteObjectSpec::new()
+                .set_if_generation_match(10)
+                .set_if_generation_not_match(20)
+                .set_if_metageneration_match(30)
+                .set_if_metageneration_not_match(40)
+                .set_predefined_acl("private")
+        );
+
+        assert_eq!(
+            request.resource,
+            Object::new()
+                .set_name("object")
+                .set_bucket("projects/_/buckets/bucket")
+                .set_acl([ObjectAccessControl::new()
+                    .set_entity("allAuthenticatedUsers")
+                    .set_role("READER")])
+                .set_cache_control("public; max-age=7200")
+                .set_content_disposition("inline")
+                .set_content_encoding("gzip")
+                .set_content_language("en")
+                .set_content_type("text/plain")
+                .set_checksums(
+                    control::model::ObjectChecksums::new()
+                        .set_crc32c(crc32c::crc32c(b""))
+                        .set_md5_hash(bytes::Bytes::from_iter(md5::compute(b"").0))
+                )
+                .set_custom_time(wkt::Timestamp::try_from("2025-07-07T18:11:00Z")?)
+                .set_event_based_hold(true)
+                .set_metadata([("k0", "v0"), ("k1", "v1")])
+                .set_retention(
+                    control::model::object::Retention::new()
+                        .set_mode("LOCKED")
+                        .set_retain_until_time(wkt::Timestamp::try_from("2035-07-07T18:14:00Z")?)
+                )
+                .set_storage_class("ARCHIVE")
+                .set_temporary_hold(true)
+                .set_kms_key("test-key")
+        );
+
+        Ok(())
+    }
+}

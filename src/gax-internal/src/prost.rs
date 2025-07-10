@@ -232,7 +232,7 @@ impl FromProto<wkt::NullValue> for prost_types::NullValue {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use serde_json::json;
     use test_case::test_case;

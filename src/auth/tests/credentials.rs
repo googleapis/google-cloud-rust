@@ -13,7 +13,7 @@
 // limitations under the License.
 
 #[cfg(test)]
-mod test {
+mod tests {
     use std::error::Error;
     use std::fmt;
 

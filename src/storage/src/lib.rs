@@ -31,4 +31,5 @@ pub use gax::Result;
 pub use gax::error::Error;
 
 pub mod client;
+pub mod retry_policy;
 pub mod upload_source;

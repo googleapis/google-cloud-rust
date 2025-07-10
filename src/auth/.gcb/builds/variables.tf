@@ -23,3 +23,16 @@ variable "region" {
 variable "zone" {
   default = "us-central1-f"
 }
+
+variable "external_account_project" {
+  type    = string
+  default = "rust-auth-testing-joonix"
+}
+
+variable "external_account_service_account_id" {
+  description = "The ID of the service account used for external account tests."
+  type        = string
+  default     = "testsa"
+}
+
+

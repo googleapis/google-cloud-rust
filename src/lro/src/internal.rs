@@ -359,7 +359,7 @@ where
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::super::Error;
     use super::*;
     use gax::error::rpc::{Code, Status};

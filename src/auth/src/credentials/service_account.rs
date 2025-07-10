@@ -443,13 +443,13 @@ where
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use crate::credentials::QUOTA_PROJECT_KEY;
-    use crate::credentials::test::{
+    use crate::credentials::tests::{
         PKCS8_PK, b64_decode_to_json, get_headers_from_cache, get_token_from_headers,
     };
-    use crate::token::test::MockTokenProvider;
+    use crate::token::tests::MockTokenProvider;
     use http::HeaderValue;
     use http::header::AUTHORIZATION;
     use rsa::pkcs1::EncodeRsaPrivateKey;
@@ -595,7 +595,7 @@ mod test {
     async fn get_service_account_headers_pkcs1_private_key_failure() -> TestResult {
         let mut service_account_key = get_mock_service_key();
 
-        let key = crate::credentials::test::RSA_PRIVATE_KEY
+        let key = crate::credentials::tests::RSA_PRIVATE_KEY
             .to_pkcs1_pem(LineEnding::LF)
             .expect("Failed to encode key to PKCS#1 PEM")
             .to_string();

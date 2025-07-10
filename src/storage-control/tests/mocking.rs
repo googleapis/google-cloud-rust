@@ -13,7 +13,7 @@
 // limitations under the License.
 
 #[cfg(test)]
-mod test {
+mod tests {
     use google_cloud_storage_control as gcs;
     use paste::paste;
 

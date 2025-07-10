@@ -13,16 +13,23 @@ env GOOGLE_CLOUD_PROJECT=rust-auth-testing \
 
 ### Workload Identity integration tests
 
-These tests requires a more complex setup to run, like running from an Azure/AWS
-VM and having Workload Identity Pools set up. For now, we only run those tests
-locally and under a feature (`run-byoid-integration-tests`). Some extra
-environment variables with the workload identity pool configuration are required
-to run the tests.
+These tests use service account impersonation to generate an OIDC ID token for a
+service account in a different project (`rust-auth-testing-joonix`). This ID
+token acts as the source credential for testing WIF flow.
+
+To run these tests locally, first, ensure your local Application Default
+Credentials are up to date by running:
 
 ```sh
-env GOOGLE_CLOUD_PROJECT=cloud-sdk-auth-test-project \
-    GOOGLE_WORKLOAD_IDENTITY_SERVICE_ACCOUNT=[SERVICE ACCOUNT PLACEHOLDER] \
-    GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE=[AUDIENCE PLACEHOLDER] \
+gcloud auth application-default login
+```
+
+Then, set the following environment variables and run the tests:
+
+```sh
+env GOOGLE_CLOUD_PROJECT=rust-auth-testing-joonix
+    EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL=testsa@rust-auth-testing-joonix.iam.gserviceaccount.com
+    GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE=//iam.googleapis.com/projects/246645052938/locations/global/workloadIdentityPools/google-idp/providers/google-idp
   cargo test run_workload_ --features run-integration-tests --features run-byoid-integration-tests -p auth-integration-tests
 ```
 
