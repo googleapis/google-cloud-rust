@@ -15,6 +15,7 @@
 package api
 
 import (
+	"fmt"
 	"slices"
 	"strings"
 )
@@ -23,7 +24,7 @@ func SkipModelElements(model *API, options map[string]string) error {
 	included_ids, included_ok := options["included-ids"]
 	skipped_ids, skipped_ok := options["skipped-ids"]
 	if included_ok && skipped_ok {
-		panic("Both `included-ids` and `skipped-ids` set. Only set one.")
+		return fmt.Errorf("both `included-ids` and `skipped-ids` set. Only set one")
 	}
 
 	if included_ok {
