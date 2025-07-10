@@ -598,7 +598,7 @@ mod tests {
             .respond_with(
                 status_code(200)
                     .body("hello world")
-                    .append_header("x-goog-hash", format!("crc32c={}", value)),
+                    .append_header("x-goog-hash", format!("crc32c={value}")),
             ),
         );
 
@@ -621,10 +621,12 @@ mod tests {
             .read_object("projects/_/buckets/test-bucket", "test-object")
             .send()
             .await?;
-        let res = async || -> Result {
-            while (response.next().await.transpose()?).is_some() {}
-            Ok(())
-        }()
+        let res: crate::Result<()> = async {
+            {
+                while (response.next().await.transpose()?).is_some() {}
+                Ok(())
+            }
+        }
         .await;
         assert!(res.is_err(), "expect error on incorrect crc32c");
         Ok(())
@@ -838,7 +840,7 @@ mod tests {
     #[test_case("md5=something,crc32c=SZYC0g==", Some(1234567890_u32); "md5 before crc32c")]
     fn test_headers_to_crc(val: &str, want: Option<u32>) -> Result {
         let mut headers = http::HeaderMap::new();
-        if val.len() > 0 {
+        if !val.is_empty() {
             headers.insert("x-goog-hash", http::HeaderValue::from_str(val)?);
         }
         let got = headers_to_crc32c(&headers);
