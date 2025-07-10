@@ -18,30 +18,26 @@ specification-source = 'google/storage/v2'
 service-config       = 'google/storage/v2/storage_v2.yaml'
 
 [source]
-skipped-ids = """\
-    .google.storage.v2.BidiReadHandle,\
-    .google.storage.v2.BidiReadObjectError,\
-    .google.storage.v2.BidiReadObjectRedirectedError,\
-    .google.storage.v2.BidiReadObjectRequest,\
-    .google.storage.v2.BidiReadObjectResponse,\
-    .google.storage.v2.BidiReadObjectSpec,\
-    .google.storage.v2.BidiWriteHandle,\
-    .google.storage.v2.BidiWriteObjectRedirectedError,\
-    .google.storage.v2.BidiWriteObjectRequest,\
-    .google.storage.v2.BidiWriteObjectRequest.FirstMessage,\
-    .google.storage.v2.BidiWriteObjectResponse,\
-    .google.storage.v2.CancelResumableWriteResponse,\
-    .google.storage.v2.ObjectRangeData,\
-    .google.storage.v2.QueryWriteStatusResponse,\
-    .google.storage.v2.ReadObjectResponse,\
-    .google.storage.v2.ReadRange,\
-    .google.storage.v2.ReadRangeError,\
-    .google.storage.v2.StartResumableWriteResponse,\
-    .google.storage.v2.Storage.CancelResumableWrite,\
-    .google.storage.v2.Storage.QueryWriteStatus,\
-    .google.storage.v2.Storage.StartResumableWrite,\
-    .google.storage.v2.WriteObjectResponse,\
-    .google.storage.v2.AppendObjectSpec\
+included-ids = """\
+    .google.storage.v2.Storage.DeleteBucket,\
+    .google.storage.v2.Storage.GetBucket,\
+    .google.storage.v2.Storage.CreateBucket,\
+    .google.storage.v2.Storage.ListBuckets,\
+    .google.storage.v2.Storage.LockBucketRetentionPolicy,\
+    .google.storage.v2.Storage.GetIamPolicy,\
+    .google.storage.v2.Storage.SetIamPolicy,\
+    .google.storage.v2.Storage.TestIamPermissions,\
+    .google.storage.v2.Storage.UpdateBucket,\
+    .google.storage.v2.Storage.ComposeObject,\
+    .google.storage.v2.Storage.DeleteObject,\
+    .google.storage.v2.Storage.RestoreObject,\
+    .google.storage.v2.Storage.GetObject,\
+    .google.storage.v2.Storage.UpdateObject,\
+    .google.storage.v2.Storage.ListObjects,\
+    .google.storage.v2.Storage.RewriteObject,\
+    .google.storage.v2.Storage.MoveObject,\
+    .google.storage.v2.ReadObjectRequest,\
+    .google.storage.v2.WriteObjectSpec\
     """
 
 [codec]
