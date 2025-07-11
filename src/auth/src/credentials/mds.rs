@@ -416,7 +416,8 @@ mod tests {
     use super::*;
     use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::tests::{
-        get_headers_from_cache, get_token_from_headers, get_token_type_from_headers,
+        get_headers_from_cache, get_mock_auth_retry_policy, get_token_from_headers,
+        get_token_type_from_headers,
     };
     use crate::errors;
     use crate::token::tests::MockTokenProvider;
@@ -438,7 +439,8 @@ mod tests {
     type TestResult = anyhow::Result<()>;
 
     #[tokio::test]
-    async fn test_mds_retries_on_failures() -> TestResult {
+    #[parallel]
+    async fn test_mds_retries_on_transient_failures() -> TestResult {
         let mut server = Server::run();
         let attempts = 3;
         server.expect(
@@ -447,7 +449,7 @@ mod tests {
                 .respond_with(status_code(503)),
         );
 
-        let retry_policy = gax::retry_policy::AlwaysRetry.with_attempt_limit(attempts as u32);
+        let retry_policy = get_mock_auth_retry_policy(attempts);
 
         let provider = Builder::default()
             .with_endpoint(format!("http://{}", server.addr()))
@@ -467,6 +469,36 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
+    async fn test_mds_does_not_retry_on_non_transient_failures() -> TestResult {
+        let mut server = Server::run();
+        server.expect(
+            Expectation::matching(request::path(format!("{MDS_DEFAULT_URI}/token")))
+                .times(1)
+                .respond_with(status_code(401)),
+        );
+
+        let retry_policy = get_mock_auth_retry_policy(1);
+
+        let provider = Builder::default()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_retry_policy(retry_policy)
+            .with_backoff_policy(
+                gax::exponential_backoff::ExponentialBackoffBuilder::new()
+                    .with_initial_delay(Duration::from_millis(1))
+                    .build()
+                    .unwrap(),
+            )
+            .build_token_provider();
+
+        let err = provider.token().await.unwrap_err();
+        assert!(!err.is_transient());
+        server.verify_and_clear();
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
     async fn test_mds_retries_for_success() -> TestResult {
         let call_count = Arc::new(AtomicUsize::new(0));
         let mut server = Server::run();

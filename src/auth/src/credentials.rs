@@ -698,6 +698,7 @@ mod tests {
     use rsa::RsaPrivateKey;
     use rsa::pkcs8::{EncodePrivateKey, LineEnding};
     use scoped_env::ScopedEnv;
+    use std::error::Error;
     use std::sync::LazyLock;
     use test_case::test_case;
 
@@ -728,6 +729,27 @@ mod tests {
     }
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
+
+    pub(crate) fn get_mock_auth_retry_policy(attempts: usize) -> MockRetryPolicy {
+        let mut retry_policy = MockRetryPolicy::new();
+        retry_policy.expect_on_error().times(attempts).returning(
+            move |_, attempt_count, _, error| {
+                if attempt_count >= attempts as u32 {
+                    return RetryResult::Exhausted(error);
+                }
+                let is_transient = error
+                    .source()
+                    .and_then(|e| e.downcast_ref::<CredentialsError>())
+                    .is_some_and(|ce| ce.is_transient());
+                if is_transient {
+                    RetryResult::Continue(error)
+                } else {
+                    RetryResult::Permanent(error)
+                }
+            },
+        );
+        return retry_policy;
+    }
 
     pub(crate) fn get_headers_from_cache(
         headers: CacheableResource<HeaderMap>,
