@@ -43,6 +43,13 @@ mod tests {
     type Result<T> = anyhow::Result<T>;
     type TestResult = anyhow::Result<(), Box<dyn std::error::Error>>;
 
+    fn write_cred_json(contents: &str) -> tempfile::TempPath {
+        let file = tempfile::NamedTempFile::new().unwrap();
+        let path = file.into_temp_path();
+        std::fs::write(&path, contents).expect("Unable to write to temporary file.");
+        path
+    }
+
     #[tokio::test]
     #[serial_test::serial]
     async fn create_access_token_credentials_fallback_to_mds() {
@@ -70,9 +77,7 @@ mod tests {
     #[serial_test::serial]
     async fn create_access_token_credentials_malformed_adc_is_error() {
         for contents in ["{}", r#"{"type": 42}"#] {
-            let file = tempfile::NamedTempFile::new().unwrap();
-            let path = file.into_temp_path();
-            std::fs::write(&path, contents).expect("Unable to write to temporary file.");
+            let path = write_cred_json(&contents);
             let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
             let err = AccessTokenCredentialBuilder::default().build().unwrap_err();
@@ -88,9 +93,7 @@ mod tests {
             "type": "some_unknown_credential_type"
         }"#;
 
-        let file = tempfile::NamedTempFile::new().unwrap();
-        let path = file.into_temp_path();
-        std::fs::write(&path, contents).expect("Unable to write to temporary file.");
+        let path = write_cred_json(&contents);
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
         let err = AccessTokenCredentialBuilder::default().build().unwrap_err();
@@ -111,9 +114,7 @@ mod tests {
             "type": "authorized_user"
         }"#;
 
-        let file = tempfile::NamedTempFile::new().unwrap();
-        let path = file.into_temp_path();
-        std::fs::write(&path, contents).expect("Unable to write to temporary file.");
+        let path = write_cred_json(&contents);
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
         let uc = AccessTokenCredentialBuilder::default().build().unwrap();
@@ -132,7 +133,10 @@ mod tests {
 
         let quota_project = "test-quota-project";
 
-        let uc = AccessTokenCredentialBuilder::new(serde_json::from_str(contents).unwrap())
+        let path = write_cred_json(&contents);
+        let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
+
+        let uc = AccessTokenCredentialBuilder::default()
             .with_quota_project_id(quota_project)
             .build()
             .unwrap();
@@ -156,9 +160,7 @@ mod tests {
             }
         }).to_string();
 
-        let file = tempfile::NamedTempFile::new().unwrap();
-        let path = file.into_temp_path();
-        std::fs::write(&path, contents).expect("Unable to write to temporary file.");
+        let path = write_cred_json(&contents);
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
         let ic = AccessTokenCredentialBuilder::default().build().unwrap();
@@ -181,7 +183,10 @@ mod tests {
 
         let quota_project = "test-quota-project";
 
-        let ic = AccessTokenCredentialBuilder::new(contents)
+        let path = write_cred_json(&contents.to_string());
+        let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
+
+        let ic = AccessTokenCredentialBuilder::default()
             .with_quota_project_id(quota_project)
             .build()
             .unwrap();
@@ -203,9 +208,7 @@ mod tests {
             "universe_domain": "test-universe-domain"
         }"#;
 
-        let file = tempfile::NamedTempFile::new().unwrap();
-        let path = file.into_temp_path();
-        std::fs::write(&path, contents).expect("Unable to write to temporary file.");
+        let path = write_cred_json(&contents);
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
         let sac = AccessTokenCredentialBuilder::default().build().unwrap();
@@ -226,7 +229,10 @@ mod tests {
 
         let quota_project = "test-quota-project";
 
-        let sac = AccessTokenCredentialBuilder::new(serde_json::from_str(contents).unwrap())
+        let path = write_cred_json(&contents);
+        let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
+
+        let sac = AccessTokenCredentialBuilder::default()
             .with_quota_project_id(quota_project)
             .build()
             .unwrap();
@@ -303,10 +309,10 @@ mod tests {
         })
         .to_string();
 
-        let creds =
-            AccessTokenCredentialBuilder::new(serde_json::from_str(contents.as_str()).unwrap())
-                .build()
-                .unwrap();
+        let path = write_cred_json(&contents);
+        let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
+
+        let creds = AccessTokenCredentialBuilder::default().build().unwrap();
 
         // Use the debug output to verify the right kind of credentials are created.
         let fmt = format!("{creds:?}");
@@ -364,10 +370,10 @@ mod tests {
         })
         .to_string();
 
-        let creds =
-            AccessTokenCredentialBuilder::new(serde_json::from_str(contents.as_str()).unwrap())
-                .build()
-                .unwrap();
+        let path = write_cred_json(&contents);
+        let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
+
+        let creds = AccessTokenCredentialBuilder::default().build().unwrap();
 
         let error = creds.headers(Extensions::new()).await.unwrap_err();
         let original_error = error
