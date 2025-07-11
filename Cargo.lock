@@ -4241,6 +4241,8 @@ dependencies = [
  "google-cloud-auth",
  "google-cloud-gax",
  "google-cloud-gax-internal",
+ "google-cloud-iam-v1",
+ "google-cloud-longrunning",
  "google-cloud-storage",
  "google-cloud-storage-control",
  "google-cloud-wkt",
