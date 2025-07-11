@@ -723,7 +723,7 @@ mod tests {
                 if error
                     .source()
                     .and_then(|e| e.downcast_ref::<CredentialsError>())
-                    .map_or(false, |ce| ce.is_transient())
+                    .is_some_and(|ce| ce.is_transient())
                 {
                     RetryResult::Continue(error)
                 } else {
