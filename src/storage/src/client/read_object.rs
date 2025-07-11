@@ -33,7 +33,7 @@ use super::*;
 /// ```
 pub struct ReadObject {
     inner: std::sync::Arc<StorageInner>,
-    request: control::model::ReadObjectRequest,
+    request: crate::model::ReadObjectRequest,
 }
 
 impl ReadObject {
@@ -44,7 +44,7 @@ impl ReadObject {
     {
         ReadObject {
             inner,
-            request: control::model::ReadObjectRequest::new()
+            request: crate::model::ReadObjectRequest::new()
                 .set_bucket(bucket)
                 .set_object(object),
         }
