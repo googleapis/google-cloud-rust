@@ -36,7 +36,19 @@
 //! [504]: https://cloud.google.com/storage/docs/json_api/v1/status-codes#504_Gateway_Timeout
 
 use gax::error::Error;
-use gax::{retry_policy::RetryPolicy, retry_result::RetryResult};
+use gax::{
+    retry_policy::{RetryPolicy, RetryPolicyExt},
+    retry_result::RetryResult,
+};
+use std::time::Duration;
+
+/// The default retry policy for the Storage client.
+///
+/// The client will retry all the errors shown as retryable in the service
+/// documentation, and stop retrying after 10 seconds.
+pub(crate) fn default() -> impl RetryPolicy {
+    RecommendedPolicy.with_time_limit(Duration::from_secs(10))
+}
 
 /// The default retry policy for Google Cloud Storage requests.
 ///
@@ -44,6 +56,19 @@ use gax::{retry_policy::RetryPolicy, retry_result::RetryResult};
 /// duration of the retry loop.
 ///
 /// The policy follows the [retry strategy] recommended by Google Cloud Storage.
+///
+/// # Example
+/// ```
+/// # use google_cloud_storage::retry_policy::RecommendedPolicy;
+/// use gax::retry_policy::RetryPolicyExt;
+/// use google_cloud_storage::client::Storage;
+/// use std::time::Duration;
+/// let builder = Storage::builder().with_retry_policy(
+///     RecommendedPolicy
+///         .with_time_limit(Duration::from_secs(60))
+///         .with_attempt_limit(10),
+/// );
+/// ```
 ///
 /// [retry strategy]: https://cloud.google.com/storage/docs/retry-strategy
 #[derive(Clone, Debug)]
