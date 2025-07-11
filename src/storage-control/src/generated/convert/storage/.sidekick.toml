@@ -17,34 +17,24 @@ language             = 'rust'
 specification-source = 'google/storage/v2'
 
 [source]
-skipped-ids = """\
-    .google.storage.v2.BidiReadHandle,\
-    .google.storage.v2.BidiReadObjectError,\
-    .google.storage.v2.BidiReadObjectRedirectedError,\
-    .google.storage.v2.BidiReadObjectRequest,\
-    .google.storage.v2.BidiReadObjectResponse,\
-    .google.storage.v2.BidiReadObjectSpec,\
-    .google.storage.v2.BidiWriteHandle,\
-    .google.storage.v2.BidiWriteObjectRedirectedError,\
-    .google.storage.v2.BidiWriteObjectRequest,\
-    .google.storage.v2.BidiWriteObjectRequest.FirstMessage,\
-    .google.storage.v2.BidiWriteObjectResponse,\
-    .google.storage.v2.ChecksummedData,\
-    .google.storage.v2.CancelResumableWriteRequest,\
-    .google.storage.v2.CancelResumableWriteResponse,\
-    .google.storage.v2.ObjectRangeData,\
-    .google.storage.v2.QueryWriteStatusRequest,\
-    .google.storage.v2.QueryWriteStatusResponse,\
-    .google.storage.v2.ReadObjectRequest,\
-    .google.storage.v2.ReadObjectResponse,\
-    .google.storage.v2.ReadRange,\
-    .google.storage.v2.ReadRangeError,\
-    .google.storage.v2.StartResumableWriteRequest,\
-    .google.storage.v2.StartResumableWriteResponse,\
-    .google.storage.v2.WriteObjectRequest,\
-    .google.storage.v2.WriteObjectResponse,\
-    .google.storage.v2.WriteObjectSpec,\
-    .google.storage.v2.AppendObjectSpec,\
+included-ids = """\
+    .google.storage.v2.Storage.DeleteBucket,\
+    .google.storage.v2.Storage.GetBucket,\
+    .google.storage.v2.Storage.CreateBucket,\
+    .google.storage.v2.Storage.ListBuckets,\
+    .google.storage.v2.Storage.LockBucketRetentionPolicy,\
+    .google.storage.v2.Storage.GetIamPolicy,\
+    .google.storage.v2.Storage.SetIamPolicy,\
+    .google.storage.v2.Storage.TestIamPermissions,\
+    .google.storage.v2.Storage.UpdateBucket,\
+    .google.storage.v2.Storage.ComposeObject,\
+    .google.storage.v2.Storage.DeleteObject,\
+    .google.storage.v2.Storage.RestoreObject,\
+    .google.storage.v2.Storage.GetObject,\
+    .google.storage.v2.Storage.UpdateObject,\
+    .google.storage.v2.Storage.ListObjects,\
+    .google.storage.v2.Storage.RewriteObject,\
+    .google.storage.v2.Storage.MoveObject\
     """
 
 [codec]

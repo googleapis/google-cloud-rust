@@ -592,29 +592,6 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::CommonObjectRequestP
     }
 }
 
-impl gaxi::prost::ToProto<service_constants::Values> for crate::generated::gapic::model::service_constants::Values {
-    type Output = i32;
-    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
-        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::generated::gapic::model::service_constants::Values"))
-    }
-}
-
-impl gaxi::prost::ToProto<ServiceConstants> for crate::generated::gapic::model::ServiceConstants {
-    type Output = ServiceConstants;
-    fn to_proto(self) -> std::result::Result<ServiceConstants, gaxi::prost::ConvertError> {
-        Ok(Self::Output {
-        })
-    }
-}
-
-impl gaxi::prost::FromProto<crate::generated::gapic::model::ServiceConstants> for ServiceConstants {
-    fn cnv(self) -> std::result::Result<crate::generated::gapic::model::ServiceConstants, gaxi::prost::ConvertError> {
-        Ok(
-            crate::generated::gapic::model::ServiceConstants::new()
-        )
-    }
-}
-
 impl gaxi::prost::ToProto<bucket::Billing> for crate::generated::gapic::model::bucket::Billing {
     type Output = bucket::Billing;
     fn to_proto(self) -> std::result::Result<bucket::Billing, gaxi::prost::ConvertError> {
@@ -1554,28 +1531,6 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::Owner> for Owner {
             crate::generated::gapic::model::Owner::new()
                 .set_entity(self.entity)
                 .set_entity_id(self.entity_id)
-        )
-    }
-}
-
-impl gaxi::prost::ToProto<ContentRange> for crate::generated::gapic::model::ContentRange {
-    type Output = ContentRange;
-    fn to_proto(self) -> std::result::Result<ContentRange, gaxi::prost::ConvertError> {
-        Ok(Self::Output {
-            start: self.start.to_proto()?,
-            end: self.end.to_proto()?,
-            complete_length: self.complete_length.to_proto()?,
-        })
-    }
-}
-
-impl gaxi::prost::FromProto<crate::generated::gapic::model::ContentRange> for ContentRange {
-    fn cnv(self) -> std::result::Result<crate::generated::gapic::model::ContentRange, gaxi::prost::ConvertError> {
-        Ok(
-            crate::generated::gapic::model::ContentRange::new()
-                .set_start(self.start)
-                .set_end(self.end)
-                .set_complete_length(self.complete_length)
         )
     }
 }
