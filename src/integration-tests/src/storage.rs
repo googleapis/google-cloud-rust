@@ -127,12 +127,23 @@ pub async fn objects(builder: storage::builder::storage::ClientBuilder) -> Resul
     );
 
     tracing::info!("testing read_object()");
-    let contents = client
+    let response = client
         .read_object(&bucket.name, &insert.name)
         .send()
-        .await?
-        .all_bytes()
         .await?;
+
+    // Retrieve the metadata before reading the data.
+    let object = response.object();
+    assert!(object.generation > 0);
+    assert!(object.metageneration > 0);
+    assert_eq!(object.size, CONTENTS.len() as i64);
+    assert_eq!(object.content_encoding, "identity");
+    assert_eq!(
+        object.checksums.unwrap().crc32c,
+        Some(crc32c::crc32c(CONTENTS.as_bytes()))
+    );
+
+    let contents = response.all_bytes().await?;
     assert_eq!(contents, CONTENTS.as_bytes());
     tracing::info!("success with contents={contents:?}");
 
