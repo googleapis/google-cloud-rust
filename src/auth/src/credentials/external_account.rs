@@ -436,7 +436,7 @@ impl Builder {
     ///
     /// # Errors
     ///
-    /// Returns a [CredentialsError] if the `external_account_config`
+    /// Returns a [BuilderError] if the `external_account_config`
     /// provided to [`Builder::new`] cannot be successfully deserialized into the
     /// expected format for an external account configuration. This typically happens if the
     /// JSON value is malformed or missing required fields. For more information,
@@ -511,7 +511,7 @@ pub struct ProgrammaticBuilder {
 }
 
 impl ProgrammaticBuilder {
-    /// Creates a new builder that uses the provided [`SubjectTokenProvider`] to
+    /// Creates a new builder that uses the provided [SubjectTokenProvider] to
     /// fetch the third-party subject token.
     ///
     /// # Example
@@ -542,6 +542,7 @@ impl ProgrammaticBuilder {
     /// let provider = Arc::new(MyTokenProvider);
     /// let builder = ProgrammaticBuilder::new(provider);
     /// ```
+    /// [SubjectTokenProvider]: crate::credentials::subject_token::SubjectTokenProvider
     pub fn new(subject_token_provider: Arc<dyn dynamic::SubjectTokenProvider>) -> Self {
         let config = ExternalAccountConfigBuilder::default().with_credential_source(
             CredentialSource::Programmatic(ProgrammaticSourcedCredentials::new(
@@ -877,7 +878,7 @@ impl ProgrammaticBuilder {
     ///
     /// # Errors
     ///
-    /// Returns a [CredentialsError] if any of the required fields (such as
+    /// Returns a [BuilderError] if any of the required fields (such as
     /// `audience` or `subject_token_type`) have not been set.
     pub fn build(self) -> BuildResult<Credentials> {
         let quota_project_id = self.quota_project_id.clone();
