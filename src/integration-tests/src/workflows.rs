@@ -253,7 +253,7 @@ pub async fn manual(
         match result {
             LR::Error(status) => {
                 println!("LRO completed with error {status:?}");
-                let status = gax::error::rpc::Status::from(&*status);
+                let status = gax::error::rpc::Status::from(*status);
                 return Err(anyhow::Error::from(gax::error::Error::service(status)));
             }
             LR::Response(any) => {

@@ -390,7 +390,11 @@ impl From<&rpc::model::Status> for Status {
         Self {
             code: value.code.into(),
             message: value.message.clone(),
-            details: value.details.iter().map(|d| StatusDetails::from(d)).collect(),
+            details: value
+                .details
+                .iter()
+                .map(|d| StatusDetails::from(d))
+                .collect(),
         }
     }
 }
@@ -427,7 +431,6 @@ pub enum StatusDetails {
     #[serde(untagged)]
     Other(wkt::Any),
 }
-
 
 impl From<wkt::Any> for StatusDetails {
     fn from(value: wkt::Any) -> Self {
@@ -809,7 +812,9 @@ mod tests {
             .set_message("try-again")
             .set_details(vec![wkt::Any::from_msg(&detail).unwrap()]);
 
-        let status = Status::from(&input);
+        let from_ref = Status::from(&input);
+        let status = Status::from(input);
+        assert_eq!(from_ref, status);
         assert_eq!(status.code, Code::Unavailable);
         assert_eq!(status.message, "try-again");
 
@@ -824,7 +829,9 @@ mod tests {
             .set_code(Code::Unavailable as i32)
             .set_message("try-again")
             .set_details(vec![any.clone()]);
-        let got = Status::from(&input);
+        let from_ref = Status::from(&input);
+        let got = Status::from(input);
+        assert_eq!(from_ref, got);
         assert_eq!(got.code, Code::Unavailable);
         assert_eq!(got.message, "try-again");
 
