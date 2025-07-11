@@ -574,16 +574,101 @@ impl<T> UploadObject<T> {
             payload: payload.into(),
         }
     }
+
+    async fn start_resumable_upload(&self) -> Result<String> {
+        let builder = self.start_resumable_upload_request().await?;
+        let response = builder.send().await.map_err(Error::io)?;
+        self::handle_start_resumable_upload_response(response).await
+    }
+
+    async fn start_resumable_upload_request(&self) -> Result<reqwest::RequestBuilder> {
+        let bucket = &self.resource.bucket;
+        let bucket_id = bucket.strip_prefix("projects/_/buckets/").ok_or_else(|| {
+            Error::binding(format!(
+                "malformed bucket name, it must start with `projects/_/buckets/`: {bucket}"
+            ))
+        })?;
+        let object = &self.resource.name;
+        let builder = self
+            .inner
+            .client
+            .request(
+                reqwest::Method::POST,
+                format!("{}/upload/storage/v1/b/{bucket_id}/o", &self.inner.endpoint),
+            )
+            .query(&[("uploadType", "resumable")])
+            .query(&[("name", enc(object))])
+            .header("content-type", "application/json")
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
+            );
+
+        let builder = self.apply_preconditions(builder);
+        let builder = apply_customer_supplied_encryption_headers(builder, self.params.clone());
+        let builder = self.inner.apply_auth_headers(builder).await?;
+        let builder = builder.json(&v1::insert_body(&self.resource));
+        Ok(builder)
+    }
+
+    fn apply_preconditions(&self, builder: reqwest::RequestBuilder) -> reqwest::RequestBuilder {
+        let builder = self
+            .spec
+            .if_generation_match
+            .iter()
+            .fold(builder, |b, v| b.query(&[("ifGenerationMatch", v)]));
+        let builder = self
+            .spec
+            .if_generation_not_match
+            .iter()
+            .fold(builder, |b, v| b.query(&[("ifGenerationNotMatch", v)]));
+        let builder = self
+            .spec
+            .if_metageneration_match
+            .iter()
+            .fold(builder, |b, v| b.query(&[("ifMetagenerationMatch", v)]));
+        let builder = self
+            .spec
+            .if_metageneration_not_match
+            .iter()
+            .fold(builder, |b, v| b.query(&[("ifMetagenerationNotMatch", v)]));
+
+        [
+            ("kmsKeyName", self.resource.kms_key.as_str()),
+            ("predefinedAcl", self.spec.predefined_acl.as_str()),
+        ]
+        .into_iter()
+        .fold(
+            builder,
+            |b, (k, v)| if v.is_empty() { b } else { b.query(&[(k, v)]) },
+        )
+    }
+}
+
+async fn handle_start_resumable_upload_response(response: reqwest::Response) -> Result<String> {
+    if !response.status().is_success() {
+        return gaxi::http::to_http_error(response).await;
+    }
+    let location = response
+        .headers()
+        .get("Location")
+        .ok_or_else(|| Error::deser("missing Location header in start resumable upload"))?;
+    location.to_str().map_err(Error::deser).map(str::to_string)
 }
 
 #[cfg(test)]
 mod tests {
-    use super::super::tests::test_inner_client;
     use super::*;
+    use crate::client::tests::create_key_helper;
+    use crate::client::tests::test_inner_client;
     use control::model::WriteObjectSpec;
+    use serde_json::{Value, json};
+    use std::collections::BTreeMap;
+
+    type Result = anyhow::Result<()>;
 
     #[test]
-    fn upload_object_unbuffered_metadata() -> anyhow::Result<()> {
+    fn upload_object_unbuffered_metadata() -> Result {
         use control::model::ObjectAccessControl;
         let inner = test_inner_client(gaxi::options::ClientConfig::default());
         let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "")
@@ -655,6 +740,165 @@ mod tests {
                 .set_kms_key("test-key")
         );
 
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn start_resumable_upload() -> Result {
+        let inner = test_inner_client(gaxi::options::ClientConfig::default());
+        let mut request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
+            .start_resumable_upload_request()
+            .await?
+            .build()?;
+
+        assert_eq!(request.method(), reqwest::Method::POST);
+        assert_eq!(
+            request.url().as_str(),
+            "http://private.googleapis.com/upload/storage/v1/b/bucket/o?uploadType=resumable&name=object"
+        );
+        let body = request.body_mut().take().unwrap();
+        let contents = http_body_util::BodyExt::collect(body).await?.to_bytes();
+        let json = serde_json::from_slice::<Value>(&contents)?;
+        assert_eq!(json, json!({}));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn start_resumable_upload_headers() -> Result {
+        // Make a 32-byte key.
+        let (key, key_base64, _, key_sha256_base64) = create_key_helper();
+
+        let inner = test_inner_client(gaxi::options::ClientConfig::default());
+        let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
+            .with_key(KeyAes256::new(&key)?)
+            .start_resumable_upload_request()
+            .await?
+            .build()?;
+
+        assert_eq!(request.method(), reqwest::Method::POST);
+        assert_eq!(
+            request.url().as_str(),
+            "http://private.googleapis.com/upload/storage/v1/b/bucket/o?uploadType=resumable&name=object"
+        );
+
+        let want = vec![
+            ("x-goog-encryption-algorithm", "AES256".to_string()),
+            ("x-goog-encryption-key", key_base64),
+            ("x-goog-encryption-key-sha256", key_sha256_base64),
+        ];
+
+        for (name, value) in want {
+            assert_eq!(
+                request.headers().get(name).unwrap().as_bytes(),
+                bytes::Bytes::from(value)
+            );
+        }
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn start_resumable_upload_bad_bucket() -> Result {
+        let inner = test_inner_client(gaxi::options::ClientConfig::default());
+        UploadObject::new(inner, "malformed", "object", "hello")
+            .start_resumable_upload_request()
+            .await
+            .expect_err("malformed bucket string should error");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn start_resumable_upload_metadata_in_request() -> Result {
+        use control::model::ObjectAccessControl;
+        let inner = test_inner_client(gaxi::options::ClientConfig::default());
+        let mut request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "")
+            .with_if_generation_match(10)
+            .with_if_generation_not_match(20)
+            .with_if_metageneration_match(30)
+            .with_if_metageneration_not_match(40)
+            .with_predefined_acl("private")
+            .with_acl([ObjectAccessControl::new()
+                .set_entity("allAuthenticatedUsers")
+                .set_role("READER")])
+            .with_cache_control("public; max-age=7200")
+            .with_content_disposition("inline")
+            .with_content_encoding("gzip")
+            .with_content_language("en")
+            .with_content_type("text/plain")
+            .with_crc32c(crc32c::crc32c(b""))
+            .with_custom_time(wkt::Timestamp::try_from("2025-07-07T18:11:00Z")?)
+            .with_event_based_hold(true)
+            .with_md5_hash(md5::compute(b"").0)
+            .with_metadata([("k0", "v0"), ("k1", "v1")])
+            .with_retention(
+                control::model::object::Retention::new()
+                    .set_mode(control::model::object::retention::Mode::Locked)
+                    .set_retain_until_time(wkt::Timestamp::try_from("2035-07-07T18:14:00Z")?),
+            )
+            .with_storage_class("ARCHIVE")
+            .with_temporary_hold(true)
+            .with_kms_key("test-key")
+            .start_resumable_upload_request()
+            .await?
+            .build()?;
+
+        assert_eq!(request.method(), reqwest::Method::POST);
+        let want_pairs: BTreeMap<String, String> = [
+            ("uploadType", "resumable"),
+            ("name", "object"),
+            ("ifGenerationMatch", "10"),
+            ("ifGenerationNotMatch", "20"),
+            ("ifMetagenerationMatch", "30"),
+            ("ifMetagenerationNotMatch", "40"),
+            ("kmsKeyName", "test-key"),
+            ("predefinedAcl", "private"),
+        ]
+        .iter()
+        .map(|(k, v)| (k.to_string(), v.to_string()))
+        .collect();
+        let query_pairs: BTreeMap<String, String> = request
+            .url()
+            .query_pairs()
+            .map(|param| (param.0.to_string(), param.1.to_string()))
+            .collect();
+        assert_eq!(query_pairs, want_pairs);
+
+        let body = request.body_mut().take().unwrap();
+        let contents = http_body_util::BodyExt::collect(body).await?.to_bytes();
+        let json = serde_json::from_slice::<Value>(&contents)?;
+        assert_eq!(
+            json,
+            json!({
+                "acl": [{"entity": "allAuthenticatedUsers", "role": "READER"}],
+                "cacheControl": "public; max-age=7200",
+                "contentDisposition": "inline",
+                "contentEncoding": "gzip",
+                "contentLanguage": "en",
+                "contentType": "text/plain",
+                "crc32c": "AAAAAA==",
+                "customTime": "2025-07-07T18:11:00Z",
+                "eventBasedHold": true,
+                "md5Hash": "1B2M2Y8AsgTpgAmY7PhCfg==",
+                "metadata": {"k0": "v0", "k1": "v1"},
+                "retention": {"mode": "LOCKED", "retainUntilTime": "2035-07-07T18:14:00Z"},
+                "storageClass": "ARCHIVE",
+                "temporaryHold": true,
+            })
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn start_resumable_upload_credentials() -> Result {
+        let config = gaxi::options::ClientConfig {
+            cred: Some(auth::credentials::testing::error_credentials(false)),
+            ..Default::default()
+        };
+        let inner = test_inner_client(config);
+        let _ = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
+            .start_resumable_upload_request()
+            .await
+            .inspect_err(|e| assert!(e.is_authentication()))
+            .expect_err("invalid credentials should err");
         Ok(())
     }
 }
