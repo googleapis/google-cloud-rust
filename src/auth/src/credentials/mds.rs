@@ -117,7 +117,7 @@ pub struct Builder {
     scopes: Option<Vec<String>>,
     universe_domain: Option<String>,
     created_by_adc: bool,
-    retry_builder: RetryTokenProviderBuilder<MDSAccessTokenProvider>,
+    retry_builder: RetryTokenProviderBuilder,
 }
 
 impl Builder {
@@ -258,7 +258,7 @@ impl Builder {
         }
     }
 
-    fn build_token_provider(self) -> BuildResult<TokenProviderWithRetry<MDSAccessTokenProvider>> {
+    fn build_token_provider(self) -> TokenProviderWithRetry<MDSAccessTokenProvider> {
         let final_endpoint: String;
         let endpoint_overridden: bool;
 
@@ -283,7 +283,7 @@ impl Builder {
             .endpoint_overridden(endpoint_overridden)
             .created_by_adc(self.created_by_adc)
             .build();
-        self.retry_builder.with_token_provider(tp).build()
+        self.retry_builder.build(tp)
     }
 
     /// Returns a [Credentials] instance with the configured settings.
@@ -291,7 +291,7 @@ impl Builder {
         let mdsc = MDSCredentials {
             quota_project_id: self.quota_project_id.clone(),
             universe_domain: self.universe_domain.clone(),
-            token_provider: TokenCache::new(self.build_token_provider()?),
+            token_provider: TokenCache::new(self.build_token_provider()),
         };
         Ok(Credentials {
             inner: Arc::new(mdsc),
@@ -468,7 +468,7 @@ mod tests {
                 .with_retry_throttler(retry_throttler);
         }
 
-        let provider = builder.build_token_provider().unwrap();
+        let provider = builder.build_token_provider();
         let debug_str = format!("{provider:?}");
 
         for sub in expected_substrings {
@@ -575,7 +575,7 @@ mod tests {
     #[serial]
     async fn adc_no_mds() -> TestResult {
         let err = Builder::from_adc()
-            .build_token_provider()?
+            .build_token_provider()
             .token()
             .await
             .unwrap_err();
@@ -599,7 +599,7 @@ mod tests {
         let _e = ScopedEnv::set(super::GCE_METADATA_HOST_ENV_VAR, "metadata.overridden");
 
         let err = Builder::from_adc()
-            .build_token_provider()?
+            .build_token_provider()
             .token()
             .await
             .unwrap_err();
@@ -623,7 +623,7 @@ mod tests {
     #[serial]
     async fn builder_no_mds() -> TestResult {
         let e = Builder::default()
-            .build_token_provider()?
+            .build_token_provider()
             .token()
             .await
             .err()
@@ -773,7 +773,7 @@ mod tests {
         let token = Builder::default()
             .with_endpoint(format!("http://{}", server.addr()))
             .with_scopes(scopes)
-            .build_token_provider()?
+            .build_token_provider()
             .token()
             .await?;
 
@@ -805,7 +805,7 @@ mod tests {
 
         let token = Builder::default()
             .with_endpoint(format!("http://{}", server.addr()))
-            .build_token_provider()?
+            .build_token_provider()
             .token()
             .await?;
 
