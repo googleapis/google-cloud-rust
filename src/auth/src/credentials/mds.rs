@@ -220,9 +220,7 @@ impl Builder {
     /// # });
     /// ```
     pub fn with_backoff_policy<V: Into<BackoffPolicyArg>>(mut self, v: V) -> Self {
-        self.retry_builder = self
-            .retry_builder
-            .with_backoff_policy(v.into());
+        self.retry_builder = self.retry_builder.with_backoff_policy(v.into());
         self
     }
 
@@ -248,9 +246,7 @@ impl Builder {
     /// # });
     /// ```
     pub fn with_retry_throttler<V: Into<RetryThrottlerArg>>(mut self, v: V) -> Self {
-        self.retry_builder = self
-            .retry_builder
-            .with_retry_throttler(v.into());
+        self.retry_builder = self.retry_builder.with_retry_throttler(v.into());
         self
     }
 
