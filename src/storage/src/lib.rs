@@ -34,3 +34,8 @@ pub mod backoff_policy;
 pub mod client;
 pub mod retry_policy;
 pub mod upload_source;
+
+// TODO(#2403) - This includes implementation details like `ReadObjectRequest`.
+// We do not want to expose those in the long run.
+/// The messages and enums that are part of this client library.
+pub use control::model;

@@ -118,12 +118,12 @@ impl<'de> serde_with::DeserializeAs<'de, u32> for Crc32c {
 fn new_object_checksums(
     crc32c: Option<u32>,
     md5_hash: bytes::Bytes,
-) -> Option<control::model::ObjectChecksums> {
+) -> Option<crate::model::ObjectChecksums> {
     if crc32c.is_none() && md5_hash.is_empty() {
         return None;
     }
     Some(
-        control::model::ObjectChecksums::new()
+        crate::model::ObjectChecksums::new()
             .set_or_clear_crc32c(crc32c)
             .set_md5_hash(md5_hash),
     )
@@ -151,7 +151,7 @@ struct ProjectTeam {
     team: String,
 }
 
-impl From<ObjectAccessControl> for control::model::ObjectAccessControl {
+impl From<ObjectAccessControl> for crate::model::ObjectAccessControl {
     fn from(value: ObjectAccessControl) -> Self {
         Self::new()
             .set_id(value.id)
@@ -161,15 +161,15 @@ impl From<ObjectAccessControl> for control::model::ObjectAccessControl {
             .set_domain(value.domain)
             .set_entity_id(value.entity_id)
             .set_etag(value.etag)
-            .set_or_clear_project_team::<control::model::ProjectTeam>(
+            .set_or_clear_project_team::<crate::model::ProjectTeam>(
                 value.project_team.map(|x| x.into()),
             )
     }
 }
 
-impl From<ProjectTeam> for control::model::ProjectTeam {
+impl From<ProjectTeam> for crate::model::ProjectTeam {
     fn from(p: ProjectTeam) -> Self {
-        control::model::ProjectTeam::new()
+        crate::model::ProjectTeam::new()
             .set_project_number(p.project_number)
             .set_team(p.team)
     }
@@ -183,7 +183,7 @@ struct Owner {
     entity_id: String,
 }
 
-impl From<Owner> for control::model::Owner {
+impl From<Owner> for crate::model::Owner {
     fn from(value: Owner) -> Self {
         Self::new()
             .set_entity(value.entity)
@@ -200,7 +200,7 @@ struct CustomerEncryption {
     key_sha256: bytes::Bytes,
 }
 
-impl From<CustomerEncryption> for control::model::CustomerEncryption {
+impl From<CustomerEncryption> for crate::model::CustomerEncryption {
     fn from(value: CustomerEncryption) -> Self {
         Self::new()
             .set_encryption_algorithm(value.encryption_algorithm)
@@ -208,7 +208,7 @@ impl From<CustomerEncryption> for control::model::CustomerEncryption {
     }
 }
 
-impl From<Object> for control::model::Object {
+impl From<Object> for crate::model::Object {
     fn from(value: Object) -> Self {
         Self::new()
             .set_name(value.name)
@@ -245,14 +245,14 @@ impl From<Object> for control::model::Object {
     }
 }
 
-/// Create a JSON object for the [control::model::Object] fields used in uploads.
+/// Create a JSON object for the [crate::model::Object] fields used in uploads.
 ///
 /// When uploading (aka inserting) an object, a number of metadata fields can be
 /// sent via the POST body. Not all fields should (or can) be serialized in
 /// these operations, so we cannot use the normal serialization functions. And
 /// some fields undergo non-trivial transformations.
 #[allow(dead_code)]
-pub(crate) fn insert_body(resource: &control::model::Object) -> serde_json::Value {
+pub(crate) fn insert_body(resource: &crate::model::Object) -> serde_json::Value {
     use serde_json::*;
 
     let mut fields = Vec::new();
@@ -451,7 +451,7 @@ mod tests {
             .into(),
             // base64 encoded uint32 in BigEndian order field:
             crc32c: Some(4264005234),
-            // unused in control::model::Object:
+            // unused in crate::model::Object:
             media_link: "my-link".to_string(),
             retention: Retention {
                 retain_until_time: wkt::Timestamp::clamp(1778668200, 0),
@@ -558,7 +558,7 @@ mod tests {
             ("key2".to_string(), "val2".to_string()),
             ("key3".to_string(), "val3".to_string()),
         ]),
-        // unused in control::model
+        // unused in crate::model
         media_link: "my-media-link".to_string(),
         ..Default::default()
     }; "some fields set")]
@@ -615,7 +615,7 @@ mod tests {
         }),
         md5_hash: "md5Hash".into(),
         crc32c: Some(4321),
-        // unused in control::model
+        // unused in crate::model
         media_link: "my-media-link".to_string(),
         self_link: "my-self-link".to_string(),
         retention: Retention { retain_until_time: wkt::Timestamp::clamp(1747132200, 10), mode: "mode".to_string() }
@@ -624,11 +624,11 @@ mod tests {
     #[test_case(Object { acl: Vec::new(), ..Default::default()}; "empty acl")]
     #[test_case(Object {acl: vec![ObjectAccessControl::default(), object_acl_with_some_fields(), object_acl_with_all_fields()], ..Default::default()}; "acls with different fields")]
     fn test_convert_object_to_control_model(object: Object) {
-        let got = control::model::Object::from(object.clone());
+        let got = crate::model::Object::from(object.clone());
         assert_eq_object(object, got);
     }
 
-    fn assert_eq_object(object: Object, got: control::model::Object) {
+    fn assert_eq_object(object: Object, got: crate::model::Object) {
         assert_eq!(got.name, object.name);
         assert_eq!(got.bucket, format!("projects/_/buckets/{}", object.bucket));
         assert_eq!(got.etag, object.etag);
@@ -735,12 +735,12 @@ mod tests {
     #[test_case(object_acl_with_all_fields(); "all fields have values")]
     #[test_case(object_acl_with_some_fields(); "some fields have values" )]
     fn test_object_access_control(from: ObjectAccessControl) {
-        let got = control::model::ObjectAccessControl::from(from.clone());
+        let got = crate::model::ObjectAccessControl::from(from.clone());
         assert_eq_object_access_control(&got, &from);
     }
 
     fn assert_eq_object_access_control(
-        got: &control::model::ObjectAccessControl,
+        got: &crate::model::ObjectAccessControl,
         from: &ObjectAccessControl,
     ) {
         assert_eq!(got.id, from.id);
@@ -764,13 +764,13 @@ mod tests {
     }
 
     #[test_case(None, bytes::Bytes::new(), None; "unset")]
-    #[test_case(Some(5), bytes::Bytes::new(), Some(control::model::ObjectChecksums::new().set_crc32c(5_u32)); "crc32c set")]
-    #[test_case(None, "hello".into(), Some(control::model::ObjectChecksums::new().set_md5_hash("hello")); "md5_hash set")]
-    #[test_case(Some(5), "hello".into(), Some(control::model::ObjectChecksums::new().set_crc32c(5_u32).set_md5_hash("hello")); "both set")]
+    #[test_case(Some(5), bytes::Bytes::new(), Some(crate::model::ObjectChecksums::new().set_crc32c(5_u32)); "crc32c set")]
+    #[test_case(None, "hello".into(), Some(crate::model::ObjectChecksums::new().set_md5_hash("hello")); "md5_hash set")]
+    #[test_case(Some(5), "hello".into(), Some(crate::model::ObjectChecksums::new().set_crc32c(5_u32).set_md5_hash("hello")); "both set")]
     fn test_new_object_checksums(
         crc32c: Option<u32>,
         md5_hash: bytes::Bytes,
-        want: Option<control::model::ObjectChecksums>,
+        want: Option<crate::model::ObjectChecksums>,
     ) {
         assert_eq!(new_object_checksums(crc32c, md5_hash), want)
     }
@@ -799,74 +799,74 @@ mod tests {
     }
 
     #[test_case(
-        control::model::Object::new().set_acl([
-            control::model::ObjectAccessControl::new().set_entity("test-entity").set_role("READER")
+        crate::model::Object::new().set_acl([
+            crate::model::ObjectAccessControl::new().set_entity("test-entity").set_role("READER")
         ]),
         json!({"acl": [{"entity": "test-entity", "role": "READER"}]})
     )]
     #[test_case(
-        control::model::Object::new().set_cache_control("public, max-age=3600"),
+        crate::model::Object::new().set_cache_control("public, max-age=3600"),
         json!({"cacheControl": "public, max-age=3600"})
     )]
     #[test_case(
-        control::model::Object::new().set_content_disposition("inline"),
+        crate::model::Object::new().set_content_disposition("inline"),
         json!({"contentDisposition": "inline"})
     )]
     #[test_case(
-        control::model::Object::new().set_content_encoding("gzip"),
+        crate::model::Object::new().set_content_encoding("gzip"),
         json!({"contentEncoding": "gzip"})
     )]
     #[test_case(
-        control::model::Object::new().set_content_language("en"),
+        crate::model::Object::new().set_content_language("en"),
         json!({"contentLanguage": "en"})
     )]
     #[test_case(
-        control::model::Object::new().set_content_type("application/octet-stream"),
+        crate::model::Object::new().set_content_type("application/octet-stream"),
         json!({"contentType": "application/octet-stream"})
     )]
     #[test_case(
-        control::model::Object::new().set_checksums(control::model::ObjectChecksums::new().set_crc32c(0x01020304_u32)),
+        crate::model::Object::new().set_checksums(crate::model::ObjectChecksums::new().set_crc32c(0x01020304_u32)),
         json!({"crc32c": "AQIDBA=="})
     )]
     #[test_case(
-        control::model::Object::new().set_custom_time(wkt::Timestamp::try_from("2025-07-03T16:22:00Z").unwrap()),
+        crate::model::Object::new().set_custom_time(wkt::Timestamp::try_from("2025-07-03T16:22:00Z").unwrap()),
         json!({"customTime": "2025-07-03T16:22:00Z"})
     )]
     #[test_case(
-        control::model::Object::new().set_event_based_hold(true),
+        crate::model::Object::new().set_event_based_hold(true),
         json!({"eventBasedHold": true})
     )]
     #[test_case(
-        control::model::Object::new().set_checksums(
-            control::model::ObjectChecksums::new().set_md5_hash(
+        crate::model::Object::new().set_checksums(
+            crate::model::ObjectChecksums::new().set_md5_hash(
                 vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
             )),
         json!({"md5Hash": "AQIDBAUGBwgJCgsMDQ4PEA=="})
     )]
     #[test_case(
-        control::model::Object::new().set_metadata([("k0", "v0"), ("k1", "v1")]),
+        crate::model::Object::new().set_metadata([("k0", "v0"), ("k1", "v1")]),
         json!({"metadata": {"k0": "v0", "k1": "v1"}})
     )]
     #[test_case(
-        control::model::Object::new().set_retention(
-            control::model::object::Retention::new().set_mode(control::model::object::retention::Mode::Locked)
+        crate::model::Object::new().set_retention(
+            crate::model::object::Retention::new().set_mode(crate::model::object::retention::Mode::Locked)
                 .set_retain_until_time(wkt::Timestamp::try_from("2035-07-03T15:03:00Z").unwrap()),
         ),
         json!({"retention": {"mode": "LOCKED", "retainUntilTime": "2035-07-03T15:03:00Z"}})
     )]
     #[test_case(
-        control::model::Object::new().set_storage_class("ARCHIVE"),
+        crate::model::Object::new().set_storage_class("ARCHIVE"),
         json!({"storageClass": "ARCHIVE"})
     )]
     #[test_case(
-        control::model::Object::new().set_temporary_hold(false),
+        crate::model::Object::new().set_temporary_hold(false),
         json!({})
     )]
     #[test_case(
-        control::model::Object::new().set_temporary_hold(true),
+        crate::model::Object::new().set_temporary_hold(true),
         json!({"temporaryHold": true})
     )]
-    fn insert_body(input: control::model::Object, want: serde_json::Value) {
+    fn insert_body(input: crate::model::Object, want: serde_json::Value) {
         let got = super::insert_body(&input);
         assert_eq!(got, want);
     }

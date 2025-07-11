@@ -22,9 +22,9 @@ mod unbuffered;
 /// A request builder for uploads without rewind.
 pub struct UploadObject<T> {
     inner: std::sync::Arc<StorageInner>,
-    resource: control::model::Object,
-    spec: control::model::WriteObjectSpec,
-    params: Option<control::model::CommonObjectRequestParams>,
+    resource: crate::model::Object,
+    spec: crate::model::WriteObjectSpec,
+    params: Option<crate::model::CommonObjectRequestParams>,
     payload: InsertPayload<T>,
 }
 
@@ -147,7 +147,7 @@ impl<T> UploadObject<T> {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
-    /// # use control::model::ObjectAccessControl;
+    /// # use google_cloud_storage::model::ObjectAccessControl;
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_acl([ObjectAccessControl::new().set_entity("allAuthenticatedUsers").set_role("READER")])
@@ -159,7 +159,7 @@ impl<T> UploadObject<T> {
     pub fn with_acl<I, V>(mut self, v: I) -> Self
     where
         I: IntoIterator<Item = V>,
-        V: Into<control::model::ObjectAccessControl>,
+        V: Into<crate::model::ObjectAccessControl>,
     {
         self.resource.acl = v.into_iter().map(|a| a.into()).collect();
         self
@@ -379,7 +379,7 @@ impl<T> UploadObject<T> {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
-    /// # use control::model::object::{Retention, retention};
+    /// # use google_cloud_storage::model::object::{Retention, retention};
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_retention(
@@ -395,7 +395,7 @@ impl<T> UploadObject<T> {
     /// [retention configuration]: https://cloud.google.com/storage/docs/metadata#retention-config
     pub fn with_retention<V>(mut self, v: V) -> Self
     where
-        V: Into<control::model::object::Retention>,
+        V: Into<crate::model::object::Retention>,
     {
         self.resource.retention = Some(v.into());
         self
@@ -566,10 +566,10 @@ impl<T> UploadObject<T> {
     {
         UploadObject {
             inner,
-            resource: control::model::Object::new()
+            resource: crate::model::Object::new()
                 .set_bucket(bucket)
                 .set_name(object),
-            spec: control::model::WriteObjectSpec::new(),
+            spec: crate::model::WriteObjectSpec::new(),
             params: None,
             payload: payload.into(),
         }
@@ -661,7 +661,7 @@ mod tests {
     use super::*;
     use crate::client::tests::create_key_helper;
     use crate::client::tests::test_inner_client;
-    use control::model::WriteObjectSpec;
+    use crate::model::WriteObjectSpec;
     use serde_json::{Value, json};
     use std::collections::BTreeMap;
 
@@ -669,7 +669,7 @@ mod tests {
 
     #[test]
     fn upload_object_unbuffered_metadata() -> Result {
-        use control::model::ObjectAccessControl;
+        use crate::model::ObjectAccessControl;
         let inner = test_inner_client(gaxi::options::ClientConfig::default());
         let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "")
             .with_if_generation_match(10)
@@ -691,8 +691,8 @@ mod tests {
             .with_md5_hash(md5::compute(b"").0)
             .with_metadata([("k0", "v0"), ("k1", "v1")])
             .with_retention(
-                control::model::object::Retention::new()
-                    .set_mode(control::model::object::retention::Mode::Locked)
+                crate::model::object::Retention::new()
+                    .set_mode(crate::model::object::retention::Mode::Locked)
                     .set_retain_until_time(wkt::Timestamp::try_from("2035-07-07T18:14:00Z")?),
             )
             .with_storage_class("ARCHIVE")
@@ -723,7 +723,7 @@ mod tests {
                 .set_content_language("en")
                 .set_content_type("text/plain")
                 .set_checksums(
-                    control::model::ObjectChecksums::new()
+                    crate::model::ObjectChecksums::new()
                         .set_crc32c(crc32c::crc32c(b""))
                         .set_md5_hash(bytes::Bytes::from_iter(md5::compute(b"").0))
                 )
@@ -731,7 +731,7 @@ mod tests {
                 .set_event_based_hold(true)
                 .set_metadata([("k0", "v0"), ("k1", "v1")])
                 .set_retention(
-                    control::model::object::Retention::new()
+                    crate::model::object::Retention::new()
                         .set_mode("LOCKED")
                         .set_retain_until_time(wkt::Timestamp::try_from("2035-07-07T18:14:00Z")?)
                 )
@@ -808,7 +808,7 @@ mod tests {
 
     #[tokio::test]
     async fn start_resumable_upload_metadata_in_request() -> Result {
-        use control::model::ObjectAccessControl;
+        use crate::model::ObjectAccessControl;
         let inner = test_inner_client(gaxi::options::ClientConfig::default());
         let mut request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "")
             .with_if_generation_match(10)
@@ -830,8 +830,8 @@ mod tests {
             .with_md5_hash(md5::compute(b"").0)
             .with_metadata([("k0", "v0"), ("k1", "v1")])
             .with_retention(
-                control::model::object::Retention::new()
-                    .set_mode(control::model::object::retention::Mode::Locked)
+                crate::model::object::Retention::new()
+                    .set_mode(crate::model::object::retention::Mode::Locked)
                     .set_retain_until_time(wkt::Timestamp::try_from("2035-07-07T18:14:00Z")?),
             )
             .with_storage_class("ARCHIVE")

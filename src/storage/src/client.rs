@@ -14,7 +14,7 @@
 
 pub use crate::Error;
 pub use crate::Result;
-pub use control::model::Object;
+pub use crate::model::Object;
 pub use read_object::ReadObject;
 pub use upload_object::UploadObject;
 
@@ -450,9 +450,9 @@ impl KeyAes256 {
     }
 }
 
-impl std::convert::From<KeyAes256> for control::model::CommonObjectRequestParams {
+impl std::convert::From<KeyAes256> for crate::model::CommonObjectRequestParams {
     fn from(value: KeyAes256) -> Self {
-        control::model::CommonObjectRequestParams::new()
+        crate::model::CommonObjectRequestParams::new()
             .set_encryption_algorithm("AES256")
             .set_encryption_key_bytes(value.key.to_vec())
             .set_encryption_key_sha256_bytes(Sha256::digest(value.key).as_slice().to_owned())
@@ -461,7 +461,7 @@ impl std::convert::From<KeyAes256> for control::model::CommonObjectRequestParams
 
 fn apply_customer_supplied_encryption_headers(
     builder: reqwest::RequestBuilder,
-    common_object_request_params: Option<control::model::CommonObjectRequestParams>,
+    common_object_request_params: Option<crate::model::CommonObjectRequestParams>,
 ) -> reqwest::RequestBuilder {
     common_object_request_params.iter().fold(builder, |b, v| {
         b.header(
@@ -541,7 +541,7 @@ mod tests {
     fn test_key_aes_256_to_control_model_object() -> Result {
         let (key, _, key_sha256, _) = create_key_helper();
         let key_aes_256 = KeyAes256::new(&key)?;
-        let params = control::model::CommonObjectRequestParams::from(key_aes_256);
+        let params = crate::model::CommonObjectRequestParams::from(key_aes_256);
         assert_eq!(params.encryption_algorithm, "AES256");
         assert_eq!(params.encryption_key_bytes, key);
         assert_eq!(params.encryption_key_sha256_bytes, key_sha256);
