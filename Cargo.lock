@@ -1234,6 +1234,7 @@ dependencies = [
  "regex",
  "reqwest",
  "rsa",
+ "rustc_version",
  "rustls",
  "rustls-pemfile",
  "scoped-env",
