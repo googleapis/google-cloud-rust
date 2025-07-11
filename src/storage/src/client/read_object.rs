@@ -12,7 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use futures::Stream;
+use pin_project::pin_project;
 use serde_with::DeserializeAs;
+use std::pin::Pin;
 
 use super::*;
 
@@ -240,7 +243,7 @@ impl ReadObject {
         Ok(ReadObjectResponse {
             inner: response,
             full_content_requested,
-            crc32c: 0,
+            crc32c: 0, // no bytes read yet.
         })
     }
 
@@ -413,11 +416,14 @@ impl ReadObjectResponse {
 
     #[cfg(feature = "unstable-stream")]
     #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
-    /// Convert the response to a [futures::Stream].
-    pub fn into_stream(self) -> impl futures::Stream<Item = Result<bytes::Bytes>> {
-        // TODO(#2049): implement checksum checks for streams.
+    /// Convert the response to a [Stream].
+    pub fn into_stream(self) -> impl Stream<Item = Result<bytes::Bytes>> {
         use futures::TryStreamExt;
-        self.inner.bytes_stream().map_err(Error::io)
+        let response_crc32c = self.check_crc32c();
+        Crc32CStream::new(
+            self.inner.bytes_stream().map_err(Error::io),
+            response_crc32c,
+        )
     }
 
     fn check_crc32c(&self) -> Option<u32> {
@@ -435,6 +441,60 @@ impl ReadObjectResponse {
             self.inner.status(),
             self.inner.headers(),
         )
+    }
+}
+
+#[pin_project]
+struct Crc32CStream<S>
+where
+    S: Stream<Item = Result<bytes::Bytes>>,
+{
+    #[pin]
+    inner_stream: S,
+    crc32c: u32,
+    response_crc32c: Option<u32>,
+}
+
+impl<S> Crc32CStream<S>
+where
+    S: Stream<Item = Result<bytes::Bytes>>,
+{
+    pub fn new(inner_stream: S, response_crc32c: Option<u32>) -> Self {
+        Self {
+            inner_stream: inner_stream,
+            crc32c: 0, // no bytes read yet.
+            response_crc32c: response_crc32c,
+        }
+    }
+}
+
+// Implement the Stream trait for our wrapper struct.
+impl<S> Stream for Crc32CStream<S>
+where
+    S: Stream<Item = Result<bytes::Bytes>>,
+{
+    type Item = Result<bytes::Bytes>;
+
+    fn poll_next(
+        self: Pin<&mut Self>,
+        cx: &mut futures::task::Context<'_>,
+    ) -> futures::task::Poll<Option<Self::Item>> {
+        // Poll the inner stream.
+        let this = self.project();
+        let inner_stream_pin = this.inner_stream;
+        match inner_stream_pin.poll_next(cx) {
+            futures::task::Poll::Ready(Some(Ok(chunk))) => {
+                *this.crc32c = crc32c::crc32c_append(*this.crc32c, &chunk);
+                futures::task::Poll::Ready(Some(Ok(chunk)))
+            }
+            futures::task::Poll::Ready(None) => {
+                match check_crc32c_match(*this.crc32c, *this.response_crc32c) {
+                    Ok(()) => futures::task::Poll::Ready(None),
+                    Err(e) => futures::task::Poll::Ready(Some(Err(e))),
+                }
+            }
+            poll => poll,
+        }
     }
 }
 
@@ -594,13 +654,18 @@ mod tests {
                 request::method_path("GET", "//storage/v1/b/test-bucket/o/test-object"),
                 request::query(url_decoded(contains(("alt", "media")))),
             ])
-            .times(2)
+            .times(3)
             .respond_with(
                 status_code(200)
                     .body("hello world")
                     .append_header("x-goog-hash", format!("crc32c={value}")),
             ),
         );
+
+        let want_err = ReadError::BadCrc {
+            got: crc32c::crc32c("hello world".as_bytes()), // calculated from data.
+            want: crc32c::crc32c("goodbye world".as_bytes()), // returned from server.
+        };
 
         let endpoint = server.url("");
         let client = Storage::builder()
@@ -612,23 +677,45 @@ mod tests {
             .read_object("projects/_/buckets/test-bucket", "test-object")
             .send()
             .await?;
-        response
+        let err = response
             .all_bytes()
             .await
             .expect_err("expect error on incorrect crc32c");
+        assert_eq!(
+            err.source().unwrap().downcast_ref::<ReadError>().unwrap(),
+            &want_err
+        );
 
         let mut response = client
             .read_object("projects/_/buckets/test-bucket", "test-object")
             .send()
             .await?;
-        let res: crate::Result<()> = async {
+        let err: crate::Error = async {
             {
                 while (response.next().await.transpose()?).is_some() {}
                 Ok(())
             }
         }
-        .await;
-        assert!(res.is_err(), "expect error on incorrect crc32c");
+        .await
+        .expect_err("expect error on incorrect crc32c");
+        assert_eq!(
+            err.source().unwrap().downcast_ref::<ReadError>().unwrap(),
+            &want_err
+        );
+
+        use futures::TryStreamExt;
+        let err = client
+            .read_object("projects/_/buckets/test-bucket", "test-object")
+            .send()
+            .await?
+            .into_stream()
+            .try_collect::<Vec<bytes::Bytes>>()
+            .await
+            .expect_err("expect error on incorrect crc32c");
+        assert_eq!(
+            err.source().unwrap().downcast_ref::<ReadError>().unwrap(),
+            &want_err
+        );
         Ok(())
     }
 

@@ -36,6 +36,7 @@ longrunning.workspace      = true
 futures.workspace          = true
 lazy_static.workspace      = true
 percent-encoding.workspace = true
+pin-project.workspace      = true
 reqwest                    = { workspace = true, features = ["multipart", "stream"] }
 serde.workspace            = true
 serde_json.workspace       = true
