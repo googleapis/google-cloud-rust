@@ -375,6 +375,16 @@ impl TryFrom<&bytes::Bytes> for Status {
     }
 }
 
+impl From<rpc::model::Status> for Status {
+    fn from(value: rpc::model::Status) -> Self {
+        Self {
+            code: value.code.into(),
+            message: value.message,
+            details: value.details.into_iter().map(StatusDetails::from).collect(),
+        }
+    }
+}
+
 impl From<&rpc::model::Status> for Status {
     fn from(value: &rpc::model::Status) -> Self {
         Self {
@@ -416,6 +426,36 @@ pub enum StatusDetails {
     RetryInfo(rpc::model::RetryInfo),
     #[serde(untagged)]
     Other(wkt::Any),
+}
+
+
+impl From<wkt::Any> for StatusDetails {
+    fn from(value: wkt::Any) -> Self {
+        macro_rules! try_convert {
+            ($($variant:ident),*) => {
+                $(
+                    if let Ok(v) = value.to_msg::<rpc::model::$variant>() {
+                        return StatusDetails::$variant(v);
+                    }
+                )*
+            };
+        }
+
+        try_convert!(
+            BadRequest,
+            DebugInfo,
+            ErrorInfo,
+            Help,
+            LocalizedMessage,
+            PreconditionFailure,
+            QuotaFailure,
+            RequestInfo,
+            ResourceInfo,
+            RetryInfo
+        );
+
+        StatusDetails::Other(value)
+    }
 }
 
 impl From<&wkt::Any> for StatusDetails {
