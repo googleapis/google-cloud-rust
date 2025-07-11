@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use serde_with::DeserializeAs;
+
 use super::*;
 
 /// The request builder for [Storage::read_object][crate::client::Storage::read_object] calls.
@@ -225,6 +227,8 @@ impl ReadObject {
 
     /// Sends the request.
     pub async fn send(self) -> Result<ReadObjectResponse> {
+        let full_content_requested = self.request.read_offset == 0 && self.request.read_limit == 0;
+
         let builder = self.http_request_builder().await?;
 
         tracing::info!("builder={builder:?}");
@@ -233,7 +237,11 @@ impl ReadObject {
         if !response.status().is_success() {
             return gaxi::http::to_http_error(response).await;
         }
-        Ok(ReadObjectResponse { inner: response })
+        Ok(ReadObjectResponse {
+            inner: response,
+            full_content_requested,
+            crc32c: 0,
+        })
     }
 
     async fn http_request_builder(self) -> Result<reqwest::RequestBuilder> {
@@ -320,10 +328,24 @@ impl ReadObject {
     }
 }
 
+fn headers_to_crc32c(headers: &http::HeaderMap) -> Option<u32> {
+    headers
+        .get("x-goog-hash")
+        .and_then(|hash| hash.to_str().ok())
+        .and_then(|hash| hash.split(",").find(|v| v.starts_with("crc32c")))
+        .and_then(|hash| {
+            let hash = hash.trim_start_matches("crc32c=");
+            v1::Crc32c::deserialize_as(serde_json::json!(hash)).ok()
+        })
+}
+
 /// A response to a [Storage::read_object] request.
 #[derive(Debug)]
 pub struct ReadObjectResponse {
     inner: reqwest::Response,
+    // Fields for tracking the crc checksum checks.
+    full_content_requested: bool,
+    crc32c: u32,
 }
 
 impl ReadObjectResponse {
@@ -344,7 +366,12 @@ impl ReadObjectResponse {
     /// # Ok::<(), anyhow::Error>(()) });
     /// ```
     pub async fn all_bytes(self) -> Result<bytes::Bytes> {
-        self.inner.bytes().await.map_err(Error::io)
+        let response_crc32c = self.check_crc32c();
+
+        let bytes = self.inner.bytes().await.map_err(Error::io)?;
+        let crc32c = crc32c::crc32c(&bytes);
+        check_crc32c_match(crc32c, response_crc32c)?;
+        Ok(bytes)
     }
 
     /// Stream the next bytes of the object.
@@ -367,16 +394,92 @@ impl ReadObjectResponse {
     /// # Ok::<(), anyhow::Error>(()) });
     /// ```
     pub async fn next(&mut self) -> Option<Result<bytes::Bytes>> {
-        self.inner.chunk().await.map_err(Error::io).transpose()
+        let res = self.inner.chunk().await.map_err(Error::io);
+        match res {
+            Ok(Some(chunk)) => {
+                self.crc32c = crc32c::crc32c_append(self.crc32c, &chunk);
+                Some(Ok(chunk))
+            }
+            Ok(None) => {
+                let res = check_crc32c_match(self.crc32c, self.check_crc32c());
+                match res {
+                    Err(e) => Some(Err(e)),
+                    Ok(()) => None,
+                }
+            }
+            Err(e) => Some(Err(e)),
+        }
     }
 
     #[cfg(feature = "unstable-stream")]
     #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
     /// Convert the response to a [futures::Stream].
     pub fn into_stream(self) -> impl futures::Stream<Item = Result<bytes::Bytes>> {
+        // TODO(#2049): implement checksum checks for streams.
         use futures::TryStreamExt;
         self.inner.bytes_stream().map_err(Error::io)
     }
+
+    fn check_crc32c(&self) -> Option<u32> {
+        // Check the CRC iff all of the following hold:
+        // 1. We requested the full content (request.read_limit = 0, request.read_offset = 0).
+        // 2. We got all the content (status != PartialContent).
+        // 3. The server sent a CRC header.
+        // 4. The http stack did not uncompress the file.
+        // 5. We were not served compressed data that was uncompressed on download.
+        //
+        // For 4, we turn off automatic decompression in reqwest::Client when we create it,
+        // so it will not be turned on.
+        check_crc32c_helper(
+            self.full_content_requested,
+            self.inner.status(),
+            self.inner.headers(),
+        )
+    }
+}
+
+/// Represents an error that can occur when reading response data.
+#[derive(thiserror::Error, Debug, PartialEq)]
+#[non_exhaustive]
+enum ReadError {
+    /// The calculated crc32c did not match server provided crc32c.
+    #[error("bad CRC on read: got {got}, want {want}")]
+    BadCrc { got: u32, want: u32 },
+}
+
+// helper to make testing easier.
+fn check_crc32c_helper(
+    full_content_requested: bool,
+    status: http::StatusCode,
+    headers: &http::HeaderMap,
+) -> Option<u32> {
+    if !full_content_requested || status == http::StatusCode::PARTIAL_CONTENT {
+        return None;
+    }
+    let stored_encoding = headers
+        .get("x-goog-stored-content-encoding")
+        .and_then(|e| e.to_str().ok())
+        .map_or("", |e| e);
+    let content_encoding = headers
+        .get("content-encoding")
+        .and_then(|e| e.to_str().ok())
+        .map_or("", |e| e);
+    if stored_encoding == "gzip" && content_encoding != "gzip" {
+        return None;
+    }
+    headers_to_crc32c(headers)
+}
+
+fn check_crc32c_match(crc32c: u32, response: Option<u32>) -> Result<()> {
+    if let Some(response) = response {
+        if crc32c != response {
+            return Err(Error::deser(ReadError::BadCrc {
+                got: crc32c,
+                want: response,
+            }));
+        }
+    }
+    Ok(())
 }
 
 #[cfg(test)]
@@ -470,6 +573,62 @@ mod tests {
             .expect_err("expected a not found error");
         assert_eq!(err.http_status_code(), Some(404));
 
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn read_object_incorrect_crc32c_check() -> Result {
+        // Calculate and serialize the crc32c checksum
+        let u = crc32c::crc32c("goodbye world".as_bytes());
+        let bytes = [
+            (u >> 24 & 0xFF) as u8,
+            (u >> 16 & 0xFF) as u8,
+            (u >> 8 & 0xFF) as u8,
+            (u & 0xFF) as u8,
+        ];
+        let value = base64::prelude::BASE64_STANDARD.encode(bytes);
+
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("GET", "//storage/v1/b/test-bucket/o/test-object"),
+                request::query(url_decoded(contains(("alt", "media")))),
+            ])
+            .times(2)
+            .respond_with(
+                status_code(200)
+                    .body("hello world")
+                    .append_header("x-goog-hash", format!("crc32c={value}")),
+            ),
+        );
+
+        let endpoint = server.url("");
+        let client = Storage::builder()
+            .with_endpoint(endpoint.to_string())
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+        let response = client
+            .read_object("projects/_/buckets/test-bucket", "test-object")
+            .send()
+            .await?;
+        response
+            .all_bytes()
+            .await
+            .expect_err("expect error on incorrect crc32c");
+
+        let mut response = client
+            .read_object("projects/_/buckets/test-bucket", "test-object")
+            .send()
+            .await?;
+        let res: crate::Result<()> = async {
+            {
+                while (response.next().await.transpose()?).is_some() {}
+                Ok(())
+            }
+        }
+        .await;
+        assert!(res.is_err(), "expect error on incorrect crc32c");
         Ok(())
     }
 
@@ -647,6 +806,68 @@ mod tests {
             .await?
             .build()?;
         let got = request.url().path_segments().unwrap().next_back().unwrap();
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test_case(10, Some(10), false; "Match values")]
+    #[test_case(10, None, false; "None response")]
+    #[test_case(10, Some(20), true; "Different values")]
+    fn test_check_crc(crc: u32, resp_crc: Option<u32>, want_err: bool) {
+        let res = check_crc32c_match(crc, resp_crc);
+        if want_err {
+            assert_eq!(
+                res.unwrap_err()
+                    .source()
+                    .unwrap()
+                    .downcast_ref::<ReadError>()
+                    .unwrap(),
+                &ReadError::BadCrc {
+                    got: crc,
+                    want: resp_crc.unwrap(),
+                }
+            );
+        } else {
+            res.unwrap();
+        }
+    }
+
+    #[test_case("", None; "no header")]
+    #[test_case("crc32c=hello", None; "invalid value")]
+    #[test_case("crc32c=AAAAAA==", Some(0); "zero value")]
+    #[test_case("crc32c=SZYC0g==", Some(1234567890_u32); "value")]
+    #[test_case("crc32c=SZYC0g==,md5=something", Some(1234567890_u32); "md5 after crc32c")]
+    #[test_case("md5=something,crc32c=SZYC0g==", Some(1234567890_u32); "md5 before crc32c")]
+    fn test_headers_to_crc(val: &str, want: Option<u32>) -> Result {
+        let mut headers = http::HeaderMap::new();
+        if !val.is_empty() {
+            headers.insert("x-goog-hash", http::HeaderValue::from_str(val)?);
+        }
+        let got = headers_to_crc32c(&headers);
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test_case(false, vec![("x-goog-hash", "crc32c=SZYC0g==")], http::StatusCode::OK, None; "full content not requested")]
+    #[test_case(true, vec![], http::StatusCode::PARTIAL_CONTENT, None; "No x-goog-hash")]
+    #[test_case(true, vec![("x-goog-hash", "crc32c=SZYC0g=="), ("x-goog-stored-content-encoding", "gzip"), ("content-encoding", "json")], http::StatusCode::OK, None; "server uncompressed")]
+    #[test_case(true, vec![("x-goog-hash", "crc32c=SZYC0g=="), ("x-goog-stored-content-encoding", "gzip"), ("content-encoding", "gzip")], http::StatusCode::OK, Some(1234567890_u32); "both gzip")]
+    #[test_case(true, vec![("x-goog-hash", "crc32c=SZYC0g==")], http::StatusCode::OK, Some(1234567890_u32); "all ok")]
+    fn test_check_crc_enabled(
+        full_content_requested: bool,
+        headers: Vec<(&str, &str)>,
+        status: http::StatusCode,
+        want: Option<u32>,
+    ) -> Result {
+        let mut header_map = http::HeaderMap::new();
+        for (key, value) in headers {
+            header_map.insert(
+                http::HeaderName::from_bytes(key.as_bytes())?,
+                http::HeaderValue::from_bytes(value.as_bytes())?,
+            );
+        }
+
+        let got = check_crc32c_helper(full_content_requested, status, &header_map);
         assert_eq!(got, want);
         Ok(())
     }

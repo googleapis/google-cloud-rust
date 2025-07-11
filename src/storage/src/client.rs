@@ -199,7 +199,16 @@ impl Storage {
         config: gaxi::options::ClientConfig,
     ) -> gax::client_builder::Result<Self> {
         use gax::client_builder::Error;
-        let client = reqwest::Client::new();
+        let client = reqwest::Client::builder()
+            // Disable all automatic decompression. These could be enabled by users by enabling
+            // the corresponding features flags, but we will not be able to tell whether this
+            // has happened.
+            .no_brotli()
+            .no_deflate()
+            .no_gzip()
+            .no_zstd()
+            .build()
+            .map_err(Error::transport)?;
         let cred = if let Some(c) = config.cred.clone() {
             c
         } else {

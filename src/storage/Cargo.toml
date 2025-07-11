@@ -29,6 +29,7 @@ rust-version.workspace = true
 [dependencies]
 base64.workspace           = true
 bytes.workspace            = true
+crc32c.workspace           = true
 http.workspace             = true
 futures.workspace          = true
 lazy_static.workspace      = true
