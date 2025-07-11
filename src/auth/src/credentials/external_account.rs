@@ -14,6 +14,7 @@
 
 use super::dynamic::CredentialsProvider;
 use super::external_account_sources::executable_sourced::ExecutableSourcedCredentials;
+use super::external_account_sources::file_sourced::FileSourcedCredentials;
 use super::external_account_sources::url_sourced::UrlSourcedCredentials;
 use super::impersonated;
 use super::internal::sts_exchange::{ClientAuthentication, ExchangeTokenRequest, STSHandler};
@@ -61,7 +62,10 @@ enum CredentialSourceFile {
     Executable {
         executable: ExecutableConfig,
     },
-    File,
+    File {
+        file: String,
+        format: Option<CredentialSourceFormat>,
+    },
     Aws,
 }
 
@@ -110,8 +114,8 @@ impl From<CredentialSourceFile> for CredentialSource {
             CredentialSourceFile::Executable { executable } => {
                 Self::Executable(ExecutableSourcedCredentials::new(executable))
             }
-            CredentialSourceFile::File => {
-                unimplemented!("file sourced credential not supported yet")
+            CredentialSourceFile::File { file, format } => {
+                Self::File(FileSourcedCredentials::new(file, format))
             }
             CredentialSourceFile::Aws => {
                 unimplemented!("AWS sourced credential not supported yet")
@@ -212,7 +216,7 @@ impl ExternalAccountConfigBuilder {
 enum CredentialSource {
     Url(UrlSourcedCredentials),
     Executable(ExecutableSourcedCredentials),
-    File,
+    File(FileSourcedCredentials),
     Aws,
     Programmatic(ProgrammaticSourcedCredentials),
 }
@@ -230,8 +234,8 @@ impl ExternalAccountConfig {
             CredentialSource::Programmatic(source) => {
                 Self::make_credentials_from_source(source, config, quota_project_id)
             }
-            CredentialSource::File => {
-                unimplemented!("file sourced credential not supported yet")
+            CredentialSource::File(source) => {
+                Self::make_credentials_from_source(source, config, quota_project_id)
             }
             CredentialSource::Aws => {
                 unimplemented!("AWS sourced credential not supported yet")
@@ -1051,6 +1055,39 @@ mod tests {
             }
             _ => {
                 unreachable!("expected Executable Sourced credential")
+            }
+        }
+    }
+
+    #[tokio::test]
+    async fn create_external_account_detect_file_sourced() {
+        let contents = json!({
+            "type": "external_account",
+            "audience": "audience",
+            "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+            "token_url": "https://sts.googleapis.com/v1beta/token",
+            "credential_source": {
+                "file": "/foo/bar",
+                "format": {
+                    "type": "json",
+                    "subject_token_field_name": "token"
+                }
+            }
+        });
+
+        let file: ExternalAccountFile =
+            serde_json::from_value(contents).expect("failed to parse external account config");
+        let config: ExternalAccountConfig = file.into();
+        let source = config.credential_source;
+
+        match source {
+            CredentialSource::File(source) => {
+                assert_eq!(source.file, "/foo/bar");
+                assert_eq!(source.format, "json");
+                assert_eq!(source.subject_token_field_name, "token");
+            }
+            _ => {
+                unreachable!("expected File Sourced credential")
             }
         }
     }
