@@ -321,7 +321,7 @@ flate2         = { default-features = false, version = "1" }
 httptest       = { default-features = false, version = "0.16.3" }
 md5            = { default-features = false, version = "0.8" }
 mockall        = { default-features = false, version = "0.13" }
-multer         = { default-features = false, version = "3.1.0" }
+multer         = { default-features = false, version = "3" }
 mutants        = { default-features = false, version = "0.0.3" }
 num-bigint-dig = { default-features = false, version = "0.8" }
 paste          = { default-features = false, version = "1" }

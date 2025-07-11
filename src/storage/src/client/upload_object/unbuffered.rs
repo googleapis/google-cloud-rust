@@ -33,7 +33,7 @@ where
     /// # Ok(()) }
     /// ```
     pub async fn send_unbuffered(self) -> crate::Result<Object> {
-        // TODO(#2634) - use to resumable uploads for large payloads.
+        // TODO(#2634) - use resumable uploads for large payloads.
         let builder = self.single_shot_builder().await?;
         let response = builder.send().await.map_err(Error::io)?;
         if !response.status().is_success() {
