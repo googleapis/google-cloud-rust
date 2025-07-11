@@ -586,8 +586,7 @@ impl<T> UploadObject<T> {
             // Creating a resumable upload is always idempotent. There are no
             // **observable** side-effects if executed multiple times. Any extra
             // sessions created in the retry loop are simply lost and eventually
-            // garbage collected. There are no `list` operations, or billing, or
-            // cause any other side-effect that applications may observe.
+            // garbage collected.
             true,
             self.inner.retry_throttler.clone(),
             self.inner.retry_policy.clone(),
