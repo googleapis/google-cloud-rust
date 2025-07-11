@@ -48,9 +48,17 @@ pub async fn objects(builder: storage::client::ClientBuilder) -> Result<()> {
     const CONTENTS: &str = "the quick brown fox jumps over the lazy dog";
     let insert = client
         .upload_object(&bucket.name, "quick.text", CONTENTS)
+        .with_metadata([("verify-metadata-works", "yes")])
         .send_unbuffered()
         .await?;
     tracing::info!("success with insert={insert:?}");
+    assert_eq!(
+        insert
+            .metadata
+            .get("verify-metadata-works")
+            .map(String::as_str),
+        Some("yes")
+    );
 
     tracing::info!("testing read_object()");
     let contents = client
