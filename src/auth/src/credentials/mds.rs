@@ -196,14 +196,13 @@ impl Builder {
     /// # });
     /// ```
     pub fn with_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
-        self.retry_builder = self.retry_builder.with_retry_policy(v.into().into_inner());
+        self.retry_builder = self.retry_builder.with_retry_policy(v.into());
         self
     }
 
     /// Configure the retry backoff policy.
     ///
-    /// The authentication library can automatically retry operations that fail. The
-    /// backoff policy controls how long to wait in between retry attempts.
+    /// The backoff policy controls how long to wait in between retry attempts.
     ///
     /// ```
     /// # use google_cloud_auth::credentials::mds::Builder;
@@ -223,7 +222,7 @@ impl Builder {
     pub fn with_backoff_policy<V: Into<BackoffPolicyArg>>(mut self, v: V) -> Self {
         self.retry_builder = self
             .retry_builder
-            .with_backoff_policy(v.into().into_inner());
+            .with_backoff_policy(v.into());
         self
     }
 
@@ -251,7 +250,7 @@ impl Builder {
     pub fn with_retry_throttler<V: Into<RetryThrottlerArg>>(mut self, v: V) -> Self {
         self.retry_builder = self
             .retry_builder
-            .with_retry_throttler(v.into().into_inner());
+            .with_retry_throttler(v.into());
         self
     }
 

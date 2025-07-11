@@ -15,12 +15,12 @@
 use crate::build_errors::Error as BuilderError;
 use crate::token::{Token, TokenProvider};
 use crate::{BuildResult, Result, constants};
-use gax::backoff_policy::BackoffPolicy;
+use gax::backoff_policy::{BackoffPolicy, BackoffPolicyArg};
 use gax::error::CredentialsError;
 use gax::exponential_backoff::ExponentialBackoff;
 use gax::retry_loop_internal::retry_loop;
-use gax::retry_policy::RetryPolicy;
-use gax::retry_throttler::{AdaptiveThrottler, SharedRetryThrottler};
+use gax::retry_policy::{RetryPolicy, RetryPolicyArg};
+use gax::retry_throttler::{AdaptiveThrottler, RetryThrottlerArg, SharedRetryThrottler};
 use std::error::Error;
 use std::sync::{Arc, Mutex};
 
@@ -35,9 +35,9 @@ pub(crate) struct TokenProviderWithRetry<T: TokenProvider> {
 #[derive(Debug, Default)]
 pub(crate) struct Builder<T: TokenProvider> {
     inner: Option<Arc<T>>,
-    retry_policy: Option<Arc<dyn RetryPolicy>>,
-    backoff_policy: Option<Arc<dyn BackoffPolicy>>,
-    retry_throttler: Option<SharedRetryThrottler>,
+    retry_policy: Option<RetryPolicyArg>,
+    backoff_policy: Option<BackoffPolicyArg>,
+    retry_throttler: Option<RetryThrottlerArg>,
 }
 
 impl<T: TokenProvider> Builder<T> {
@@ -46,17 +46,17 @@ impl<T: TokenProvider> Builder<T> {
         self
     }
 
-    pub(crate) fn with_retry_policy(mut self, retry_policy: Arc<dyn RetryPolicy>) -> Self {
+    pub(crate) fn with_retry_policy(mut self, retry_policy: RetryPolicyArg) -> Self {
         self.retry_policy = Some(retry_policy);
         self
     }
 
-    pub(crate) fn with_backoff_policy(mut self, backoff_policy: Arc<dyn BackoffPolicy>) -> Self {
+    pub(crate) fn with_backoff_policy(mut self, backoff_policy: BackoffPolicyArg) -> Self {
         self.backoff_policy = Some(backoff_policy);
         self
     }
 
-    pub(crate) fn with_retry_throttler(mut self, retry_throttler: SharedRetryThrottler) -> Self {
+    pub(crate) fn with_retry_throttler(mut self, retry_throttler: RetryThrottlerArg) -> Self {
         self.retry_throttler = Some(retry_throttler);
         self
     }
@@ -64,9 +64,11 @@ impl<T: TokenProvider> Builder<T> {
     pub(crate) fn build(self) -> BuildResult<TokenProviderWithRetry<T>> {
         let backoff_policy = self
             .backoff_policy
+            .map(|p| p.into_inner())
             .unwrap_or_else(|| Arc::new(ExponentialBackoff::default()));
         let retry_throttler = self
             .retry_throttler
+            .map(|p| p.into_inner())
             .unwrap_or_else(|| Arc::new(Mutex::new(AdaptiveThrottler::default())));
         let inner = self
             .inner
@@ -74,7 +76,7 @@ impl<T: TokenProvider> Builder<T> {
 
         Ok(TokenProviderWithRetry {
             inner,
-            retry_policy: self.retry_policy,
+            retry_policy: self.retry_policy.map(|p| p.into_inner()),
             backoff_policy,
             retry_throttler,
         })
@@ -238,7 +240,7 @@ mod tests {
 
         let provider = Builder::default()
             .with_token_provider(mock_provider)
-            .with_retry_policy(Arc::new(AuthRetryPolicy { max_attempts: 2 }))
+            .with_retry_policy(AuthRetryPolicy { max_attempts: 2 }.into())
             .build()
             .unwrap();
 
@@ -271,7 +273,7 @@ mod tests {
 
         let provider = Builder::default()
             .with_token_provider(mock_provider)
-            .with_retry_policy(Arc::new(AuthRetryPolicy { max_attempts: 2 }))
+            .with_retry_policy(AuthRetryPolicy { max_attempts: 2 }.into())
             .build()
             .unwrap();
 
@@ -289,7 +291,7 @@ mod tests {
 
         let provider = Builder::default()
             .with_token_provider(mock_provider)
-            .with_retry_policy(Arc::new(AuthRetryPolicy { max_attempts: 2 }))
+            .with_retry_policy(AuthRetryPolicy { max_attempts: 2 }.into())
             .build()
             .unwrap();
 
@@ -314,7 +316,7 @@ mod tests {
 
         let provider = Builder::default()
             .with_token_provider(mock_provider)
-            .with_retry_policy(Arc::new(AuthRetryPolicy { max_attempts: 2 }))
+            .with_retry_policy(AuthRetryPolicy { max_attempts: 2 }.into())
             .build()
             .unwrap();
 
@@ -391,13 +393,13 @@ mod tests {
         let mut builder = Builder::default().with_token_provider(mock_provider);
 
         if use_custom_config {
-            let retry_policy = Arc::new(AuthRetryPolicy { max_attempts: 5 });
-            let backoff_policy = Arc::new(TestBackoffPolicy::default());
-            let retry_throttler = Arc::new(Mutex::new(AdaptiveThrottler::new(4.0).unwrap()));
+            let retry_policy = AuthRetryPolicy { max_attempts: 5 };
+            let backoff_policy = TestBackoffPolicy::default();
+            let retry_throttler = AdaptiveThrottler::new(4.0).unwrap();
             builder = builder
-                .with_retry_policy(retry_policy)
-                .with_backoff_policy(backoff_policy)
-                .with_retry_throttler(retry_throttler);
+                .with_retry_policy(retry_policy.into())
+                .with_backoff_policy(backoff_policy.into())
+                .with_retry_throttler(retry_throttler.into());
         }
 
         let provider = builder.build().unwrap();
@@ -455,19 +457,19 @@ mod tests {
         mock_throttler.expect_on_success().times(1).return_const(());
 
         // 3. Setup other policies
-        let retry_policy = Arc::new(AuthRetryPolicy { max_attempts: 2 });
+        let retry_policy = AuthRetryPolicy { max_attempts: 2 };
         let backoff_was_called = Arc::new(AtomicBool::new(false));
-        let backoff_policy = Arc::new(TestBackoffPolicy {
+        let backoff_policy = TestBackoffPolicy {
             was_called: backoff_was_called.clone(),
-        });
-        let retry_throttler = Arc::new(Mutex::new(mock_throttler));
+        };
+        let retry_throttler = mock_throttler;
 
         // 4. Build and run
         let provider = Builder::default()
             .with_token_provider(mock_provider)
-            .with_retry_policy(retry_policy)
-            .with_backoff_policy(backoff_policy)
-            .with_retry_throttler(retry_throttler)
+            .with_retry_policy(retry_policy.into())
+            .with_backoff_policy(backoff_policy.into())
+            .with_retry_throttler(retry_throttler.into())
             .build()
             .unwrap();
 

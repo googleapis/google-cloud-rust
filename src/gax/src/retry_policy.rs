@@ -127,7 +127,7 @@ pub trait RetryPolicy: Send + Sync + std::fmt::Debug {
 }
 
 /// A helper type to use [RetryPolicy] in client and request options.
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub struct RetryPolicyArg(pub(crate) Arc<dyn RetryPolicy>);
 
 impl<T> std::convert::From<T> for RetryPolicyArg
@@ -146,6 +146,7 @@ impl std::convert::From<Arc<dyn RetryPolicy>> for RetryPolicyArg {
 }
 
 impl RetryPolicyArg {
+    /// Consumes the argument and returns the wrapped policy object.
     pub fn into_inner(self) -> Arc<dyn RetryPolicy> {
         self.0
     }

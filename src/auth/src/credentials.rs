@@ -20,7 +20,6 @@ use http::{Extensions, HeaderMap};
 use serde_json::Value;
 use std::future::Future;
 use std::sync::Arc;
-
 use std::sync::atomic::{AtomicU64, Ordering};
 
 pub mod api_key_credentials;
