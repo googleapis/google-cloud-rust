@@ -451,8 +451,8 @@ where
 {
     #[pin]
     inner_stream: S,
-    crc32c: u32,
     response_crc32c: Option<u32>,
+    crc32c: u32,
 }
 
 impl<S> Crc32CStream<S>
@@ -461,9 +461,9 @@ where
 {
     pub fn new(inner_stream: S, response_crc32c: Option<u32>) -> Self {
         Self {
-            inner_stream: inner_stream,
+            inner_stream,
+            response_crc32c,
             crc32c: 0, // no bytes read yet.
-            response_crc32c: response_crc32c,
         }
     }
 }
