@@ -33,14 +33,7 @@ pub(crate) const ACCESS_TOKEN_REQUEST_TYPE: &str = "at";
 
 /// Format the struct as needed for the `x-goog-api-client` header.
 pub(crate) fn metrics_header_value(request_type: &str, cred_type: &str) -> String {
-    // Strip out the initial "rustc " string from `RUSTC_VERSION`. If not
-    // found, leave RUSTC_VERSION unchanged.
     let rustc_version = build_info::RUSTC_VERSION;
-    let rustc_version = rustc_version
-        .strip_prefix("rustc ")
-        .unwrap_or(build_info::RUSTC_VERSION);
-
-    // Capture the auth version too.
     let auth_version = build_info::PKG_VERSION;
 
     format!(
@@ -364,9 +357,7 @@ mod tests {
     #[test]
     fn test_metrics_header_value() {
         let header = metrics_header_value("at", "u");
-        let rustc_version = build_info::RUSTC_VERSION
-            .strip_prefix("rustc ")
-            .unwrap_or(build_info::RUSTC_VERSION);
+        let rustc_version = build_info::RUSTC_VERSION;
         let expected = format!(
             "gl-rust/{} auth/{} auth-request-type/at cred-type/u",
             rustc_version,

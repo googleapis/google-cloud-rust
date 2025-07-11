@@ -20,10 +20,16 @@ fn main() {
     let out_dir = std::env::var_os("OUT_DIR").expect("OUT_DIR not specified");
     let out_path = Path::new(&out_dir).to_owned();
 
-    let rust_version = rustc_version::version().expect("Could not retrieve rustc version");
+    let rust_version = rustc_version::version()
+        .expect("Could not retrieve rustc version")
+        .to_string();
+
+    // Strip out the initial "rustc " string from `RUSTC_VERSION`. If not
+    // found, leave RUSTC_VERSION unchanged.
+    let rust_version = rust_version.strip_prefix("rustc ").unwrap_or(&rust_version);
     let pkg_version = env!("CARGO_PKG_VERSION");
     let mut f =
-        File::create(out_path.join("build_env.rs")).expect("Could not create build_env.rs file");
+        File::create(out_path.join("build_env.rs")).expect("Could not create build environment");
     f.write_all(format!("pub(crate) const RUSTC_VERSION: &str = \"{rust_version}\";\n").as_bytes())
         .expect("Unable to write rust version");
     f.write_all(format!("pub(crate) const PKG_VERSION: &str = \"{pkg_version}\";").as_bytes())
