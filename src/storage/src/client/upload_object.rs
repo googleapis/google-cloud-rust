@@ -147,7 +147,7 @@ impl<T> UploadObject<T> {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
-    /// # use crate::model::ObjectAccessControl;
+    /// # use google_cloud_storage::model::ObjectAccessControl;
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_acl([ObjectAccessControl::new().set_entity("allAuthenticatedUsers").set_role("READER")])
@@ -379,7 +379,7 @@ impl<T> UploadObject<T> {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
-    /// # use crate::model::object::{Retention, retention};
+    /// # use google_cloud_storage::model::object::{Retention, retention};
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_retention(
