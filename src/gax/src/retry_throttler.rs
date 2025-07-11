@@ -129,10 +129,9 @@ impl From<SharedRetryThrottler> for RetryThrottlerArg {
     }
 }
 
-impl RetryThrottlerArg {
-    /// Consumes the argument and returns the wrapped policy object.
-    pub fn into_inner(self) -> SharedRetryThrottler {
-        self.0
+impl From<RetryThrottlerArg> for SharedRetryThrottler {
+    fn from(value: RetryThrottlerArg) -> SharedRetryThrottler {
+        value.0
     }
 }
 

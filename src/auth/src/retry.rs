@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::errors::CredentialsError;
 use crate::token::{Token, TokenProvider};
 use crate::{Result, constants};
 use gax::backoff_policy::{BackoffPolicy, BackoffPolicyArg};
-use gax::error::CredentialsError;
 use gax::exponential_backoff::ExponentialBackoff;
 use gax::retry_loop_internal::retry_loop;
 use gax::retry_policy::{RetryPolicy, RetryPolicyArg};
@@ -55,18 +55,18 @@ impl Builder {
     }
 
     pub(crate) fn build<T: TokenProvider>(self, token_provider: T) -> TokenProviderWithRetry<T> {
-        let backoff_policy = self
-            .backoff_policy
-            .map(|p| p.into_inner())
-            .unwrap_or_else(|| Arc::new(ExponentialBackoff::default()));
-        let retry_throttler = self
-            .retry_throttler
-            .map(|p| p.into_inner())
-            .unwrap_or_else(|| Arc::new(Mutex::new(AdaptiveThrottler::default())));
+        let backoff_policy: Arc<dyn BackoffPolicy> = match self.backoff_policy {
+            Some(p) => p.into(),
+            None => Arc::new(ExponentialBackoff::default()),
+        };
+        let retry_throttler: SharedRetryThrottler = match self.retry_throttler {
+            Some(p) => p.into(),
+            None => Arc::new(Mutex::new(AdaptiveThrottler::default())),
+        };
 
         TokenProviderWithRetry {
             inner: Arc::new(token_provider),
-            retry_policy: self.retry_policy.map(|p| p.into_inner()),
+            retry_policy: self.retry_policy.map(|p| p.into()),
             backoff_policy,
             retry_throttler,
         }
@@ -135,7 +135,6 @@ where
 mod tests {
     use super::*;
     use crate::token::{Token, TokenProvider, tests::MockTokenProvider};
-    use gax::error::CredentialsError;
     use gax::retry_policy::RetryPolicy;
     use gax::retry_result::RetryResult;
     use gax::retry_throttler::RetryThrottler;

@@ -145,10 +145,9 @@ impl std::convert::From<Arc<dyn RetryPolicy>> for RetryPolicyArg {
     }
 }
 
-impl RetryPolicyArg {
-    /// Consumes the argument and returns the wrapped policy object.
-    pub fn into_inner(self) -> Arc<dyn RetryPolicy> {
-        self.0
+impl From<RetryPolicyArg> for Arc<dyn RetryPolicy> {
+    fn from(value: RetryPolicyArg) -> Arc<dyn RetryPolicy> {
+        value.0
     }
 }
 

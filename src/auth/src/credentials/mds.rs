@@ -420,6 +420,7 @@ mod tests {
     };
     use crate::errors;
     use crate::token::tests::MockTokenProvider;
+    use gax::retry_policy::RetryPolicyExt;
     use http::HeaderValue;
     use http::header::AUTHORIZATION;
     use httptest::matchers::{all_of, contains, request, url_decoded};
@@ -429,47 +430,118 @@ mod tests {
     use scoped_env::ScopedEnv;
     use serial_test::{parallel, serial};
     use std::error::Error;
+    use std::sync::Arc;
+    use std::sync::atomic::{AtomicUsize, Ordering};
     use test_case::test_case;
     use url::Url;
 
     type TestResult = anyhow::Result<()>;
 
-    #[test_case(
-        true,
-        &[
-            "retry_policy: Some(AuthRetryPolicy", 
-            "max_attempts: 5", 
-            "backoff_policy: TestBackoffPolicy", 
-            "retry_throttler: Mutex { data: AdaptiveThrottler", 
-            "factor: 4.0"
-        ];
-        "with_custom_values"
-    )]
-    #[test_case(
-        false,
-        &[
-            "retry_policy: None", 
-            "backoff_policy: ExponentialBackoff", 
-            "retry_throttler: Mutex { data: AdaptiveThrottler", 
-            "factor: 2.0"
-        ];
-        "with_default_values"
-    )]
-    fn test_mds_retry_policies(use_custom_config: bool, expected_substrings: &[&str]) {
+    #[tokio::test]
+    async fn test_mds_retries_on_failures() -> TestResult {
+        let mut server = Server::run();
+        let attempts = 3;
+        server.expect(
+            Expectation::matching(request::path(format!("{MDS_DEFAULT_URI}/token")))
+                .times(attempts)
+                .respond_with(status_code(503)),
+        );
+
+        let retry_policy = gax::retry_policy::AlwaysRetry.with_attempt_limit(attempts as u32);
+
+        let provider = Builder::default()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_retry_policy(retry_policy)
+            .with_backoff_policy(
+                gax::exponential_backoff::ExponentialBackoffBuilder::new()
+                    .with_initial_delay(Duration::from_millis(1))
+                    .build()
+                    .unwrap(),
+            )
+            .build_token_provider();
+
+        let err = provider.token().await.unwrap_err();
+        assert!(err.is_transient());
+        server.verify_and_clear();
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_mds_retries_for_success() -> TestResult {
+        let call_count = Arc::new(AtomicUsize::new(0));
+        let mut server = Server::run();
+        let response = MDSTokenResponse {
+            access_token: "test-access-token".to_string(),
+            expires_in: Some(3600),
+            token_type: "test-token-type".to_string(),
+        };
+
+        let call_count_clone = call_count.clone();
+        let response_clone = response.clone();
+        server.expect(
+            Expectation::matching(request::path(format!("{MDS_DEFAULT_URI}/token")))
+                .times(..4) // Some reasonable limit
+                .respond_with(move || {
+                    let count = call_count_clone.fetch_add(1, Ordering::SeqCst);
+                    if count < 2 {
+                        // Fail first 2 times
+                        http::Response::builder()
+                            .status(503)
+                            .body("".to_string())
+                            .unwrap()
+                    } else {
+                        // Succeed on the 3rd attempt
+                        http::Response::builder()
+                            .status(200)
+                            .header("Content-Type", "application/json")
+                            .body(serde_json::to_string(&response_clone).unwrap())
+                            .unwrap()
+                    }
+                }),
+        );
+
+        let retry_policy = gax::retry_policy::AlwaysRetry.with_attempt_limit(3);
+        let provider = Builder::default()
+            .with_endpoint(format!("http://{}", server.addr()))
+            // To make test faster, override default exponential backoff.
+            .with_backoff_policy(
+                gax::exponential_backoff::ExponentialBackoffBuilder::new()
+                    .with_initial_delay(Duration::from_millis(1))
+                    .build()
+                    .unwrap(),
+            )
+            .with_retry_policy(retry_policy)
+            .build_token_provider();
+
+        let token = provider.token().await?;
+        assert_eq!(token.token, "test-access-token");
+        assert_eq!(call_count.load(Ordering::SeqCst), 3);
+
+        server.verify_and_clear();
+        Ok(())
+    }
+
+    #[test]
+    fn test_mds_retry_policies_builder_with_custom_values() {
         let mut builder = Builder::default();
 
-        if use_custom_config {
-            let retry_policy = crate::credentials::tests::AuthRetryPolicy { max_attempts: 5 };
-            let backoff_policy = crate::credentials::tests::TestBackoffPolicy::default();
-            let retry_throttler = gax::retry_throttler::AdaptiveThrottler::new(4.0).unwrap();
-            builder = builder
-                .with_retry_policy(retry_policy)
-                .with_backoff_policy(backoff_policy)
-                .with_retry_throttler(retry_throttler);
-        }
+        let retry_policy = crate::credentials::tests::MockRetryPolicy::new();
+        let backoff_policy = crate::credentials::tests::MockBackoffPolicy::new();
+        let retry_throttler = gax::retry_throttler::AdaptiveThrottler::new(4.0).unwrap();
+        builder = builder
+            .with_retry_policy(retry_policy)
+            .with_backoff_policy(backoff_policy)
+            .with_retry_throttler(retry_throttler);
 
         let provider = builder.build_token_provider();
         let debug_str = format!("{provider:?}");
+
+        let expected_substrings = &[
+            "retry_policy: Some(MockRetryPolicy",
+            "backoff_policy: MockBackoffPolicy",
+            "retry_throttler: Mutex { data: AdaptiveThrottler",
+            "factor: 4.0",
+        ];
 
         for sub in expected_substrings {
             assert!(

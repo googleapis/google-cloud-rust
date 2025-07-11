@@ -692,70 +692,38 @@ mod tests {
     use gax::backoff_policy::BackoffPolicy;
     use gax::retry_policy::RetryPolicy;
     use gax::retry_result::RetryResult;
+    use mockall::mock;
     use num_bigint_dig::BigUint;
     use reqwest::header::AUTHORIZATION;
     use rsa::RsaPrivateKey;
     use rsa::pkcs8::{EncodePrivateKey, LineEnding};
     use scoped_env::ScopedEnv;
-    use std::error::Error;
     use std::sync::LazyLock;
-    use std::sync::atomic::{AtomicBool, Ordering};
     use test_case::test_case;
 
-    #[derive(Debug)]
-    pub struct AuthRetryPolicy {
-        pub max_attempts: u32,
-    }
-
-    impl RetryPolicy for AuthRetryPolicy {
-        fn on_error(
-            &self,
-            _loop_start: std::time::Instant,
-            attempt_count: u32,
-            _idempotent: bool,
-            error: gax::error::Error,
-        ) -> RetryResult {
-            if attempt_count >= self.max_attempts {
-                return RetryResult::Exhausted(error);
-            }
-
-            if error.is_authentication() {
-                if error
-                    .source()
-                    .and_then(|e| e.downcast_ref::<CredentialsError>())
-                    .is_some_and(|ce| ce.is_transient())
-                {
-                    RetryResult::Continue(error)
-                } else {
-                    RetryResult::Permanent(error)
-                }
-            } else {
-                RetryResult::Permanent(error)
-            }
+    mock! {
+        #[derive(Debug)]
+        pub RetryPolicy {}
+        impl RetryPolicy for RetryPolicy {
+            fn on_error(
+                &self,
+                loop_start: std::time::Instant,
+                attempt_count: u32,
+                idempotent: bool,
+                error: gax::error::Error,
+            ) -> RetryResult;
         }
     }
 
-    #[derive(Debug)]
-    pub struct TestBackoffPolicy {
-        was_called: Arc<AtomicBool>,
-    }
-
-    impl Default for TestBackoffPolicy {
-        fn default() -> Self {
-            Self {
-                was_called: Arc::new(AtomicBool::new(false)),
-            }
-        }
-    }
-
-    impl BackoffPolicy for TestBackoffPolicy {
-        fn on_failure(
-            &self,
-            _loop_start: std::time::Instant,
-            _attempt_count: u32,
-        ) -> std::time::Duration {
-            self.was_called.store(true, Ordering::SeqCst);
-            std::time::Duration::from_millis(1)
+    mock! {
+        #[derive(Debug)]
+        pub BackoffPolicy {}
+        impl BackoffPolicy for BackoffPolicy {
+            fn on_failure(
+                &self,
+                loop_start: std::time::Instant,
+                attempt_count: u32,
+            ) -> std::time::Duration;
         }
     }
 

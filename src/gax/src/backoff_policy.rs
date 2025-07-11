@@ -85,10 +85,9 @@ impl From<Arc<dyn BackoffPolicy>> for BackoffPolicyArg {
     }
 }
 
-impl BackoffPolicyArg {
-    /// Consumes the argument and returns the wrapped policy object.
-    pub fn into_inner(self) -> Arc<dyn BackoffPolicy> {
-        self.0
+impl From<BackoffPolicyArg> for Arc<dyn BackoffPolicy> {
+    fn from(value: BackoffPolicyArg) -> Arc<dyn BackoffPolicy> {
+        value.0
     }
 }
 
