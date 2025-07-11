@@ -38,10 +38,10 @@ pub mod upload_source;
 /// Request builders.
 pub mod builder {
     pub mod storage_control {
+        pub use control::builder::storage_control::*;
         // TODO(#2403) - Move `ClientBuilder` into a scoped namespace within the
         // builder mod, like we do for GAPICs.
         pub use control::client::ClientBuilder;
-        pub use control::builder::storage_control::*;
     }
 }
 // TODO(#2403) - This includes implementation details like `ReadObjectRequest`.
