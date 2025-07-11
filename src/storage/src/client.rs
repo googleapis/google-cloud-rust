@@ -238,9 +238,7 @@ impl Storage {
 }
 
 impl StorageInner {
-    /// Builds a client assuming `config.cred` and `config.endpoint` are initialized.
-    ///
-    /// panics if  
+    /// Builds a client assuming `config.cred` and `config.endpoint` are initialized, panics otherwise.
     pub(self) fn new(client: reqwest::Client, config: gaxi::options::ClientConfig) -> Self {
         let retry_policy = config
             .retry_policy
