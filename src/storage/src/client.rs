@@ -22,8 +22,12 @@ use crate::upload_source::{InsertPayload, Seek, StreamingSource};
 use auth::credentials::CacheableResource;
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
+use gax::{
+    backoff_policy::BackoffPolicy, retry_policy::RetryPolicy, retry_throttler::SharedRetryThrottler,
+};
 use http::Extensions;
 use sha2::{Digest, Sha256};
+use std::sync::Arc;
 
 mod read_object;
 mod upload_object;
@@ -59,8 +63,8 @@ mod v1;
 ///
 /// `Storage` holds a connection pool internally, it is advised to
 /// create one and then reuse it.  You do not need to wrap `Storage` in
-/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
-/// already uses an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
+/// internally.
 ///
 /// # Service Description
 ///
@@ -100,6 +104,12 @@ pub(crate) struct StorageInner {
     client: reqwest::Client,
     cred: auth::credentials::Credentials,
     endpoint: String,
+    #[allow(dead_code)]
+    retry_policy: Arc<dyn RetryPolicy>,
+    #[allow(dead_code)]
+    backoff_policy: Arc<dyn BackoffPolicy>,
+    #[allow(dead_code)]
+    retry_throttler: SharedRetryThrottler,
 }
 
 impl Storage {
@@ -209,7 +219,8 @@ impl Storage {
             .no_zstd()
             .build()
             .map_err(Error::transport)?;
-        let cred = if let Some(c) = config.cred.clone() {
+        let mut config = config;
+        let cred = if let Some(c) = config.cred {
             c
         } else {
             auth::credentials::Builder::default()
@@ -219,17 +230,37 @@ impl Storage {
         let endpoint = config
             .endpoint
             .unwrap_or_else(|| self::DEFAULT_HOST.to_string());
-        Ok(Self {
-            inner: std::sync::Arc::new(StorageInner {
-                client,
-                cred,
-                endpoint,
-            }),
-        })
+        config.cred = Some(cred);
+        config.endpoint = Some(endpoint);
+        let inner = Arc::new(StorageInner::new(client, config));
+        Ok(Self { inner })
     }
 }
 
 impl StorageInner {
+    /// Builds a client assuming `config.cred` and `config.endpoint` are initialized, panics otherwise.
+    pub(self) fn new(client: reqwest::Client, config: gaxi::options::ClientConfig) -> Self {
+        let retry_policy = config
+            .retry_policy
+            .unwrap_or_else(|| Arc::new(crate::retry_policy::default()));
+        let backoff_policy = config
+            .backoff_policy
+            .unwrap_or_else(|| Arc::new(crate::backoff_policy::default()));
+        let retry_throttler = config.retry_throttler;
+        Self {
+            client,
+            cred: config
+                .cred
+                .expect("StorageInner assumes the credentials are initialized"),
+            endpoint: config
+                .endpoint
+                .expect("StorageInner assumes the endpoint is initialized"),
+            retry_policy,
+            backoff_policy,
+            retry_throttler,
+        }
+    }
+
     // Helper method to apply authentication headers to the request builder.
     async fn apply_auth_headers(
         &self,
@@ -459,18 +490,14 @@ mod tests {
     /// This is used by the request builder tests.
     pub(crate) fn test_inner_client(config: gaxi::options::ClientConfig) -> Arc<StorageInner> {
         let client = reqwest::Client::new();
-        let cred = config
+        let mut config = config;
+        config.cred = config
             .cred
-            .unwrap_or_else(auth::credentials::testing::test_credentials);
-        let endpoint = config
+            .or_else(|| Some(auth::credentials::testing::test_credentials()));
+        config.endpoint = config
             .endpoint
-            .unwrap_or_else(|| "http://private.googleapis.com".to_string());
-        let inner = StorageInner {
-            client,
-            cred,
-            endpoint,
-        };
-        Arc::new(inner)
+            .or_else(|| Some("http://private.googleapis.com".into()));
+        Arc::new(StorageInner::new(client, config))
     }
 
     /// This is used by the request builder tests.

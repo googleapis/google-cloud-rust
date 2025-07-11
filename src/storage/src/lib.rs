@@ -30,6 +30,7 @@
 pub use gax::Result;
 pub use gax::error::Error;
 
+pub mod backoff_policy;
 pub mod client;
 pub mod retry_policy;
 pub mod upload_source;
