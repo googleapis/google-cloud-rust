@@ -375,12 +375,12 @@ impl TryFrom<&bytes::Bytes> for Status {
     }
 }
 
-impl From<rpc::model::Status> for Status {
-    fn from(value: rpc::model::Status) -> Self {
+impl From<&rpc::model::Status> for Status {
+    fn from(value: &rpc::model::Status) -> Self {
         Self {
             code: value.code.into(),
-            message: value.message,
-            details: value.details.into_iter().map(StatusDetails::from).collect(),
+            message: value.message.clone(),
+            details: value.details.iter().map(|d| StatusDetails::from(d)).collect(),
         }
     }
 }
@@ -418,8 +418,8 @@ pub enum StatusDetails {
     Other(wkt::Any),
 }
 
-impl From<wkt::Any> for StatusDetails {
-    fn from(value: wkt::Any) -> Self {
+impl From<&wkt::Any> for StatusDetails {
+    fn from(value: &wkt::Any) -> Self {
         macro_rules! try_convert {
             ($($variant:ident),*) => {
                 $(
@@ -443,7 +443,7 @@ impl From<wkt::Any> for StatusDetails {
             RetryInfo
         );
 
-        StatusDetails::Other(value)
+        StatusDetails::Other(value.clone())
     }
 }
 
@@ -505,7 +505,7 @@ mod tests {
         let a1 = wkt::Any::from_msg(
             &rpc::model::Help::new().set_links([rpc::model::help::Link::new().set_url("test-url")]),
         )?;
-        let got = Status::default().set_details([a0, a1]);
+        let got = Status::default().set_details(&[a0, a1]);
         assert_eq!(got, want);
 
         Ok(())
@@ -727,7 +727,7 @@ mod tests {
         let input = rpc::model::Status::default()
             .set_code(Code::Unavailable as i32)
             .set_message("try-again");
-        let got = Status::from(input);
+        let got = Status::from(&input);
         assert_eq!(got.code, Code::Unavailable);
         assert_eq!(got.message, "try-again");
     }
@@ -769,7 +769,7 @@ mod tests {
             .set_message("try-again")
             .set_details(vec![wkt::Any::from_msg(&detail).unwrap()]);
 
-        let status = Status::from(input);
+        let status = Status::from(&input);
         assert_eq!(status.code, Code::Unavailable);
         assert_eq!(status.message, "try-again");
 
@@ -784,7 +784,7 @@ mod tests {
             .set_code(Code::Unavailable as i32)
             .set_message("try-again")
             .set_details(vec![any.clone()]);
-        let got = Status::from(input);
+        let got = Status::from(&input);
         assert_eq!(got.code, Code::Unavailable);
         assert_eq!(got.message, "try-again");
 
