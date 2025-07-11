@@ -482,7 +482,7 @@ fn apply_customer_supplied_encryption_headers(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::sync::Arc;
+    use std::{sync::Arc, time::Duration};
     use test_case::test_case;
 
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
@@ -497,6 +497,13 @@ mod tests {
         config.endpoint = config
             .endpoint
             .or_else(|| Some("http://private.googleapis.com".into()));
+        // For unit tests we want really fast backoffs
+        config.backoff_policy = Some(Arc::new(
+            gax::exponential_backoff::ExponentialBackoffBuilder::new()
+                .with_initial_delay(Duration::from_millis(1))
+                .with_maximum_delay(Duration::from_millis(2))
+                .clamp(),
+        ));
         Arc::new(StorageInner::new(client, config))
     }
 

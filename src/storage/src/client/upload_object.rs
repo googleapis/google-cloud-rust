@@ -575,7 +575,34 @@ impl<T> UploadObject<T> {
         }
     }
 
-    async fn start_resumable_upload(&self) -> Result<String> {
+    async fn start_resumable_upload(&self) -> Result<String>
+    where
+        T: Send + Sync + 'static,
+    {
+        let inner = async |_| {
+            // TODO(#2044) - we need to apply any timeouts here.
+            self.start_resumable_upload_attempt().await
+        };
+        let sleep = async |duration| tokio::time::sleep(duration).await;
+        // Creating a resumable upload is always idempotent. There are no
+        // **observable** side-effects if executed multiple times. Any extra
+        // sessions created in the retry loop are simply lost and eventually
+        // garbage collected. There are no `list` operations, or billing, or
+        // cause any other side-effect that applications may observe.
+        let idempotent = true;
+        let id = gax::retry_loop_internal::retry_loop(
+            inner,
+            sleep,
+            idempotent,
+            self.inner.retry_throttler.clone(),
+            self.inner.retry_policy.clone(),
+            self.inner.backoff_policy.clone(),
+        )
+        .await?;
+        Ok(id)
+    }
+
+    async fn start_resumable_upload_attempt(&self) -> Result<String> {
         let builder = self.start_resumable_upload_request().await?;
         let response = builder.send().await.map_err(Error::io)?;
         self::handle_start_resumable_upload_response(response).await
@@ -662,6 +689,8 @@ mod tests {
     use crate::client::tests::create_key_helper;
     use crate::client::tests::test_inner_client;
     use crate::model::WriteObjectSpec;
+    use gax::retry_policy::RetryPolicyExt;
+    use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use serde_json::{Value, json};
     use std::collections::BTreeMap;
 
@@ -899,6 +928,124 @@ mod tests {
             .await
             .inspect_err(|e| assert!(e.is_authentication()))
             .expect_err("invalid credentials should err");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn start_resumable_upload_immediate_success() -> Result {
+        let server = Server::run();
+        let session = server.url("/upload/session/test-only-001");
+        let want = session.to_string();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/upload/storage/v1/b/bucket/o"),
+                request::query(url_decoded(contains(("name", "object")))),
+                request::query(url_decoded(contains(("uploadType", "resumable")))),
+            ])
+            .respond_with(
+                status_code(200)
+                    .append_header("location", session.to_string())
+                    .body(""),
+            ),
+        );
+
+        let inner = test_inner_client(gaxi::options::ClientConfig {
+            endpoint: Some(format!("http://{}", server.addr())),
+            ..Default::default()
+        });
+        let got = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
+            .start_resumable_upload()
+            .await?;
+        assert_eq!(got, want);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn start_resumable_upload_immediate_error() -> Result {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/upload/storage/v1/b/bucket/o"),
+                request::query(url_decoded(contains(("name", "object")))),
+                request::query(url_decoded(contains(("uploadType", "resumable")))),
+            ])
+            .respond_with(status_code(403).body("uh-oh")),
+        );
+
+        let inner = test_inner_client(gaxi::options::ClientConfig {
+            endpoint: Some(format!("http://{}", server.addr())),
+            ..Default::default()
+        });
+        let err = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
+            .start_resumable_upload()
+            .await
+            .expect_err("request should fail");
+        assert_eq!(err.http_status_code(), Some(403), "{err:?}");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn start_resumable_upload_retry_transient_failures_then_success() -> Result {
+        use httptest::responders::cycle;
+        let server = Server::run();
+        let session = server.url("/upload/session/test-only-001");
+        let want = session.to_string();
+        let matching = || {
+            Expectation::matching(all_of![
+                request::method_path("POST", "/upload/storage/v1/b/bucket/o"),
+                request::query(url_decoded(contains(("name", "object")))),
+                request::query(url_decoded(contains(("uploadType", "resumable")))),
+            ])
+        };
+        server.expect(matching().times(3).respond_with(cycle![
+            status_code(503).body("try-again"),
+            status_code(503).body("try-again"),
+            status_code(200).append_header("location", session.to_string()),
+        ]));
+
+        let inner = test_inner_client(gaxi::options::ClientConfig {
+            endpoint: Some(format!("http://{}", server.addr())),
+            ..Default::default()
+        });
+        let got = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
+            .start_resumable_upload()
+            .await?;
+        assert_eq!(got, want);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn start_resumable_upload_retry_too_many_transients() -> Result {
+        let server = Server::run();
+        let matching = || {
+            Expectation::matching(all_of![
+                request::method_path("POST", "/upload/storage/v1/b/bucket/o"),
+                request::query(url_decoded(contains(("name", "object")))),
+                request::query(url_decoded(contains(("uploadType", "resumable")))),
+            ])
+        };
+        server.expect(
+            matching()
+                .times(3)
+                .respond_with(status_code(503).body("try-again")),
+        );
+
+        let inner = test_inner_client(gaxi::options::ClientConfig {
+            endpoint: Some(format!("http://{}", server.addr())),
+            retry_policy: Some(Arc::new(
+                crate::retry_policy::RecommendedPolicy.with_attempt_limit(3),
+            )),
+            ..Default::default()
+        });
+        let err = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
+            .start_resumable_upload()
+            .await
+            .expect_err("request should fail after 3 retry attempts");
+        assert_eq!(err.http_status_code(), Some(503), "{err:?}");
+
         Ok(())
     }
 }
