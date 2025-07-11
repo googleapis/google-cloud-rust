@@ -129,6 +129,12 @@ impl From<SharedRetryThrottler> for RetryThrottlerArg {
     }
 }
 
+impl RetryThrottlerArg {
+    pub fn into_inner(self) -> SharedRetryThrottler {
+        self.0
+    }
+}
+
 /// Implements a probabilistic throttler based on observed failure rates.
 ///
 /// This is an implementation of the [Adaptive Throttling] strategy described

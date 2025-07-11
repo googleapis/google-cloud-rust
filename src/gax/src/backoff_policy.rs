@@ -85,6 +85,12 @@ impl From<Arc<dyn BackoffPolicy>> for BackoffPolicyArg {
     }
 }
 
+impl BackoffPolicyArg {
+    pub fn into_inner(self) -> Arc<dyn BackoffPolicy> {
+        self.0
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

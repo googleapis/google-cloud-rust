@@ -145,6 +145,12 @@ impl std::convert::From<Arc<dyn RetryPolicy>> for RetryPolicyArg {
     }
 }
 
+impl RetryPolicyArg {
+    pub fn into_inner(self) -> Arc<dyn RetryPolicy> {
+        self.0
+    }
+}
+
 /// Extension trait for [`RetryPolicy`]
 pub trait RetryPolicyExt: RetryPolicy + Sized {
     /// Decorate a [`RetryPolicy`] to limit the total elapsed time in the retry loop.

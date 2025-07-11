@@ -56,10 +56,7 @@
 //! [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
 
 use crate::credentials::dynamic::CredentialsProvider;
-use crate::credentials::{
-    BackoffPolicyArg, CacheableResource, Credentials, DEFAULT_UNIVERSE_DOMAIN, RetryPolicyArg,
-    RetryThrottlerArg,
-};
+use crate::credentials::{CacheableResource, Credentials, DEFAULT_UNIVERSE_DOMAIN};
 use crate::errors::CredentialsError;
 use crate::headers_util::build_cacheable_headers;
 use crate::retry::{Builder as RetryTokenProviderBuilder, TokenProviderWithRetry};
@@ -68,6 +65,9 @@ use crate::token_cache::TokenCache;
 use crate::{BuildResult, Result};
 use async_trait::async_trait;
 use bon::Builder;
+use gax::backoff_policy::BackoffPolicyArg;
+use gax::retry_policy::RetryPolicyArg;
+use gax::retry_throttler::RetryThrottlerArg;
 use http::{Extensions, HeaderMap, HeaderValue};
 use reqwest::Client;
 use std::default::Default;
@@ -182,9 +182,8 @@ impl Builder {
     }
     /// Configure the retry policy for fetching tokens.
     ///
-    /// The authentication library can automatically retry operations that fail. The
-    /// retry policy controls how to handle retries, and sets limits on the
-    /// number of attempts or the total time spent retrying.
+    /// The retry policy controls how to handle retries, and sets limits on
+    /// the number of attempts or the total time spent retrying.
     ///
     /// ```
     /// # use google_cloud_auth::credentials::mds::Builder;
@@ -197,7 +196,7 @@ impl Builder {
     /// # });
     /// ```
     pub fn with_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
-        self.retry_builder = self.retry_builder.with_retry_policy(v.into().0);
+        self.retry_builder = self.retry_builder.with_retry_policy(v.into().into_inner());
         self
     }
 
@@ -222,7 +221,9 @@ impl Builder {
     /// # });
     /// ```
     pub fn with_backoff_policy<V: Into<BackoffPolicyArg>>(mut self, v: V) -> Self {
-        self.retry_builder = self.retry_builder.with_backoff_policy(v.into().0);
+        self.retry_builder = self
+            .retry_builder
+            .with_backoff_policy(v.into().into_inner());
         self
     }
 
@@ -248,7 +249,9 @@ impl Builder {
     /// # });
     /// ```
     pub fn with_retry_throttler<V: Into<RetryThrottlerArg>>(mut self, v: V) -> Self {
-        self.retry_builder = self.retry_builder.with_retry_throttler(v.into().0);
+        self.retry_builder = self
+            .retry_builder
+            .with_retry_throttler(v.into().into_inner());
         self
     }
 

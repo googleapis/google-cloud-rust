@@ -16,14 +16,11 @@ use crate::build_errors::Error as BuilderError;
 use crate::constants::GOOGLE_CLOUD_QUOTA_PROJECT_VAR;
 use crate::errors::{self, CredentialsError};
 use crate::{BuildResult, Result};
-use gax::backoff_policy::BackoffPolicy;
-use gax::retry_policy::RetryPolicy;
-use gax::retry_throttler::{RetryThrottler, SharedRetryThrottler};
 use http::{Extensions, HeaderMap};
 use serde_json::Value;
 use std::future::Future;
 use std::sync::Arc;
-use std::sync::Mutex;
+
 use std::sync::atomic::{AtomicU64, Ordering};
 
 pub mod api_key_credentials;
@@ -38,36 +35,6 @@ pub mod subject_token;
 pub mod user_account;
 pub(crate) const QUOTA_PROJECT_KEY: &str = "x-goog-user-project";
 pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
-
-/// A helper type to use [RetryPolicy] in auth library.
-#[derive(Clone)]
-pub struct RetryPolicyArg(pub(crate) Arc<dyn RetryPolicy>);
-
-impl<T: RetryPolicy + Send + Sync + 'static> From<T> for RetryPolicyArg {
-    fn from(value: T) -> Self {
-        Self(Arc::new(value))
-    }
-}
-
-/// A helper type to use [BackoffPolicy] in auth library.
-#[derive(Clone)]
-pub struct BackoffPolicyArg(pub(crate) Arc<dyn BackoffPolicy>);
-
-impl<T: BackoffPolicy + Send + Sync + 'static> From<T> for BackoffPolicyArg {
-    fn from(value: T) -> Self {
-        Self(Arc::new(value))
-    }
-}
-
-/// A helper type to use [RetryThrottler] in auth library.
-#[derive(Clone)]
-pub struct RetryThrottlerArg(pub(crate) SharedRetryThrottler);
-
-impl<T: RetryThrottler + Send + Sync + 'static> From<T> for RetryThrottlerArg {
-    fn from(value: T) -> Self {
-        Self(Arc::new(Mutex::new(value)))
-    }
-}
 
 /// Represents an Entity Tag for a [CacheableResource].
 ///
@@ -723,6 +690,8 @@ pub mod testing {
 mod tests {
     use super::*;
     use base64::Engine;
+    use gax::backoff_policy::BackoffPolicy;
+    use gax::retry_policy::RetryPolicy;
     use gax::retry_result::RetryResult;
     use num_bigint_dig::BigUint;
     use reqwest::header::AUTHORIZATION;
@@ -755,7 +724,7 @@ mod tests {
                 if error
                     .source()
                     .and_then(|e| e.downcast_ref::<CredentialsError>())
-                    .is_some_and(|ce| ce.is_transient())
+                    .map_or(false, |ce| ce.is_transient())
                 {
                     RetryResult::Continue(error)
                 } else {
