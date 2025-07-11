@@ -14,7 +14,7 @@
 
 #[cfg(test)]
 mod tests {
-    use google_cloud_storage_control as gcs;
+    use google_cloud_storage as gcs;
     use paste::paste;
 
     #[derive(Debug)]

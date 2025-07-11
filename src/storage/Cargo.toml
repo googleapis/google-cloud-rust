@@ -31,6 +31,8 @@ base64.workspace           = true
 bytes.workspace            = true
 crc32c.workspace           = true
 http.workspace             = true
+iam_v1.workspace           = true
+longrunning.workspace      = true
 futures.workspace          = true
 lazy_static.workspace      = true
 percent-encoding.workspace = true
@@ -58,8 +60,10 @@ crc32c                   = { workspace = true }
 flate2                   = { workspace = true, features = ["zlib-rs"] }
 http-body-util.workspace = true
 httptest.workspace       = true
-multer.workspace         = true
 md5.workspace            = true
+mockall.workspace        = true
+multer.workspace         = true
+paste.workspace          = true
 test-case.workspace      = true
 tempfile.workspace       = true
 tokio-test.workspace     = true

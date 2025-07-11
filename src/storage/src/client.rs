@@ -12,6 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// TODO(#2403) - organize this better.
+pub use control::client::StorageControl;
+
 pub use crate::Error;
 pub use crate::Result;
 pub use crate::model::Object;

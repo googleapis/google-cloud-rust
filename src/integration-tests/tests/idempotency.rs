@@ -106,7 +106,7 @@ mod default_idempotency {
     mod grpc {
         use super::*;
         use firestore::client::Firestore;
-        use storage_control::client::StorageControl;
+        use storage::client::StorageControl;
 
         #[tokio::test]
         async fn default_idempotent() -> Result {
