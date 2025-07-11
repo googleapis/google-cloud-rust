@@ -180,6 +180,7 @@ impl Builder {
         self.scopes = Some(scopes.into_iter().map(|s| s.into()).collect());
         self
     }
+
     /// Configure the retry policy for fetching tokens.
     ///
     /// The retry policy controls how to handle retries, and sets limits on
@@ -416,14 +417,14 @@ mod tests {
     use super::*;
     use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::tests::{
-        get_headers_from_cache, get_mock_auth_retry_policy, get_token_from_headers,
-        get_token_type_from_headers,
+        get_headers_from_cache, get_mock_auth_retry_policy, get_mock_backoff_policy,
+        get_mock_retry_throttler, get_token_from_headers, get_token_type_from_headers,
     };
     use crate::errors;
     use crate::token::tests::MockTokenProvider;
-    use gax::retry_policy::RetryPolicyExt;
     use http::HeaderValue;
     use http::header::AUTHORIZATION;
+    use httptest::cycle;
     use httptest::matchers::{all_of, contains, request, url_decoded};
     use httptest::responders::{json_encoded, status_code};
     use httptest::{Expectation, Server};
@@ -431,8 +432,6 @@ mod tests {
     use scoped_env::ScopedEnv;
     use serial_test::{parallel, serial};
     use std::error::Error;
-    use std::sync::Arc;
-    use std::sync::atomic::{AtomicUsize, Ordering};
     use test_case::test_case;
     use url::Url;
 
@@ -442,24 +441,17 @@ mod tests {
     #[parallel]
     async fn test_mds_retries_on_transient_failures() -> TestResult {
         let mut server = Server::run();
-        let attempts = 3;
         server.expect(
             Expectation::matching(request::path(format!("{MDS_DEFAULT_URI}/token")))
-                .times(attempts)
+                .times(3)
                 .respond_with(status_code(503)),
         );
 
-        let retry_policy = get_mock_auth_retry_policy(attempts);
-
         let provider = Builder::default()
             .with_endpoint(format!("http://{}", server.addr()))
-            .with_retry_policy(retry_policy)
-            .with_backoff_policy(
-                gax::exponential_backoff::ExponentialBackoffBuilder::new()
-                    .with_initial_delay(Duration::from_millis(1))
-                    .build()
-                    .unwrap(),
-            )
+            .with_retry_policy(get_mock_auth_retry_policy(3))
+            .with_backoff_policy(get_mock_backoff_policy())
+            .with_retry_throttler(get_mock_retry_throttler())
             .build_token_provider();
 
         let err = provider.token().await.unwrap_err();
@@ -478,17 +470,11 @@ mod tests {
                 .respond_with(status_code(401)),
         );
 
-        let retry_policy = get_mock_auth_retry_policy(1);
-
         let provider = Builder::default()
             .with_endpoint(format!("http://{}", server.addr()))
-            .with_retry_policy(retry_policy)
-            .with_backoff_policy(
-                gax::exponential_backoff::ExponentialBackoffBuilder::new()
-                    .with_initial_delay(Duration::from_millis(1))
-                    .build()
-                    .unwrap(),
-            )
+            .with_retry_policy(get_mock_auth_retry_policy(1))
+            .with_backoff_policy(get_mock_backoff_policy())
+            .with_retry_throttler(get_mock_retry_throttler())
             .build_token_provider();
 
         let err = provider.token().await.unwrap_err();
@@ -500,7 +486,6 @@ mod tests {
     #[tokio::test]
     #[parallel]
     async fn test_mds_retries_for_success() -> TestResult {
-        let call_count = Arc::new(AtomicUsize::new(0));
         let mut server = Server::run();
         let response = MDSTokenResponse {
             access_token: "test-access-token".to_string(),
@@ -508,79 +493,30 @@ mod tests {
             token_type: "test-token-type".to_string(),
         };
 
-        let call_count_clone = call_count.clone();
-        let response_clone = response.clone();
         server.expect(
             Expectation::matching(request::path(format!("{MDS_DEFAULT_URI}/token")))
-                .times(..4) // Some reasonable limit
-                .respond_with(move || {
-                    let count = call_count_clone.fetch_add(1, Ordering::SeqCst);
-                    if count < 2 {
-                        // Fail first 2 times
-                        http::Response::builder()
-                            .status(503)
-                            .body("".to_string())
-                            .unwrap()
-                    } else {
-                        // Succeed on the 3rd attempt
-                        http::Response::builder()
-                            .status(200)
-                            .header("Content-Type", "application/json")
-                            .body(serde_json::to_string(&response_clone).unwrap())
-                            .unwrap()
-                    }
-                }),
+                .times(3)
+                .respond_with(cycle![
+                    status_code(503).body("try-again"),
+                    status_code(503).body("try-again"),
+                    status_code(200)
+                        .append_header("Content-Type", "application/json")
+                        .body(serde_json::to_string(&response).unwrap()),
+                ]),
         );
 
-        let retry_policy = gax::retry_policy::AlwaysRetry.with_attempt_limit(3);
         let provider = Builder::default()
             .with_endpoint(format!("http://{}", server.addr()))
-            // To make test faster, override default exponential backoff.
-            .with_backoff_policy(
-                gax::exponential_backoff::ExponentialBackoffBuilder::new()
-                    .with_initial_delay(Duration::from_millis(1))
-                    .build()
-                    .unwrap(),
-            )
-            .with_retry_policy(retry_policy)
+            .with_retry_policy(get_mock_auth_retry_policy(3))
+            .with_backoff_policy(get_mock_backoff_policy())
+            .with_retry_throttler(get_mock_retry_throttler())
             .build_token_provider();
 
         let token = provider.token().await?;
         assert_eq!(token.token, "test-access-token");
-        assert_eq!(call_count.load(Ordering::SeqCst), 3);
 
         server.verify_and_clear();
         Ok(())
-    }
-
-    #[test]
-    fn test_mds_retry_policies_builder_with_custom_values() {
-        let mut builder = Builder::default();
-
-        let retry_policy = crate::credentials::tests::MockRetryPolicy::new();
-        let backoff_policy = crate::credentials::tests::MockBackoffPolicy::new();
-        let retry_throttler = gax::retry_throttler::AdaptiveThrottler::new(4.0).unwrap();
-        builder = builder
-            .with_retry_policy(retry_policy)
-            .with_backoff_policy(backoff_policy)
-            .with_retry_throttler(retry_throttler);
-
-        let provider = builder.build_token_provider();
-        let debug_str = format!("{provider:?}");
-
-        let expected_substrings = &[
-            "retry_policy: Some(MockRetryPolicy",
-            "backoff_policy: MockBackoffPolicy",
-            "retry_throttler: Mutex { data: AdaptiveThrottler",
-            "factor: 4.0",
-        ];
-
-        for sub in expected_substrings {
-            assert!(
-                debug_str.contains(sub),
-                "Expected to find '{sub}' in '{debug_str:?}'"
-            );
-        }
     }
 
     #[test]

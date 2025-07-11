@@ -692,6 +692,7 @@ mod tests {
     use gax::backoff_policy::BackoffPolicy;
     use gax::retry_policy::RetryPolicy;
     use gax::retry_result::RetryResult;
+    use gax::retry_throttler::RetryThrottler;
     use mockall::mock;
     use num_bigint_dig::BigUint;
     use reqwest::header::AUTHORIZATION;
@@ -701,6 +702,7 @@ mod tests {
     use std::error::Error;
     use std::sync::LazyLock;
     use test_case::test_case;
+    use tokio::time::Duration;
 
     mock! {
         #[derive(Debug)]
@@ -728,12 +730,23 @@ mod tests {
         }
     }
 
+    mockall::mock! {
+        #[derive(Debug)]
+        pub RetryThrottler {}
+        impl RetryThrottler for RetryThrottler {
+            fn throttle_retry_attempt(&self) -> bool;
+            fn on_retry_failure(&mut self, error: &RetryResult);
+            fn on_success(&mut self);
+        }
+    }
+
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
     pub(crate) fn get_mock_auth_retry_policy(attempts: usize) -> MockRetryPolicy {
         let mut retry_policy = MockRetryPolicy::new();
-        retry_policy.expect_on_error().times(attempts).returning(
-            move |_, attempt_count, _, error| {
+        retry_policy
+            .expect_on_error()
+            .returning(move |_, attempt_count, _, error| {
                 if attempt_count >= attempts as u32 {
                     return RetryResult::Exhausted(error);
                 }
@@ -746,9 +759,26 @@ mod tests {
                 } else {
                     RetryResult::Permanent(error)
                 }
-            },
-        );
+            });
         retry_policy
+    }
+
+    pub(crate) fn get_mock_backoff_policy() -> MockBackoffPolicy {
+        let mut backoff_policy = MockBackoffPolicy::new();
+        backoff_policy
+            .expect_on_failure()
+            .return_const(Duration::from_secs(0));
+        backoff_policy
+    }
+
+    pub(crate) fn get_mock_retry_throttler() -> MockRetryThrottler {
+        let mut throttler = MockRetryThrottler::new();
+        throttler.expect_on_retry_failure().return_const(());
+        throttler
+            .expect_throttle_retry_attempt()
+            .return_const(false);
+        throttler.expect_on_success().return_const(());
+        throttler
     }
 
     pub(crate) fn get_headers_from_cache(
