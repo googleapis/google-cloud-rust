@@ -14,8 +14,7 @@
 
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod driver {
-    use storage::client::Storage;
-    use storage_control::client::StorageControl;
+    use storage::client::{Storage, StorageControl};
     use test_case::test_case;
 
     fn retry_policy() -> impl gax::retry_policy::RetryPolicy {
@@ -108,7 +107,7 @@ mod driver {
     #[test_case(StorageControl::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_storage_control_buckets(
-        builder: storage_control::client::ClientBuilder,
+        builder: storage::builder::storage_control::ClientBuilder,
     ) -> integration_tests::Result<()> {
         integration_tests::storage::buckets(builder)
             .await
@@ -178,7 +177,7 @@ mod driver {
     #[test_case(StorageControl::builder().with_tracing(); "with tracing enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_check_code_for_grpc(
-        builder: storage_control::client::ClientBuilder,
+        builder: storage::builder::storage_control::ClientBuilder,
     ) -> integration_tests::Result<()> {
         integration_tests::error_details::check_code_for_grpc(builder)
             .await

@@ -87,7 +87,9 @@ pub async fn check_code_for_http(builder: wf::builder::workflows::ClientBuilder)
     Ok(())
 }
 
-pub async fn check_code_for_grpc(builder: storage_control::client::ClientBuilder) -> Result<()> {
+pub async fn check_code_for_grpc(
+    builder: storage::builder::storage_control::ClientBuilder,
+) -> Result<()> {
     #[cfg(feature = "log-integration-tests")]
     let _guard = {
         use tracing_subscriber::fmt::format::FmtSpan;

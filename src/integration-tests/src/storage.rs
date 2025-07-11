@@ -19,10 +19,10 @@ use gax::paginator::ItemPaginator as _;
 use gax::retry_policy::RetryPolicyExt;
 use lro::Poller;
 use std::time::Duration;
-use storage_control::client::StorageControl;
-use storage_control::model::Bucket;
-use storage_control::model::bucket::iam_config::UniformBucketLevelAccess;
-use storage_control::model::bucket::{HierarchicalNamespace, IamConfig};
+use storage::client::StorageControl;
+use storage::model::Bucket;
+use storage::model::bucket::iam_config::UniformBucketLevelAccess;
+use storage::model::bucket::{HierarchicalNamespace, IamConfig};
 
 pub async fn objects(builder: storage::client::ClientBuilder) -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
@@ -331,7 +331,7 @@ pub async fn create_test_bucket() -> Result<(StorageControl, Bucket)> {
     Ok((client, create))
 }
 
-pub async fn buckets(builder: storage_control::client::ClientBuilder) -> Result<()> {
+pub async fn buckets(builder: storage::builder::storage_control::ClientBuilder) -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
     // verify tracing is doing something.
     #[cfg(feature = "log-integration-tests")]
