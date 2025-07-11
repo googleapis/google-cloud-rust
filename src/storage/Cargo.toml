@@ -34,7 +34,7 @@ http.workspace             = true
 futures.workspace          = true
 lazy_static.workspace      = true
 percent-encoding.workspace = true
-reqwest                    = { workspace = true, features = ["stream"] }
+reqwest                    = { workspace = true, features = ["multipart", "stream"] }
 serde.workspace            = true
 serde_json.workspace       = true
 serde_with.workspace       = true
@@ -58,6 +58,7 @@ crc32c                   = { workspace = true }
 flate2                   = { workspace = true, features = ["zlib-rs"] }
 http-body-util.workspace = true
 httptest.workspace       = true
+multer.workspace         = true
 md5.workspace            = true
 test-case.workspace      = true
 tempfile.workspace       = true

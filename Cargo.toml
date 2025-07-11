@@ -321,7 +321,9 @@ flate2         = { default-features = false, version = "1" }
 httptest       = { default-features = false, version = "0.16.3" }
 md5            = { default-features = false, version = "0.8" }
 mockall        = { default-features = false, version = "0.13" }
+multer         = { default-features = false, version = "3" }
 mutants        = { default-features = false, version = "0.0.3" }
+num-bigint-dig = { default-features = false, version = "0.8" }
 paste          = { default-features = false, version = "1" }
 regex          = { default-features = false, version = "1" }
 rsa            = { default-features = false, version = "0.9" }
@@ -332,7 +334,6 @@ tempfile       = { default-features = false, version = "3" }
 test-case      = { default-features = false, version = "3" }
 tokio-stream   = { default-features = false, version = "0.1" }
 tokio-test     = { default-features = false, version = "0.4" }
-num-bigint-dig = { default-features = false, version = "0.8" }
 
 # Local packages used as dependencies
 auth                          = { version = "0.21", path = "src/auth", package = "google-cloud-auth" }
