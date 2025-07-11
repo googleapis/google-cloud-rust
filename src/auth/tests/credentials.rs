@@ -38,6 +38,7 @@ mod tests {
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use scoped_env::ScopedEnv;
     use serde_json::json;
+    use serial_test::serial;
     use test_case::test_case;
 
     type Result<T> = anyhow::Result<T>;
@@ -51,7 +52,7 @@ mod tests {
     }
 
     #[tokio::test]
-    #[serial_test::serial]
+    #[serial]
     async fn create_access_token_credentials_fallback_to_mds() {
         let _e1 = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
         let _e2 = ScopedEnv::remove("HOME"); // For posix
@@ -63,7 +64,7 @@ mod tests {
     }
 
     #[tokio::test]
-    #[serial_test::serial]
+    #[serial]
     async fn create_access_token_credentials_errors_if_adc_env_is_not_a_file() {
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", "file-does-not-exist.json");
         let err = AccessTokenCredentialBuilder::default().build().unwrap_err();
@@ -74,10 +75,10 @@ mod tests {
     }
 
     #[tokio::test]
-    #[serial_test::serial]
+    #[serial]
     async fn create_access_token_credentials_malformed_adc_is_error() {
         for contents in ["{}", r#"{"type": 42}"#] {
-            let path = write_cred_json(&contents);
+            let path = write_cred_json(contents);
             let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
             let err = AccessTokenCredentialBuilder::default().build().unwrap_err();
@@ -87,13 +88,13 @@ mod tests {
     }
 
     #[tokio::test]
-    #[serial_test::serial]
+    #[serial]
     async fn create_access_token_credentials_adc_unimplemented_credential_type() {
         let contents = r#"{
             "type": "some_unknown_credential_type"
         }"#;
 
-        let path = write_cred_json(&contents);
+        let path = write_cred_json(contents);
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
         let err = AccessTokenCredentialBuilder::default().build().unwrap_err();
@@ -105,7 +106,7 @@ mod tests {
     }
 
     #[tokio::test]
-    #[serial_test::serial]
+    #[serial]
     async fn create_access_token_credentials_adc_user_credentials() {
         let contents = r#"{
             "client_id": "test-client-id",
@@ -114,7 +115,7 @@ mod tests {
             "type": "authorized_user"
         }"#;
 
-        let path = write_cred_json(&contents);
+        let path = write_cred_json(contents);
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
         let uc = AccessTokenCredentialBuilder::default().build().unwrap();
@@ -123,6 +124,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[serial]
     async fn create_access_token_credentials_json_user_credentials() {
         let contents = r#"{
             "client_id": "test-client-id",
@@ -133,7 +135,7 @@ mod tests {
 
         let quota_project = "test-quota-project";
 
-        let path = write_cred_json(&contents);
+        let path = write_cred_json(contents);
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
         let uc = AccessTokenCredentialBuilder::default()
@@ -147,7 +149,7 @@ mod tests {
     }
 
     #[tokio::test]
-    #[serial_test::serial]
+    #[serial]
     async fn create_access_token_credentials_adc_impersonated_service_account() {
         let contents = json!({
             "type": "impersonated_service_account",
@@ -169,6 +171,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[serial]
     async fn create_access_token_credentials_json_impersonated_service_account() {
         let contents = json!({
             "type": "impersonated_service_account",
@@ -197,7 +200,7 @@ mod tests {
     }
 
     #[tokio::test]
-    #[serial_test::serial]
+    #[serial]
     async fn create_access_token_credentials_adc_service_account_credentials() {
         let contents = r#"{
             "type": "service_account",
@@ -208,7 +211,7 @@ mod tests {
             "universe_domain": "test-universe-domain"
         }"#;
 
-        let path = write_cred_json(&contents);
+        let path = write_cred_json(contents);
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
         let sac = AccessTokenCredentialBuilder::default().build().unwrap();
@@ -217,6 +220,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[serial]
     async fn create_access_token_credentials_json_service_account_credentials() {
         let contents = r#"{
             "type": "service_account",
@@ -229,7 +233,7 @@ mod tests {
 
         let quota_project = "test-quota-project";
 
-        let path = write_cred_json(&contents);
+        let path = write_cred_json(contents);
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
         let sac = AccessTokenCredentialBuilder::default()
@@ -250,6 +254,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[serial]
     async fn create_external_account_access_token() -> TestResult {
         let source_token_response_body = json!({
             "access_token":"an_example_token",
@@ -337,6 +342,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[serial]
     async fn create_external_account_access_token_fail() -> TestResult {
         let source_token_response_body = json!({
             "error":"invalid_token",
