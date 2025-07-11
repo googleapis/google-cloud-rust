@@ -579,21 +579,16 @@ impl<T> UploadObject<T> {
     where
         T: Send + Sync + 'static,
     {
-        let inner = async |_| {
-            // TODO(#2044) - we need to apply any timeouts here.
-            self.start_resumable_upload_attempt().await
-        };
-        let sleep = async |duration| tokio::time::sleep(duration).await;
-        // Creating a resumable upload is always idempotent. There are no
-        // **observable** side-effects if executed multiple times. Any extra
-        // sessions created in the retry loop are simply lost and eventually
-        // garbage collected. There are no `list` operations, or billing, or
-        // cause any other side-effect that applications may observe.
-        let idempotent = true;
         let id = gax::retry_loop_internal::retry_loop(
-            inner,
-            sleep,
-            idempotent,
+            // TODO(#2044) - we need to apply any timeouts here.
+            async |_| self.start_resumable_upload_attempt().await,
+            async |duration| tokio::time::sleep(duration).await,
+            // Creating a resumable upload is always idempotent. There are no
+            // **observable** side-effects if executed multiple times. Any extra
+            // sessions created in the retry loop are simply lost and eventually
+            // garbage collected. There are no `list` operations, or billing, or
+            // cause any other side-effect that applications may observe.
+            true,
             self.inner.retry_throttler.clone(),
             self.inner.retry_policy.clone(),
             self.inner.backoff_policy.clone(),
