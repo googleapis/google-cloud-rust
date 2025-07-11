@@ -63,8 +63,8 @@ mod v1;
 ///
 /// `Storage` holds a connection pool internally, it is advised to
 /// create one and then reuse it.  You do not need to wrap `Storage` in
-/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
-/// already uses an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
+/// internally.
 ///
 /// # Service Description
 ///
