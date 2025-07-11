@@ -748,7 +748,7 @@ mod tests {
                 }
             },
         );
-        return retry_policy;
+        retry_policy
     }
 
     pub(crate) fn get_headers_from_cache(
