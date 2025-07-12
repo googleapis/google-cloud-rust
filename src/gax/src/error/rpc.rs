@@ -390,11 +390,7 @@ impl From<&rpc::model::Status> for Status {
         Self {
             code: value.code.into(),
             message: value.message.clone(),
-            details: value
-                .details
-                .iter()
-                .map(|d| StatusDetails::from(d))
-                .collect(),
+            details: value.details.iter().map(StatusDetails::from).collect(),
         }
     }
 }
