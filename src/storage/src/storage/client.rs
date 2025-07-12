@@ -12,14 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// TODO(#2403) - organize this better.
-pub use control::client::StorageControl;
+use crate::Error;
 
-pub use crate::Error;
-pub use crate::Result;
-pub use crate::model::Object;
-pub use read_object::ReadObject;
-pub use upload_object::UploadObject;
+use crate::builder::storage::ReadObject;
+use crate::builder::storage::UploadObject;
 
 use crate::upload_source::{InsertPayload, Seek, StreamingSource};
 use auth::credentials::CacheableResource;
@@ -31,10 +27,6 @@ use gax::{
 use http::Extensions;
 use sha2::{Digest, Sha256};
 use std::sync::Arc;
-
-mod read_object;
-mod upload_object;
-mod v1;
 
 /// Implements a client for the Cloud Storage API.
 ///
@@ -104,15 +96,15 @@ pub struct Storage {
 
 #[derive(Clone, Debug)]
 pub(crate) struct StorageInner {
-    client: reqwest::Client,
-    cred: auth::credentials::Credentials,
-    endpoint: String,
+    pub client: reqwest::Client,
+    pub cred: auth::credentials::Credentials,
+    pub endpoint: String,
     #[allow(dead_code)]
-    retry_policy: Arc<dyn RetryPolicy>,
+    pub retry_policy: Arc<dyn RetryPolicy>,
     #[allow(dead_code)]
-    backoff_policy: Arc<dyn BackoffPolicy>,
+    pub backoff_policy: Arc<dyn BackoffPolicy>,
     #[allow(dead_code)]
-    retry_throttler: SharedRetryThrottler,
+    pub retry_throttler: SharedRetryThrottler,
 }
 
 impl Storage {
@@ -265,7 +257,7 @@ impl StorageInner {
     }
 
     // Helper method to apply authentication headers to the request builder.
-    async fn apply_auth_headers(
+    pub async fn apply_auth_headers(
         &self,
         builder: reqwest::RequestBuilder,
     ) -> crate::Result<reqwest::RequestBuilder> {
@@ -292,7 +284,7 @@ impl StorageInner {
 /// ```
 /// # tokio_test::block_on(async {
 /// # use google_cloud_storage::*;
-/// # use client::ClientBuilder;
+/// # use builder::storage::ClientBuilder;
 /// # use client::Storage;
 /// let builder : ClientBuilder = Storage::builder();
 /// let client = builder
@@ -368,14 +360,14 @@ const ENCODED_CHARS: percent_encoding::AsciiSet = percent_encoding::CONTROLS
 ///
 /// To ensure compatibility certain characters need to be encoded when they appear
 /// in either the object name or query string of a request URL.
-fn enc(value: &str) -> String {
+pub(crate) fn enc(value: &str) -> String {
     percent_encoding::utf8_percent_encode(value, &ENCODED_CHARS).to_string()
 }
 
 /// Represents an error that can occur when invalid range is specified.
 #[derive(thiserror::Error, Debug, PartialEq)]
 #[non_exhaustive]
-enum RangeError {
+pub(crate) enum RangeError {
     /// The provided read limit was negative.
     #[error("read limit was negative, expected non-negative value.")]
     NegativeLimit,
@@ -462,7 +454,7 @@ impl std::convert::From<KeyAes256> for crate::model::CommonObjectRequestParams {
     }
 }
 
-fn apply_customer_supplied_encryption_headers(
+pub(crate) fn apply_customer_supplied_encryption_headers(
     builder: reqwest::RequestBuilder,
     common_object_request_params: Option<crate::model::CommonObjectRequestParams>,
 ) -> reqwest::RequestBuilder {
@@ -483,7 +475,7 @@ fn apply_customer_supplied_encryption_headers(
 }
 
 #[cfg(test)]
-mod tests {
+pub(crate) mod tests {
     use super::*;
     use std::{sync::Arc, time::Duration};
     use test_case::test_case;

@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::client::*;
 use super::*;
 use futures::stream::unfold;
 use std::collections::VecDeque;
@@ -679,14 +680,14 @@ async fn handle_start_resumable_upload_response(response: reqwest::Response) -> 
 
 #[cfg(test)]
 mod tests {
+    use super::client::tests::{create_key_helper, test_inner_client};
     use super::*;
-    use crate::client::tests::create_key_helper;
-    use crate::client::tests::test_inner_client;
     use crate::model::WriteObjectSpec;
     use gax::retry_policy::RetryPolicyExt;
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use serde_json::{Value, json};
     use std::collections::BTreeMap;
+    use std::sync::Arc;
 
     type Result = anyhow::Result<()>;
 

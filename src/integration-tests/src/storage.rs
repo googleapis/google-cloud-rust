@@ -24,7 +24,7 @@ use storage::model::Bucket;
 use storage::model::bucket::iam_config::UniformBucketLevelAccess;
 use storage::model::bucket::{HierarchicalNamespace, IamConfig};
 
-pub async fn objects(builder: storage::client::ClientBuilder) -> Result<()> {
+pub async fn objects(builder: storage::builder::storage::ClientBuilder) -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
     // verify tracing is doing something.
     #[cfg(feature = "log-integration-tests")]
@@ -87,7 +87,7 @@ pub async fn objects(builder: storage::client::ClientBuilder) -> Result<()> {
 }
 
 pub async fn objects_customer_supplied_encryption(
-    builder: storage::client::ClientBuilder,
+    builder: storage::builder::storage::ClientBuilder,
 ) -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
     // verify tracing is doing something.
@@ -145,7 +145,7 @@ pub async fn objects_customer_supplied_encryption(
     Ok(())
 }
 
-pub async fn objects_large_file(builder: storage::client::ClientBuilder) -> Result<()> {
+pub async fn objects_large_file(builder: storage::builder::storage::ClientBuilder) -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
     // verify tracing is doing something.
     #[cfg(feature = "log-integration-tests")]
@@ -238,7 +238,9 @@ pub async fn objects_large_file(builder: storage::client::ClientBuilder) -> Resu
     Ok(())
 }
 
-pub async fn objects_upload_buffered(builder: storage::client::ClientBuilder) -> Result<()> {
+pub async fn objects_upload_buffered(
+    builder: storage::builder::storage::ClientBuilder,
+) -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
     // verify tracing is doing something.
     #[cfg(feature = "log-integration-tests")]

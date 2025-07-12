@@ -269,9 +269,8 @@ const RESUMABLE_UPLOAD_QUANTUM: usize = 256 * 1024;
 
 #[cfg(test)]
 mod tests {
+    use super::super::client::tests::{create_key_helper, test_inner_client};
     use super::*;
-    use crate::client::tests::create_key_helper;
-    use crate::client::tests::test_inner_client;
     use crate::upload_source::tests::VecStream;
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use serde_json::json;
