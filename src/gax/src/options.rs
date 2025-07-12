@@ -111,7 +111,7 @@ impl RequestOptions {
 
     /// Sets the retry policy configuration.
     pub fn set_retry_policy<V: Into<RetryPolicyArg>>(&mut self, v: V) {
-        self.retry_policy = Some(v.into().0);
+        self.retry_policy = Some(v.into().into());
     }
 
     /// Get the current backoff policy override, if any.
@@ -121,7 +121,7 @@ impl RequestOptions {
 
     /// Sets the backoff policy configuration.
     pub fn set_backoff_policy<V: Into<BackoffPolicyArg>>(&mut self, v: V) {
-        self.backoff_policy = Some(v.into().0);
+        self.backoff_policy = Some(v.into().into());
     }
 
     /// Get the current retry throttler override, if any.
@@ -131,7 +131,7 @@ impl RequestOptions {
 
     /// Sets the retry throttling configuration.
     pub fn set_retry_throttler<V: Into<RetryThrottlerArg>>(&mut self, v: V) {
-        self.retry_throttler = Some(v.into().0);
+        self.retry_throttler = Some(v.into().into());
     }
 
     /// Get the current polling policy override, if any.

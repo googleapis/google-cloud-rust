@@ -71,7 +71,7 @@ pub trait BackoffPolicy: Send + Sync + std::fmt::Debug {
 
 /// A helper type to use [BackoffPolicy] in client and request options.
 #[derive(Clone, Debug)]
-pub struct BackoffPolicyArg(pub(crate) Arc<dyn BackoffPolicy>);
+pub struct BackoffPolicyArg(Arc<dyn BackoffPolicy>);
 
 impl<T: BackoffPolicy + 'static> From<T> for BackoffPolicyArg {
     fn from(value: T) -> Self {
