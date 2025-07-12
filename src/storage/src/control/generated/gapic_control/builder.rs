@@ -44,7 +44,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::CreateFolder;
     /// # tokio_test::block_on(async {
     ///
@@ -160,7 +160,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::DeleteFolder;
     /// # tokio_test::block_on(async {
     ///
@@ -279,7 +279,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::GetFolder;
     /// # tokio_test::block_on(async {
     ///
@@ -398,7 +398,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::ListFolders;
     /// # tokio_test::block_on(async {
     /// use gax::paginator::ItemPaginator;
@@ -531,7 +531,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::RenameFolder;
     /// # tokio_test::block_on(async {
     /// use lro::Poller;
@@ -697,7 +697,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::GetStorageLayout;
     /// # tokio_test::block_on(async {
     ///
@@ -786,7 +786,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::CreateManagedFolder;
     /// # tokio_test::block_on(async {
     ///
@@ -899,7 +899,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::DeleteManagedFolder;
     /// # tokio_test::block_on(async {
     ///
@@ -1027,7 +1027,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::GetManagedFolder;
     /// # tokio_test::block_on(async {
     ///
@@ -1149,7 +1149,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::ListManagedFolders;
     /// # tokio_test::block_on(async {
     /// use gax::paginator::ItemPaginator;
@@ -1282,7 +1282,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::CreateAnywhereCache;
     /// # tokio_test::block_on(async {
     /// use lro::Poller;
@@ -1429,7 +1429,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::UpdateAnywhereCache;
     /// # tokio_test::block_on(async {
     /// use lro::Poller;
@@ -1590,7 +1590,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::DisableAnywhereCache;
     /// # tokio_test::block_on(async {
     ///
@@ -1673,7 +1673,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::PauseAnywhereCache;
     /// # tokio_test::block_on(async {
     ///
@@ -1756,7 +1756,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::ResumeAnywhereCache;
     /// # tokio_test::block_on(async {
     ///
@@ -1839,7 +1839,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::GetAnywhereCache;
     /// # tokio_test::block_on(async {
     ///
@@ -1922,7 +1922,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::ListAnywhereCaches;
     /// # tokio_test::block_on(async {
     /// use gax::paginator::ItemPaginator;
@@ -2049,7 +2049,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::GetProjectIntelligenceConfig;
     /// # tokio_test::block_on(async {
     ///
@@ -2117,7 +2117,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::UpdateProjectIntelligenceConfig;
     /// # tokio_test::block_on(async {
     ///
@@ -2227,7 +2227,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::GetFolderIntelligenceConfig;
     /// # tokio_test::block_on(async {
     ///
@@ -2295,7 +2295,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::UpdateFolderIntelligenceConfig;
     /// # tokio_test::block_on(async {
     ///
@@ -2405,7 +2405,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::GetOrganizationIntelligenceConfig;
     /// # tokio_test::block_on(async {
     ///
@@ -2473,7 +2473,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::UpdateOrganizationIntelligenceConfig;
     /// # tokio_test::block_on(async {
     ///
@@ -2583,7 +2583,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::GetOperation;
     /// # tokio_test::block_on(async {
     ///
