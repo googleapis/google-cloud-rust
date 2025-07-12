@@ -44,7 +44,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::DeleteBucket;
     /// # tokio_test::block_on(async {
     ///
@@ -146,7 +146,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::GetBucket;
     /// # tokio_test::block_on(async {
     ///
@@ -266,7 +266,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::CreateBucket;
     /// # tokio_test::block_on(async {
     ///
@@ -376,7 +376,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::ListBuckets;
     /// # tokio_test::block_on(async {
     /// use gax::paginator::ItemPaginator;
@@ -503,7 +503,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::LockBucketRetentionPolicy;
     /// # tokio_test::block_on(async {
     ///
@@ -579,7 +579,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::GetIamPolicy;
     /// # tokio_test::block_on(async {
     ///
@@ -660,7 +660,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::SetIamPolicy;
     /// # tokio_test::block_on(async {
     ///
@@ -763,7 +763,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::TestIamPermissions;
     /// # tokio_test::block_on(async {
     ///
@@ -842,7 +842,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::UpdateBucket;
     /// # tokio_test::block_on(async {
     ///
@@ -995,7 +995,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::ComposeObject;
     /// # tokio_test::block_on(async {
     ///
@@ -1173,7 +1173,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::DeleteObject;
     /// # tokio_test::block_on(async {
     ///
@@ -1346,7 +1346,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::RestoreObject;
     /// # tokio_test::block_on(async {
     ///
@@ -1545,7 +1545,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::GetObject;
     /// # tokio_test::block_on(async {
     ///
@@ -1760,7 +1760,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::UpdateObject;
     /// # tokio_test::block_on(async {
     ///
@@ -1967,7 +1967,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::ListObjects;
     /// # tokio_test::block_on(async {
     /// use gax::paginator::ItemPaginator;
@@ -2142,7 +2142,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::RewriteObject;
     /// # tokio_test::block_on(async {
     ///
@@ -2505,7 +2505,7 @@ pub mod storage_control {
     ///
     /// # Example
     /// ```no_run
-    /// # use google_cloud_storage_control::builder;
+    /// # use google_cloud_storage::builder;
     /// use builder::storage_control::MoveObject;
     /// # tokio_test::block_on(async {
     ///

@@ -19,7 +19,7 @@
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
-/// # use google_cloud_storage_control::client::StorageControl;
+/// # use google_cloud_storage::client::StorageControl;
 /// let client = StorageControl::builder().build().await?;
 /// // use `client` to make requests to Cloud Storage.
 /// # gax::client_builder::Result::<()>::Ok(()) });
@@ -90,7 +90,7 @@ impl StorageControl {
     ///
     /// ```no_run
     /// # tokio_test::block_on(async {
-    /// # use google_cloud_storage_control::client::StorageControl;
+    /// # use google_cloud_storage::client::StorageControl;
     /// let client = StorageControl::builder().build().await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
@@ -106,7 +106,7 @@ impl StorageControl {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage_control::client::StorageControl;
+    /// # use google_cloud_storage::client::StorageControl;
     /// async fn example(client: &StorageControl) -> gax::Result<()> {
     ///     client.delete_bucket()
     ///         .set_name("projects/_/buckets/my-bucket")
@@ -115,7 +115,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_bucket(&self) -> super::builder::storage_control::DeleteBucket {
+    pub fn delete_bucket(&self) -> crate::builder::storage_control::DeleteBucket {
         self.storage.delete_bucket()
     }
 
@@ -123,7 +123,7 @@ impl StorageControl {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage_control::client::StorageControl;
+    /// # use google_cloud_storage::client::StorageControl;
     /// async fn example(client: &StorageControl) -> gax::Result<()> {
     ///     let bucket = client.get_bucket()
     ///         .set_name("projects/_/buckets/my-bucket")
@@ -134,7 +134,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_bucket(&self) -> super::builder::storage_control::GetBucket {
+    pub fn get_bucket(&self) -> crate::builder::storage_control::GetBucket {
         self.storage.get_bucket()
     }
 
@@ -142,7 +142,7 @@ impl StorageControl {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage_control::client::StorageControl;
+    /// # use google_cloud_storage::client::StorageControl;
     /// async fn example(client: &StorageControl) -> gax::Result<()> {
     ///     let bucket = client.create_bucket()
     ///         .set_parent("projects/my-project")
@@ -154,7 +154,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_bucket(&self) -> super::builder::storage_control::CreateBucket {
+    pub fn create_bucket(&self) -> crate::builder::storage_control::CreateBucket {
         self.storage.create_bucket()
     }
 
@@ -162,7 +162,7 @@ impl StorageControl {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage_control::client::StorageControl;
+    /// # use google_cloud_storage::client::StorageControl;
     /// async fn example(client: &StorageControl) -> gax::Result<()> {
     ///     use gax::paginator::{ItemPaginator, Paginator};
     ///     let mut items = client.list_buckets()
@@ -175,14 +175,14 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn list_buckets(&self) -> super::builder::storage_control::ListBuckets {
+    pub fn list_buckets(&self) -> crate::builder::storage_control::ListBuckets {
         self.storage.list_buckets()
     }
 
     /// Locks retention policy on a bucket.
     pub fn lock_bucket_retention_policy(
         &self,
-    ) -> super::builder::storage_control::LockBucketRetentionPolicy {
+    ) -> crate::builder::storage_control::LockBucketRetentionPolicy {
         self.storage.lock_bucket_retention_policy()
     }
 
@@ -190,7 +190,7 @@ impl StorageControl {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage_control::client::StorageControl;
+    /// # use google_cloud_storage::client::StorageControl;
     /// async fn example(client: &StorageControl) -> gax::Result<()> {
     ///     let policy = client.get_iam_policy()
     ///         .set_resource("projects/_/buckets/my-bucket")
@@ -200,7 +200,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(&self) -> super::builder::storage_control::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> crate::builder::storage_control::GetIamPolicy {
         self.storage.get_iam_policy()
     }
 
@@ -214,7 +214,7 @@ impl StorageControl {
     /// # Example
     ///
     /// ```
-    /// # use google_cloud_storage_control::client::StorageControl;
+    /// # use google_cloud_storage::client::StorageControl;
     /// # use iam_v1::model::Policy;
     /// async fn example(client: &StorageControl, updated_policy: Policy) -> gax::Result<()> {
     ///     let policy = client.set_iam_policy()
@@ -227,7 +227,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(&self) -> super::builder::storage_control::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> crate::builder::storage_control::SetIamPolicy {
         self.storage.set_iam_policy()
     }
 
@@ -236,7 +236,7 @@ impl StorageControl {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage_control::client::StorageControl;
+    /// # use google_cloud_storage::client::StorageControl;
     /// async fn example(client: &StorageControl) -> gax::Result<()> {
     ///     let response = client.test_iam_permissions()
     ///         .set_resource("projects/_/buckets/my-bucket")
@@ -247,18 +247,18 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::storage_control::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> crate::builder::storage_control::TestIamPermissions {
         self.storage.test_iam_permissions()
     }
 
     /// Updates a bucket. Equivalent to JSON API's storage.buckets.patch method.
-    pub fn update_bucket(&self) -> super::builder::storage_control::UpdateBucket {
+    pub fn update_bucket(&self) -> crate::builder::storage_control::UpdateBucket {
         self.storage.update_bucket()
     }
 
     /// Concatenates a list of existing objects into a new object in the same
     /// bucket.
-    pub fn compose_object(&self) -> super::builder::storage_control::ComposeObject {
+    pub fn compose_object(&self) -> crate::builder::storage_control::ComposeObject {
         self.storage.compose_object()
     }
 
@@ -266,7 +266,7 @@ impl StorageControl {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage_control::client::StorageControl;
+    /// # use google_cloud_storage::client::StorageControl;
     /// async fn example(client: &StorageControl) -> gax::Result<()> {
     ///     client.delete_object()
     ///         .set_bucket("projects/_/buckets/my-bucket")
@@ -292,12 +292,12 @@ impl StorageControl {
     /// until the soft delete retention period has passed.
     ///
     /// [soft delete]: https://cloud.google.com/storage/docs/soft-delete
-    pub fn delete_object(&self) -> super::builder::storage_control::DeleteObject {
+    pub fn delete_object(&self) -> crate::builder::storage_control::DeleteObject {
         self.storage.delete_object()
     }
 
     /// Restores a soft-deleted object.
-    pub fn restore_object(&self) -> super::builder::storage_control::RestoreObject {
+    pub fn restore_object(&self) -> crate::builder::storage_control::RestoreObject {
         self.storage.restore_object()
     }
 
@@ -309,13 +309,13 @@ impl StorageControl {
     /// [IAM permission](https://cloud.google.com/iam/docs/overview#permissions) on
     /// the bucket. To return object ACLs, the authenticated user must also have
     /// the `storage.objects.getIamPolicy` permission.
-    pub fn get_object(&self) -> super::builder::storage_control::GetObject {
+    pub fn get_object(&self) -> crate::builder::storage_control::GetObject {
         self.storage.get_object()
     }
 
     /// Updates an object's metadata.
     /// Equivalent to JSON API's storage.objects.patch.
-    pub fn update_object(&self) -> super::builder::storage_control::UpdateObject {
+    pub fn update_object(&self) -> crate::builder::storage_control::UpdateObject {
         self.storage.update_object()
     }
 
@@ -323,7 +323,7 @@ impl StorageControl {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage_control::client::StorageControl;
+    /// # use google_cloud_storage::client::StorageControl;
     /// async fn example(client: &StorageControl) -> gax::Result<()> {
     ///     use gax::paginator::{ItemPaginator, Paginator};
     ///     let mut items = client.list_objects()
@@ -336,18 +336,18 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn list_objects(&self) -> super::builder::storage_control::ListObjects {
+    pub fn list_objects(&self) -> crate::builder::storage_control::ListObjects {
         self.storage.list_objects()
     }
 
     /// Rewrites a source object to a destination object. Optionally overrides
     /// metadata.
-    pub fn rewrite_object(&self) -> super::builder::storage_control::RewriteObject {
+    pub fn rewrite_object(&self) -> crate::builder::storage_control::RewriteObject {
         self.storage.rewrite_object()
     }
 
     /// Moves the source object to the destination object in the same bucket.
-    pub fn move_object(&self) -> super::builder::storage_control::MoveObject {
+    pub fn move_object(&self) -> crate::builder::storage_control::MoveObject {
         self.storage.move_object()
     }
 
@@ -358,7 +358,7 @@ impl StorageControl {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage_control::client::StorageControl;
+    /// # use google_cloud_storage::client::StorageControl;
     /// async fn example(client: &StorageControl) -> gax::Result<()> {
     ///     let folder = client.create_folder()
     ///         .set_parent("projects/my-project/buckets/my-bucket")
@@ -369,7 +369,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn create_folder(&self) -> super::builder::storage_control::CreateFolder {
+    pub fn create_folder(&self) -> crate::builder::storage_control::CreateFolder {
         self.control.create_folder()
     }
 
@@ -380,7 +380,7 @@ impl StorageControl {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage_control::client::StorageControl;
+    /// # use google_cloud_storage::client::StorageControl;
     /// async fn example(client: &StorageControl) -> gax::Result<()> {
     ///     client.delete_folder()
     ///         .set_name("projects/_/buckets/my-bucket/folders/my-folder/my-subfolder/")
@@ -389,7 +389,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn delete_folder(&self) -> super::builder::storage_control::DeleteFolder {
+    pub fn delete_folder(&self) -> crate::builder::storage_control::DeleteFolder {
         self.control.delete_folder()
     }
 
@@ -400,7 +400,7 @@ impl StorageControl {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage_control::client::StorageControl;
+    /// # use google_cloud_storage::client::StorageControl;
     /// async fn example(client: &StorageControl) -> gax::Result<()> {
     ///     let folder = client.get_folder()
     ///         .set_name("projects/_/buckets/my-bucket/folders/my-folder/my-subfolder/")
@@ -410,7 +410,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_folder(&self) -> super::builder::storage_control::GetFolder {
+    pub fn get_folder(&self) -> crate::builder::storage_control::GetFolder {
         self.control.get_folder()
     }
 
@@ -421,7 +421,7 @@ impl StorageControl {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage_control::client::StorageControl;
+    /// # use google_cloud_storage::client::StorageControl;
     /// async fn example(client: &StorageControl) -> gax::Result<()> {
     ///     use gax::paginator::ItemPaginator as _;
     ///     let mut folders = client.list_folders()
@@ -434,7 +434,7 @@ impl StorageControl {
     ///     Ok(())
     /// }
     /// ```
-    pub fn list_folders(&self) -> super::builder::storage_control::ListFolders {
+    pub fn list_folders(&self) -> crate::builder::storage_control::ListFolders {
         self.control.list_folders()
     }
 
@@ -448,7 +448,7 @@ impl StorageControl {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_storage_control::client::StorageControl;
+    /// # use google_cloud_storage::client::StorageControl;
     /// async fn example(client: &StorageControl) -> gax::Result<()> {
     ///     use lro::Poller as _;
     ///     let folder = client.rename_folder()
@@ -471,32 +471,32 @@ impl StorageControl {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn rename_folder(&self) -> super::builder::storage_control::RenameFolder {
+    pub fn rename_folder(&self) -> crate::builder::storage_control::RenameFolder {
         self.control.rename_folder()
     }
 
     /// Returns the storage layout configuration for a given bucket.
-    pub fn get_storage_layout(&self) -> super::builder::storage_control::GetStorageLayout {
+    pub fn get_storage_layout(&self) -> crate::builder::storage_control::GetStorageLayout {
         self.control.get_storage_layout()
     }
 
     /// Creates a new managed folder.
-    pub fn create_managed_folder(&self) -> super::builder::storage_control::CreateManagedFolder {
+    pub fn create_managed_folder(&self) -> crate::builder::storage_control::CreateManagedFolder {
         self.control.create_managed_folder()
     }
 
     /// Permanently deletes an empty managed folder.
-    pub fn delete_managed_folder(&self) -> super::builder::storage_control::DeleteManagedFolder {
+    pub fn delete_managed_folder(&self) -> crate::builder::storage_control::DeleteManagedFolder {
         self.control.delete_managed_folder()
     }
 
     /// Returns metadata for the specified managed folder.
-    pub fn get_managed_folder(&self) -> super::builder::storage_control::GetManagedFolder {
+    pub fn get_managed_folder(&self) -> crate::builder::storage_control::GetManagedFolder {
         self.control.get_managed_folder()
     }
 
     /// Retrieves a list of managed folders for a given bucket.
-    pub fn list_managed_folders(&self) -> super::builder::storage_control::ListManagedFolders {
+    pub fn list_managed_folders(&self) -> crate::builder::storage_control::ListManagedFolders {
         self.control.list_managed_folders()
     }
 
@@ -511,7 +511,7 @@ impl StorageControl {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_anywhere_cache(&self) -> super::builder::storage_control::CreateAnywhereCache {
+    pub fn create_anywhere_cache(&self) -> crate::builder::storage_control::CreateAnywhereCache {
         self.control.create_anywhere_cache()
     }
 
@@ -527,7 +527,7 @@ impl StorageControl {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_anywhere_cache(&self) -> super::builder::storage_control::UpdateAnywhereCache {
+    pub fn update_anywhere_cache(&self) -> crate::builder::storage_control::UpdateAnywhereCache {
         self.control.update_anywhere_cache()
     }
 
@@ -535,76 +535,76 @@ impl StorageControl {
     /// disablement could be revoked by calling ResumeAnywhereCache. The cache
     /// instance will be deleted automatically if it remains in the disabled state
     /// for at least one hour.
-    pub fn disable_anywhere_cache(&self) -> super::builder::storage_control::DisableAnywhereCache {
+    pub fn disable_anywhere_cache(&self) -> crate::builder::storage_control::DisableAnywhereCache {
         self.control.disable_anywhere_cache()
     }
 
     /// Pauses an Anywhere Cache instance.
-    pub fn pause_anywhere_cache(&self) -> super::builder::storage_control::PauseAnywhereCache {
+    pub fn pause_anywhere_cache(&self) -> crate::builder::storage_control::PauseAnywhereCache {
         self.control.pause_anywhere_cache()
     }
 
     /// Resumes a disabled or paused Anywhere Cache instance.
-    pub fn resume_anywhere_cache(&self) -> super::builder::storage_control::ResumeAnywhereCache {
+    pub fn resume_anywhere_cache(&self) -> crate::builder::storage_control::ResumeAnywhereCache {
         self.control.resume_anywhere_cache()
     }
 
     /// Gets an Anywhere Cache instance.
-    pub fn get_anywhere_cache(&self) -> super::builder::storage_control::GetAnywhereCache {
+    pub fn get_anywhere_cache(&self) -> crate::builder::storage_control::GetAnywhereCache {
         self.control.get_anywhere_cache()
     }
 
     /// Lists Anywhere Cache instances for a given bucket.
-    pub fn list_anywhere_caches(&self) -> super::builder::storage_control::ListAnywhereCaches {
+    pub fn list_anywhere_caches(&self) -> crate::builder::storage_control::ListAnywhereCaches {
         self.control.list_anywhere_caches()
     }
 
     /// Returns the Project scoped singleton IntelligenceConfig resource.
     pub fn get_project_intelligence_config(
         &self,
-    ) -> super::builder::storage_control::GetProjectIntelligenceConfig {
+    ) -> crate::builder::storage_control::GetProjectIntelligenceConfig {
         self.control.get_project_intelligence_config()
     }
 
     /// Updates the Project scoped singleton IntelligenceConfig resource.
     pub fn update_project_intelligence_config(
         &self,
-    ) -> super::builder::storage_control::UpdateProjectIntelligenceConfig {
+    ) -> crate::builder::storage_control::UpdateProjectIntelligenceConfig {
         self.control.update_project_intelligence_config()
     }
 
     /// Returns the Folder scoped singleton IntelligenceConfig resource.
     pub fn get_folder_intelligence_config(
         &self,
-    ) -> super::builder::storage_control::GetFolderIntelligenceConfig {
+    ) -> crate::builder::storage_control::GetFolderIntelligenceConfig {
         self.control.get_folder_intelligence_config()
     }
 
     /// Updates the Folder scoped singleton IntelligenceConfig resource.
     pub fn update_folder_intelligence_config(
         &self,
-    ) -> super::builder::storage_control::UpdateFolderIntelligenceConfig {
+    ) -> crate::builder::storage_control::UpdateFolderIntelligenceConfig {
         self.control.update_folder_intelligence_config()
     }
 
     /// Returns the Organization scoped singleton IntelligenceConfig resource.
     pub fn get_organization_intelligence_config(
         &self,
-    ) -> super::builder::storage_control::GetOrganizationIntelligenceConfig {
+    ) -> crate::builder::storage_control::GetOrganizationIntelligenceConfig {
         self.control.get_organization_intelligence_config()
     }
 
     /// Updates the Organization scoped singleton IntelligenceConfig resource.
     pub fn update_organization_intelligence_config(
         &self,
-    ) -> super::builder::storage_control::UpdateOrganizationIntelligenceConfig {
+    ) -> crate::builder::storage_control::UpdateOrganizationIntelligenceConfig {
         self.control.update_organization_intelligence_config()
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(&self) -> super::builder::storage_control::GetOperation {
+    pub fn get_operation(&self) -> crate::builder::storage_control::GetOperation {
         self.control.get_operation()
     }
 
@@ -636,8 +636,8 @@ impl StorageControl {
 ///
 /// ```
 /// # tokio_test::block_on(async {
-/// # use google_cloud_storage_control::*;
-/// # use client::ClientBuilder;
+/// # use google_cloud_storage::*;
+/// # use builder::storage_control::ClientBuilder;
 /// # use client::StorageControl;
 /// let builder : ClientBuilder = StorageControl::builder();
 /// let client = builder

@@ -31,7 +31,7 @@ use gaxi::prost::{ConvertError, FromProto, ToProto};
 // one of the motivations for `StorageControl` was to separate the LROs.
 // Worst case, we can skip the offending functions until we have fixed
 // this code to support them.
-use crate::generated::gapic_control::transport::{lro_any_from_prost, lro_any_to_prost};
+use crate::control::generated::gapic_control::transport::{lro_any_from_prost, lro_any_to_prost};
 
 impl ToProto<google::rpc::Status> for rpc::model::Status {
     type Output = google::rpc::Status;
@@ -62,7 +62,7 @@ impl ToProto<google::longrunning::Operation> for longrunning::model::Operation {
     fn to_proto(
         self,
     ) -> std::result::Result<google::longrunning::Operation, gaxi::prost::ConvertError> {
-        use crate::google::longrunning::operation::Result as P;
+        use google::longrunning::operation::Result as P;
         use longrunning::model::operation::Result as M;
         let metadata = self.metadata.map(lro_any_to_prost).transpose()?;
         #[warn(clippy::wildcard_enum_match_arm)]
@@ -86,7 +86,7 @@ impl ToProto<google::longrunning::Operation> for longrunning::model::Operation {
 
 impl FromProto<longrunning::model::Operation> for google::longrunning::Operation {
     fn cnv(self) -> std::result::Result<longrunning::model::Operation, ConvertError> {
-        use crate::google::longrunning::operation::Result as P;
+        use google::longrunning::operation::Result as P;
         use longrunning::model::operation::Result as M;
         let metadata = self.metadata.map(lro_any_from_prost).transpose()?;
         let result = self
@@ -111,7 +111,7 @@ mod tests {
     use test_case::test_case;
 
     fn prost_folder() -> prost_types::Any {
-        let folder = crate::google::storage::control::v2::Folder {
+        let folder = google::storage::control::v2::Folder {
             name: "test-name".to_string(),
             metageneration: 42,
             ..Default::default()
@@ -127,7 +127,7 @@ mod tests {
     }
 
     fn prost_create_metadata() -> prost_types::Any {
-        let md = crate::google::storage::control::v2::CreateAnywhereCacheMetadata {
+        let md = google::storage::control::v2::CreateAnywhereCacheMetadata {
             zone: Some("test-zone".to_string()),
             ..Default::default()
         };
@@ -197,7 +197,7 @@ mod tests {
     #[test_case(prost_lro_with_response(), wkt_lro_with_response(); "with response")]
     #[test_case(prost_lro_with_error(), wkt_lro_with_error(); "with error")]
     fn lro_roundtrip(
-        prost: crate::google::longrunning::Operation,
+        prost: google::longrunning::Operation,
         wkt: longrunning::model::Operation,
     ) -> anyhow::Result<()> {
         assert_eq!(prost, wkt.clone().to_proto()?);
@@ -226,7 +226,7 @@ mod tests {
     #[test]
     fn lro_from_prost_unknown_metadata() -> anyhow::Result<()> {
         let unknown = prost_types::Any::from_msg(&prost_types::Duration::default())?;
-        let prost = crate::google::longrunning::Operation {
+        let prost = google::longrunning::Operation {
             metadata: Some(unknown),
             ..Default::default()
         };
@@ -238,7 +238,7 @@ mod tests {
     #[test]
     fn lro_from_prost_unknown_response() -> anyhow::Result<()> {
         let unknown = prost_types::Any::from_msg(&prost_types::Duration::default())?;
-        let prost = crate::google::longrunning::Operation {
+        let prost = google::longrunning::Operation {
             result: Some(google::longrunning::operation::Result::Response(unknown)),
             ..Default::default()
         };

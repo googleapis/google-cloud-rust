@@ -35,12 +35,13 @@ pub mod backoff_policy;
 pub mod retry_policy;
 pub use crate::storage::upload_source;
 
+mod control;
 mod storage;
 
 /// Clients to interact with Google Cloud Storage.
 pub mod client {
+    pub use crate::control::client::StorageControl;
     pub use crate::storage::client::{KeyAes256, KeyAes256Error, Storage};
-    pub use control::client::StorageControl;
 }
 /// Request builders.
 pub mod builder {
@@ -52,13 +53,48 @@ pub mod builder {
         pub use crate::storage::upload_object::UploadObject;
     }
     pub mod storage_control {
-        pub use control::builder::storage_control::*;
+        pub use crate::control::builder::*;
         // TODO(#2403) - Move `ClientBuilder` into a scoped namespace within the
         // builder mod, like we do for GAPICs.
-        pub use control::client::ClientBuilder;
+        pub use crate::control::client::ClientBuilder;
     }
 }
 // TODO(#2403) - This includes implementation details like `ReadObjectRequest`.
 // We do not want to expose those in the long run.
-pub use control::model;
-pub use control::stub;
+pub use crate::control::model;
+pub use crate::control::stub;
+
+// TODO(#2403) - move into control.rs ?
+pub(crate) mod google {
+    pub mod iam {
+        pub mod v1 {
+            include!("control/generated/protos/storage/google.iam.v1.rs");
+            include!("control/generated/convert/iam/convert.rs");
+        }
+    }
+    pub mod longrunning {
+        include!("control/generated/protos/control/google.longrunning.rs");
+        include!("control/generated/convert/longrunning/convert.rs");
+    }
+    pub mod r#type {
+        include!("control/generated/protos/storage/google.r#type.rs");
+        include!("control/generated/convert/type/convert.rs");
+    }
+    pub mod rpc {
+        include!("control/generated/protos/storage/google.rpc.rs");
+    }
+    pub mod storage {
+        #[allow(deprecated)]
+        #[allow(clippy::large_enum_variant)]
+        pub mod v2 {
+            include!("control/generated/protos/storage/google.storage.v2.rs");
+            include!("control/generated/convert/storage/convert.rs");
+        }
+        pub mod control {
+            pub mod v2 {
+                include!("control/generated/protos/control/google.storage.control.v2.rs");
+                include!("control/generated/convert/control/convert.rs");
+            }
+        }
+    }
+}

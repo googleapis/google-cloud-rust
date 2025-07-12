@@ -15,12 +15,15 @@
 [general]
 language             = 'rust'
 specification-source = 'google/storage/control/v2'
+service-config       = 'google/storage/control/v2/storage_v2.yaml'
 
 [codec]
-copyright-year    = '2025'
-template-override = 'templates/convert-prost'
-module-path       = 'crate::generated::gapic_control::model'
-name-overrides    = """\
+copyright-year            = '2025'
+template-override         = 'templates/grpc-client'
+package-name-override     = 'google-cloud-storage'
+name-overrides            = """\
 .google.storage.control.v2.IntelligenceConfig.Filter.cloud_storage_buckets=CloudStorageBucketsOneOf,\
 .google.storage.control.v2.IntelligenceConfig.Filter.cloud_storage_locations=CloudStorageLocationsOneOf\
 """
+include-grpc-only-methods = 'true'
+has-veneer                = 'true'
