@@ -270,7 +270,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// # Result::<()>::Ok(()) });
     /// ```
     pub fn with_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
-        self.config.retry_policy = Some(v.into().0);
+        self.config.retry_policy = Some(v.into().into());
         self
     }
 
@@ -298,7 +298,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// # Result::<()>::Ok(()) });
     /// ```
     pub fn with_backoff_policy<V: Into<BackoffPolicyArg>>(mut self, v: V) -> Self {
-        self.config.backoff_policy = Some(v.into().0);
+        self.config.backoff_policy = Some(v.into().into());
         self
     }
 
@@ -327,7 +327,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// # Result::<()>::Ok(()) });
     /// ```
     pub fn with_retry_throttler<V: Into<RetryThrottlerArg>>(mut self, v: V) -> Self {
-        self.config.retry_throttler = v.into().0;
+        self.config.retry_throttler = v.into().into();
         self
     }
 

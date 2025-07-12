@@ -115,7 +115,7 @@ pub type SharedRetryThrottler = Arc<Mutex<dyn RetryThrottler>>;
 
 /// A helper type to use [RetryThrottler] in client and request options.
 #[derive(Clone, Debug)]
-pub struct RetryThrottlerArg(pub(crate) SharedRetryThrottler);
+pub struct RetryThrottlerArg(SharedRetryThrottler);
 
 impl<T: RetryThrottler + 'static> From<T> for RetryThrottlerArg {
     fn from(value: T) -> Self {
