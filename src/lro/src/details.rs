@@ -153,7 +153,7 @@ where
     // invariants required by the receiving type.
     match (op.response(), op.error()) {
         (Some(any), None) => any.to_msg::<R>().map_err(Error::deser),
-        (None, Some(e)) => Err(Error::service(gax::error::rpc::Status::from(e.clone()))),
+        (None, Some(e)) => Err(Error::service(gax::error::rpc::Status::from(e))),
         (None, None) => Err(Error::deser("neither result nor error set in LRO result")),
         (Some(_), Some(_)) => unreachable!("result and error held in a oneof"),
     }

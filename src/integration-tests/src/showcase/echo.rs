@@ -77,7 +77,7 @@ async fn echo_error_details(client: &showcase::client::Echo) -> Result<()> {
         .and_then(|f| f.error)
         .and_then(|f| f.details)
         .expect("has single_detail with error and any");
-    if let StatusDetails::ErrorInfo(info) = StatusDetails::from(any) {
+    if let StatusDetails::ErrorInfo(info) = StatusDetails::from(&any) {
         assert_eq!(info.reason.as_str(), TEXT);
     }
     Ok(())
