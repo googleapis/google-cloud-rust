@@ -14,6 +14,7 @@
 
 use serde_with::DeserializeAs;
 
+use super::client::*;
 use super::*;
 
 /// The request builder for [Storage::read_object][crate::client::Storage::read_object] calls.
@@ -22,7 +23,7 @@ use super::*;
 /// ```
 /// # tokio_test::block_on(async {
 /// # use google_cloud_storage::client::Storage;
-/// use google_cloud_storage::client::ReadObject;
+/// use google_cloud_storage::builder::storage::ReadObject;
 /// # let client = Storage::builder()
 /// #   .with_endpoint("https://storage.googleapis.com")
 /// #    .build().await?;
@@ -484,9 +485,9 @@ fn check_crc32c_match(crc32c: u32, response: Option<u32>) -> Result<()> {
 
 #[cfg(test)]
 mod tests {
-    use super::super::tests::create_key_helper;
-    use super::super::tests::test_inner_client;
+    use super::client::tests::{create_key_helper, test_inner_client};
     use super::*;
+    use base64::Engine as _;
     use futures::TryStreamExt;
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use std::collections::HashMap;

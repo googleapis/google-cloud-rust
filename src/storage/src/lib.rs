@@ -19,6 +19,7 @@
 //! [client] module. More specifically:
 //!
 //! * [Storage][client::Storage]
+//! * [StorageControl][client::StorageControl]
 //!
 //! **WARNING:** this crate is under active development. We expect multiple
 //! breaking changes in the upcoming releases. Testing is also incomplete, we do
@@ -31,12 +32,25 @@ pub use gax::Result;
 pub use gax::error::Error;
 
 pub mod backoff_policy;
-pub mod client;
 pub mod retry_policy;
-pub mod upload_source;
+pub use crate::storage::upload_source;
 
+mod storage;
+
+/// Clients to interact with Google Cloud Storage.
+pub mod client {
+    pub use crate::storage::client::{KeyAes256, KeyAes256Error, Storage};
+    pub use control::client::StorageControl;
+}
 /// Request builders.
 pub mod builder {
+    pub mod storage {
+        // TODO(#2403) - Move `ClientBuilder` into a scoped namespace within the
+        // builder mod, like we do for GAPICs.
+        pub use crate::storage::client::ClientBuilder;
+        pub use crate::storage::read_object::ReadObject;
+        pub use crate::storage::upload_object::UploadObject;
+    }
     pub mod storage_control {
         pub use control::builder::storage_control::*;
         // TODO(#2403) - Move `ClientBuilder` into a scoped namespace within the
@@ -46,6 +60,5 @@ pub mod builder {
 }
 // TODO(#2403) - This includes implementation details like `ReadObjectRequest`.
 // We do not want to expose those in the long run.
-/// The messages and enums that are part of this client library.
 pub use control::model;
 pub use control::stub;
