@@ -160,6 +160,8 @@ type messageAnnotation struct {
 	// If set, this message is only enabled when some features are enabled.
 	FeatureGates   []string
 	FeatureGatesOp string
+	// If true, this message's visibility should only be `pub(crate)`
+	Internal bool
 }
 
 type methodAnnotation struct {
@@ -643,6 +645,7 @@ func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpeci
 		HasNestedTypes:     language.HasNestedTypes(m),
 		BasicFields:        basicFields,
 		HasSyntheticFields: hasSyntheticFields,
+		Internal:           slices.Contains(c.internalTypes, m.ID),
 	}
 }
 
