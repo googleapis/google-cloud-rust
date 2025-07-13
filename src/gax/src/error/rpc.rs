@@ -385,6 +385,16 @@ impl From<rpc::model::Status> for Status {
     }
 }
 
+impl From<&rpc::model::Status> for Status {
+    fn from(value: &rpc::model::Status) -> Self {
+        Self {
+            code: value.code.into(),
+            message: value.message.clone(),
+            details: value.details.iter().map(StatusDetails::from).collect(),
+        }
+    }
+}
+
 /// The type of details associated with [Status].
 ///
 /// Google cloud RPCs often return a detailed error description. This details
@@ -447,6 +457,35 @@ impl From<wkt::Any> for StatusDetails {
     }
 }
 
+impl From<&wkt::Any> for StatusDetails {
+    fn from(value: &wkt::Any) -> Self {
+        macro_rules! try_convert {
+            ($($variant:ident),*) => {
+                $(
+                    if let Ok(v) = value.to_msg::<rpc::model::$variant>() {
+                        return StatusDetails::$variant(v);
+                    }
+                )*
+            };
+        }
+
+        try_convert!(
+            BadRequest,
+            DebugInfo,
+            ErrorInfo,
+            Help,
+            LocalizedMessage,
+            PreconditionFailure,
+            QuotaFailure,
+            RequestInfo,
+            ResourceInfo,
+            RetryInfo
+        );
+
+        StatusDetails::Other(value.clone())
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -505,7 +544,7 @@ mod tests {
         let a1 = wkt::Any::from_msg(
             &rpc::model::Help::new().set_links([rpc::model::help::Link::new().set_url("test-url")]),
         )?;
-        let got = Status::default().set_details([a0, a1]);
+        let got = Status::default().set_details(&[a0, a1]);
         assert_eq!(got, want);
 
         Ok(())
@@ -727,7 +766,7 @@ mod tests {
         let input = rpc::model::Status::default()
             .set_code(Code::Unavailable as i32)
             .set_message("try-again");
-        let got = Status::from(input);
+        let got = Status::from(&input);
         assert_eq!(got.code, Code::Unavailable);
         assert_eq!(got.message, "try-again");
     }
@@ -769,7 +808,9 @@ mod tests {
             .set_message("try-again")
             .set_details(vec![wkt::Any::from_msg(&detail).unwrap()]);
 
+        let from_ref = Status::from(&input);
         let status = Status::from(input);
+        assert_eq!(from_ref, status);
         assert_eq!(status.code, Code::Unavailable);
         assert_eq!(status.message, "try-again");
 
@@ -784,7 +825,9 @@ mod tests {
             .set_code(Code::Unavailable as i32)
             .set_message("try-again")
             .set_details(vec![any.clone()]);
+        let from_ref = Status::from(&input);
         let got = Status::from(input);
+        assert_eq!(from_ref, got);
         assert_eq!(got.code, Code::Unavailable);
         assert_eq!(got.message, "try-again");
 
