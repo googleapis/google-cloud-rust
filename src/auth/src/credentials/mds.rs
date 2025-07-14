@@ -59,11 +59,15 @@ use crate::credentials::dynamic::CredentialsProvider;
 use crate::credentials::{CacheableResource, Credentials, DEFAULT_UNIVERSE_DOMAIN};
 use crate::errors::CredentialsError;
 use crate::headers_util::build_cacheable_headers;
+use crate::retry::{Builder as RetryTokenProviderBuilder, TokenProviderWithRetry};
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use crate::{BuildResult, Result};
 use async_trait::async_trait;
 use bon::Builder;
+use gax::backoff_policy::BackoffPolicyArg;
+use gax::retry_policy::RetryPolicyArg;
+use gax::retry_throttler::RetryThrottlerArg;
 use http::{Extensions, HeaderMap, HeaderValue};
 use reqwest::Client;
 use std::default::Default;
@@ -113,6 +117,7 @@ pub struct Builder {
     scopes: Option<Vec<String>>,
     universe_domain: Option<String>,
     created_by_adc: bool,
+    retry_builder: RetryTokenProviderBuilder,
 }
 
 impl Builder {
@@ -176,6 +181,76 @@ impl Builder {
         self
     }
 
+    /// Configure the retry policy for fetching tokens.
+    ///
+    /// The retry policy controls how to handle retries, and sets limits on
+    /// the number of attempts or the total time spent retrying.
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::mds::Builder;
+    /// # use gax::retry_policy;
+    /// # use gax::retry_policy::RetryPolicyExt;
+    /// # tokio_test::block_on(async {
+    /// let credentials = Builder::default()
+    ///     .with_retry_policy(retry_policy::AlwaysRetry.with_attempt_limit(3))
+    ///     .build();
+    /// # });
+    /// ```
+    pub fn with_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
+        self.retry_builder = self.retry_builder.with_retry_policy(v.into());
+        self
+    }
+
+    /// Configure the retry backoff policy.
+    ///
+    /// The backoff policy controls how long to wait in between retry attempts.
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::mds::Builder;
+    /// # use gax::exponential_backoff::ExponentialBackoffBuilder;
+    /// # use std::time::Duration;
+    /// # tokio_test::block_on(async {
+    /// let policy = ExponentialBackoffBuilder::new()
+    ///     .with_initial_delay(Duration::from_millis(100))
+    ///     .with_maximum_delay(Duration::from_secs(5))
+    ///     .with_scaling(4.0)
+    ///     .build().expect("well-known policy values should succeed");
+    /// let credentials = Builder::default()
+    ///     .with_backoff_policy(policy)
+    ///     .build();
+    /// # });
+    /// ```
+    pub fn with_backoff_policy<V: Into<BackoffPolicyArg>>(mut self, v: V) -> Self {
+        self.retry_builder = self.retry_builder.with_backoff_policy(v.into());
+        self
+    }
+
+    /// Configure the retry throttler.
+    ///
+    /// Advanced applications may want to configure a retry throttler to
+    /// [Address Cascading Failures] and when [Handling Overload] conditions.
+    /// The authentication library throttles its retry loop, using a policy to
+    /// control the throttling algorithm. Use this method to fine tune or
+    /// customize the default retry throttler.
+    ///
+    /// [Handling Overload]: https://sre.google/sre-book/handling-overload/
+    /// [Address Cascading Failures]: https://sre.google/sre-book/addressing-cascading-failures/
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::mds::Builder;
+    /// # use gax::retry_throttler::AdaptiveThrottler;
+    /// # tokio_test::block_on(async {
+    /// let credentials = Builder::default()
+    ///     .with_retry_throttler(AdaptiveThrottler::new(2.0)
+    ///         .expect("well-known policy values should succeed"))
+    ///     .build();
+    /// # });
+    /// ```
+    pub fn with_retry_throttler<V: Into<RetryThrottlerArg>>(mut self, v: V) -> Self {
+        self.retry_builder = self.retry_builder.with_retry_throttler(v.into());
+        self
+    }
+
     // This method is used to build mds credentials from ADC
     pub(crate) fn from_adc() -> Self {
         Self {
@@ -184,7 +259,7 @@ impl Builder {
         }
     }
 
-    fn build_token_provider(self) -> MDSAccessTokenProvider {
+    fn build_token_provider(self) -> TokenProviderWithRetry<MDSAccessTokenProvider> {
         let final_endpoint: String;
         let endpoint_overridden: bool;
 
@@ -203,12 +278,13 @@ impl Builder {
             endpoint_overridden = false;
         };
 
-        MDSAccessTokenProvider::builder()
+        let tp = MDSAccessTokenProvider::builder()
             .endpoint(final_endpoint)
             .maybe_scopes(self.scopes)
             .endpoint_overridden(endpoint_overridden)
             .created_by_adc(self.created_by_adc)
-            .build()
+            .build();
+        self.retry_builder.build(tp)
     }
 
     /// Returns a [Credentials] instance with the configured settings.
@@ -341,12 +417,14 @@ mod tests {
     use super::*;
     use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::tests::{
-        get_headers_from_cache, get_token_from_headers, get_token_type_from_headers,
+        get_headers_from_cache, get_mock_auth_retry_policy, get_mock_backoff_policy,
+        get_mock_retry_throttler, get_token_from_headers, get_token_type_from_headers,
     };
     use crate::errors;
     use crate::token::tests::MockTokenProvider;
     use http::HeaderValue;
     use http::header::AUTHORIZATION;
+    use httptest::cycle;
     use httptest::matchers::{all_of, contains, request, url_decoded};
     use httptest::responders::{json_encoded, status_code};
     use httptest::{Expectation, Server};
@@ -358,6 +436,88 @@ mod tests {
     use url::Url;
 
     type TestResult = anyhow::Result<()>;
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_mds_retries_on_transient_failures() -> TestResult {
+        let mut server = Server::run();
+        server.expect(
+            Expectation::matching(request::path(format!("{MDS_DEFAULT_URI}/token")))
+                .times(3)
+                .respond_with(status_code(503)),
+        );
+
+        let provider = Builder::default()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_retry_policy(get_mock_auth_retry_policy(3))
+            .with_backoff_policy(get_mock_backoff_policy())
+            .with_retry_throttler(get_mock_retry_throttler())
+            .build_token_provider();
+
+        let err = provider.token().await.unwrap_err();
+        assert!(err.is_transient());
+        server.verify_and_clear();
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_mds_does_not_retry_on_non_transient_failures() -> TestResult {
+        let mut server = Server::run();
+        server.expect(
+            Expectation::matching(request::path(format!("{MDS_DEFAULT_URI}/token")))
+                .times(1)
+                .respond_with(status_code(401)),
+        );
+
+        let provider = Builder::default()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_retry_policy(get_mock_auth_retry_policy(1))
+            .with_backoff_policy(get_mock_backoff_policy())
+            .with_retry_throttler(get_mock_retry_throttler())
+            .build_token_provider();
+
+        let err = provider.token().await.unwrap_err();
+        assert!(!err.is_transient());
+        server.verify_and_clear();
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_mds_retries_for_success() -> TestResult {
+        let mut server = Server::run();
+        let response = MDSTokenResponse {
+            access_token: "test-access-token".to_string(),
+            expires_in: Some(3600),
+            token_type: "test-token-type".to_string(),
+        };
+
+        server.expect(
+            Expectation::matching(request::path(format!("{MDS_DEFAULT_URI}/token")))
+                .times(3)
+                .respond_with(cycle![
+                    status_code(503).body("try-again"),
+                    status_code(503).body("try-again"),
+                    status_code(200)
+                        .append_header("Content-Type", "application/json")
+                        .body(serde_json::to_string(&response).unwrap()),
+                ]),
+        );
+
+        let provider = Builder::default()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_retry_policy(get_mock_auth_retry_policy(3))
+            .with_backoff_policy(get_mock_backoff_policy())
+            .with_retry_throttler(get_mock_retry_throttler())
+            .build_token_provider();
+
+        let token = provider.token().await?;
+        assert_eq!(token.token, "test-access-token");
+
+        server.verify_and_clear();
+        Ok(())
+    }
 
     #[test]
     fn validate_default_endpoint_urls() {

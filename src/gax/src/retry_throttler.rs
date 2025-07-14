@@ -114,8 +114,8 @@ pub trait RetryThrottler: Send + Sync + std::fmt::Debug {
 pub type SharedRetryThrottler = Arc<Mutex<dyn RetryThrottler>>;
 
 /// A helper type to use [RetryThrottler] in client and request options.
-#[derive(Clone)]
-pub struct RetryThrottlerArg(pub(crate) SharedRetryThrottler);
+#[derive(Clone, Debug)]
+pub struct RetryThrottlerArg(SharedRetryThrottler);
 
 impl<T: RetryThrottler + 'static> From<T> for RetryThrottlerArg {
     fn from(value: T) -> Self {
@@ -126,6 +126,12 @@ impl<T: RetryThrottler + 'static> From<T> for RetryThrottlerArg {
 impl From<SharedRetryThrottler> for RetryThrottlerArg {
     fn from(value: SharedRetryThrottler) -> Self {
         Self(value)
+    }
+}
+
+impl From<RetryThrottlerArg> for SharedRetryThrottler {
+    fn from(value: RetryThrottlerArg) -> SharedRetryThrottler {
+        value.0
     }
 }
 

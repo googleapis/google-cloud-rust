@@ -1218,7 +1218,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-auth"
-version = "0.21.0"
+version = "0.22.0"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -4234,6 +4234,7 @@ name = "google-cloud-storage"
 version = "0.0.0"
 dependencies = [
  "anyhow",
+ "async-trait",
  "base64",
  "bytes",
  "crc32c",
@@ -4244,8 +4245,10 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-iam-v1",
  "google-cloud-longrunning",
+ "google-cloud-lro",
+ "google-cloud-rpc",
  "google-cloud-storage",
- "google-cloud-storage-control",
+ "google-cloud-type",
  "google-cloud-wkt",
  "http",
  "http-body-util",
@@ -4256,7 +4259,8 @@ dependencies = [
  "multer",
  "paste",
  "percent-encoding",
- "pin-project",
+ "prost",
+ "prost-types",
  "reqwest",
  "serde",
  "serde_json",
@@ -4265,35 +4269,6 @@ dependencies = [
  "tempfile",
  "test-case",
  "thiserror",
- "tokio",
- "tokio-test",
- "tracing",
-]
-
-[[package]]
-name = "google-cloud-storage-control"
-version = "0.0.0"
-dependencies = [
- "anyhow",
- "async-trait",
- "bytes",
- "google-cloud-auth",
- "google-cloud-gax",
- "google-cloud-gax-internal",
- "google-cloud-iam-v1",
- "google-cloud-longrunning",
- "google-cloud-lro",
- "google-cloud-rpc",
- "google-cloud-type",
- "google-cloud-wkt",
- "http",
- "lazy_static",
- "prost",
- "prost-types",
- "serde",
- "serde_json",
- "serde_with",
- "test-case",
  "tokio",
  "tokio-test",
  "tonic",
@@ -6098,9 +6073,9 @@ dependencies = [
 
 [[package]]
 name = "rustls"
-version = "0.23.28"
+version = "0.23.29"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7160e3e10bf4535308537f3c4e1641468cd0e485175d6163087c0393c7d46643"
+checksum = "2491382039b29b9b11ff08b76ff6c97cf287671dbb74f0be44bda389fffe9bd1"
 dependencies = [
  "log",
  "once_cell",
@@ -6144,9 +6119,9 @@ dependencies = [
 
 [[package]]
 name = "rustls-webpki"
-version = "0.103.3"
+version = "0.103.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e4a72fe2bcf7a6ac6fd7d0b9e5cb68aeb7d4c0a0271730218b3e92d43b4eb435"
+checksum = "0a17884ae0c1b773f1ccd2bd4a8c72f16da897310a98b0e84bf349ad5ead92fc"
 dependencies = [
  "ring",
  "rustls-pki-types",

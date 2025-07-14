@@ -136,6 +136,8 @@ func newCodec(protobufSource bool, options map[string]string) (*codec, error) {
 				return nil, fmt.Errorf("cannot convert `has-veneer` value %q to boolean: %w", definition, err)
 			}
 			codec.hasVeneer = value
+		case key == "internal-types":
+			codec.internalTypes = strings.Split(definition, ",")
 		default:
 			return nil, fmt.Errorf("unknown Rust codec option %q", key)
 		}
@@ -228,7 +230,7 @@ type codec struct {
 	disabledRustdocWarnings []string
 	// The default system parameters included in all requests.
 	systemParameters []systemParameter
-	// Overrides the template sudirectory.
+	// Overrides the template subdirectory.
 	templateOverride string
 	// If true, this includes gRPC-only methods, such as methods without HTTP
 	// annotations.
@@ -237,6 +239,15 @@ type codec struct {
 	perServiceFeatures bool
 	// If true, there is a handwritten client surface.
 	hasVeneer bool
+	// A list of types which should only be `pub(crate)`.
+	//
+	// In rare cases, it is easiest to manage type visibility via the codec
+	// instead of a handwritten `lib.rs`. One such example is `storage`,
+	// where we want to export all types (50+, and growing) except for a
+	// few, which are only implementation details.
+	//
+	// Only supports messages.
+	internalTypes []string
 }
 
 type systemParameter struct {

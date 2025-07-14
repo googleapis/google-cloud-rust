@@ -12,17 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-[coverage]
-all-features = true
-packages = [
-  "google-cloud-auth",
-  "google-cloud-gax",
-  "google-cloud-gax-internal",
-  "google-cloud-lro",
-  "google-cloud-storage",
-  "google-cloud-wkt",
-]
-exclude-files = [
-  # Ignore generated code.
-  "**/generated/**",
-]
+[general]
+language             = 'rust+prost'
+specification-source = 'google/rpc'
+
+[codec]
+copyright-year    = '2025'
+template-override = 'templates/prost'
