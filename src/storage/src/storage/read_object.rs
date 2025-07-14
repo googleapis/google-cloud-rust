@@ -635,7 +635,7 @@ mod tests {
             .respond_with(
                 status_code(200)
                     .body(contents.clone())
-                    .append_header("x-goog-hash", format!("crc32c={}", value)),
+                    .append_header("x-goog-hash", format!("crc32c={value}")),
             ),
         );
 
