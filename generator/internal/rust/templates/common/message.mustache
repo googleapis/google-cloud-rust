@@ -24,7 +24,12 @@ limitations under the License.
 {{#Deprecated}}
 #[deprecated]
 {{/Deprecated}}
+{{#Codec.Internal}}
+pub(crate) struct {{Codec.Name}} {
+{{/Codec.Internal}}
+{{^Codec.Internal}}
 pub struct {{Codec.Name}} {
+{{/Codec.Internal}}
     {{#Codec.BasicFields}}
 
     {{#Codec.DocLines}}

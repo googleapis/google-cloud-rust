@@ -3746,7 +3746,7 @@ impl serde::ser::Serialize for RestoreObjectRequest {
 /// Request message for ReadObject.
 #[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
-pub struct ReadObjectRequest {
+pub(crate) struct ReadObjectRequest {
     /// Required. The name of the bucket containing the object to read.
     pub bucket: std::string::String,
 
@@ -4970,7 +4970,7 @@ impl serde::ser::Serialize for GetObjectRequest {
 /// Describes an attempt to insert an object, possibly over multiple requests.
 #[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
-pub struct WriteObjectSpec {
+pub(crate) struct WriteObjectSpec {
     /// Required. Destination object, including its name and its metadata.
     pub resource: std::option::Option<crate::model::Object>,
 

@@ -46,25 +46,19 @@ pub mod client {
 /// Request builders.
 pub mod builder {
     pub mod storage {
-        // TODO(#2403) - Move `ClientBuilder` into a scoped namespace within the
-        // builder mod, like we do for GAPICs.
         pub use crate::storage::client::ClientBuilder;
         pub use crate::storage::read_object::ReadObject;
         pub use crate::storage::upload_object::UploadObject;
     }
     pub mod storage_control {
         pub use crate::control::builder::*;
-        // TODO(#2403) - Move `ClientBuilder` into a scoped namespace within the
-        // builder mod, like we do for GAPICs.
         pub use crate::control::client::ClientBuilder;
     }
 }
-// TODO(#2403) - This includes implementation details like `ReadObjectRequest`.
-// We do not want to expose those in the long run.
+/// The messages and enums that are part of this client library.
 pub use crate::control::model;
 pub use crate::control::stub;
 
-// TODO(#2403) - move into control.rs ?
 pub(crate) mod google {
     pub mod iam {
         pub mod v1 {

@@ -22,11 +22,6 @@ pub mod builder {
     pub use crate::control::generated::gapic_control::builder::storage_control::*;
 }
 pub mod model {
-    // TODO(#2403) - Do not leak `ReadObjectRequest`, `WriteObjectSpec`
-    // Note that there are 55 types captured by this `*`. Ugh.
-    //
-    // We should flag the types we don't want to export as `pub(crate)` via
-    // annotations in the Rust codec.
     pub use crate::control::generated::gapic::model::*;
     pub use crate::control::generated::gapic_control::model::*;
 }
