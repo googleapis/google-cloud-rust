@@ -103,10 +103,10 @@ impl Storage {
     ///
     /// # Example
     /// ```
-    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample() -> anyhow::Result<()> {
     /// let client = Storage::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> ClientBuilder {
         ClientBuilder::new()
@@ -263,14 +263,14 @@ impl StorageInner {
 /// A builder for [Storage].
 ///
 /// ```
-/// # tokio_test::block_on(async {
 /// # use google_cloud_storage::client::Storage;
+/// # async fn sample() -> anyhow::Result<()> {
 /// let builder = Storage::builder();
 /// let client = builder
 ///     .with_endpoint("https://storage.googleapis.com")
 ///     .build()
 ///     .await?;
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 pub struct ClientBuilder {
     pub(crate) endpoint: Option<String>,
@@ -293,9 +293,9 @@ impl ClientBuilder {
     /// # Example
     /// ```
     /// # use google_cloud_storage::client::Storage;
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// let client = Storage::builder().build().await?;
-    /// # anyhow::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub async fn build(self) -> gax::client_builder::Result<Storage> {
         Storage::new(self)
@@ -306,12 +306,12 @@ impl ClientBuilder {
     /// # Example
     /// ```
     /// # use google_cloud_storage::client::Storage;
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// let client = Storage::builder()
     ///     .with_endpoint("https://private.googleapis.com")
     ///     .build()
     ///     .await?;
-    /// # anyhow::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn with_endpoint<V: Into<String>>(mut self, v: V) -> Self {
         self.endpoint = Some(v.into());
@@ -326,9 +326,9 @@ impl ClientBuilder {
     /// crate documentation.
     ///
     /// # Example
-    /// ```no_run
+    /// ```
     /// # use google_cloud_storage::client::Storage;
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// use auth::credentials::mds;
     /// let client = Storage::builder()
     ///     .with_credentials(
@@ -337,7 +337,7 @@ impl ClientBuilder {
     ///             .build()?)
     ///     .build()
     ///     .await?;
-    /// # anyhow::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     ///
     /// [google-cloud-auth]: https://docs.rs/google-cloud-auth
@@ -355,13 +355,13 @@ impl ClientBuilder {
     /// # Example
     /// ```
     /// # use google_cloud_storage::client::Storage;
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
     /// let client = Storage::builder()
     ///     .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
     ///     .build()
     ///     .await?;
-    /// # anyhow::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn with_retry_policy<V: Into<gax::retry_policy::RetryPolicyArg>>(mut self, v: V) -> Self {
         self.default_options.retry_policy = v.into().into();
@@ -376,7 +376,7 @@ impl ClientBuilder {
     /// # Example
     /// ```
     /// # use google_cloud_storage::client::Storage;
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// use gax::exponential_backoff::ExponentialBackoffBuilder;
     /// use std::time::Duration;
     /// let policy = ExponentialBackoffBuilder::new()
@@ -388,7 +388,7 @@ impl ClientBuilder {
     ///     .with_backoff_policy(policy)
     ///     .build()
     ///     .await?;
-    /// # anyhow::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn with_backoff_policy<V: Into<gax::backoff_policy::BackoffPolicyArg>>(
         mut self,
@@ -412,13 +412,13 @@ impl ClientBuilder {
     /// # Example
     /// ```
     /// # use google_cloud_storage::client::Storage;
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// use gax::retry_throttler::AdaptiveThrottler;
     /// let client = Storage::builder()
     ///     .with_retry_throttler(AdaptiveThrottler::default())
     ///     .build()
     ///     .await?;
-    /// # anyhow::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn with_retry_throttler<V: Into<gax::retry_throttler::RetryThrottlerArg>>(
         mut self,
