@@ -71,7 +71,7 @@ use crate::credentials::dynamic::CredentialsProvider;
 use crate::credentials::{CacheableResource, Credentials};
 use crate::errors::{self, CredentialsError};
 use crate::headers_util::build_cacheable_headers;
-use crate::retry::{Builder as RetryTokenProviderBuilder, TokenProviderWithRetry};
+use crate::retry::Builder as RetryTokenProviderBuilder;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use crate::{BuildResult, Result};
@@ -277,24 +277,6 @@ impl Builder {
         self
     }
 
-    fn build_token_provider(self) -> BuildResult<TokenProviderWithRetry<UserTokenProvider>> {
-        let authorized_user = serde_json::from_value::<AuthorizedUser>(self.authorized_user)
-            .map_err(BuilderError::parsing)?;
-        let endpoint = self
-            .token_uri
-            .or(authorized_user.token_uri)
-            .unwrap_or(OAUTH2_ENDPOINT.to_string());
-
-        let token_provider = UserTokenProvider {
-            client_id: authorized_user.client_id,
-            client_secret: authorized_user.client_secret,
-            refresh_token: authorized_user.refresh_token,
-            endpoint,
-            scopes: self.scopes.map(|scopes| scopes.join(" ")),
-        };
-        Ok(self.retry_builder.build(token_provider))
-    }
-
     /// Returns a [Credentials] instance with the configured settings.
     ///
     /// # Errors
@@ -308,9 +290,23 @@ impl Builder {
     ///
     /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
     pub fn build(self) -> BuildResult<Credentials> {
-        let quota_project_id = self.quota_project_id.clone();
-        let token_provider = self.build_token_provider()?;
-        let token_provider = TokenCache::new(token_provider);
+        let authorized_user = serde_json::from_value::<AuthorizedUser>(self.authorized_user)
+            .map_err(BuilderError::parsing)?;
+        let endpoint = self
+            .token_uri
+            .or(authorized_user.token_uri)
+            .unwrap_or(OAUTH2_ENDPOINT.to_string());
+        let quota_project_id = self.quota_project_id.or(authorized_user.quota_project_id);
+
+        let token_provider = UserTokenProvider {
+            client_id: authorized_user.client_id,
+            client_secret: authorized_user.client_secret,
+            refresh_token: authorized_user.refresh_token,
+            endpoint,
+            scopes: self.scopes.map(|scopes| scopes.join(" ")),
+        };
+
+        let token_provider = TokenCache::new(self.retry_builder.build(token_provider));
 
         Ok(Credentials {
             inner: Arc::new(UserCredentials {
@@ -488,13 +484,13 @@ mod tests {
                 .respond_with(status_code(503)),
         );
 
-        let provider = Builder::new(authorized_user_json(server.url("/token").to_string()))
+        let credentials = Builder::new(authorized_user_json(server.url("/token").to_string()))
             .with_retry_policy(get_mock_auth_retry_policy(3))
             .with_backoff_policy(get_mock_backoff_policy())
             .with_retry_throttler(get_mock_retry_throttler())
-            .build_token_provider()?;
+            .build()?;
 
-        let err = provider.token().await.unwrap_err();
+        let err = credentials.headers(Extensions::new()).await.unwrap_err();
         assert!(err.is_transient());
         server.verify_and_clear();
         Ok(())
@@ -509,13 +505,13 @@ mod tests {
                 .respond_with(status_code(401)),
         );
 
-        let provider = Builder::new(authorized_user_json(server.url("/token").to_string()))
+        let credentials = Builder::new(authorized_user_json(server.url("/token").to_string()))
             .with_retry_policy(get_mock_auth_retry_policy(1))
             .with_backoff_policy(get_mock_backoff_policy())
             .with_retry_throttler(get_mock_retry_throttler())
-            .build_token_provider()?;
+            .build()?;
 
-        let err = provider.token().await.unwrap_err();
+        let err = credentials.headers(Extensions::new()).await.unwrap_err();
         assert!(!err.is_transient());
         server.verify_and_clear();
         Ok(())
@@ -544,14 +540,14 @@ mod tests {
                 ]),
         );
 
-        let provider = Builder::new(authorized_user_json(server.url("/token").to_string()))
+        let credentials = Builder::new(authorized_user_json(server.url("/token").to_string()))
             .with_retry_policy(get_mock_auth_retry_policy(3))
             .with_backoff_policy(get_mock_backoff_policy())
             .with_retry_throttler(get_mock_retry_throttler())
-            .build_token_provider()?;
+            .build()?;
 
-        let token = provider.token().await?;
-        assert_eq!(token.token, "test-access-token");
+        let token = get_token_from_headers(credentials.headers(Extensions::new()).await.unwrap());
+        assert_eq!(token.unwrap(), "test-access-token");
 
         server.verify_and_clear();
         Ok(())
