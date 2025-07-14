@@ -75,7 +75,8 @@ pub(crate) mod google {
         include!("control/generated/convert/type/convert.rs");
     }
     pub mod rpc {
-        include!("control/generated/protos/storage/google.rpc.rs");
+        include!("control/generated/protos/rpc/google.rpc.rs");
+        include!("control/generated/convert/rpc/convert.rs");
     }
     pub mod storage {
         #[allow(deprecated)]

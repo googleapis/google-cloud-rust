@@ -29,3 +29,4 @@ pub mod client;
 pub mod stub;
 
 mod convert;
+mod status;
