@@ -103,7 +103,7 @@ where
             None
         }));
         let metadata =
-            reqwest::multipart::Part::text(v1::insert_body(&self.resource()).to_string())
+            reqwest::multipart::Part::text(v1::insert_body(self.resource()).to_string())
                 .mime_str("application/json; charset=UTF-8")
                 .map_err(Error::ser)?;
         let form = reqwest::multipart::Form::new()
