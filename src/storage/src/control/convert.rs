@@ -33,30 +33,6 @@ use gaxi::prost::{ConvertError, FromProto, ToProto};
 // this code to support them.
 use crate::control::generated::gapic_control::transport::{lro_any_from_prost, lro_any_to_prost};
 
-impl ToProto<google::rpc::Status> for rpc::model::Status {
-    type Output = google::rpc::Status;
-    fn to_proto(self) -> std::result::Result<google::rpc::Status, ConvertError> {
-        Ok(google::rpc::Status {
-            code: self.code.to_proto()?,
-            message: self.message.to_proto()?,
-            // TODO(#1699) - deal with the error details
-            ..Default::default()
-        })
-    }
-}
-
-impl FromProto<rpc::model::Status> for google::rpc::Status {
-    fn cnv(self) -> std::result::Result<rpc::model::Status, ConvertError> {
-        Ok(
-            rpc::model::Status::new()
-                .set_code(self.code)
-                .set_message(self.message),
-            // TODO(#1699) - deal with the error details
-            // .set_details(self.details.into_iter().filter_map(any_from_prost))
-        )
-    }
-}
-
 impl ToProto<google::longrunning::Operation> for longrunning::model::Operation {
     type Output = google::longrunning::Operation;
     fn to_proto(
