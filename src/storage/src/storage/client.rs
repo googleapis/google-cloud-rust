@@ -456,7 +456,7 @@ impl std::convert::From<KeyAes256> for crate::model::CommonObjectRequestParams {
 
 pub(crate) fn apply_customer_supplied_encryption_headers(
     builder: reqwest::RequestBuilder,
-    common_object_request_params: Option<crate::model::CommonObjectRequestParams>,
+    common_object_request_params: &Option<crate::model::CommonObjectRequestParams>,
 ) -> reqwest::RequestBuilder {
     common_object_request_params.iter().fold(builder, |b, v| {
         b.header(

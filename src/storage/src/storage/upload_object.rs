@@ -16,6 +16,8 @@ use super::client::*;
 use super::*;
 use futures::stream::unfold;
 use std::collections::VecDeque;
+use std::sync::Arc;
+use tokio::sync::Mutex;
 
 mod buffered;
 mod unbuffered;
@@ -26,7 +28,8 @@ pub struct UploadObject<T> {
     resource: crate::model::Object,
     spec: crate::model::WriteObjectSpec,
     params: Option<crate::model::CommonObjectRequestParams>,
-    payload: InsertPayload<T>,
+    // We need `Arc<Mutex<>>` because this is re-used in retryable uploads.
+    payload: Arc<Mutex<InsertPayload<T>>>,
 }
 
 impl<T> UploadObject<T> {
@@ -572,7 +575,7 @@ impl<T> UploadObject<T> {
                 .set_name(object),
             spec: crate::model::WriteObjectSpec::new(),
             params: None,
-            payload: payload.into(),
+            payload: Arc::new(Mutex::new(payload.into())),
         }
     }
 
@@ -627,7 +630,7 @@ impl<T> UploadObject<T> {
             );
 
         let builder = self.apply_preconditions(builder);
-        let builder = apply_customer_supplied_encryption_headers(builder, self.params.clone());
+        let builder = apply_customer_supplied_encryption_headers(builder, &self.params);
         let builder = self.inner.apply_auth_headers(builder).await?;
         let builder = builder.json(&v1::insert_body(&self.resource));
         Ok(builder)

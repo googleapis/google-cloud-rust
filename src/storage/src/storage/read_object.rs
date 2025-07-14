@@ -305,7 +305,7 @@ impl ReadObject {
 
         let builder = apply_customer_supplied_encryption_headers(
             builder,
-            self.request.common_object_request_params,
+            &self.request.common_object_request_params,
         );
 
         // Apply "range" header for read limits and offsets.

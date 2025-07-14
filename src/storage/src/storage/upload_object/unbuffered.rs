@@ -12,12 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::upload_source::Seek;
 use super::*;
 
 impl<T> UploadObject<T>
 where
-    T: StreamingSource + Send + Sync + 'static,
-    T::Error: std::error::Error + Send + Sync + 'static,
+    T: StreamingSource + Seek + Send + Sync + 'static,
+    <T as StreamingSource>::Error: std::error::Error + Send + Sync + 'static,
+    <T as Seek>::Error: std::error::Error + Send + Sync + 'static,
 {
     /// A simple upload from a buffer.
     ///
@@ -32,7 +34,24 @@ where
     /// println!("response details={response:?}");
     /// # Ok(()) }
     /// ```
-    pub async fn send_unbuffered(self) -> crate::Result<Object> {
+    pub async fn send_unbuffered(self) -> Result<Object> {
+        // TODO(#2056) - make idempotency configurable.
+        // Single shot uploads are idempotent only if they have pre-conditions.
+        let idempotent =
+            self.spec.if_generation_match.is_some() || self.spec.if_metageneration_match.is_some();
+        gax::retry_loop_internal::retry_loop(
+            // TODO(#2044) - we need to apply any timeouts here.
+            async |_| self.single_shot_attempt().await,
+            async |duration| tokio::time::sleep(duration).await,
+            idempotent,
+            self.inner.retry_throttler.clone(),
+            self.inner.retry_policy.clone(),
+            self.inner.backoff_policy.clone(),
+        )
+        .await
+    }
+
+    async fn single_shot_attempt(&self) -> Result<Object> {
         // TODO(#2634) - use resumable uploads for large payloads.
         let builder = self.single_shot_builder().await?;
         let response = builder.send().await.map_err(Error::io)?;
@@ -44,7 +63,11 @@ where
         Ok(Object::from(response))
     }
 
-    async fn single_shot_builder(self) -> Result<reqwest::RequestBuilder> {
+    async fn single_shot_builder(&self) -> Result<reqwest::RequestBuilder> {
+        use crate::upload_source::Seek;
+        let payload = self.payload.clone();
+        payload.lock().await.seek(0).await.map_err(Error::ser)?;
+
         let bucket = &self.resource.bucket;
         let bucket_id = bucket.strip_prefix("projects/_/buckets/").ok_or_else(|| {
             Error::binding(format!(
@@ -66,12 +89,14 @@ where
                 reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
             );
 
-        let builder = apply_customer_supplied_encryption_headers(builder, self.params);
+        let builder = apply_customer_supplied_encryption_headers(builder, &self.params);
         let builder = self.inner.apply_auth_headers(builder).await?;
 
-        let stream = Box::pin(unfold(Some(self.payload), move |state| async move {
-            if let Some(mut payload) = state {
-                if let Some(next) = payload.next().await {
+        let stream = Box::pin(unfold(Some(payload), move |state| async move {
+            if let Some(payload) = state {
+                let mut guard = payload.lock().await;
+                if let Some(next) = guard.next().await {
+                    drop(guard);
                     return Some((next, Some(payload)));
                 }
             }
@@ -80,10 +105,12 @@ where
         let metadata = reqwest::multipart::Part::text(v1::insert_body(&self.resource).to_string())
             .mime_str("application/json; charset=UTF-8")
             .map_err(Error::ser)?;
-        let media = reqwest::multipart::Part::stream(reqwest::Body::wrap_stream(stream));
         let form = reqwest::multipart::Form::new()
             .part("metadata", metadata)
-            .part("media", media);
+            .part(
+                "media",
+                reqwest::multipart::Part::stream(reqwest::Body::wrap_stream(stream)),
+            );
         let builder = builder.header(
             "content-type",
             format!("multipart/related; boundary={}", form.boundary()),
@@ -97,22 +124,16 @@ mod tests {
     use super::super::client::tests::{create_key_helper, test_inner_client};
     use super::*;
     use crate::upload_source::tests::VecStream;
+    use gax::retry_policy::RetryPolicyExt;
     use http_body_util::BodyExt;
-    use httptest::{Expectation, Server, matchers::*, responders::status_code};
+    use httptest::{Expectation, Server, matchers::*, responders::*};
     use serde_json::{Value, json};
 
     type Result = anyhow::Result<()>;
 
     #[tokio::test]
     async fn send_unbuffered_normal() -> Result {
-        let payload = serde_json::json!({
-            "name": "test-object",
-            "bucket": "test-bucket",
-            "metadata": {
-                "is-test-object": "true",
-            }
-        })
-        .to_string();
+        let payload = response_body().to_string();
         let server = Server::run();
         server.expect(
             Expectation::matching(all_of![
@@ -205,6 +226,16 @@ mod tests {
         );
 
         Ok((metadata, payload))
+    }
+
+    fn response_body() -> Value {
+        json!({
+            "name": "test-object",
+            "bucket": "test-bucket",
+            "metadata": {
+                "is-test-object": "true",
+            }
+        })
     }
 
     #[tokio::test]
@@ -326,6 +357,143 @@ mod tests {
                 bytes::Bytes::from(value)
             );
         }
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn single_shot_retry_transient_not_idempotent() -> Result {
+        let server = Server::run();
+        let matching = || {
+            Expectation::matching(all_of![
+                request::method_path("POST", "/upload/storage/v1/b/bucket/o"),
+                request::query(url_decoded(contains(("name", "object")))),
+                request::query(url_decoded(contains(("uploadType", "multipart")))),
+            ])
+        };
+        server.expect(
+            matching()
+                .times(1)
+                .respond_with(cycle![status_code(503).body("try-again"),]),
+        );
+
+        let inner = test_inner_client(gaxi::options::ClientConfig {
+            endpoint: Some(format!("http://{}", server.addr())),
+            ..Default::default()
+        });
+        let err = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
+            .send_unbuffered()
+            .await
+            .expect_err("expected error as request is not idempotent");
+        assert_eq!(err.http_status_code(), Some(503), "{err:?}");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn single_shot_retry_transient_failures_then_success() -> Result {
+        let server = Server::run();
+        let matching = || {
+            Expectation::matching(all_of![
+                request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
+                request::query(url_decoded(contains(("name", "test-object")))),
+                request::query(url_decoded(contains(("uploadType", "multipart")))),
+            ])
+        };
+        server.expect(matching().times(3).respond_with(cycle![
+            status_code(503).body("try-again"),
+            status_code(503).body("try-again"),
+            json_encoded(response_body()).append_header("content-type", "application/json"),
+        ]));
+
+        let inner = test_inner_client(gaxi::options::ClientConfig {
+            endpoint: Some(format!("http://{}", server.addr())),
+            ..Default::default()
+        });
+        let got = UploadObject::new(
+            inner,
+            "projects/_/buckets/test-bucket",
+            "test-object",
+            "hello",
+        )
+        .with_if_generation_match(0)
+        .send_unbuffered()
+        .await?;
+        let want = Object::from(serde_json::from_value::<v1::Object>(response_body())?);
+        assert_eq!(got, want);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn single_shot_retry_transient_failures_then_permanent() -> Result {
+        let server = Server::run();
+        let matching = || {
+            Expectation::matching(all_of![
+                request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
+                request::query(url_decoded(contains(("name", "test-object")))),
+                request::query(url_decoded(contains(("uploadType", "multipart")))),
+            ])
+        };
+        server.expect(matching().times(3).respond_with(cycle![
+            status_code(503).body("try-again"),
+            status_code(503).body("try-again"),
+            status_code(403).body("uh-oh"),
+        ]));
+
+        let inner = test_inner_client(gaxi::options::ClientConfig {
+            endpoint: Some(format!("http://{}", server.addr())),
+            ..Default::default()
+        });
+        let err = UploadObject::new(
+            inner,
+            "projects/_/buckets/test-bucket",
+            "test-object",
+            "hello",
+        )
+        .with_if_generation_match(0)
+        .send_unbuffered()
+        .await
+        .expect_err("expected permanent error");
+        assert_eq!(err.http_status_code(), Some(403), "{err:?}");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn single_shot_retry_transient_failures_exhausted() -> Result {
+        let server = Server::run();
+        let matching = || {
+            Expectation::matching(all_of![
+                request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
+                request::query(url_decoded(contains(("name", "test-object")))),
+                request::query(url_decoded(contains(("uploadType", "multipart")))),
+            ])
+        };
+        server.expect(
+            matching()
+                .times(3)
+                .respond_with(status_code(503).body("try-again")),
+        );
+
+        let inner = test_inner_client(gaxi::options::ClientConfig {
+            endpoint: Some(format!("http://{}", server.addr())),
+            retry_policy: Some(Arc::new(
+                crate::retry_policy::RecommendedPolicy.with_attempt_limit(3),
+            )),
+            ..Default::default()
+        });
+        let err = UploadObject::new(
+            inner,
+            "projects/_/buckets/test-bucket",
+            "test-object",
+            "hello",
+        )
+        .with_if_generation_match(0)
+        .send_unbuffered()
+        .await
+        .expect_err("expected permanent error");
+        assert_eq!(err.http_status_code(), Some(503), "{err:?}");
+
         Ok(())
     }
 }

@@ -386,8 +386,31 @@ pub(crate) mod tests {
     impl Seek for VecStream {
         type Error = std::io::Error;
 
-        async fn seek(&mut self, _offset: u64) -> std::result::Result<(), Self::Error> {
-            panic!(); // The tests do not use this (yet).
+        async fn seek(&mut self, offset: u64) -> std::result::Result<(), Self::Error> {
+            let mut current: VecDeque<std::io::Result<_>> =
+                self.contents.iter().map(|x| Ok(x.clone())).collect();
+            let mut offset = offset as usize;
+            while offset > 0 {
+                match current.pop_front() {
+                    None => break,
+                    Some(Err(e)) => {
+                        current.push_front(Err(e));
+                        break;
+                    }
+                    Some(Ok(mut b)) if b.len() > offset => {
+                        current.push_front(Ok(b.split_off(offset)));
+                        break;
+                    }
+                    Some(Ok(b)) if b.len() == offset => {
+                        break;
+                    }
+                    Some(Ok(b)) => {
+                        offset -= b.len();
+                    }
+                };
+            }
+            self.current = current;
+            Ok(())
         }
     }
 }

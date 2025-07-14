@@ -36,7 +36,7 @@ where
         let upload_url = self.start_resumable_upload().await?;
         // TODO(#2043) - make the threshold to use resumable uploads and the
         //    target size for each chunk configurable.
-        if self.payload.size_hint().0 > RESUMABLE_UPLOAD_QUANTUM as u64 {
+        if self.payload.lock().await.size_hint().0 > RESUMABLE_UPLOAD_QUANTUM as u64 {
             return self
                 .upload_by_chunks(&upload_url, RESUMABLE_UPLOAD_QUANTUM)
                 .await;
@@ -51,7 +51,7 @@ where
         Ok(Object::from(response))
     }
 
-    async fn upload_by_chunks(mut self, upload_url: &str, target_size: usize) -> Result<Object> {
+    async fn upload_by_chunks(&self, upload_url: &str, target_size: usize) -> Result<Object> {
         let mut remainder = None;
         let mut offset = 0_usize;
         loop {
@@ -59,7 +59,7 @@ where
                 chunk,
                 size: chunk_size,
                 remainder: r,
-            } = self::next_chunk(&mut self.payload, remainder, target_size).await?;
+            } = self::next_chunk(&mut *self.payload.lock().await, remainder, target_size).await?;
             let full_size = if chunk_size < target_size {
                 Some(offset + chunk_size)
             } else {
@@ -111,7 +111,7 @@ where
                 reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
             );
 
-        let builder = apply_customer_supplied_encryption_headers(builder, self.params.clone());
+        let builder = apply_customer_supplied_encryption_headers(builder, &self.params);
         let builder = self.inner.apply_auth_headers(builder).await?;
         let stream = unfold(Some(chunk), move |state| async move {
             if let Some(mut payload) = state {
@@ -124,11 +124,12 @@ where
         Ok((builder.body(reqwest::Body::wrap_stream(stream)), chunk_size))
     }
 
-    async fn upload_request(mut self, upload_url: String) -> Result<reqwest::RequestBuilder> {
+    async fn upload_request(self, upload_url: String) -> Result<reqwest::RequestBuilder> {
+        let mut payload = self.payload.lock().await;
         let (chunk, chunk_size, full_size) = {
             let mut chunk = VecDeque::new();
             let mut size = 0_usize;
-            while let Some(b) = self.payload.next().await.transpose().map_err(Error::io)? {
+            while let Some(b) = payload.next().await.transpose().map_err(Error::io)? {
                 size += b.len();
                 chunk.push_back(b);
             }
