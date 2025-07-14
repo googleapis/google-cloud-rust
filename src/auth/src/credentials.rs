@@ -269,10 +269,10 @@ pub(crate) mod dynamic {
 ///   deployment environments provides a default service account to the
 ///   application, and offers mechanisms to change this default service account
 ///   without any code changes to your application.
-/// - You are testing or developing the application on a workstation (physical or
-///   virtual). These credentials will use your preferences as set with
-///   [gcloud auth application-default]. These preferences can be your own Gooogle
-///   Cloud user credentials, or some service account.
+/// - You are testing or developing the application on a workstation (physical
+///   or virtual). These credentials will use your preferences as set with
+///   [gcloud auth application-default]. These preferences can be your own
+///   Google Cloud user credentials, or some service account.
 /// - Regardless of where your application is running, you can use the
 ///   `GOOGLE_APPLICATION_CREDENTIALS` environment variable to override the
 ///   defaults. This environment variable should point to a file containing a
@@ -283,10 +283,10 @@ pub(crate) mod dynamic {
 /// Authorization HTTP header.
 ///
 /// The Google Cloud client libraries for Rust will typically find and use these
-/// credentials automatically if a credentials file exists in the
-/// standard ADC search paths. You might instantiate these credentials if you need to:
-/// * Override the OAuth 2.0 **scopes** being requested for the access token.
-/// * Override the **quota project ID** for billing and quota management.
+/// credentials automatically if a credentials file exists in the standard ADC
+/// search paths. You might instantiate these credentials if you need to:
+/// - Override the OAuth 2.0 **scopes** being requested for the access token.
+/// - Override the **quota project ID** for billing and quota management.
 ///
 /// # Example: fetching headers using ADC
 /// ```
