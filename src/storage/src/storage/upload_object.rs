@@ -25,7 +25,6 @@ mod unbuffered;
 /// A request builder for uploads without rewind.
 pub struct UploadObject<T> {
     inner: std::sync::Arc<StorageInner>,
-    resource: crate::model::Object,
     spec: crate::model::WriteObjectSpec,
     params: Option<crate::model::CommonObjectRequestParams>,
     // We need `Arc<Mutex<>>` because this is re-used in retryable uploads.
@@ -166,7 +165,7 @@ impl<T> UploadObject<T> {
         I: IntoIterator<Item = V>,
         V: Into<crate::model::ObjectAccessControl>,
     {
-        self.resource.acl = v.into_iter().map(|a| a.into()).collect();
+        self.mut_resource().acl = v.into_iter().map(|a| a.into()).collect();
         self
     }
 
@@ -190,7 +189,7 @@ impl<T> UploadObject<T> {
     /// [public objects]: https://cloud.google.com/storage/docs/access-control/making-data-public
     /// [cache control]: https://datatracker.ietf.org/doc/html/rfc7234#section-5.2
     pub fn with_cache_control<V: Into<String>>(mut self, v: V) -> Self {
-        self.resource.cache_control = v.into();
+        self.mut_resource().cache_control = v.into();
         self
     }
 
@@ -215,7 +214,7 @@ impl<T> UploadObject<T> {
     ///
     /// [content disposition]: https://datatracker.ietf.org/doc/html/rfc6266
     pub fn with_content_disposition<V: Into<String>>(mut self, v: V) -> Self {
-        self.resource.content_disposition = v.into();
+        self.mut_resource().content_disposition = v.into();
         self
     }
 
@@ -244,7 +243,7 @@ impl<T> UploadObject<T> {
     /// [transcoding]: https://cloud.google.com/storage/docs/transcoding
     /// [content encoding]: https://datatracker.ietf.org/doc/html/rfc7231#section-3.1.2.2
     pub fn with_content_encoding<V: Into<String>>(mut self, v: V) -> Self {
-        self.resource.content_encoding = v.into();
+        self.mut_resource().content_encoding = v.into();
         self
     }
 
@@ -269,7 +268,7 @@ impl<T> UploadObject<T> {
     ///
     /// [content language]: https://cloud.google.com/storage/docs/metadata#content-language
     pub fn with_content_language<V: Into<String>>(mut self, v: V) -> Self {
-        self.resource.content_language = v.into();
+        self.mut_resource().content_language = v.into();
         self
     }
 
@@ -294,7 +293,7 @@ impl<T> UploadObject<T> {
     ///
     /// [content type]: https://datatracker.ietf.org/doc/html/rfc7231#section-3.1.1.5
     pub fn with_content_type<V: Into<String>>(mut self, v: V) -> Self {
-        self.resource.content_type = v.into();
+        self.mut_resource().content_type = v.into();
         self
     }
 
@@ -320,7 +319,7 @@ impl<T> UploadObject<T> {
     /// [DaysSinceCustomTime]: https://cloud.google.com/storage/docs/lifecycle#dayssincecustomtime
     /// [custom time]: https://cloud.google.com/storage/docs/metadata#custom-time
     pub fn with_custom_time<V: Into<wkt::Timestamp>>(mut self, v: V) -> Self {
-        self.resource.custom_time = Some(v.into());
+        self.mut_resource().custom_time = Some(v.into());
         self
     }
 
@@ -344,7 +343,7 @@ impl<T> UploadObject<T> {
     ///
     /// [event based hold]: https://cloud.google.com/storage/docs/object-holds
     pub fn with_event_based_hold<V: Into<bool>>(mut self, v: V) -> Self {
-        self.resource.event_based_hold = Some(v.into());
+        self.mut_resource().event_based_hold = Some(v.into());
         self
     }
 
@@ -374,7 +373,7 @@ impl<T> UploadObject<T> {
         K: Into<String>,
         V: Into<String>,
     {
-        self.resource.metadata = i.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self.mut_resource().metadata = i.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -402,7 +401,7 @@ impl<T> UploadObject<T> {
     where
         V: Into<crate::model::object::Retention>,
     {
-        self.resource.retention = Some(v.into());
+        self.mut_resource().retention = Some(v.into());
         self
     }
 
@@ -426,7 +425,7 @@ impl<T> UploadObject<T> {
     where
         V: Into<String>,
     {
-        self.resource.storage_class = v.into();
+        self.mut_resource().storage_class = v.into();
         self
     }
 
@@ -451,7 +450,7 @@ impl<T> UploadObject<T> {
     ///
     /// [temporary hold]: https://cloud.google.com/storage/docs/object-holds
     pub fn with_temporary_hold<V: Into<bool>>(mut self, v: V) -> Self {
-        self.resource.temporary_hold = v.into();
+        self.mut_resource().temporary_hold = v.into();
         self
     }
 
@@ -482,7 +481,7 @@ impl<T> UploadObject<T> {
     where
         V: Into<String>,
     {
-        self.resource.kms_key = v.into();
+        self.mut_resource().kms_key = v.into();
         self
     }
 
@@ -538,9 +537,9 @@ impl<T> UploadObject<T> {
     where
         V: Into<u32>,
     {
-        let mut checksum = self.resource.checksums.take().unwrap_or_default();
+        let mut checksum = self.mut_resource().checksums.take().unwrap_or_default();
         checksum.crc32c = Some(v.into());
-        self.resource.checksums = Some(checksum);
+        self.mut_resource().checksums = Some(checksum);
         self
     }
 
@@ -551,10 +550,10 @@ impl<T> UploadObject<T> {
         I: IntoIterator<Item = V>,
         V: Into<u8>,
     {
-        let mut checksum = self.resource.checksums.take().unwrap_or_default();
+        let mut checksum = self.mut_resource().checksums.take().unwrap_or_default();
         checksum.md5_hash = i.into_iter().map(|v| v.into()).collect();
         // TODO(#2050) - should we return an error (or panic?) if the size is wrong?
-        self.resource.checksums = Some(checksum);
+        self.mut_resource().checksums = Some(checksum);
         self
     }
 
@@ -641,6 +640,20 @@ impl<T> UploadObject<T> {
         self
     }
 
+    fn mut_resource(&mut self) -> &mut crate::model::Object {
+        self.spec
+            .resource
+            .as_mut()
+            .expect("resource field initialized in `new()`")
+    }
+
+    fn resource(&self) -> &crate::model::Object {
+        self.spec
+            .resource
+            .as_ref()
+            .expect("resource field initialized in `new()`")
+    }
+
     pub(crate) fn new<B, O, P>(
         inner: std::sync::Arc<StorageInner>,
         bucket: B,
@@ -653,12 +666,12 @@ impl<T> UploadObject<T> {
         P: Into<InsertPayload<T>>,
     {
         let options = inner.options.clone();
+        let resource = crate::model::Object::new()
+            .set_bucket(bucket)
+            .set_name(object);
         UploadObject {
             inner,
-            resource: crate::model::Object::new()
-                .set_bucket(bucket)
-                .set_name(object),
-            spec: crate::model::WriteObjectSpec::new(),
+            spec: crate::model::WriteObjectSpec::new().set_resource(resource),
             params: None,
             payload: Arc::new(Mutex::new(payload.into())),
             options,
@@ -693,13 +706,13 @@ impl<T> UploadObject<T> {
     }
 
     async fn start_resumable_upload_request(&self) -> Result<reqwest::RequestBuilder> {
-        let bucket = &self.resource.bucket;
+        let bucket = &self.resource().bucket;
         let bucket_id = bucket.strip_prefix("projects/_/buckets/").ok_or_else(|| {
             Error::binding(format!(
                 "malformed bucket name, it must start with `projects/_/buckets/`: {bucket}"
             ))
         })?;
-        let object = &self.resource.name;
+        let object = &self.resource().name;
         let builder = self
             .inner
             .client
@@ -718,7 +731,7 @@ impl<T> UploadObject<T> {
         let builder = self.apply_preconditions(builder);
         let builder = apply_customer_supplied_encryption_headers(builder, &self.params);
         let builder = self.inner.apply_auth_headers(builder).await?;
-        let builder = builder.json(&v1::insert_body(&self.resource));
+        let builder = builder.json(&v1::insert_body(self.resource()));
         Ok(builder)
     }
 
@@ -745,7 +758,7 @@ impl<T> UploadObject<T> {
             .fold(builder, |b, v| b.query(&[("ifMetagenerationNotMatch", v)]));
 
         [
-            ("kmsKeyName", self.resource.kms_key.as_str()),
+            ("kmsKeyName", self.resource().kms_key.as_str()),
             ("predefinedAcl", self.spec.predefined_acl.as_str()),
         ]
         .into_iter()
@@ -785,7 +798,7 @@ mod tests {
     fn upload_object_unbuffered_metadata() -> Result {
         use crate::model::ObjectAccessControl;
         let inner = test_inner_client(gaxi::options::ClientConfig::default());
-        let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "")
+        let mut request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "")
             .with_if_generation_match(10)
             .with_if_generation_not_match(20)
             .with_if_metageneration_match(30)
@@ -813,9 +826,11 @@ mod tests {
             .with_temporary_hold(true)
             .with_kms_key("test-key");
 
+        let resource = request.spec.resource.take().unwrap();
+        let request = request;
         assert_eq!(
-            request.spec,
-            WriteObjectSpec::new()
+            &request.spec,
+            &WriteObjectSpec::new()
                 .set_if_generation_match(10)
                 .set_if_generation_not_match(20)
                 .set_if_metageneration_match(30)
@@ -824,7 +839,7 @@ mod tests {
         );
 
         assert_eq!(
-            request.resource,
+            resource,
             Object::new()
                 .set_name("object")
                 .set_bucket("projects/_/buckets/bucket")
