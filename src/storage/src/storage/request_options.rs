@@ -13,9 +13,11 @@
 // limitations under the License.
 
 use gax::{
-    backoff_policy::BackoffPolicy, retry_policy::RetryPolicy, retry_throttler::SharedRetryThrottler,
+    backoff_policy::BackoffPolicy,
+    retry_policy::RetryPolicy,
+    retry_throttler::{AdaptiveThrottler, SharedRetryThrottler},
 };
-use std::sync::Arc;
+use std::sync::{Arc, Mutex};
 
 #[derive(Clone, Debug)]
 pub(crate) struct RequestOptions {
@@ -25,16 +27,10 @@ pub(crate) struct RequestOptions {
 }
 
 impl RequestOptions {
-    pub(crate) fn new(config: &gaxi::options::ClientConfig) -> Self {
-        let retry_policy = config
-            .retry_policy
-            .clone()
-            .unwrap_or_else(|| Arc::new(crate::retry_policy::default()));
-        let backoff_policy = config
-            .backoff_policy
-            .clone()
-            .unwrap_or_else(|| Arc::new(crate::backoff_policy::default()));
-        let retry_throttler = config.clone().retry_throttler;
+    pub(crate) fn new() -> Self {
+        let retry_policy = Arc::new(crate::retry_policy::default());
+        let backoff_policy = Arc::new(crate::backoff_policy::default());
+        let retry_throttler = Arc::new(Mutex::new(AdaptiveThrottler::default()));
         Self {
             retry_policy,
             backoff_policy,

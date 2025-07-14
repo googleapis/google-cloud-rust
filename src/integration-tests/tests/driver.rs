@@ -114,7 +114,7 @@ mod driver {
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(Storage::builder().with_tracing().with_retry_policy(retry_policy()); "with tracing and retry enabled")]
+    #[test_case(Storage::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_storage_objects(
         builder: storage::builder::storage::ClientBuilder,
@@ -124,7 +124,7 @@ mod driver {
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(Storage::builder().with_tracing().with_retry_policy(retry_policy()); "with tracing and retry enabled")]
+    #[test_case(Storage::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_storage_objects_large_file(
         builder: storage::builder::storage::ClientBuilder,
@@ -134,7 +134,7 @@ mod driver {
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(Storage::builder().with_tracing().with_retry_policy(retry_policy()); "with tracing and retry enabled")]
+    #[test_case(Storage::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_storage_objects_upload_buffered(
         builder: storage::builder::storage::ClientBuilder,
@@ -144,7 +144,7 @@ mod driver {
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(Storage::builder().with_tracing().with_retry_policy(retry_policy()); "with tracing and retry enabled")]
+    #[test_case(Storage::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_storage_objects_with_key(
         builder: storage::builder::storage::ClientBuilder,

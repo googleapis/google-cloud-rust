@@ -101,14 +101,15 @@ pub(crate) struct StorageInner {
 impl Storage {
     /// Returns a builder for [Storage].
     ///
-    /// ```no_run
-    /// # tokio_test::block_on(async {
+    /// # Example
+    /// ```
     /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample() -> anyhow::Result<()> {
     /// let client = Storage::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> ClientBuilder {
-        gax::client_builder::internal::new_builder(client_builder::Factory)
+        ClientBuilder::new()
     }
 
     /// Upload an object using a local buffer.
@@ -191,9 +192,7 @@ impl Storage {
         ReadObject::new(self.inner.clone(), bucket, object)
     }
 
-    pub(crate) async fn new(
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self> {
+    pub(crate) fn new(builder: ClientBuilder) -> gax::client_builder::Result<Self> {
         use gax::client_builder::Error;
         let client = reqwest::Client::builder()
             // Disable all automatic decompression. These could be enabled by users by enabling
@@ -205,37 +204,36 @@ impl Storage {
             .no_zstd()
             .build()
             .map_err(Error::transport)?;
-        let mut config = config;
-        let cred = if let Some(c) = config.cred {
+        let mut builder = builder;
+        let cred = if let Some(c) = builder.credentials {
             c
         } else {
             auth::credentials::Builder::default()
                 .build()
                 .map_err(Error::cred)?
         };
-        let endpoint = config
+        let endpoint = builder
             .endpoint
             .unwrap_or_else(|| self::DEFAULT_HOST.to_string());
-        config.cred = Some(cred);
-        config.endpoint = Some(endpoint);
-        let inner = Arc::new(StorageInner::new(client, config));
+        builder.credentials = Some(cred);
+        builder.endpoint = Some(endpoint);
+        let inner = Arc::new(StorageInner::new(client, builder));
         Ok(Self { inner })
     }
 }
 
 impl StorageInner {
     /// Builds a client assuming `config.cred` and `config.endpoint` are initialized, panics otherwise.
-    pub(self) fn new(client: reqwest::Client, config: gaxi::options::ClientConfig) -> Self {
-        let options = RequestOptions::new(&config);
+    pub(self) fn new(client: reqwest::Client, builder: ClientBuilder) -> Self {
         Self {
             client,
-            cred: config
-                .cred
+            cred: builder
+                .credentials
                 .expect("StorageInner assumes the credentials are initialized"),
-            endpoint: config
+            endpoint: builder
                 .endpoint
                 .expect("StorageInner assumes the endpoint is initialized"),
-            options,
+            options: builder.default_options,
         }
     }
 
@@ -265,31 +263,169 @@ impl StorageInner {
 /// A builder for [Storage].
 ///
 /// ```
-/// # tokio_test::block_on(async {
-/// # use google_cloud_storage::*;
-/// # use builder::storage::ClientBuilder;
-/// # use client::Storage;
-/// let builder : ClientBuilder = Storage::builder();
+/// # use google_cloud_storage::client::Storage;
+/// # async fn sample() -> anyhow::Result<()> {
+/// let builder = Storage::builder();
 /// let client = builder
 ///     .with_endpoint("https://storage.googleapis.com")
-///     .build().await?;
-/// # gax::client_builder::Result::<()>::Ok(()) });
+///     .build()
+///     .await?;
+/// # Ok(()) }
 /// ```
-pub type ClientBuilder =
-    gax::client_builder::ClientBuilder<client_builder::Factory, gaxi::options::Credentials>;
+pub struct ClientBuilder {
+    pub(crate) endpoint: Option<String>,
+    pub(crate) credentials: Option<auth::credentials::Credentials>,
+    // Default options for requests.
+    pub(crate) default_options: RequestOptions,
+}
 
-pub(crate) mod client_builder {
-    use super::Storage;
-    pub struct Factory;
-    impl gax::client_builder::internal::ClientFactory for Factory {
-        type Client = Storage;
-        type Credentials = gaxi::options::Credentials;
-        async fn build(
-            self,
-            config: gaxi::options::ClientConfig,
-        ) -> gax::client_builder::Result<Self::Client> {
-            Self::Client::new(config).await
+impl ClientBuilder {
+    pub(crate) fn new() -> Self {
+        Self {
+            endpoint: None,
+            credentials: None,
+            default_options: RequestOptions::new(),
         }
+    }
+
+    /// Creates a new client.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = Storage::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub async fn build(self) -> gax::client_builder::Result<Storage> {
+        Storage::new(self)
+    }
+
+    /// Sets the endpoint.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = Storage::builder()
+    ///     .with_endpoint("https://private.googleapis.com")
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_endpoint<V: Into<String>>(mut self, v: V) -> Self {
+        self.endpoint = Some(v.into());
+        self
+    }
+
+    /// Configures the authentication credentials.
+    ///
+    /// Google Cloud Storage requires authentication for most buckets. Use this
+    /// method to change the credentials used by the client. More information
+    /// about valid credentials types can be found in the [google-cloud-auth]
+    /// crate documentation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// use auth::credentials::mds;
+    /// let client = Storage::builder()
+    ///     .with_credentials(
+    ///         mds::Builder::default()
+    ///             .with_scopes(["https://www.googleapis.com/auth/cloud-platform.read-only"])
+    ///             .build()?)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [google-cloud-auth]: https://docs.rs/google-cloud-auth
+    pub fn with_credentials<V: Into<auth::credentials::Credentials>>(mut self, v: V) -> Self {
+        self.credentials = Some(v.into());
+        self
+    }
+
+    /// Configure the retry policy.
+    ///
+    /// The client libraries can automatically retry operations that fail. The
+    /// retry policy controls what errors are considered retryable, sets limits
+    /// on the number of attempts or the time trying to make attempts.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+    /// let client = Storage::builder()
+    ///     .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_retry_policy<V: Into<gax::retry_policy::RetryPolicyArg>>(mut self, v: V) -> Self {
+        self.default_options.retry_policy = v.into().into();
+        self
+    }
+
+    /// Configure the retry backoff policy.
+    ///
+    /// The client libraries can automatically retry operations that fail. The
+    /// backoff policy controls how long to wait in between retry attempts.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// use gax::exponential_backoff::ExponentialBackoffBuilder;
+    /// use std::time::Duration;
+    /// let policy = ExponentialBackoffBuilder::new()
+    ///     .with_initial_delay(Duration::from_millis(100))
+    ///     .with_maximum_delay(Duration::from_secs(5))
+    ///     .with_scaling(4.0)
+    ///     .build()?;
+    /// let client = Storage::builder()
+    ///     .with_backoff_policy(policy)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_backoff_policy<V: Into<gax::backoff_policy::BackoffPolicyArg>>(
+        mut self,
+        v: V,
+    ) -> Self {
+        self.default_options.backoff_policy = v.into().into();
+        self
+    }
+
+    /// Configure the retry throttler.
+    ///
+    /// Advanced applications may want to configure a retry throttler to
+    /// [Address Cascading Failures] and when [Handling Overload] conditions.
+    /// The client libraries throttle their retry loop, using a policy to
+    /// control the throttling algorithm. Use this method to fine tune or
+    /// customize the default retry throtler.
+    ///
+    /// [Handling Overload]: https://sre.google/sre-book/handling-overload/
+    /// [Addressing Cascading Failures]: https://sre.google/sre-book/addressing-cascading-failures/
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// use gax::retry_throttler::AdaptiveThrottler;
+    /// let client = Storage::builder()
+    ///     .with_retry_throttler(AdaptiveThrottler::default())
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_retry_throttler<V: Into<gax::retry_throttler::RetryThrottlerArg>>(
+        mut self,
+        v: V,
+    ) -> Self {
+        self.default_options.retry_throttler = v.into().into();
+        self
     }
 }
 
@@ -465,24 +601,22 @@ pub(crate) mod tests {
 
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
+    pub(crate) fn test_builder() -> ClientBuilder {
+        ClientBuilder::new()
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .with_endpoint("http://private.googleapis.com")
+            .with_backoff_policy(
+                gax::exponential_backoff::ExponentialBackoffBuilder::new()
+                    .with_initial_delay(Duration::from_millis(1))
+                    .with_maximum_delay(Duration::from_millis(2))
+                    .clamp(),
+            )
+    }
+
     /// This is used by the request builder tests.
-    pub(crate) fn test_inner_client(config: gaxi::options::ClientConfig) -> Arc<StorageInner> {
+    pub(crate) fn test_inner_client(builder: ClientBuilder) -> Arc<StorageInner> {
         let client = reqwest::Client::new();
-        let mut config = config;
-        config.cred = config
-            .cred
-            .or_else(|| Some(auth::credentials::testing::test_credentials()));
-        config.endpoint = config
-            .endpoint
-            .or_else(|| Some("http://private.googleapis.com".into()));
-        // For unit tests we want really fast backoffs
-        config.backoff_policy = Some(Arc::new(
-            gax::exponential_backoff::ExponentialBackoffBuilder::new()
-                .with_initial_delay(Duration::from_millis(1))
-                .with_maximum_delay(Duration::from_millis(2))
-                .clamp(),
-        ));
-        Arc::new(StorageInner::new(client, config))
+        Arc::new(StorageInner::new(client, builder))
     }
 
     /// This is used by the request builder tests.
