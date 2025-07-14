@@ -14,6 +14,7 @@
 
 pub(crate) mod client;
 pub(crate) mod read_object;
+pub(crate) mod request_options;
 pub(crate) mod upload_object;
 pub mod upload_source;
 pub(crate) mod v1;

@@ -44,9 +44,9 @@ where
             async |_| self.single_shot_attempt().await,
             async |duration| tokio::time::sleep(duration).await,
             idempotent,
-            self.inner.retry_throttler.clone(),
-            self.inner.retry_policy.clone(),
-            self.inner.backoff_policy.clone(),
+            self.options.retry_throttler.clone(),
+            self.options.retry_policy.clone(),
+            self.options.backoff_policy.clone(),
         )
         .await
     }
@@ -477,9 +477,6 @@ mod tests {
 
         let inner = test_inner_client(gaxi::options::ClientConfig {
             endpoint: Some(format!("http://{}", server.addr())),
-            retry_policy: Some(Arc::new(
-                crate::retry_policy::RecommendedPolicy.with_attempt_limit(3),
-            )),
             ..Default::default()
         });
         let err = UploadObject::new(
@@ -489,6 +486,7 @@ mod tests {
             "hello",
         )
         .with_if_generation_match(0)
+        .with_retry_policy(crate::retry_policy::RecommendedPolicy.with_attempt_limit(3))
         .send_unbuffered()
         .await
         .expect_err("expected permanent error");

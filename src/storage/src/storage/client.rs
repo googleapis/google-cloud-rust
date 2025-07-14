@@ -12,18 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::request_options::RequestOptions;
 use crate::Error;
-
 use crate::builder::storage::ReadObject;
 use crate::builder::storage::UploadObject;
-
 use crate::upload_source::{InsertPayload, Seek, StreamingSource};
 use auth::credentials::CacheableResource;
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
-use gax::{
-    backoff_policy::BackoffPolicy, retry_policy::RetryPolicy, retry_throttler::SharedRetryThrottler,
-};
 use http::Extensions;
 use sha2::{Digest, Sha256};
 use std::sync::Arc;
@@ -99,12 +95,7 @@ pub(crate) struct StorageInner {
     pub client: reqwest::Client,
     pub cred: auth::credentials::Credentials,
     pub endpoint: String,
-    #[allow(dead_code)]
-    pub retry_policy: Arc<dyn RetryPolicy>,
-    #[allow(dead_code)]
-    pub backoff_policy: Arc<dyn BackoffPolicy>,
-    #[allow(dead_code)]
-    pub retry_throttler: SharedRetryThrottler,
+    pub options: RequestOptions,
 }
 
 impl Storage {
@@ -235,13 +226,7 @@ impl Storage {
 impl StorageInner {
     /// Builds a client assuming `config.cred` and `config.endpoint` are initialized, panics otherwise.
     pub(self) fn new(client: reqwest::Client, config: gaxi::options::ClientConfig) -> Self {
-        let retry_policy = config
-            .retry_policy
-            .unwrap_or_else(|| Arc::new(crate::retry_policy::default()));
-        let backoff_policy = config
-            .backoff_policy
-            .unwrap_or_else(|| Arc::new(crate::backoff_policy::default()));
-        let retry_throttler = config.retry_throttler;
+        let options = RequestOptions::new(&config);
         Self {
             client,
             cred: config
@@ -250,9 +235,7 @@ impl StorageInner {
             endpoint: config
                 .endpoint
                 .expect("StorageInner assumes the endpoint is initialized"),
-            retry_policy,
-            backoff_policy,
-            retry_throttler,
+            options,
         }
     }
 
