@@ -74,6 +74,9 @@ cargo fmt && cargo clippy --profile=test -- --deny warnings && cargo test
 git status # Shows any diffs created by `cargo fmt`
 ```
 
+If you are seeing errors when running locally that are not present in the CI,
+you may need to update your local rust version.
+
 ## Generating the user guide
 
 We use [mdBook] to generate a user guide: a series of short "how-to" documents.
