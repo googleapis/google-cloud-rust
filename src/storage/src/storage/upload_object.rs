@@ -1112,7 +1112,7 @@ mod tests {
     // Verify the retry options are used and that exhausted policies result in
     // errors.
     #[tokio::test]
-    async fn start_resumable_upload_retry_options() -> Result {
+    async fn start_resumable_upload_request_retry_options() -> Result {
         let server = Server::run();
         let matching = || {
             Expectation::matching(all_of![
@@ -1156,6 +1156,63 @@ mod tests {
             .with_retry_policy(retry.with_attempt_limit(3))
             .with_backoff_policy(backoff)
             .with_retry_throttler(throttler)
+            .start_resumable_upload()
+            .await
+            .expect_err("request should fail after 3 retry attempts");
+        assert_eq!(err.http_status_code(), Some(503), "{err:?}");
+
+        Ok(())
+    }
+
+    // Verify the client retry options are used and that exhausted policies
+    // result in errors.
+    #[tokio::test]
+    async fn start_resumable_upload_client_retry_options() -> Result {
+        let server = Server::run();
+        let matching = || {
+            Expectation::matching(all_of![
+                request::method_path("POST", "/upload/storage/v1/b/bucket/o"),
+                request::query(url_decoded(contains(("name", "object")))),
+                request::query(url_decoded(contains(("uploadType", "resumable")))),
+            ])
+        };
+        server.expect(
+            matching()
+                .times(3)
+                .respond_with(status_code(503).body("try-again")),
+        );
+
+        let mut retry = MockRetryPolicy::new();
+        retry
+            .expect_on_error()
+            .times(1..)
+            .returning(|_, _, _, e| RetryResult::Continue(e));
+
+        let mut backoff = MockBackoffPolicy::new();
+        backoff
+            .expect_on_failure()
+            .times(1..)
+            .return_const(Duration::from_micros(1));
+
+        let mut throttler = MockRetryThrottler::new();
+        throttler
+            .expect_throttle_retry_attempt()
+            .times(1..)
+            .return_const(false);
+        throttler
+            .expect_on_retry_failure()
+            .times(1..)
+            .return_const(());
+        throttler.expect_on_success().never().return_const(());
+
+        let inner = test_inner_client(
+            test_builder()
+                .with_endpoint(format!("http://{}", server.addr()))
+                .with_retry_policy(retry.with_attempt_limit(3))
+                .with_backoff_policy(backoff)
+                .with_retry_throttler(throttler),
+        );
+        let err = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
             .start_resumable_upload()
             .await
             .expect_err("request should fail after 3 retry attempts");
