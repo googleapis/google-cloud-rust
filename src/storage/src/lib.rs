@@ -59,20 +59,23 @@ pub mod builder {
 pub use crate::control::model;
 pub use crate::control::stub;
 
+#[allow(dead_code)]
+pub(crate) mod generated;
+
 pub(crate) mod google {
     pub mod iam {
         pub mod v1 {
-            include!("control/generated/protos/storage/google.iam.v1.rs");
-            include!("control/generated/convert/iam/convert.rs");
+            include!("generated/protos/storage/google.iam.v1.rs");
+            include!("generated/convert/iam/convert.rs");
         }
     }
     pub mod longrunning {
-        include!("control/generated/protos/control/google.longrunning.rs");
-        include!("control/generated/convert/longrunning/convert.rs");
+        include!("generated/protos/control/google.longrunning.rs");
+        include!("generated/convert/longrunning/convert.rs");
     }
     pub mod r#type {
-        include!("control/generated/protos/storage/google.r#type.rs");
-        include!("control/generated/convert/type/convert.rs");
+        include!("generated/protos/storage/google.r#type.rs");
+        include!("generated/convert/type/convert.rs");
     }
     pub mod rpc {
         include!("control/generated/protos/rpc/google.rpc.rs");
@@ -82,13 +85,13 @@ pub(crate) mod google {
         #[allow(deprecated)]
         #[allow(clippy::large_enum_variant)]
         pub mod v2 {
-            include!("control/generated/protos/storage/google.storage.v2.rs");
-            include!("control/generated/convert/storage/convert.rs");
+            include!("generated/protos/storage/google.storage.v2.rs");
+            include!("generated/convert/storage/convert.rs");
         }
         pub mod control {
             pub mod v2 {
-                include!("control/generated/protos/control/google.storage.control.v2.rs");
-                include!("control/generated/convert/control/convert.rs");
+                include!("generated/protos/control/google.storage.control.v2.rs");
+                include!("generated/convert/control/convert.rs");
             }
         }
     }
