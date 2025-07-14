@@ -225,7 +225,7 @@ impl Builder {
     ///
     /// ```
     /// # use google_cloud_auth::credentials::user_account::Builder;
-    /// # use gax::exponential_backoff::ExponentialBackoffBuilder;
+    /// use gax::exponential_backoff::ExponentialBackoff;
     /// # use std::time::Duration;
     /// # tokio_test::block_on(async {
     /// let authorized_user = serde_json::json!({
@@ -234,10 +234,8 @@ impl Builder {
     ///     "refresh_token": "YOUR_REFRESH_TOKEN",
     ///     "type": "authorized_user",
     /// });
-    /// let policy = ExponentialBackoffBuilder::default()
-    ///     .build().expect("well-known policy values should succeed");
     /// let credentials = Builder::new(authorized_user)
-    ///     .with_backoff_policy(policy)
+    ///     .with_backoff_policy(ExponentialBackoff::default())
     ///     .build();
     /// # });
     /// ```
