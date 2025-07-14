@@ -13,8 +13,6 @@
 // limitations under the License.
 
 #[allow(dead_code)]
-// TODO(#1813) - fix the broken link to `[here]`.
-#[allow(rustdoc::broken_intra_doc_links)]
 pub(crate) mod generated;
 
 pub mod builder {
