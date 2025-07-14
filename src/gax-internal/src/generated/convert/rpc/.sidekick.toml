@@ -20,6 +20,7 @@ specification-source = 'google/rpc'
 skipped-ids = '.google.rpc.Status'
 
 [codec]
-copyright-year    = '2025'
-template-override = 'templates/convert-prost'
-module-path       = 'rpc::model'
+copyright-year        = '2025'
+template-override     = 'templates/convert-prost'
+module-path           = 'rpc::model'
+package-name-override = 'google-cloud-gax-internal'

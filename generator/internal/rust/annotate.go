@@ -65,6 +65,12 @@ func (m *modelAnnotations) HasServices() bool {
 	return len(m.Services) > 0
 }
 
+// We handle references to `gaxi` traits from within the `gaxi` crate, by
+// injecting some ad-hoc code.
+func (m *modelAnnotations) IsGaxiCrate() bool {
+	return m.PackageName == "google-cloud-gax-internal"
+}
+
 type serviceAnnotations struct {
 	// The name of the service. The Rust naming conventions requires this to be
 	// in `PascalCase`. Notably, names like `IAM` *must* become `Iam`, but

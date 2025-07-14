@@ -14,14 +14,15 @@
 
 //! Implements the common features of all gRPC-based client.
 
-use auth::credentials::Credentials;
+mod from_status;
+pub mod status;
+
+use auth::credentials::{CacheableResource, Credentials};
+use from_status::to_gax_error;
 use gax::Result;
 use gax::backoff_policy::BackoffPolicy;
 use gax::client_builder::Error as BuilderError;
 use gax::error::Error;
-mod from_status;
-use auth::credentials::CacheableResource;
-use from_status::to_gax_error;
 use gax::exponential_backoff::ExponentialBackoff;
 use gax::retry_policy::RetryPolicy;
 use gax::retry_throttler::SharedRetryThrottler;
