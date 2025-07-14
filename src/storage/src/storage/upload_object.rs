@@ -30,6 +30,7 @@ pub struct UploadObject<T> {
     params: Option<crate::model::CommonObjectRequestParams>,
     // We need `Arc<Mutex<>>` because this is re-used in retryable uploads.
     payload: Arc<Mutex<InsertPayload<T>>>,
+    options: super::request_options::RequestOptions,
 }
 
 impl<T> UploadObject<T> {
@@ -557,6 +558,89 @@ impl<T> UploadObject<T> {
         self
     }
 
+    /// The retry policy used for this request.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # use google_cloud_storage::retry_policy::RecommendedPolicy;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use std::time::Duration;
+    /// use gax::retry_policy::RetryPolicyExt;
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .with_retry_policy(RecommendedPolicy
+    ///         .with_attempt_limit(5)
+    ///         .with_time_limit(Duration::from_secs(10)),
+    ///     )
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    pub fn with_retry_policy<V: Into<gax::retry_policy::RetryPolicyArg>>(mut self, v: V) -> Self {
+        self.options.retry_policy = v.into().into();
+        self
+    }
+
+    /// The backoff policy used for this request.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use std::time::Duration;
+    /// use gax::exponential_backoff::ExponentialBackoffBuilder;
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .with_backoff_policy(ExponentialBackoffBuilder::new()
+    ///         .with_initial_delay(Duration::from_secs(2))
+    ///         .with_maximum_delay(Duration::from_secs(300))
+    ///         .build()?,
+    ///     )
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    pub fn with_backoff_policy<V: Into<gax::backoff_policy::BackoffPolicyArg>>(
+        mut self,
+        v: V,
+    ) -> Self {
+        self.options.backoff_policy = v.into().into();
+        self
+    }
+
+    /// The retry throttler used for this request.
+    ///
+    /// Most of the time you want to use the same throttler for all the requests
+    /// in a client, and even the same throttler for many clients. Rarely it
+    /// maybe be necessary to use an ad-hoc throttler for some subset of the
+    /// requests.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .with_retry_throttler(adhoc_throttler())
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// fn adhoc_throttler() -> gax::retry_throttler::SharedRetryThrottler {
+    ///     # panic!();
+    /// }
+    /// # Ok(()) }
+    /// ```
+    pub fn with_retry_throttler<V: Into<gax::retry_throttler::RetryThrottlerArg>>(
+        mut self,
+        v: V,
+    ) -> Self {
+        self.options.retry_throttler = v.into().into();
+        self
+    }
+
     pub(crate) fn new<B, O, P>(
         inner: std::sync::Arc<StorageInner>,
         bucket: B,
@@ -568,6 +652,7 @@ impl<T> UploadObject<T> {
         O: Into<String>,
         P: Into<InsertPayload<T>>,
     {
+        let options = inner.options.clone();
         UploadObject {
             inner,
             resource: crate::model::Object::new()
@@ -576,6 +661,7 @@ impl<T> UploadObject<T> {
             spec: crate::model::WriteObjectSpec::new(),
             params: None,
             payload: Arc::new(Mutex::new(payload.into())),
+            options,
         }
     }
 
@@ -592,9 +678,9 @@ impl<T> UploadObject<T> {
             // sessions created in the retry loop are simply lost and eventually
             // garbage collected.
             true,
-            self.inner.retry_throttler.clone(),
-            self.inner.retry_policy.clone(),
-            self.inner.backoff_policy.clone(),
+            self.options.retry_throttler.clone(),
+            self.options.retry_policy.clone(),
+            self.options.backoff_policy.clone(),
         )
         .await?;
         Ok(id)
@@ -690,7 +776,6 @@ mod tests {
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use serde_json::{Value, json};
     use std::collections::BTreeMap;
-    use std::sync::Arc;
 
     type Result = anyhow::Result<()>;
 
@@ -1016,7 +1101,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn start_resumable_upload_retry_too_many_transients() -> Result {
+    async fn start_resumable_upload_retry_exhausted() -> Result {
         let server = Server::run();
         let matching = || {
             Expectation::matching(all_of![
@@ -1033,12 +1118,10 @@ mod tests {
 
         let inner = test_inner_client(gaxi::options::ClientConfig {
             endpoint: Some(format!("http://{}", server.addr())),
-            retry_policy: Some(Arc::new(
-                crate::retry_policy::RecommendedPolicy.with_attempt_limit(3),
-            )),
             ..Default::default()
         });
         let err = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
+            .with_retry_policy(crate::retry_policy::RecommendedPolicy.with_attempt_limit(3))
             .start_resumable_upload()
             .await
             .expect_err("request should fail after 3 retry attempts");
