@@ -40,4 +40,4 @@ included-ids = """\
 [codec]
 copyright-year    = '2025'
 template-override = 'templates/convert-prost'
-module-path       = 'crate::control::generated::gapic::model'
+module-path       = 'crate::generated::gapic::model'

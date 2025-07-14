@@ -19,7 +19,7 @@ specification-source = 'google/storage/control/v2'
 [codec]
 copyright-year    = '2025'
 template-override = 'templates/convert-prost'
-module-path       = 'crate::control::generated::gapic_control::model'
+module-path       = 'crate::generated::gapic_control::model'
 name-overrides    = """\
 .google.storage.control.v2.IntelligenceConfig.Filter.cloud_storage_buckets=CloudStorageBucketsOneOf,\
 .google.storage.control.v2.IntelligenceConfig.Filter.cloud_storage_locations=CloudStorageLocationsOneOf\

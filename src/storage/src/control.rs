@@ -12,16 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[allow(dead_code)]
-pub(crate) mod generated;
-
 pub mod builder {
-    pub use crate::control::generated::gapic::builder::storage_control::*;
-    pub use crate::control::generated::gapic_control::builder::storage_control::*;
+    pub use crate::generated::gapic::builder::storage_control::*;
+    pub use crate::generated::gapic_control::builder::storage_control::*;
 }
 pub mod model {
-    pub use crate::control::generated::gapic::model::*;
-    pub use crate::control::generated::gapic_control::model::*;
+    pub use crate::generated::gapic::model::*;
+    pub use crate::generated::gapic_control::model::*;
 }
 pub mod client;
 pub mod stub;

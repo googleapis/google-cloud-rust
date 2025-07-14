@@ -31,7 +31,7 @@ use gaxi::prost::{ConvertError, FromProto, ToProto};
 // one of the motivations for `StorageControl` was to separate the LROs.
 // Worst case, we can skip the offending functions until we have fixed
 // this code to support them.
-use crate::control::generated::gapic_control::transport::{lro_any_from_prost, lro_any_to_prost};
+use crate::generated::gapic_control::transport::{lro_any_from_prost, lro_any_to_prost};
 
 impl ToProto<google::longrunning::Operation> for longrunning::model::Operation {
     type Output = google::longrunning::Operation;
