@@ -782,7 +782,7 @@ async fn handle_start_resumable_upload_response(response: reqwest::Response) -> 
 
 #[cfg(test)]
 mod tests {
-    use super::client::tests::{create_key_helper, test_inner_client};
+    use super::client::tests::{create_key_helper, test_builder, test_inner_client};
     use super::*;
     use crate::model::WriteObjectSpec;
     use gax::retry_policy::RetryPolicyExt;
@@ -797,7 +797,7 @@ mod tests {
     #[test]
     fn upload_object_unbuffered_metadata() -> Result {
         use crate::model::ObjectAccessControl;
-        let inner = test_inner_client(gaxi::options::ClientConfig::default());
+        let inner = test_inner_client(test_builder());
         let mut request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "")
             .with_if_generation_match(10)
             .with_if_generation_not_match(20)
@@ -874,7 +874,7 @@ mod tests {
 
     #[tokio::test]
     async fn start_resumable_upload() -> Result {
-        let inner = test_inner_client(gaxi::options::ClientConfig::default());
+        let inner = test_inner_client(test_builder());
         let mut request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
             .start_resumable_upload_request()
             .await?
@@ -897,7 +897,7 @@ mod tests {
         // Make a 32-byte key.
         let (key, key_base64, _, key_sha256_base64) = create_key_helper();
 
-        let inner = test_inner_client(gaxi::options::ClientConfig::default());
+        let inner = test_inner_client(test_builder());
         let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
             .with_key(KeyAes256::new(&key)?)
             .start_resumable_upload_request()
@@ -927,7 +927,7 @@ mod tests {
 
     #[tokio::test]
     async fn start_resumable_upload_bad_bucket() -> Result {
-        let inner = test_inner_client(gaxi::options::ClientConfig::default());
+        let inner = test_inner_client(test_builder());
         UploadObject::new(inner, "malformed", "object", "hello")
             .start_resumable_upload_request()
             .await
@@ -938,7 +938,7 @@ mod tests {
     #[tokio::test]
     async fn start_resumable_upload_metadata_in_request() -> Result {
         use crate::model::ObjectAccessControl;
-        let inner = test_inner_client(gaxi::options::ClientConfig::default());
+        let inner = test_inner_client(test_builder());
         let mut request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "")
             .with_if_generation_match(10)
             .with_if_generation_not_match(20)
@@ -1018,11 +1018,9 @@ mod tests {
 
     #[tokio::test]
     async fn start_resumable_upload_credentials() -> Result {
-        let config = gaxi::options::ClientConfig {
-            cred: Some(auth::credentials::testing::error_credentials(false)),
-            ..Default::default()
-        };
-        let inner = test_inner_client(config);
+        let inner = test_inner_client(
+            test_builder().with_credentials(auth::credentials::testing::error_credentials(false)),
+        );
         let _ = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
             .start_resumable_upload_request()
             .await
@@ -1049,10 +1047,8 @@ mod tests {
             ),
         );
 
-        let inner = test_inner_client(gaxi::options::ClientConfig {
-            endpoint: Some(format!("http://{}", server.addr())),
-            ..Default::default()
-        });
+        let inner =
+            test_inner_client(test_builder().with_endpoint(format!("http://{}", server.addr())));
         let got = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
             .start_resumable_upload()
             .await?;
@@ -1073,10 +1069,8 @@ mod tests {
             .respond_with(status_code(403).body("uh-oh")),
         );
 
-        let inner = test_inner_client(gaxi::options::ClientConfig {
-            endpoint: Some(format!("http://{}", server.addr())),
-            ..Default::default()
-        });
+        let inner =
+            test_inner_client(test_builder().with_endpoint(format!("http://{}", server.addr())));
         let err = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
             .start_resumable_upload()
             .await
@@ -1105,10 +1099,8 @@ mod tests {
             status_code(200).append_header("location", session.to_string()),
         ]));
 
-        let inner = test_inner_client(gaxi::options::ClientConfig {
-            endpoint: Some(format!("http://{}", server.addr())),
-            ..Default::default()
-        });
+        let inner =
+            test_inner_client(test_builder().with_endpoint(format!("http://{}", server.addr())));
         let got = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
             .start_resumable_upload()
             .await?;
@@ -1135,10 +1127,8 @@ mod tests {
                 .respond_with(status_code(503).body("try-again")),
         );
 
-        let inner = test_inner_client(gaxi::options::ClientConfig {
-            endpoint: Some(format!("http://{}", server.addr())),
-            ..Default::default()
-        });
+        let inner =
+            test_inner_client(test_builder().with_endpoint(format!("http://{}", server.addr())));
         let mut retry = MockRetryPolicy::new();
         retry
             .expect_on_error()

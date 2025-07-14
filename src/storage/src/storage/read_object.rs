@@ -485,7 +485,7 @@ fn check_crc32c_match(crc32c: u32, response: Option<u32>) -> Result<()> {
 
 #[cfg(test)]
 mod tests {
-    use super::client::tests::{create_key_helper, test_inner_client};
+    use super::client::tests::{create_key_helper, test_builder, test_inner_client};
     use super::*;
     use base64::Engine as _;
     use futures::TryStreamExt;
@@ -635,7 +635,7 @@ mod tests {
 
     #[tokio::test]
     async fn read_object() -> Result {
-        let inner = test_inner_client(gaxi::options::ClientConfig::default());
+        let inner = test_inner_client(test_builder());
         let request = ReadObject::new(inner, "projects/_/buckets/bucket", "object")
             .http_request_builder()
             .await?
@@ -651,11 +651,9 @@ mod tests {
 
     #[tokio::test]
     async fn read_object_error_credentials() -> Result {
-        let config = gaxi::options::ClientConfig {
-            cred: Some(auth::credentials::testing::error_credentials(false)),
-            ..Default::default()
-        };
-        let inner = test_inner_client(config);
+        let inner = test_inner_client(
+            test_builder().with_credentials(auth::credentials::testing::error_credentials(false)),
+        );
         let _ = ReadObject::new(inner, "projects/_/buckets/bucket", "object")
             .http_request_builder()
             .await
@@ -666,7 +664,7 @@ mod tests {
 
     #[tokio::test]
     async fn read_object_bad_bucket() -> Result {
-        let inner = test_inner_client(gaxi::options::ClientConfig::default());
+        let inner = test_inner_client(test_builder());
         ReadObject::new(inner, "malformed", "object")
             .http_request_builder()
             .await
@@ -676,7 +674,7 @@ mod tests {
 
     #[tokio::test]
     async fn read_object_query_params() -> Result {
-        let inner = test_inner_client(gaxi::options::ClientConfig::default());
+        let inner = test_inner_client(test_builder());
         let request = ReadObject::new(inner, "projects/_/buckets/bucket", "object")
             .with_generation(5)
             .with_if_generation_match(10)
@@ -715,7 +713,7 @@ mod tests {
         let (key, key_base64, _, key_sha256_base64) = create_key_helper();
 
         // The API takes the unencoded byte array.
-        let inner = test_inner_client(gaxi::options::ClientConfig::default());
+        let inner = test_inner_client(test_builder());
         let request = ReadObject::new(inner, "projects/_/buckets/bucket", "object")
             .with_key(KeyAes256::new(&key)?)
             .http_request_builder()
@@ -750,7 +748,7 @@ mod tests {
     #[test_case(1000, 100, Some(&http::HeaderValue::from_static("bytes=1000-1099")); "offset and limit")]
     #[tokio::test]
     async fn range_header(offset: i64, limit: i64, want: Option<&http::HeaderValue>) -> Result {
-        let inner = test_inner_client(gaxi::options::ClientConfig::default());
+        let inner = test_inner_client(test_builder());
         let request = ReadObject::new(inner, "projects/_/buckets/bucket", "object")
             .with_read_offset(offset)
             .with_read_limit(limit)
@@ -772,7 +770,7 @@ mod tests {
     #[test_case(-100, 100, RangeError::NegativeOffsetWithLimit; "negative offset with positive limit")]
     #[tokio::test]
     async fn test_range_header_error(offset: i64, limit: i64, want_err: RangeError) -> Result {
-        let inner = test_inner_client(gaxi::options::ClientConfig::default());
+        let inner = test_inner_client(test_builder());
         let err = ReadObject::new(inner, "projects/_/buckets/bucket", "object")
             .with_read_offset(offset)
             .with_read_limit(limit)
@@ -801,7 +799,7 @@ mod tests {
     )]
     #[tokio::test]
     async fn test_percent_encoding_object_name(name: &str, want: &str) -> Result {
-        let inner = test_inner_client(gaxi::options::ClientConfig::default());
+        let inner = test_inner_client(test_builder());
         let request = ReadObject::new(inner, "projects/_/buckets/bucket", name)
             .http_request_builder()
             .await?
