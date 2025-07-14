@@ -773,9 +773,11 @@ mod tests {
     use super::*;
     use crate::model::WriteObjectSpec;
     use gax::retry_policy::RetryPolicyExt;
+    use gax::retry_result::RetryResult;
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use serde_json::{Value, json};
     use std::collections::BTreeMap;
+    use std::time::Duration;
 
     type Result = anyhow::Result<()>;
 
@@ -1100,8 +1102,10 @@ mod tests {
         Ok(())
     }
 
+    // Verify the retry options are used and that exhausted policies result in
+    // errors.
     #[tokio::test]
-    async fn start_resumable_upload_retry_exhausted() -> Result {
+    async fn start_resumable_upload_retry_options() -> Result {
         let server = Server::run();
         let matching = || {
             Expectation::matching(all_of![
@@ -1120,13 +1124,67 @@ mod tests {
             endpoint: Some(format!("http://{}", server.addr())),
             ..Default::default()
         });
+        let mut retry = MockRetryPolicy::new();
+        retry
+            .expect_on_error()
+            .times(1..)
+            .returning(|_, _, _, e| RetryResult::Continue(e));
+
+        let mut backoff = MockBackoffPolicy::new();
+        backoff
+            .expect_on_failure()
+            .times(1..)
+            .return_const(Duration::from_micros(1));
+
+        let mut throttler = MockRetryThrottler::new();
+        throttler
+            .expect_throttle_retry_attempt()
+            .times(1..)
+            .return_const(false);
+        throttler
+            .expect_on_retry_failure()
+            .times(1..)
+            .return_const(());
+        throttler.expect_on_success().never().return_const(());
+
         let err = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
-            .with_retry_policy(crate::retry_policy::RecommendedPolicy.with_attempt_limit(3))
+            .with_retry_policy(retry.with_attempt_limit(3))
+            .with_backoff_policy(backoff)
+            .with_retry_throttler(throttler)
             .start_resumable_upload()
             .await
             .expect_err("request should fail after 3 retry attempts");
         assert_eq!(err.http_status_code(), Some(503), "{err:?}");
 
         Ok(())
+    }
+
+    mockall::mock! {
+        #[derive(Debug)]
+        pub RetryThrottler {}
+
+        impl gax::retry_throttler::RetryThrottler for RetryThrottler {
+            fn throttle_retry_attempt(&self) -> bool;
+            fn on_retry_failure(&mut self, flow: &RetryResult);
+            fn on_success(&mut self);
+        }
+    }
+
+    mockall::mock! {
+        #[derive(Debug)]
+        pub RetryPolicy {}
+
+        impl gax::retry_policy::RetryPolicy for RetryPolicy {
+            fn on_error(&self, loop_start: std::time::Instant, attempt_count: u32, idempotent: bool, error: gax::error::Error) -> RetryResult;
+        }
+    }
+
+    mockall::mock! {
+        #[derive(Debug)]
+        pub BackoffPolicy {}
+
+        impl gax::backoff_policy::BackoffPolicy for BackoffPolicy {
+            fn on_failure(&self, loop_start: std::time::Instant, attempt_count: u32) -> std::time::Duration;
+        }
     }
 }
