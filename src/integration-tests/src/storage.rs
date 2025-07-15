@@ -168,7 +168,7 @@ pub async fn objects_large_file(builder: storage::builder::storage::ClientBuilde
     // Create a large enough file that will require multiple chunks to download.
     const BLOCK_SIZE: usize = 500;
     let mut contents = Vec::new();
-    for i in 0..8 {
+    for i in 0..16 {
         contents.extend_from_slice(&[i as u8; BLOCK_SIZE]);
     }
 
@@ -211,7 +211,6 @@ pub async fn objects_large_file(builder: storage::builder::storage::ClientBuilde
         .enumerate();
 
     // This should take multiple chunks to download.
-
     got.clear();
     let mut iteration = 0;
     while let Some((i, chunk)) = stream.next().await {

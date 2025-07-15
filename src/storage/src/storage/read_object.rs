@@ -12,7 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use futures::Stream;
+use futures::task::{Context, Poll};
+use pin_project::pin_project;
 use serde_with::DeserializeAs;
+use std::pin::Pin;
 
 use super::client::*;
 use super::*;
@@ -238,10 +242,15 @@ impl ReadObject {
         if !response.status().is_success() {
             return gaxi::http::to_http_error(response).await;
         }
+        let response_crc32c = crc32c_from_response(
+            full_content_requested,
+            response.status(),
+            response.headers(),
+        );
         Ok(ReadObjectResponse {
             inner: response,
-            full_content_requested,
-            crc32c: 0,
+            response_crc32c,
+            crc32c: 0, // no bytes read yet.
         })
     }
 
@@ -345,7 +354,7 @@ fn headers_to_crc32c(headers: &http::HeaderMap) -> Option<u32> {
 pub struct ReadObjectResponse {
     inner: reqwest::Response,
     // Fields for tracking the crc checksum checks.
-    full_content_requested: bool,
+    response_crc32c: Option<u32>,
     crc32c: u32,
 }
 
@@ -367,11 +376,11 @@ impl ReadObjectResponse {
     /// # Ok::<(), anyhow::Error>(()) });
     /// ```
     pub async fn all_bytes(self) -> Result<bytes::Bytes> {
-        let response_crc32c = self.check_crc32c();
-
         let bytes = self.inner.bytes().await.map_err(Error::io)?;
-        let crc32c = crc32c::crc32c(&bytes);
-        check_crc32c_match(crc32c, response_crc32c)?;
+        if self.response_crc32c.is_some() {
+            let crc32c = crc32c::crc32c_append(self.crc32c, &bytes); // bytes may have already been read by `next`.
+            check_crc32c_match(crc32c, self.response_crc32c)?;
+        }
         Ok(bytes)
     }
 
@@ -398,11 +407,13 @@ impl ReadObjectResponse {
         let res = self.inner.chunk().await.map_err(Error::io);
         match res {
             Ok(Some(chunk)) => {
-                self.crc32c = crc32c::crc32c_append(self.crc32c, &chunk);
+                if self.response_crc32c.is_some() {
+                    self.crc32c = crc32c::crc32c_append(self.crc32c, &chunk);
+                }
                 Some(Ok(chunk))
             }
             Ok(None) => {
-                let res = check_crc32c_match(self.crc32c, self.check_crc32c());
+                let res = check_crc32c_match(self.crc32c, self.response_crc32c);
                 match res {
                     Err(e) => Some(Err(e)),
                     Ok(()) => None,
@@ -414,28 +425,65 @@ impl ReadObjectResponse {
 
     #[cfg(feature = "unstable-stream")]
     #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
-    /// Convert the response to a [futures::Stream].
-    pub fn into_stream(self) -> impl futures::Stream<Item = Result<bytes::Bytes>> {
-        // TODO(#2049): implement checksum checks for streams.
+    /// Convert the response to a [Stream].
+    pub fn into_stream(self) -> impl Stream<Item = Result<bytes::Bytes>> {
         use futures::TryStreamExt;
-        self.inner.bytes_stream().map_err(Error::io)
-    }
-
-    fn check_crc32c(&self) -> Option<u32> {
-        // Check the CRC iff all of the following hold:
-        // 1. We requested the full content (request.read_limit = 0, request.read_offset = 0).
-        // 2. We got all the content (status != PartialContent).
-        // 3. The server sent a CRC header.
-        // 4. The http stack did not uncompress the file.
-        // 5. We were not served compressed data that was uncompressed on download.
-        //
-        // For 4, we turn off automatic decompression in reqwest::Client when we create it,
-        // so it will not be turned on.
-        check_crc32c_helper(
-            self.full_content_requested,
-            self.inner.status(),
-            self.inner.headers(),
+        Crc32CStream::new(
+            self.inner.bytes_stream().map_err(Error::io),
+            self.response_crc32c,
+            self.crc32c,
         )
+    }
+}
+
+#[pin_project]
+struct Crc32CStream<S>
+where
+    S: Stream<Item = Result<bytes::Bytes>>,
+{
+    #[pin]
+    inner_stream: S,
+    response_crc32c: Option<u32>,
+    crc32c: u32,
+}
+
+impl<S> Crc32CStream<S>
+where
+    S: Stream<Item = Result<bytes::Bytes>>,
+{
+    pub fn new(inner_stream: S, response_crc32c: Option<u32>, crc32c: u32) -> Self {
+        Self {
+            inner_stream,
+            response_crc32c,
+            crc32c,
+        }
+    }
+}
+
+// Implement the Stream trait for our wrapper struct.
+impl<S> Stream for Crc32CStream<S>
+where
+    S: Stream<Item = Result<bytes::Bytes>>,
+{
+    type Item = Result<bytes::Bytes>;
+
+    fn poll_next(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Option<Self::Item>> {
+        // Poll the inner stream.
+        let this = self.project();
+        let inner_stream_pin = this.inner_stream;
+        match inner_stream_pin.poll_next(cx) {
+            Poll::Ready(Some(Ok(chunk))) => {
+                if this.response_crc32c.is_some() {
+                    *this.crc32c = crc32c::crc32c_append(*this.crc32c, &chunk);
+                }
+                Poll::Ready(Some(Ok(chunk)))
+            }
+            Poll::Ready(None) => match check_crc32c_match(*this.crc32c, *this.response_crc32c) {
+                Ok(()) => Poll::Ready(None),
+                Err(e) => Poll::Ready(Some(Err(e))),
+            },
+            poll => poll,
+        }
     }
 }
 
@@ -448,12 +496,20 @@ enum ReadError {
     BadCrc { got: u32, want: u32 },
 }
 
-// helper to make testing easier.
-fn check_crc32c_helper(
+fn crc32c_from_response(
     full_content_requested: bool,
     status: http::StatusCode,
     headers: &http::HeaderMap,
 ) -> Option<u32> {
+    // Check the CRC iff all of the following hold:
+    // 1. We requested the full content (request.read_limit = 0, request.read_offset = 0).
+    // 2. We got all the content (status != PartialContent).
+    // 3. The server sent a CRC header.
+    // 4. The http stack did not uncompress the file.
+    // 5. We were not served compressed data that was uncompressed on download.
+    //
+    // For 4, we turn off automatic decompression in reqwest::Client when we create it,
+    // so it will not be turned on.
     if !full_content_requested || status == http::StatusCode::PARTIAL_CONTENT {
         return None;
     }
@@ -551,6 +607,81 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn read_object_next_then_consume_response() -> Result {
+        // Create a large enough file that will require multiple chunks to download.
+        const BLOCK_SIZE: usize = 500;
+        let mut contents = Vec::new();
+        for i in 0..50 {
+            contents.extend_from_slice(&[i as u8; BLOCK_SIZE]);
+        }
+
+        // Calculate and serialize the crc32c checksum
+        let u = crc32c::crc32c(&contents);
+        let bytes = [
+            (u >> 24 & 0xFF) as u8,
+            (u >> 16 & 0xFF) as u8,
+            (u >> 8 & 0xFF) as u8,
+            (u & 0xFF) as u8,
+        ];
+        let value = base64::prelude::BASE64_STANDARD.encode(bytes);
+
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("GET", "//storage/v1/b/test-bucket/o/test-object"),
+                request::query(url_decoded(contains(("alt", "media")))),
+            ])
+            .times(2)
+            .respond_with(
+                status_code(200)
+                    .body(contents.clone())
+                    .append_header("x-goog-hash", format!("crc32c={value}")),
+            ),
+        );
+
+        let endpoint = server.url("");
+        let client = Storage::builder()
+            .with_endpoint(endpoint.to_string())
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+
+        // Read some bytes, then get all.
+        let mut response = client
+            .read_object("projects/_/buckets/test-bucket", "test-object")
+            .send()
+            .await?;
+
+        let mut all_bytes = bytes::BytesMut::new();
+        let chunk = response.next().await.transpose()?.unwrap();
+        assert!(!chunk.is_empty());
+        all_bytes.extend(chunk);
+        let remainder = response.all_bytes().await?;
+        assert!(!remainder.is_empty());
+        all_bytes.extend(remainder);
+        assert_eq!(all_bytes, contents);
+
+        // Read some bytes, then remainder with stream.
+        let mut response = client
+            .read_object("projects/_/buckets/test-bucket", "test-object")
+            .send()
+            .await?;
+
+        let mut all_bytes = bytes::BytesMut::new();
+        let chunk = response.next().await.transpose()?.unwrap();
+        assert!(!chunk.is_empty());
+        all_bytes.extend(chunk);
+        use futures::StreamExt;
+        let mut stream = response.into_stream();
+        while let Some(chunk) = stream.next().await.transpose()? {
+            all_bytes.extend(chunk);
+        }
+        assert_eq!(all_bytes, contents);
+
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn read_object_not_found() -> Result {
         let server = Server::run();
         server.expect(
@@ -595,13 +726,18 @@ mod tests {
                 request::method_path("GET", "//storage/v1/b/test-bucket/o/test-object"),
                 request::query(url_decoded(contains(("alt", "media")))),
             ])
-            .times(2)
+            .times(3)
             .respond_with(
                 status_code(200)
                     .body("hello world")
                     .append_header("x-goog-hash", format!("crc32c={value}")),
             ),
         );
+
+        let want_err = ReadError::BadCrc {
+            got: crc32c::crc32c("hello world".as_bytes()), // calculated from data.
+            want: crc32c::crc32c("goodbye world".as_bytes()), // returned from server.
+        };
 
         let endpoint = server.url("");
         let client = Storage::builder()
@@ -613,23 +749,45 @@ mod tests {
             .read_object("projects/_/buckets/test-bucket", "test-object")
             .send()
             .await?;
-        response
+        let err = response
             .all_bytes()
             .await
             .expect_err("expect error on incorrect crc32c");
+        assert_eq!(
+            err.source().unwrap().downcast_ref::<ReadError>().unwrap(),
+            &want_err
+        );
 
         let mut response = client
             .read_object("projects/_/buckets/test-bucket", "test-object")
             .send()
             .await?;
-        let res: crate::Result<()> = async {
+        let err: crate::Error = async {
             {
                 while (response.next().await.transpose()?).is_some() {}
                 Ok(())
             }
         }
-        .await;
-        assert!(res.is_err(), "expect error on incorrect crc32c");
+        .await
+        .expect_err("expect error on incorrect crc32c");
+        assert_eq!(
+            err.source().unwrap().downcast_ref::<ReadError>().unwrap(),
+            &want_err
+        );
+
+        use futures::TryStreamExt;
+        let err = client
+            .read_object("projects/_/buckets/test-bucket", "test-object")
+            .send()
+            .await?
+            .into_stream()
+            .try_collect::<Vec<bytes::Bytes>>()
+            .await
+            .expect_err("expect error on incorrect crc32c");
+        assert_eq!(
+            err.source().unwrap().downcast_ref::<ReadError>().unwrap(),
+            &want_err
+        );
         Ok(())
     }
 
@@ -866,7 +1024,7 @@ mod tests {
             );
         }
 
-        let got = check_crc32c_helper(full_content_requested, status, &header_map);
+        let got = crc32c_from_response(full_content_requested, status, &header_map);
         assert_eq!(got, want);
         Ok(())
     }
