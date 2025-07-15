@@ -594,7 +594,6 @@ impl<T> UploadObject<T> {
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_backoff_policy(ExponentialBackoff::default())
     ///         .build()?,
-    ///     )
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");

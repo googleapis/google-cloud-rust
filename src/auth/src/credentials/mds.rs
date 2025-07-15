@@ -189,9 +189,9 @@ impl Builder {
     /// ```
     /// # use google_cloud_auth::credentials::mds::Builder;
     /// # tokio_test::block_on(async {
-    /// use gax::retry_policy::{self, RetryPolicyExt};
+    /// use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
     /// let credentials = Builder::default()
-    ///     .with_retry_policy(retry_policy::AlwaysRetry.with_attempt_limit(3))
+    ///     .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
     ///     .build();
     /// # });
     /// ```
