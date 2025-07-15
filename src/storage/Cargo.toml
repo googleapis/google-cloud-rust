@@ -16,6 +16,7 @@
 name        = "google-cloud-storage"
 version     = "0.25.0-preview1"
 description = "Google Cloud Client Libraries for Rust - Storage"
+build       = "build.rs"
 # Inherit other attributes from the workspace.
 edition.workspace      = true
 authors.workspace      = true
@@ -75,3 +76,7 @@ tempfile.workspace       = true
 tokio-test.workspace     = true
 tokio.workspace          = true
 google-cloud-storage     = { path = ".", features = ["unstable-stream"] }
+
+[build-dependencies]
+anyhow.workspace = true
+regex            = { workspace = true, features = ["std"] }
