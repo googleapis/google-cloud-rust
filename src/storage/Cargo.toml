@@ -14,8 +14,7 @@
 
 [package]
 name        = "google-cloud-storage"
-publish     = false
-version     = "0.0.0"
+version     = "0.25.0-preview1"
 description = "Google Cloud Client Libraries for Rust - Storage"
 # Inherit other attributes from the workspace.
 edition.workspace      = true
