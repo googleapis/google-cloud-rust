@@ -262,9 +262,9 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// # use google_cloud_gax::client_builder::Result;
     /// # tokio_test::block_on(async {
     /// use examples::Client; // Placeholder for examples
-    /// use gax::retry_policy::{self, RetryPolicyExt};
+    /// use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
     /// let client = Client::builder()
-    ///     .with_retry_policy(retry_policy::AlwaysRetry.with_attempt_limit(3))
+    ///     .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
     ///     .build().await?;
     /// # Result::<()>::Ok(()) });
     /// ```
