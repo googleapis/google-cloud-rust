@@ -377,13 +377,9 @@ impl ClientBuilder {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample() -> anyhow::Result<()> {
-    /// use gax::exponential_backoff::ExponentialBackoffBuilder;
+    /// use gax::exponential_backoff::ExponentialBackoff;
     /// use std::time::Duration;
-    /// let policy = ExponentialBackoffBuilder::new()
-    ///     .with_initial_delay(Duration::from_millis(100))
-    ///     .with_maximum_delay(Duration::from_secs(5))
-    ///     .with_scaling(4.0)
-    ///     .build()?;
+    /// let policy = ExponentialBackoff::default();
     /// let client = Storage::builder()
     ///     .with_backoff_policy(policy)
     ///     .build()

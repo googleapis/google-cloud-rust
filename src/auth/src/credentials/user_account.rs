@@ -201,8 +201,8 @@ impl Builder {
     ///
     /// ```
     /// # use google_cloud_auth::credentials::user_account::Builder;
-    /// use gax::retry_policy::{self, RetryPolicyExt};
     /// # tokio_test::block_on(async {
+    /// use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
     /// let authorized_user = serde_json::json!({
     ///     "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com",
     ///     "client_secret": "YOUR_CLIENT_SECRET",
@@ -210,7 +210,7 @@ impl Builder {
     ///     "type": "authorized_user",
     /// });
     /// let credentials = Builder::new(authorized_user)
-    ///     .with_retry_policy(retry_policy::AlwaysRetry.with_attempt_limit(3))
+    ///     .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
     ///     .build();
     /// # });
     /// ```
@@ -225,9 +225,9 @@ impl Builder {
     ///
     /// ```
     /// # use google_cloud_auth::credentials::user_account::Builder;
-    /// use gax::exponential_backoff::ExponentialBackoff;
     /// # use std::time::Duration;
     /// # tokio_test::block_on(async {
+    /// use gax::exponential_backoff::ExponentialBackoff;
     /// let authorized_user = serde_json::json!({
     ///     "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com",
     ///     "client_secret": "YOUR_CLIENT_SECRET",
@@ -257,8 +257,8 @@ impl Builder {
     ///
     /// ```
     /// # use google_cloud_auth::credentials::user_account::Builder;
-    /// use gax::retry_throttler::AdaptiveThrottler;
     /// # tokio_test::block_on(async {
+    /// use gax::retry_throttler::AdaptiveThrottler;
     /// let authorized_user = serde_json::json!({
     ///     "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com",
     ///     "client_secret": "YOUR_CLIENT_SECRET",
