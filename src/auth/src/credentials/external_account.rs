@@ -1220,7 +1220,7 @@ mod tests {
     };
     use crate::errors::SubjectTokenProviderError;
     use httptest::{
-        cycle, Expectation, Server,
+        Expectation, Server, cycle,
         matchers::{all_of, contains, request, url_decoded},
         responders::{json_encoded, status_code},
     };
