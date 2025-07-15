@@ -589,12 +589,10 @@ impl<T> UploadObject<T> {
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// use std::time::Duration;
-    /// use gax::exponential_backoff::ExponentialBackoffBuilder;
+    /// use gax::exponential_backoff::ExponentialBackoff;
     /// let response = client
     ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_backoff_policy(ExponentialBackoffBuilder::new()
-    ///         .with_initial_delay(Duration::from_secs(2))
-    ///         .with_maximum_delay(Duration::from_secs(300))
+    ///     .with_backoff_policy(ExponentialBackoff::default())
     ///         .build()?,
     ///     )
     ///     .send()

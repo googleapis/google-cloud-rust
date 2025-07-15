@@ -188,9 +188,8 @@ impl Builder {
     ///
     /// ```
     /// # use google_cloud_auth::credentials::mds::Builder;
-    /// # use gax::retry_policy;
-    /// # use gax::retry_policy::RetryPolicyExt;
     /// # tokio_test::block_on(async {
+    /// use gax::retry_policy::{self, RetryPolicyExt};
     /// let credentials = Builder::default()
     ///     .with_retry_policy(retry_policy::AlwaysRetry.with_attempt_limit(3))
     ///     .build();
@@ -207,14 +206,10 @@ impl Builder {
     ///
     /// ```
     /// # use google_cloud_auth::credentials::mds::Builder;
-    /// # use gax::exponential_backoff::ExponentialBackoffBuilder;
     /// # use std::time::Duration;
     /// # tokio_test::block_on(async {
-    /// let policy = ExponentialBackoffBuilder::new()
-    ///     .with_initial_delay(Duration::from_millis(100))
-    ///     .with_maximum_delay(Duration::from_secs(5))
-    ///     .with_scaling(4.0)
-    ///     .build().expect("well-known policy values should succeed");
+    /// use gax::exponential_backoff::ExponentialBackoff;
+    /// let policy = ExponentialBackoff::default();
     /// let credentials = Builder::default()
     ///     .with_backoff_policy(policy)
     ///     .build();
@@ -238,11 +233,10 @@ impl Builder {
     ///
     /// ```
     /// # use google_cloud_auth::credentials::mds::Builder;
-    /// # use gax::retry_throttler::AdaptiveThrottler;
     /// # tokio_test::block_on(async {
+    /// use gax::retry_throttler::AdaptiveThrottler;
     /// let credentials = Builder::default()
-    ///     .with_retry_throttler(AdaptiveThrottler::new(2.0)
-    ///         .expect("well-known policy values should succeed"))
+    ///     .with_retry_throttler(AdaptiveThrottler::default())
     ///     .build();
     /// # });
     /// ```

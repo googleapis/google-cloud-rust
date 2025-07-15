@@ -262,8 +262,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// # use google_cloud_gax::client_builder::Result;
     /// # tokio_test::block_on(async {
     /// use examples::Client; // Placeholder for examples
-    /// use gax::retry_policy;
-    /// use gax::retry_policy::RetryPolicyExt;
+    /// use gax::retry_policy::{self, RetryPolicyExt};
     /// let client = Client::builder()
     ///     .with_retry_policy(retry_policy::AlwaysRetry.with_attempt_limit(3))
     ///     .build().await?;
@@ -285,13 +284,9 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// # use google_cloud_gax::client_builder::Result;
     /// # tokio_test::block_on(async {
     /// use examples::Client; // Placeholder for examples
-    /// use gax::exponential_backoff::ExponentialBackoffBuilder;
+    /// use gax::exponential_backoff::ExponentialBackoff;
     /// use std::time::Duration;
-    /// let policy = ExponentialBackoffBuilder::new()
-    ///     .with_initial_delay(Duration::from_millis(100))
-    ///     .with_maximum_delay(Duration::from_secs(5))
-    ///     .with_scaling(4.0)
-    ///     .build().expect("well-known policy values should succeed");
+    /// let policy = ExponentialBackoff::default();
     /// let client = Client::builder()
     ///     .with_backoff_policy(policy)
     ///     .build().await?;
@@ -321,8 +316,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// use examples::Client; // Placeholder for examples
     /// use gax::retry_throttler::AdaptiveThrottler;
     /// let client = Client::builder()
-    ///     .with_retry_throttler(AdaptiveThrottler::new(2.0)
-    ///         .expect("well-known policy values should succeed"))
+    ///     .with_retry_throttler(AdaptiveThrottler::default())
     ///     .build().await?;
     /// # Result::<()>::Ok(()) });
     /// ```
@@ -374,13 +368,9 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// # use google_cloud_gax::client_builder::Result;
     /// # tokio_test::block_on(async {
     /// use examples::Client; // Placeholder for examples
-    /// use gax::exponential_backoff::ExponentialBackoffBuilder;
+    /// use gax::exponential_backoff::ExponentialBackoff;
     /// use std::time::Duration;
-    /// let policy = ExponentialBackoffBuilder::new()
-    ///     .with_initial_delay(Duration::from_millis(100))
-    ///     .with_maximum_delay(Duration::from_secs(5))
-    ///     .with_scaling(4.0)
-    ///     .build().expect("well-known policy values should succeed");
+    /// let policy = ExponentialBackoffBuilder::default();
     /// let client = Client::builder()
     ///     .with_polling_backoff_policy(policy)
     ///     .build().await?;
