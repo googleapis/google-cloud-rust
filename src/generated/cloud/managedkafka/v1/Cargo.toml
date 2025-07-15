@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-managedkafka-v1"
-version                = "0.4.0"
+version                = "0.4.1-rc1"
 description            = "Google Cloud Client Libraries for Rust - Managed Service for Apache Kafka API"
 edition.workspace      = true
 authors.workspace      = true
