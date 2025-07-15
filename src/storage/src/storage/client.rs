@@ -379,8 +379,7 @@ impl ClientBuilder {
     /// # async fn sample() -> anyhow::Result<()> {
     /// use gax::exponential_backoff::ExponentialBackoff;
     /// use std::time::Duration;
-    /// let policy = ExponentialBackoff::default()
-    ///     .build()?;
+    /// let policy = ExponentialBackoff::default();
     /// let client = Storage::builder()
     ///     .with_backoff_policy(policy)
     ///     .build()

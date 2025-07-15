@@ -370,7 +370,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// use examples::Client; // Placeholder for examples
     /// use gax::exponential_backoff::ExponentialBackoff;
     /// use std::time::Duration;
-    /// let policy = ExponentialBackoffBuilder::default();
+    /// let policy = ExponentialBackoff::default();
     /// let client = Client::builder()
     ///     .with_polling_backoff_policy(policy)
     ///     .build().await?;
