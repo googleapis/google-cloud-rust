@@ -270,7 +270,7 @@ const RESUMABLE_UPLOAD_QUANTUM: usize = 256 * 1024;
 
 #[cfg(test)]
 mod tests {
-    use super::super::client::tests::{create_key_helper, test_inner_client};
+    use super::super::client::tests::{create_key_helper, test_builder, test_inner_client};
     use super::*;
     use crate::upload_source::tests::VecStream;
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
@@ -381,7 +381,7 @@ mod tests {
     )]
     #[tokio::test]
     async fn test_percent_encoding_object_name(name: &str, want: &str) -> Result {
-        let inner = test_inner_client(gaxi::options::ClientConfig::default());
+        let inner = test_inner_client(test_builder());
         let request = UploadObject::new(inner, "projects/_/buckets/bucket", name, "hello")
             .start_resumable_upload_request()
             .await?
@@ -417,7 +417,7 @@ mod tests {
     async fn upload_request() -> Result {
         use reqwest::header::HeaderValue;
 
-        let inner = test_inner_client(gaxi::options::ClientConfig::default());
+        let inner = test_inner_client(test_builder());
         let mut request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
             .upload_request(SESSION.to_string())
             .await?
@@ -444,7 +444,7 @@ mod tests {
             .map(|x| bytes::Bytes::from_static(x.as_bytes()))
             .to_vec(),
         );
-        let inner = test_inner_client(gaxi::options::ClientConfig::default());
+        let inner = test_inner_client(test_builder());
         let mut request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", stream)
             .upload_request(SESSION.to_string())
             .await?
@@ -463,7 +463,7 @@ mod tests {
         // Make a 32-byte key.
         let (key, key_base64, _, key_sha256_base64) = create_key_helper();
 
-        let inner = test_inner_client(gaxi::options::ClientConfig::default());
+        let inner = test_inner_client(test_builder());
         let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
             .with_key(KeyAes256::new(&key)?)
             .upload_request(SESSION.to_string())
@@ -545,7 +545,7 @@ mod tests {
 
         let stream = VecStream::new((0..5).map(|i| new_line(i, LEN)).collect::<Vec<_>>());
 
-        let inner = test_inner_client(gaxi::options::ClientConfig::default());
+        let inner = test_inner_client(test_builder());
         let upload = UploadObject::new(inner, "projects/_/buckets/bucket", "object", stream);
         let response = upload
             .upload_by_chunks(session.to_string().as_str(), 2 * LEN)
@@ -563,7 +563,7 @@ mod tests {
     #[tokio::test]
     async fn partial_upload_request_empty() -> Result {
         use reqwest::header::HeaderValue;
-        let inner = test_inner_client(gaxi::options::ClientConfig::default());
+        let inner = test_inner_client(test_builder());
         let upload = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "");
 
         let chunk = VecDeque::new();
@@ -595,7 +595,7 @@ mod tests {
     async fn partial_upload_request_chunk0() -> Result {
         use reqwest::header::HeaderValue;
         const LEN: usize = 32;
-        let inner = test_inner_client(gaxi::options::ClientConfig::default());
+        let inner = test_inner_client(test_builder());
         let upload = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "");
 
         let chunk = VecDeque::from_iter([new_line(0, LEN), new_line(1, LEN)]);
@@ -631,7 +631,7 @@ mod tests {
     async fn partial_upload_request_chunk1() -> Result {
         use reqwest::header::HeaderValue;
         const LEN: usize = 32;
-        let inner = test_inner_client(gaxi::options::ClientConfig::default());
+        let inner = test_inner_client(test_builder());
         let upload = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "");
 
         let chunk = VecDeque::from_iter([new_line(2, LEN), new_line(3, LEN)]);
@@ -667,7 +667,7 @@ mod tests {
     async fn partial_upload_request_chunk_finalize() -> Result {
         use reqwest::header::HeaderValue;
         const LEN: usize = 32;
-        let inner = test_inner_client(gaxi::options::ClientConfig::default());
+        let inner = test_inner_client(test_builder());
         let upload = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "");
 
         let chunk = VecDeque::from_iter([new_line(2, LEN)]);

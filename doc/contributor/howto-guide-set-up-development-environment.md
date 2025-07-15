@@ -9,7 +9,7 @@ compile the code, run the unit tests, and formatting miscellaneous files.
 We recommend that you follow the [Getting Started][getting-started-rust] guide.
 Once you have `cargo` and `rustup` installed the rest is relatively easy.
 
-You will need rust >= 1.85 (released around 2025-02-20). Check the version you
+You will need rust >= 1.87 (released around 2025-05-15). Check the version you
 have installed with:
 
 ```shell
@@ -73,6 +73,9 @@ cargo test
 cargo fmt && cargo clippy --profile=test -- --deny warnings && cargo test
 git status # Shows any diffs created by `cargo fmt`
 ```
+
+If you are seeing errors when running locally that are not present in the CI,
+you may need to update your local rust version.
 
 ## Generating the user guide
 

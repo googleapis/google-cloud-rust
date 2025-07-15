@@ -291,6 +291,50 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::Config::list_resource_changes].
+    fn list_resource_changes(
+        &self,
+        _req: crate::model::ListResourceChangesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListResourceChangesResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Config::get_resource_change].
+    fn get_resource_change(
+        &self,
+        _req: crate::model::GetResourceChangeRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ResourceChange>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Config::list_resource_drifts].
+    fn list_resource_drifts(
+        &self,
+        _req: crate::model::ListResourceDriftsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListResourceDriftsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Config::get_resource_drift].
+    fn get_resource_drift(
+        &self,
+        _req: crate::model::GetResourceDriftRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ResourceDrift>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::Config::list_locations].
     fn list_locations(
         &self,

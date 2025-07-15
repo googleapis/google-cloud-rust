@@ -17,6 +17,14 @@ limitations under the License.
 {{#Codec.BoilerPlate}}
 //{{{.}}}
 {{/Codec.BoilerPlate}}
+{{#Codec.IsGaxiCrate}}
+{{!
+  This file is used to bootstrap the `google-cloud-gax-internal` crate. In all
+  other crates `gaxi` is well-defined and refers to said crate.
+}}
+
+use crate as gaxi;
+{{/Codec.IsGaxiCrate}}
 {{#Enums}}
 {{> enum}}
 {{/Enums}}

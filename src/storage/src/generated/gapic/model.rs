@@ -5552,6 +5552,11 @@ pub struct ListObjectsRequest {
     /// for the full syntax.
     pub match_glob: std::string::String,
 
+    /// Optional. Filter the returned objects. Currently only supported for the
+    /// `contexts` field. If `delimiter` is set, the returned `prefixes` are exempt
+    /// from this filter.
+    pub filter: std::string::String,
+
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -5655,6 +5660,12 @@ impl ListObjectsRequest {
         self.match_glob = v.into();
         self
     }
+
+    /// Sets the value of [filter][crate::model::ListObjectsRequest::filter].
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for ListObjectsRequest {
@@ -5686,6 +5697,7 @@ impl<'de> serde::de::Deserialize<'de> for ListObjectsRequest {
             __soft_deleted,
             __include_folders_as_prefixes,
             __match_glob,
+            __filter,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -5736,6 +5748,7 @@ impl<'de> serde::de::Deserialize<'de> for ListObjectsRequest {
                             }
                             "matchGlob" => Ok(__FieldTag::__match_glob),
                             "match_glob" => Ok(__FieldTag::__match_glob),
+                            "filter" => Ok(__FieldTag::__filter),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -5899,6 +5912,16 @@ impl<'de> serde::de::Deserialize<'de> for ListObjectsRequest {
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__filter => {
+                            if !fields.insert(__FieldTag::__filter) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for filter",
+                                ));
+                            }
+                            result.filter = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -5972,6 +5995,9 @@ impl serde::ser::Serialize for ListObjectsRequest {
         }
         if !self.match_glob.is_empty() {
             state.serialize_entry("matchGlob", &self.match_glob)?;
+        }
+        if !self.filter.is_empty() {
+            state.serialize_entry("filter", &self.filter)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -10886,12 +10912,13 @@ pub mod bucket {
         #[derive(Clone, Debug, Default, PartialEq)]
         #[non_exhaustive]
         pub struct GoogleManagedEncryptionEnforcementConfig {
-            /// Whether Google Managed Encryption (GMEK) is restricted for new
-            /// objects within the bucket.
-            /// If true, new objects can't be created using GMEK encryption.
-            /// If false or unset, creation of new objects with GMEK encryption is
-            /// allowed.
-            pub restricted: std::option::Option<bool>,
+            /// Restriction mode for google-managed encryption for new objects within
+            /// the bucket. Valid values are: "NotRestricted", "FullyRestricted".
+            /// If `NotRestricted` or unset, creation of new objects with
+            /// google-managed encryption is allowed.
+            /// If `FullyRestricted`, new objects can't be created using google-managed
+            /// encryption.
+            pub restriction_mode: std::option::Option<std::string::String>,
 
             /// Time from which the config was effective. This is service-provided.
             pub effective_time: std::option::Option<wkt::Timestamp>,
@@ -10904,21 +10931,21 @@ pub mod bucket {
                 std::default::Default::default()
             }
 
-            /// Sets the value of [restricted][crate::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig::restricted].
-            pub fn set_restricted<T>(mut self, v: T) -> Self
+            /// Sets the value of [restriction_mode][crate::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig::restriction_mode].
+            pub fn set_restriction_mode<T>(mut self, v: T) -> Self
             where
-                T: std::convert::Into<bool>,
+                T: std::convert::Into<std::string::String>,
             {
-                self.restricted = std::option::Option::Some(v.into());
+                self.restriction_mode = std::option::Option::Some(v.into());
                 self
             }
 
-            /// Sets or clears the value of [restricted][crate::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig::restricted].
-            pub fn set_or_clear_restricted<T>(mut self, v: std::option::Option<T>) -> Self
+            /// Sets or clears the value of [restriction_mode][crate::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig::restriction_mode].
+            pub fn set_or_clear_restriction_mode<T>(mut self, v: std::option::Option<T>) -> Self
             where
-                T: std::convert::Into<bool>,
+                T: std::convert::Into<std::string::String>,
             {
-                self.restricted = v.map(|x| x.into());
+                self.restriction_mode = v.map(|x| x.into());
                 self
             }
 
@@ -10957,7 +10984,7 @@ pub mod bucket {
                 #[doc(hidden)]
                 #[derive(PartialEq, Eq, Hash)]
                 enum __FieldTag {
-                    __restricted,
+                    __restriction_mode,
                     __effective_time,
                     Unknown(std::string::String),
                 }
@@ -10987,7 +11014,8 @@ pub mod bucket {
                                 use std::result::Result::Ok;
                                 use std::string::ToString;
                                 match value {
-                                    "restricted" => Ok(__FieldTag::__restricted),
+                                    "restrictionMode" => Ok(__FieldTag::__restriction_mode),
+                                    "restriction_mode" => Ok(__FieldTag::__restriction_mode),
                                     "effectiveTime" => Ok(__FieldTag::__effective_time),
                                     "effective_time" => Ok(__FieldTag::__effective_time),
                                     _ => Ok(__FieldTag::Unknown(value.to_string())),
@@ -11015,16 +11043,16 @@ pub mod bucket {
                         while let Some(tag) = map.next_key::<__FieldTag>()? {
                             #[allow(clippy::match_single_binding)]
                             match tag {
-                                __FieldTag::__restricted => {
-                                    if !fields.insert(__FieldTag::__restricted) {
+                                __FieldTag::__restriction_mode => {
+                                    if !fields.insert(__FieldTag::__restriction_mode) {
                                         return std::result::Result::Err(
                                             A::Error::duplicate_field(
-                                                "multiple values for restricted",
+                                                "multiple values for restriction_mode",
                                             ),
                                         );
                                     }
-                                    result.restricted =
-                                        map.next_value::<std::option::Option<bool>>()?;
+                                    result.restriction_mode = map
+                                        .next_value::<std::option::Option<std::string::String>>()?;
                                 }
                                 __FieldTag::__effective_time => {
                                     if !fields.insert(__FieldTag::__effective_time) {
@@ -11060,8 +11088,8 @@ pub mod bucket {
                 #[allow(unused_imports)]
                 use std::option::Option::Some;
                 let mut state = serializer.serialize_map(std::option::Option::None)?;
-                if self.restricted.is_some() {
-                    state.serialize_entry("restricted", &self.restricted)?;
+                if self.restriction_mode.is_some() {
+                    state.serialize_entry("restrictionMode", &self.restriction_mode)?;
                 }
                 if self.effective_time.is_some() {
                     state.serialize_entry("effectiveTime", &self.effective_time)?;
@@ -11079,12 +11107,13 @@ pub mod bucket {
         #[derive(Clone, Debug, Default, PartialEq)]
         #[non_exhaustive]
         pub struct CustomerManagedEncryptionEnforcementConfig {
-            /// Whether Customer Managed Encryption (CMEK) is restricted for new
-            /// objects within the bucket.
-            /// If true, new objects can't be created using CMEK encryption.
-            /// If false or unset, creation of new objects with CMEK encryption is
-            /// allowed.
-            pub restricted: std::option::Option<bool>,
+            /// Restriction mode for customer-managed encryption for new objects within
+            /// the bucket. Valid values are: "NotRestricted", "FullyRestricted".
+            /// If `NotRestricted` or unset, creation of new objects with
+            /// customer-managed encryption is allowed.
+            /// If `FullyRestricted`, new objects can't be created using
+            /// customer-managed encryption.
+            pub restriction_mode: std::option::Option<std::string::String>,
 
             /// Time from which the config was effective. This is service-provided.
             pub effective_time: std::option::Option<wkt::Timestamp>,
@@ -11097,21 +11126,21 @@ pub mod bucket {
                 std::default::Default::default()
             }
 
-            /// Sets the value of [restricted][crate::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig::restricted].
-            pub fn set_restricted<T>(mut self, v: T) -> Self
+            /// Sets the value of [restriction_mode][crate::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig::restriction_mode].
+            pub fn set_restriction_mode<T>(mut self, v: T) -> Self
             where
-                T: std::convert::Into<bool>,
+                T: std::convert::Into<std::string::String>,
             {
-                self.restricted = std::option::Option::Some(v.into());
+                self.restriction_mode = std::option::Option::Some(v.into());
                 self
             }
 
-            /// Sets or clears the value of [restricted][crate::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig::restricted].
-            pub fn set_or_clear_restricted<T>(mut self, v: std::option::Option<T>) -> Self
+            /// Sets or clears the value of [restriction_mode][crate::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig::restriction_mode].
+            pub fn set_or_clear_restriction_mode<T>(mut self, v: std::option::Option<T>) -> Self
             where
-                T: std::convert::Into<bool>,
+                T: std::convert::Into<std::string::String>,
             {
-                self.restricted = v.map(|x| x.into());
+                self.restriction_mode = v.map(|x| x.into());
                 self
             }
 
@@ -11150,7 +11179,7 @@ pub mod bucket {
                 #[doc(hidden)]
                 #[derive(PartialEq, Eq, Hash)]
                 enum __FieldTag {
-                    __restricted,
+                    __restriction_mode,
                     __effective_time,
                     Unknown(std::string::String),
                 }
@@ -11180,7 +11209,8 @@ pub mod bucket {
                                 use std::result::Result::Ok;
                                 use std::string::ToString;
                                 match value {
-                                    "restricted" => Ok(__FieldTag::__restricted),
+                                    "restrictionMode" => Ok(__FieldTag::__restriction_mode),
+                                    "restriction_mode" => Ok(__FieldTag::__restriction_mode),
                                     "effectiveTime" => Ok(__FieldTag::__effective_time),
                                     "effective_time" => Ok(__FieldTag::__effective_time),
                                     _ => Ok(__FieldTag::Unknown(value.to_string())),
@@ -11208,16 +11238,16 @@ pub mod bucket {
                         while let Some(tag) = map.next_key::<__FieldTag>()? {
                             #[allow(clippy::match_single_binding)]
                             match tag {
-                                __FieldTag::__restricted => {
-                                    if !fields.insert(__FieldTag::__restricted) {
+                                __FieldTag::__restriction_mode => {
+                                    if !fields.insert(__FieldTag::__restriction_mode) {
                                         return std::result::Result::Err(
                                             A::Error::duplicate_field(
-                                                "multiple values for restricted",
+                                                "multiple values for restriction_mode",
                                             ),
                                         );
                                     }
-                                    result.restricted =
-                                        map.next_value::<std::option::Option<bool>>()?;
+                                    result.restriction_mode = map
+                                        .next_value::<std::option::Option<std::string::String>>()?;
                                 }
                                 __FieldTag::__effective_time => {
                                     if !fields.insert(__FieldTag::__effective_time) {
@@ -11253,8 +11283,8 @@ pub mod bucket {
                 #[allow(unused_imports)]
                 use std::option::Option::Some;
                 let mut state = serializer.serialize_map(std::option::Option::None)?;
-                if self.restricted.is_some() {
-                    state.serialize_entry("restricted", &self.restricted)?;
+                if self.restriction_mode.is_some() {
+                    state.serialize_entry("restrictionMode", &self.restriction_mode)?;
                 }
                 if self.effective_time.is_some() {
                     state.serialize_entry("effectiveTime", &self.effective_time)?;
@@ -11272,12 +11302,14 @@ pub mod bucket {
         #[derive(Clone, Debug, Default, PartialEq)]
         #[non_exhaustive]
         pub struct CustomerSuppliedEncryptionEnforcementConfig {
-            /// Whether Customer Supplied Encryption (CSEK) is restricted for new
-            /// objects within the bucket.
-            /// If true, new objects can't be created using CSEK encryption.
-            /// If false or unset, creation of new objects with CSEK encryption is
-            /// allowed.
-            pub restricted: std::option::Option<bool>,
+            /// Restriction mode for customer-supplied encryption for new objects
+            /// within the bucket. Valid values are: "NotRestricted",
+            /// "FullyRestricted".
+            /// If `NotRestricted` or unset, creation of new objects with
+            /// customer-supplied encryption is allowed.
+            /// If `FullyRestricted`, new objects can't be created using
+            /// customer-supplied encryption.
+            pub restriction_mode: std::option::Option<std::string::String>,
 
             /// Time from which the config was effective. This is service-provided.
             pub effective_time: std::option::Option<wkt::Timestamp>,
@@ -11290,21 +11322,21 @@ pub mod bucket {
                 std::default::Default::default()
             }
 
-            /// Sets the value of [restricted][crate::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig::restricted].
-            pub fn set_restricted<T>(mut self, v: T) -> Self
+            /// Sets the value of [restriction_mode][crate::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig::restriction_mode].
+            pub fn set_restriction_mode<T>(mut self, v: T) -> Self
             where
-                T: std::convert::Into<bool>,
+                T: std::convert::Into<std::string::String>,
             {
-                self.restricted = std::option::Option::Some(v.into());
+                self.restriction_mode = std::option::Option::Some(v.into());
                 self
             }
 
-            /// Sets or clears the value of [restricted][crate::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig::restricted].
-            pub fn set_or_clear_restricted<T>(mut self, v: std::option::Option<T>) -> Self
+            /// Sets or clears the value of [restriction_mode][crate::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig::restriction_mode].
+            pub fn set_or_clear_restriction_mode<T>(mut self, v: std::option::Option<T>) -> Self
             where
-                T: std::convert::Into<bool>,
+                T: std::convert::Into<std::string::String>,
             {
-                self.restricted = v.map(|x| x.into());
+                self.restriction_mode = v.map(|x| x.into());
                 self
             }
 
@@ -11343,7 +11375,7 @@ pub mod bucket {
                 #[doc(hidden)]
                 #[derive(PartialEq, Eq, Hash)]
                 enum __FieldTag {
-                    __restricted,
+                    __restriction_mode,
                     __effective_time,
                     Unknown(std::string::String),
                 }
@@ -11373,7 +11405,8 @@ pub mod bucket {
                                 use std::result::Result::Ok;
                                 use std::string::ToString;
                                 match value {
-                                    "restricted" => Ok(__FieldTag::__restricted),
+                                    "restrictionMode" => Ok(__FieldTag::__restriction_mode),
+                                    "restriction_mode" => Ok(__FieldTag::__restriction_mode),
                                     "effectiveTime" => Ok(__FieldTag::__effective_time),
                                     "effective_time" => Ok(__FieldTag::__effective_time),
                                     _ => Ok(__FieldTag::Unknown(value.to_string())),
@@ -11401,16 +11434,16 @@ pub mod bucket {
                         while let Some(tag) = map.next_key::<__FieldTag>()? {
                             #[allow(clippy::match_single_binding)]
                             match tag {
-                                __FieldTag::__restricted => {
-                                    if !fields.insert(__FieldTag::__restricted) {
+                                __FieldTag::__restriction_mode => {
+                                    if !fields.insert(__FieldTag::__restriction_mode) {
                                         return std::result::Result::Err(
                                             A::Error::duplicate_field(
-                                                "multiple values for restricted",
+                                                "multiple values for restriction_mode",
                                             ),
                                         );
                                     }
-                                    result.restricted =
-                                        map.next_value::<std::option::Option<bool>>()?;
+                                    result.restriction_mode = map
+                                        .next_value::<std::option::Option<std::string::String>>()?;
                                 }
                                 __FieldTag::__effective_time => {
                                     if !fields.insert(__FieldTag::__effective_time) {
@@ -11446,8 +11479,8 @@ pub mod bucket {
                 #[allow(unused_imports)]
                 use std::option::Option::Some;
                 let mut state = serializer.serialize_map(std::option::Option::None)?;
-                if self.restricted.is_some() {
-                    state.serialize_entry("restricted", &self.restricted)?;
+                if self.restriction_mode.is_some() {
+                    state.serialize_entry("restrictionMode", &self.restriction_mode)?;
                 }
                 if self.effective_time.is_some() {
                     state.serialize_entry("effectiveTime", &self.effective_time)?;
@@ -15830,6 +15863,350 @@ impl serde::ser::Serialize for ObjectChecksums {
     }
 }
 
+/// The payload of a single user-defined object context.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ObjectCustomContextPayload {
+    /// Required. The value of the object context.
+    pub value: std::string::String,
+
+    /// Output only. The time at which the object context was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The time at which the object context was last updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ObjectCustomContextPayload {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [value][crate::model::ObjectCustomContextPayload::value].
+    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.value = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::ObjectCustomContextPayload::create_time].
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::ObjectCustomContextPayload::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::ObjectCustomContextPayload::update_time].
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::ObjectCustomContextPayload::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for ObjectCustomContextPayload {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.v2.ObjectCustomContextPayload"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ObjectCustomContextPayload {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __value,
+            __create_time,
+            __update_time,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ObjectCustomContextPayload")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "value" => Ok(__FieldTag::__value),
+                            "createTime" => Ok(__FieldTag::__create_time),
+                            "create_time" => Ok(__FieldTag::__create_time),
+                            "updateTime" => Ok(__FieldTag::__update_time),
+                            "update_time" => Ok(__FieldTag::__update_time),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ObjectCustomContextPayload;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ObjectCustomContextPayload")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__value => {
+                            if !fields.insert(__FieldTag::__value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for value",
+                                ));
+                            }
+                            result.value = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__create_time => {
+                            if !fields.insert(__FieldTag::__create_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for create_time",
+                                ));
+                            }
+                            result.create_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__update_time => {
+                            if !fields.insert(__FieldTag::__update_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_time",
+                                ));
+                            }
+                            result.update_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ObjectCustomContextPayload {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.value.is_empty() {
+            state.serialize_entry("value", &self.value)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// All contexts of an object grouped by type.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ObjectContexts {
+    /// Optional. User-defined object contexts.
+    pub custom:
+        std::collections::HashMap<std::string::String, crate::model::ObjectCustomContextPayload>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ObjectContexts {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [custom][crate::model::ObjectContexts::custom].
+    pub fn set_custom<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::ObjectCustomContextPayload>,
+    {
+        use std::iter::Iterator;
+        self.custom = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ObjectContexts {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.v2.ObjectContexts"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ObjectContexts {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __custom,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ObjectContexts")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "custom" => Ok(__FieldTag::__custom),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ObjectContexts;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ObjectContexts")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__custom => {
+                            if !fields.insert(__FieldTag::__custom) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for custom",
+                                ));
+                            }
+                            result.custom = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        crate::model::ObjectCustomContextPayload,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ObjectContexts {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.custom.is_empty() {
+            state.serialize_entry("custom", &self.custom)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Describes the Customer-Supplied Encryption Key mechanism used to store an
 /// Object's data at rest.
 #[derive(Clone, Debug, Default, PartialEq)]
@@ -16138,6 +16515,11 @@ pub struct Object {
 
     /// Optional. User-provided metadata, in key/value pairs.
     pub metadata: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. User-defined or system-defined object contexts. Each object
+    /// context is a key-payload pair, where the key provides the identification
+    /// and the payload holds the associated value and additional metadata.
+    pub contexts: std::option::Option<crate::model::ObjectContexts>,
 
     /// Whether an object is under event-based hold.
     /// An event-based hold is a way to force the retention of an object until
@@ -16453,6 +16835,24 @@ impl Object {
         self
     }
 
+    /// Sets the value of [contexts][crate::model::Object::contexts].
+    pub fn set_contexts<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ObjectContexts>,
+    {
+        self.contexts = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [contexts][crate::model::Object::contexts].
+    pub fn set_or_clear_contexts<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ObjectContexts>,
+    {
+        self.contexts = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [event_based_hold][crate::model::Object::event_based_hold].
     pub fn set_event_based_hold<T>(mut self, v: T) -> Self
     where
@@ -16621,6 +17021,7 @@ impl<'de> serde::de::Deserialize<'de> for Object {
             __temporary_hold,
             __retention_expire_time,
             __metadata,
+            __contexts,
             __event_based_hold,
             __owner,
             __customer_encryption,
@@ -16691,6 +17092,7 @@ impl<'de> serde::de::Deserialize<'de> for Object {
                             "retentionExpireTime" => Ok(__FieldTag::__retention_expire_time),
                             "retention_expire_time" => Ok(__FieldTag::__retention_expire_time),
                             "metadata" => Ok(__FieldTag::__metadata),
+                            "contexts" => Ok(__FieldTag::__contexts),
                             "eventBasedHold" => Ok(__FieldTag::__event_based_hold),
                             "event_based_hold" => Ok(__FieldTag::__event_based_hold),
                             "owner" => Ok(__FieldTag::__owner),
@@ -17016,6 +17418,16 @@ impl<'de> serde::de::Deserialize<'de> for Object {
                                 >>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__contexts => {
+                            if !fields.insert(__FieldTag::__contexts) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for contexts",
+                                ));
+                            }
+                            result.contexts = map
+                                .next_value::<std::option::Option<crate::model::ObjectContexts>>(
+                                )?;
+                        }
                         __FieldTag::__event_based_hold => {
                             if !fields.insert(__FieldTag::__event_based_hold) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -17213,6 +17625,9 @@ impl serde::ser::Serialize for Object {
         }
         if !self.metadata.is_empty() {
             state.serialize_entry("metadata", &self.metadata)?;
+        }
+        if self.contexts.is_some() {
+            state.serialize_entry("contexts", &self.contexts)?;
         }
         if self.event_based_hold.is_some() {
             state.serialize_entry("eventBasedHold", &self.event_based_hold)?;

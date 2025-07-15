@@ -385,6 +385,7 @@ impl gaxi::prost::ToProto<ListObjectsRequest> for crate::generated::gapic::model
             soft_deleted: self.soft_deleted.to_proto()?,
             include_folders_as_prefixes: self.include_folders_as_prefixes.to_proto()?,
             match_glob: self.match_glob.to_proto()?,
+            filter: self.filter.to_proto()?,
         })
     }
 }
@@ -406,6 +407,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::ListObjectsRequest> 
                 .set_soft_deleted(self.soft_deleted)
                 .set_include_folders_as_prefixes(self.include_folders_as_prefixes)
                 .set_match_glob(self.match_glob)
+                .set_filter(self.filter)
         )
     }
 }
@@ -650,7 +652,7 @@ impl gaxi::prost::ToProto<bucket::encryption::GoogleManagedEncryptionEnforcement
     type Output = bucket::encryption::GoogleManagedEncryptionEnforcementConfig;
     fn to_proto(self) -> std::result::Result<bucket::encryption::GoogleManagedEncryptionEnforcementConfig, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            restricted: self.restricted.map(|v| v.to_proto()).transpose()?,
+            restriction_mode: self.restriction_mode.map(|v| v.to_proto()).transpose()?,
             effective_time: self.effective_time.map(|v| v.to_proto()).transpose()?,
         })
     }
@@ -660,7 +662,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::bucket::encryption::
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig::new()
-                .set_or_clear_restricted(self.restricted.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_restriction_mode(self.restriction_mode.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_effective_time(self.effective_time.map(|v| v.cnv()).transpose()?)
         )
     }
@@ -670,7 +672,7 @@ impl gaxi::prost::ToProto<bucket::encryption::CustomerManagedEncryptionEnforceme
     type Output = bucket::encryption::CustomerManagedEncryptionEnforcementConfig;
     fn to_proto(self) -> std::result::Result<bucket::encryption::CustomerManagedEncryptionEnforcementConfig, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            restricted: self.restricted.map(|v| v.to_proto()).transpose()?,
+            restriction_mode: self.restriction_mode.map(|v| v.to_proto()).transpose()?,
             effective_time: self.effective_time.map(|v| v.to_proto()).transpose()?,
         })
     }
@@ -680,7 +682,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::bucket::encryption::
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig::new()
-                .set_or_clear_restricted(self.restricted.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_restriction_mode(self.restriction_mode.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_effective_time(self.effective_time.map(|v| v.cnv()).transpose()?)
         )
     }
@@ -690,7 +692,7 @@ impl gaxi::prost::ToProto<bucket::encryption::CustomerSuppliedEncryptionEnforcem
     type Output = bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig;
     fn to_proto(self) -> std::result::Result<bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            restricted: self.restricted.map(|v| v.to_proto()).transpose()?,
+            restriction_mode: self.restriction_mode.map(|v| v.to_proto()).transpose()?,
             effective_time: self.effective_time.map(|v| v.to_proto()).transpose()?,
         })
     }
@@ -700,7 +702,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::bucket::encryption::
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig::new()
-                .set_or_clear_restricted(self.restricted.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_restriction_mode(self.restriction_mode.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_effective_time(self.effective_time.map(|v| v.cnv()).transpose()?)
         )
     }
@@ -1293,6 +1295,53 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::ObjectChecksums> for
     }
 }
 
+impl gaxi::prost::ToProto<ObjectCustomContextPayload> for crate::generated::gapic::model::ObjectCustomContextPayload {
+    type Output = ObjectCustomContextPayload;
+    fn to_proto(self) -> std::result::Result<ObjectCustomContextPayload, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            value: self.value.to_proto()?,
+            create_time: self.create_time.map(|v| v.to_proto()).transpose()?,
+            update_time: self.update_time.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic::model::ObjectCustomContextPayload> for ObjectCustomContextPayload {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic::model::ObjectCustomContextPayload, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic::model::ObjectCustomContextPayload::new()
+                .set_value(self.value)
+                .set_or_clear_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<ObjectContexts> for crate::generated::gapic::model::ObjectContexts {
+    type Output = ObjectContexts;
+    fn to_proto(self) -> std::result::Result<ObjectContexts, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            custom: self.custom
+                .into_iter()
+                .map(|(k, v)| {
+                    gaxi::prost::pair_transpose(k.to_proto(), v.to_proto())
+                }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic::model::ObjectContexts> for ObjectContexts {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic::model::ObjectContexts, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic::model::ObjectContexts::new()
+                .set_custom(self.custom.into_iter()
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(k.cnv(), v.cnv())
+                    }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
+        )
+    }
+}
+
 impl gaxi::prost::ToProto<CustomerEncryption> for crate::generated::gapic::model::CustomerEncryption {
     type Output = CustomerEncryption;
     fn to_proto(self) -> std::result::Result<CustomerEncryption, gaxi::prost::ConvertError> {
@@ -1376,6 +1425,7 @@ impl gaxi::prost::ToProto<Object> for crate::generated::gapic::model::Object {
                 .map(|(k, v)| {
                     gaxi::prost::pair_transpose(k.to_proto(), v.to_proto())
                 }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
+            contexts: self.contexts.map(|v| v.to_proto()).transpose()?,
             event_based_hold: self.event_based_hold.map(|v| v.to_proto()).transpose()?,
             owner: self.owner.map(|v| v.to_proto()).transpose()?,
             customer_encryption: self.customer_encryption.map(|v| v.to_proto()).transpose()?,
@@ -1420,6 +1470,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::Object> for Object {
                     .map(|(k, v)| {
                         gaxi::prost::pair_transpose(k.cnv(), v.cnv())
                     }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
+                .set_or_clear_contexts(self.contexts.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_event_based_hold(self.event_based_hold.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_owner(self.owner.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_customer_encryption(self.customer_encryption.map(|v| v.cnv()).transpose()?)

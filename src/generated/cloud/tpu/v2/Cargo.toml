@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-tpu-v2"
-version                = "0.4.0"
+version                = "0.4.1-rc1"
 description            = "Google Cloud Client Libraries for Rust - Cloud TPU API"
 edition.workspace      = true
 authors.workspace      = true

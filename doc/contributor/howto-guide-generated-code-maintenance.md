@@ -56,6 +56,62 @@ Commit all these changes and send a PR to merge them:
 git commit -m "feat(${library}): generate library"
 ```
 
+## Update the code with new googleapis protos
+
+Run:
+
+```bash
+git checkout -b chore-update-googleapis-sha-circa-$(date +%Y-%m-%d)
+go -C generator/ run ./cmd/sidekick update -project-root .. && taplo fmt .sidekick.toml && cargo fmt
+git commit -m"chore: update googleapis SHA circa $(date +%Y-%m-%d)" .
+```
+
+Then send a PR with whatever changed.
+
+## Refreshing the code
+
+### All libraries
+
+Run:
+
+```bash
+go -C generator/ run ./cmd/sidekick refreshall -project-root .. && cargo fmt
+```
+
+Then run the unit tests and send a PR with whatever changed.
+
+### Single library
+
+When iterating, it can be useful to regenerate the code associated with a single
+`.sidekick.toml`.
+
+Run:
+
+```bash
+go -C generator/ run ./cmd/sidekick refresh \
+    -output src/generated/cloud/secretmanager/v1 \
+    -project-root .. && \
+    cargo fmt -p google-cloud-secretmanager-v1
+```
+
+## The Glorious Future
+
+Someday `sidekick` will be stable enough that (a) it will not be part of the
+`google-cloud-rust` repository, and (b) we will be able to install it. At that
+point we will be able to say:
+
+```bash
+go install github.com/googleapis/google-cloud-generator/sidekick@v1.0.0
+```
+
+And we will be able to issue shorter commands, such as:
+
+```bash
+sidekick update && taplo fmt .sidekick.toml && cargo fmt
+```
+
+## Special cases
+
 ### Generating a library with customized directories
 
 We may need to customize the target or source directory for some generated
@@ -108,58 +164,6 @@ Now add the library back:
 ```shell
 go -C generator/ run ./cmd/sidekick rust-generate -project-root .. \
     -service-config google/cloud/websecurityscanner/v1/websecurityscanner_v1.yaml
-```
-
-## Update the code with new googleapis protos
-
-Run:
-
-```bash
-go -C generator/ run ./cmd/sidekick update -project-root .. && taplo fmt .sidekick.toml && cargo fmt
-```
-
-Then run the unit tests and send a PR with whatever changed.
-
-## Refreshing the code
-
-### All libraries
-
-Run:
-
-```bash
-go -C generator/ run ./cmd/sidekick refreshall -project-root .. && cargo fmt
-```
-
-Then run the unit tests and send a PR with whatever changed.
-
-### Single library
-
-When iterating, it can be useful to regenerate the code associated with a single
-`.sidekick.toml`.
-
-Run:
-
-```bash
-go -C generator/ run ./cmd/sidekick refresh \
-    -output src/generated/cloud/secretmanager/v1 \
-    -project-root .. && \
-    cargo fmt -p google-cloud-secretmanager-v1
-```
-
-## The Glorious Future
-
-Someday `sidekick` will be stable enough that (a) it will not be part of the
-`google-cloud-rust` repository, and (b) we will be able to install it. At that
-point we will be able to say:
-
-```bash
-go install github.com/googleapis/google-cloud-generator/sidekick@v1.0.0
-```
-
-And we will be able to issue shorter commands, such as:
-
-```bash
-sidekick update && taplo fmt .sidekick.toml && cargo fmt
 ```
 
 [protocol buffer compiler installation]: https://protobuf.dev/installation/

@@ -8096,6 +8096,9 @@ pub struct Cluster {
     /// Output only. Reserved for future use.
     pub satisfies_pzs: std::option::Option<bool>,
 
+    /// Optional. TLS configuration for the Kafka cluster.
+    pub tls_config: std::option::Option<crate::model::TlsConfig>,
+
     /// Platform specific configuration properties for a Kafka cluster.
     pub platform_config: std::option::Option<crate::model::cluster::PlatformConfig>,
 
@@ -8239,6 +8242,24 @@ impl Cluster {
         self
     }
 
+    /// Sets the value of [tls_config][crate::model::Cluster::tls_config].
+    pub fn set_tls_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TlsConfig>,
+    {
+        self.tls_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [tls_config][crate::model::Cluster::tls_config].
+    pub fn set_or_clear_tls_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TlsConfig>,
+    {
+        self.tls_config = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [platform_config][crate::model::Cluster::platform_config].
     ///
     /// Note that all the setters affecting `platform_config` are mutually
@@ -8305,6 +8326,7 @@ impl<'de> serde::de::Deserialize<'de> for Cluster {
             __state,
             __satisfies_pzi,
             __satisfies_pzs,
+            __tls_config,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -8342,6 +8364,8 @@ impl<'de> serde::de::Deserialize<'de> for Cluster {
                             "satisfies_pzi" => Ok(__FieldTag::__satisfies_pzi),
                             "satisfiesPzs" => Ok(__FieldTag::__satisfies_pzs),
                             "satisfies_pzs" => Ok(__FieldTag::__satisfies_pzs),
+                            "tlsConfig" => Ok(__FieldTag::__tls_config),
+                            "tls_config" => Ok(__FieldTag::__tls_config),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -8476,6 +8500,15 @@ impl<'de> serde::de::Deserialize<'de> for Cluster {
                             }
                             result.satisfies_pzs = map.next_value::<std::option::Option<bool>>()?;
                         }
+                        __FieldTag::__tls_config => {
+                            if !fields.insert(__FieldTag::__tls_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for tls_config",
+                                ));
+                            }
+                            result.tls_config =
+                                map.next_value::<std::option::Option<crate::model::TlsConfig>>()?;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -8528,6 +8561,9 @@ impl serde::ser::Serialize for Cluster {
         }
         if self.satisfies_pzs.is_some() {
             state.serialize_entry("satisfiesPzs", &self.satisfies_pzs)?;
+        }
+        if self.tls_config.is_some() {
+            state.serialize_entry("tlsConfig", &self.tls_config)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -9600,6 +9636,472 @@ impl serde::ser::Serialize for GcpConfig {
             }
         }
         state.end()
+    }
+}
+
+/// The TLS configuration for the Kafka cluster.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct TlsConfig {
+    /// Optional. The configuration of the broker truststore. If specified, clients
+    /// can use mTLS for authentication.
+    pub trust_config: std::option::Option<crate::model::TrustConfig>,
+
+    /// Optional. A list of rules for mapping from SSL principal names to
+    /// short names. These are applied in order by Kafka.
+    /// Refer to the Apache Kafka documentation for `ssl.principal.mapping.rules`
+    /// for the precise formatting details and syntax.
+    /// Example: "RULE:^CN=(.*?),OU=ServiceUsers.*$/$1@example.com/,DEFAULT"
+    ///
+    /// This is a static Kafka broker configuration. Setting or modifying this
+    /// field will trigger a rolling restart of the Kafka brokers to apply
+    /// the change. An empty string means no rules are applied (Kafka default).
+    pub ssl_principal_mapping_rules: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl TlsConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [trust_config][crate::model::TlsConfig::trust_config].
+    pub fn set_trust_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TrustConfig>,
+    {
+        self.trust_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [trust_config][crate::model::TlsConfig::trust_config].
+    pub fn set_or_clear_trust_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TrustConfig>,
+    {
+        self.trust_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [ssl_principal_mapping_rules][crate::model::TlsConfig::ssl_principal_mapping_rules].
+    pub fn set_ssl_principal_mapping_rules<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.ssl_principal_mapping_rules = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for TlsConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.managedkafka.v1.TlsConfig"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for TlsConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __trust_config,
+            __ssl_principal_mapping_rules,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for TlsConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "trustConfig" => Ok(__FieldTag::__trust_config),
+                            "trust_config" => Ok(__FieldTag::__trust_config),
+                            "sslPrincipalMappingRules" => {
+                                Ok(__FieldTag::__ssl_principal_mapping_rules)
+                            }
+                            "ssl_principal_mapping_rules" => {
+                                Ok(__FieldTag::__ssl_principal_mapping_rules)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = TlsConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct TlsConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__trust_config => {
+                            if !fields.insert(__FieldTag::__trust_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for trust_config",
+                                ));
+                            }
+                            result.trust_config =
+                                map.next_value::<std::option::Option<crate::model::TrustConfig>>()?;
+                        }
+                        __FieldTag::__ssl_principal_mapping_rules => {
+                            if !fields.insert(__FieldTag::__ssl_principal_mapping_rules) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ssl_principal_mapping_rules",
+                                ));
+                            }
+                            result.ssl_principal_mapping_rules = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for TlsConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.trust_config.is_some() {
+            state.serialize_entry("trustConfig", &self.trust_config)?;
+        }
+        if !self.ssl_principal_mapping_rules.is_empty() {
+            state.serialize_entry(
+                "sslPrincipalMappingRules",
+                &self.ssl_principal_mapping_rules,
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// Sources of CA certificates to install in the broker's truststore.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct TrustConfig {
+    /// Optional. Configuration for the Google Certificate Authority Service.
+    /// Maximum 10.
+    pub cas_configs: std::vec::Vec<crate::model::trust_config::CertificateAuthorityServiceConfig>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl TrustConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [cas_configs][crate::model::TrustConfig::cas_configs].
+    pub fn set_cas_configs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::trust_config::CertificateAuthorityServiceConfig>,
+    {
+        use std::iter::Iterator;
+        self.cas_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for TrustConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.managedkafka.v1.TrustConfig"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for TrustConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __cas_configs,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for TrustConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "casConfigs" => Ok(__FieldTag::__cas_configs),
+                            "cas_configs" => Ok(__FieldTag::__cas_configs),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = TrustConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct TrustConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__cas_configs => {
+                            if !fields.insert(__FieldTag::__cas_configs) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cas_configs",
+                                ));
+                            }
+                            result.cas_configs = map.next_value::<std::option::Option<std::vec::Vec<crate::model::trust_config::CertificateAuthorityServiceConfig>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for TrustConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.cas_configs.is_empty() {
+            state.serialize_entry("casConfigs", &self.cas_configs)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// Defines additional types related to [TrustConfig].
+pub mod trust_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// A configuration for the Google Certificate Authority Service.
+    #[derive(Clone, Debug, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct CertificateAuthorityServiceConfig {
+        /// Required. The name of the CA pool to pull CA certificates from.
+        /// Structured like:
+        /// projects/{project}/locations/{location}/caPools/{ca_pool}.
+        /// The CA pool does not need to be in the same project or location as the
+        /// Kafka cluster.
+        pub ca_pool: std::string::String,
+
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl CertificateAuthorityServiceConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [ca_pool][crate::model::trust_config::CertificateAuthorityServiceConfig::ca_pool].
+        pub fn set_ca_pool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.ca_pool = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for CertificateAuthorityServiceConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.managedkafka.v1.TrustConfig.CertificateAuthorityServiceConfig"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for CertificateAuthorityServiceConfig {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __ca_pool,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter
+                                .write_str("a field name for CertificateAuthorityServiceConfig")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "caPool" => Ok(__FieldTag::__ca_pool),
+                                "ca_pool" => Ok(__FieldTag::__ca_pool),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = CertificateAuthorityServiceConfig;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct CertificateAuthorityServiceConfig")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__ca_pool => {
+                                if !fields.insert(__FieldTag::__ca_pool) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for ca_pool",
+                                    ));
+                                }
+                                result.ca_pool = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for CertificateAuthorityServiceConfig {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.ca_pool.is_empty() {
+                state.serialize_entry("caPool", &self.ca_pool)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
     }
 }
 

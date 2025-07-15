@@ -114,7 +114,7 @@ mod driver {
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(Storage::builder().with_tracing().with_retry_policy(retry_policy()); "with tracing and retry enabled")]
+    #[test_case(Storage::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_storage_objects(
         builder: storage::builder::storage::ClientBuilder,
@@ -124,7 +124,7 @@ mod driver {
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(Storage::builder().with_tracing().with_retry_policy(retry_policy()); "with tracing and retry enabled")]
+    #[test_case(Storage::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_storage_objects_large_file(
         builder: storage::builder::storage::ClientBuilder,
@@ -134,7 +134,7 @@ mod driver {
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(Storage::builder().with_tracing().with_retry_policy(retry_policy()); "with tracing and retry enabled")]
+    #[test_case(Storage::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_storage_objects_upload_buffered(
         builder: storage::builder::storage::ClientBuilder,
@@ -144,7 +144,7 @@ mod driver {
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(Storage::builder().with_tracing().with_retry_policy(retry_policy()); "with tracing and retry enabled")]
+    #[test_case(Storage::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_storage_objects_with_key(
         builder: storage::builder::storage::ClientBuilder,
@@ -156,10 +156,20 @@ mod driver {
 
     #[test_case(ta::client::TelcoAutomation::builder().with_tracing(); "with tracing enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_error_details(
+    async fn run_error_details_http(
         builder: ta::builder::telco_automation::ClientBuilder,
     ) -> integration_tests::Result<()> {
-        integration_tests::error_details::run(builder)
+        integration_tests::error_details::error_details_http(builder)
+            .await
+            .map_err(integration_tests::report_error)
+    }
+
+    #[test_case(StorageControl::builder().with_tracing(); "with tracing enabled")]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_error_details_grpc(
+        builder: storage::builder::storage_control::ClientBuilder,
+    ) -> integration_tests::Result<()> {
+        integration_tests::error_details::error_details_grpc(builder)
             .await
             .map_err(integration_tests::report_error)
     }

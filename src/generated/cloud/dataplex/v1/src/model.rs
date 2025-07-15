@@ -12454,6 +12454,10 @@ pub struct SearchEntriesRequest {
     /// `name` is located.
     pub scope: std::string::String,
 
+    /// Optional. Specifies whether the search should understand the meaning and
+    /// intent behind the query, rather than just matching keywords.
+    pub semantic_search: bool,
+
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -12497,6 +12501,12 @@ impl SearchEntriesRequest {
         self.scope = v.into();
         self
     }
+
+    /// Sets the value of [semantic_search][crate::model::SearchEntriesRequest::semantic_search].
+    pub fn set_semantic_search<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.semantic_search = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for SearchEntriesRequest {
@@ -12521,6 +12531,7 @@ impl<'de> serde::de::Deserialize<'de> for SearchEntriesRequest {
             __page_token,
             __order_by,
             __scope,
+            __semantic_search,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -12550,6 +12561,8 @@ impl<'de> serde::de::Deserialize<'de> for SearchEntriesRequest {
                             "orderBy" => Ok(__FieldTag::__order_by),
                             "order_by" => Ok(__FieldTag::__order_by),
                             "scope" => Ok(__FieldTag::__scope),
+                            "semanticSearch" => Ok(__FieldTag::__semantic_search),
+                            "semantic_search" => Ok(__FieldTag::__semantic_search),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -12644,6 +12657,16 @@ impl<'de> serde::de::Deserialize<'de> for SearchEntriesRequest {
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__semantic_search => {
+                            if !fields.insert(__FieldTag::__semantic_search) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for semantic_search",
+                                ));
+                            }
+                            result.semantic_search = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -12693,6 +12716,9 @@ impl serde::ser::Serialize for SearchEntriesRequest {
         }
         if !self.scope.is_empty() {
             state.serialize_entry("scope", &self.scope)?;
+        }
+        if !wkt::internal::is_default(&self.semantic_search) {
+            state.serialize_entry("semanticSearch", &self.semantic_search)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

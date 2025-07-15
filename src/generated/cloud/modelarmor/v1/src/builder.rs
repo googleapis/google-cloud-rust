@@ -762,6 +762,27 @@ pub mod model_armor {
             self.0.request.user_prompt_data = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [multi_language_detection_metadata][crate::model::SanitizeUserPromptRequest::multi_language_detection_metadata].
+        pub fn set_multi_language_detection_metadata<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MultiLanguageDetectionMetadata>,
+        {
+            self.0.request.multi_language_detection_metadata = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [multi_language_detection_metadata][crate::model::SanitizeUserPromptRequest::multi_language_detection_metadata].
+        pub fn set_or_clear_multi_language_detection_metadata<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::MultiLanguageDetectionMetadata>,
+        {
+            self.0.request.multi_language_detection_metadata = v.map(|x| x.into());
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -854,6 +875,27 @@ pub mod model_armor {
         /// Sets the value of [user_prompt][crate::model::SanitizeModelResponseRequest::user_prompt].
         pub fn set_user_prompt<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.user_prompt = v.into();
+            self
+        }
+
+        /// Sets the value of [multi_language_detection_metadata][crate::model::SanitizeModelResponseRequest::multi_language_detection_metadata].
+        pub fn set_multi_language_detection_metadata<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MultiLanguageDetectionMetadata>,
+        {
+            self.0.request.multi_language_detection_metadata = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [multi_language_detection_metadata][crate::model::SanitizeModelResponseRequest::multi_language_detection_metadata].
+        pub fn set_or_clear_multi_language_detection_metadata<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::MultiLanguageDetectionMetadata>,
+        {
+            self.0.request.multi_language_detection_metadata = v.map(|x| x.into());
             self
         }
     }

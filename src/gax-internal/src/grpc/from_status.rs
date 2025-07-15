@@ -12,16 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::grpc::status::status_from_proto;
 use gax::error::Error;
-use gax::error::rpc::{Code, Status};
+use gax::error::rpc::Status;
+use prost::Message;
 use std::error::Error as _;
 
 fn to_gax_status(status: &tonic::Status) -> Status {
-    let code = Code::from(status.code() as i32);
-    // TODO(#1699) - also convert the details
-    Status::default()
-        .set_code(code)
+    let pb = crate::google::rpc::Status::decode(status.details()).unwrap_or_default();
+    status_from_proto(pb)
+        .set_code(status.code())
         .set_message(status.message())
+        .into()
 }
 
 fn as_inner<T>(status: &tonic::Status) -> Option<&T>
@@ -57,27 +59,27 @@ pub fn to_gax_error(status: tonic::Status) -> Error {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use gax::error::rpc;
+    use gax::error::rpc::{Code, StatusDetails};
     use test_case::test_case;
 
-    #[test_case(tonic::Code::Ok, rpc::Code::Ok)]
-    #[test_case(tonic::Code::Cancelled, rpc::Code::Cancelled)]
-    #[test_case(tonic::Code::Unknown, rpc::Code::Unknown)]
-    #[test_case(tonic::Code::InvalidArgument, rpc::Code::InvalidArgument)]
-    #[test_case(tonic::Code::DeadlineExceeded, rpc::Code::DeadlineExceeded)]
-    #[test_case(tonic::Code::NotFound, rpc::Code::NotFound)]
-    #[test_case(tonic::Code::AlreadyExists, rpc::Code::AlreadyExists)]
-    #[test_case(tonic::Code::PermissionDenied, rpc::Code::PermissionDenied)]
-    #[test_case(tonic::Code::ResourceExhausted, rpc::Code::ResourceExhausted)]
-    #[test_case(tonic::Code::FailedPrecondition, rpc::Code::FailedPrecondition)]
-    #[test_case(tonic::Code::Aborted, rpc::Code::Aborted)]
-    #[test_case(tonic::Code::OutOfRange, rpc::Code::OutOfRange)]
-    #[test_case(tonic::Code::Unimplemented, rpc::Code::Unimplemented)]
-    #[test_case(tonic::Code::Internal, rpc::Code::Internal)]
-    #[test_case(tonic::Code::Unavailable, rpc::Code::Unavailable)]
-    #[test_case(tonic::Code::DataLoss, rpc::Code::DataLoss)]
-    #[test_case(tonic::Code::Unauthenticated, rpc::Code::Unauthenticated)]
-    fn check_code(input: tonic::Code, want: rpc::Code) {
+    #[test_case(tonic::Code::Ok, Code::Ok)]
+    #[test_case(tonic::Code::Cancelled, Code::Cancelled)]
+    #[test_case(tonic::Code::Unknown, Code::Unknown)]
+    #[test_case(tonic::Code::InvalidArgument, Code::InvalidArgument)]
+    #[test_case(tonic::Code::DeadlineExceeded, Code::DeadlineExceeded)]
+    #[test_case(tonic::Code::NotFound, Code::NotFound)]
+    #[test_case(tonic::Code::AlreadyExists, Code::AlreadyExists)]
+    #[test_case(tonic::Code::PermissionDenied, Code::PermissionDenied)]
+    #[test_case(tonic::Code::ResourceExhausted, Code::ResourceExhausted)]
+    #[test_case(tonic::Code::FailedPrecondition, Code::FailedPrecondition)]
+    #[test_case(tonic::Code::Aborted, Code::Aborted)]
+    #[test_case(tonic::Code::OutOfRange, Code::OutOfRange)]
+    #[test_case(tonic::Code::Unimplemented, Code::Unimplemented)]
+    #[test_case(tonic::Code::Internal, Code::Internal)]
+    #[test_case(tonic::Code::Unavailable, Code::Unavailable)]
+    #[test_case(tonic::Code::DataLoss, Code::DataLoss)]
+    #[test_case(tonic::Code::Unauthenticated, Code::Unauthenticated)]
+    fn check_code(input: tonic::Code, want: Code) {
         let got = to_gax_status(&tonic::Status::new(input, "test-only"));
         assert_eq!(got.code, want);
         assert_eq!(&got.message, "test-only");
@@ -90,5 +92,38 @@ mod tests {
         let status = got.status().unwrap();
         assert_eq!(status.code, Code::InvalidArgument);
         assert_eq!(&status.message, "test-only");
+    }
+
+    #[test]
+    fn gax_error_with_details() -> anyhow::Result<()> {
+        let mut buf = bytes::BytesMut::with_capacity(256);
+        let code = Code::InvalidArgument as i32;
+        let status = crate::google::rpc::Status {
+            code,
+            message: "test-only".to_string(),
+            details: vec![prost_types::Any::from_msg(
+                &crate::google::rpc::ErrorInfo {
+                    reason: "reason".into(),
+                    domain: "domain".into(),
+                    ..Default::default()
+                },
+            )?],
+        };
+        status.encode(&mut buf)?;
+
+        let status = tonic::Status::with_details(code.into(), "test-only", buf.freeze());
+        let got = to_gax_error(status);
+        let status = got.status().unwrap();
+        assert_eq!(status.code, Code::InvalidArgument);
+        assert_eq!(&status.message, "test-only");
+        assert_eq!(
+            status.details,
+            vec![StatusDetails::ErrorInfo(
+                rpc::model::ErrorInfo::default()
+                    .set_reason("reason")
+                    .set_domain("domain")
+            )]
+        );
+        Ok(())
     }
 }

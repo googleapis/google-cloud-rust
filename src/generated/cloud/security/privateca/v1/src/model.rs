@@ -47,7 +47,7 @@ extern crate wkt;
 #[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CertificateAuthority {
-    /// Output only. The resource name for this
+    /// Identifier. The resource name for this
     /// [CertificateAuthority][google.cloud.security.privateca.v1.CertificateAuthority]
     /// in the format `projects/*/locations/*/caPools/*/certificateAuthorities/*`.
     ///
@@ -182,6 +182,18 @@ pub struct CertificateAuthority {
 
     /// Optional. Labels with user-defined metadata.
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. User-defined URLs for CA certificate and CRLs. The service does
+    /// not publish content to these URLs. It is up to the user to mirror content
+    /// to these URLs.
+    pub user_defined_access_urls:
+        std::option::Option<crate::model::certificate_authority::UserDefinedAccessUrls>,
+
+    /// Output only. Reserved for future use.
+    pub satisfies_pzs: bool,
+
+    /// Output only. Reserved for future use.
+    pub satisfies_pzi: bool,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -422,6 +434,36 @@ impl CertificateAuthority {
         self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
+
+    /// Sets the value of [user_defined_access_urls][crate::model::CertificateAuthority::user_defined_access_urls].
+    pub fn set_user_defined_access_urls<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::certificate_authority::UserDefinedAccessUrls>,
+    {
+        self.user_defined_access_urls = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [user_defined_access_urls][crate::model::CertificateAuthority::user_defined_access_urls].
+    pub fn set_or_clear_user_defined_access_urls<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::certificate_authority::UserDefinedAccessUrls>,
+    {
+        self.user_defined_access_urls = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [satisfies_pzs][crate::model::CertificateAuthority::satisfies_pzs].
+    pub fn set_satisfies_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.satisfies_pzs = v.into();
+        self
+    }
+
+    /// Sets the value of [satisfies_pzi][crate::model::CertificateAuthority::satisfies_pzi].
+    pub fn set_satisfies_pzi<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.satisfies_pzi = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for CertificateAuthority {
@@ -457,6 +499,9 @@ impl<'de> serde::de::Deserialize<'de> for CertificateAuthority {
             __delete_time,
             __expire_time,
             __labels,
+            __user_defined_access_urls,
+            __satisfies_pzs,
+            __satisfies_pzi,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -508,6 +553,14 @@ impl<'de> serde::de::Deserialize<'de> for CertificateAuthority {
                             "expireTime" => Ok(__FieldTag::__expire_time),
                             "expire_time" => Ok(__FieldTag::__expire_time),
                             "labels" => Ok(__FieldTag::__labels),
+                            "userDefinedAccessUrls" => Ok(__FieldTag::__user_defined_access_urls),
+                            "user_defined_access_urls" => {
+                                Ok(__FieldTag::__user_defined_access_urls)
+                            }
+                            "satisfiesPzs" => Ok(__FieldTag::__satisfies_pzs),
+                            "satisfies_pzs" => Ok(__FieldTag::__satisfies_pzs),
+                            "satisfiesPzi" => Ok(__FieldTag::__satisfies_pzi),
+                            "satisfies_pzi" => Ok(__FieldTag::__satisfies_pzi),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -699,6 +752,37 @@ impl<'de> serde::de::Deserialize<'de> for CertificateAuthority {
                                 >>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__user_defined_access_urls => {
+                            if !fields.insert(__FieldTag::__user_defined_access_urls) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for user_defined_access_urls",
+                                ));
+                            }
+                            result.user_defined_access_urls = map
+                                .next_value::<std::option::Option<
+                                    crate::model::certificate_authority::UserDefinedAccessUrls,
+                                >>()?;
+                        }
+                        __FieldTag::__satisfies_pzs => {
+                            if !fields.insert(__FieldTag::__satisfies_pzs) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for satisfies_pzs",
+                                ));
+                            }
+                            result.satisfies_pzs = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__satisfies_pzi => {
+                            if !fields.insert(__FieldTag::__satisfies_pzi) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for satisfies_pzi",
+                                ));
+                            }
+                            result.satisfies_pzi = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -775,6 +859,15 @@ impl serde::ser::Serialize for CertificateAuthority {
         }
         if !self.labels.is_empty() {
             state.serialize_entry("labels", &self.labels)?;
+        }
+        if self.user_defined_access_urls.is_some() {
+            state.serialize_entry("userDefinedAccessUrls", &self.user_defined_access_urls)?;
+        }
+        if !wkt::internal::is_default(&self.satisfies_pzs) {
+            state.serialize_entry("satisfiesPzs", &self.satisfies_pzs)?;
+        }
+        if !wkt::internal::is_default(&self.satisfies_pzi) {
+            state.serialize_entry("satisfiesPzi", &self.satisfies_pzi)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1232,6 +1325,195 @@ pub mod certificate_authority {
             /// simplified experience. All managed keys will be have their
             /// [ProtectionLevel][google.cloud.kms.v1.ProtectionLevel] as `HSM`.
             Algorithm(crate::model::certificate_authority::SignHashAlgorithm),
+        }
+    }
+
+    /// User-defined URLs for accessing content published by this
+    /// [CertificateAuthority][google.cloud.security.privateca.v1.CertificateAuthority].
+    ///
+    /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
+    #[derive(Clone, Debug, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct UserDefinedAccessUrls {
+        /// Optional. A list of URLs where the issuer CA certificate may be
+        /// downloaded, which appears in the "Authority Information Access" extension
+        /// in the certificate. If specified, the default [Cloud Storage
+        /// URLs][google.cloud.security.privateca.v1.CertificateAuthority.AccessUrls.ca_certificate_access_url]
+        /// will be omitted.
+        ///
+        /// [google.cloud.security.privateca.v1.CertificateAuthority.AccessUrls.ca_certificate_access_url]: crate::model::certificate_authority::AccessUrls::ca_certificate_access_url
+        pub aia_issuing_certificate_urls: std::vec::Vec<std::string::String>,
+
+        /// Optional. A list of URLs where to obtain CRL information, i.e.
+        /// the DistributionPoint.fullName described by
+        /// <https://tools.ietf.org/html/rfc5280#section-4.2.1.13>.
+        /// If specified, the default
+        /// [Cloud Storage
+        /// URLs][google.cloud.security.privateca.v1.CertificateAuthority.AccessUrls.crl_access_urls]
+        /// will be omitted.
+        ///
+        /// [google.cloud.security.privateca.v1.CertificateAuthority.AccessUrls.crl_access_urls]: crate::model::certificate_authority::AccessUrls::crl_access_urls
+        pub crl_access_urls: std::vec::Vec<std::string::String>,
+
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl UserDefinedAccessUrls {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [aia_issuing_certificate_urls][crate::model::certificate_authority::UserDefinedAccessUrls::aia_issuing_certificate_urls].
+        pub fn set_aia_issuing_certificate_urls<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.aia_issuing_certificate_urls = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [crl_access_urls][crate::model::certificate_authority::UserDefinedAccessUrls::crl_access_urls].
+        pub fn set_crl_access_urls<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.crl_access_urls = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for UserDefinedAccessUrls {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.security.privateca.v1.CertificateAuthority.UserDefinedAccessUrls"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for UserDefinedAccessUrls {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __aia_issuing_certificate_urls,
+                __crl_access_urls,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for UserDefinedAccessUrls")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "aiaIssuingCertificateUrls" => {
+                                    Ok(__FieldTag::__aia_issuing_certificate_urls)
+                                }
+                                "aia_issuing_certificate_urls" => {
+                                    Ok(__FieldTag::__aia_issuing_certificate_urls)
+                                }
+                                "crlAccessUrls" => Ok(__FieldTag::__crl_access_urls),
+                                "crl_access_urls" => Ok(__FieldTag::__crl_access_urls),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = UserDefinedAccessUrls;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct UserDefinedAccessUrls")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__aia_issuing_certificate_urls => {
+                                if !fields.insert(__FieldTag::__aia_issuing_certificate_urls) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for aia_issuing_certificate_urls",
+                                    ));
+                                }
+                                result.aia_issuing_certificate_urls = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                            }
+                            __FieldTag::__crl_access_urls => {
+                                if !fields.insert(__FieldTag::__crl_access_urls) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for crl_access_urls",
+                                    ));
+                                }
+                                result.crl_access_urls = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for UserDefinedAccessUrls {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.aia_issuing_certificate_urls.is_empty() {
+                state.serialize_entry(
+                    "aiaIssuingCertificateUrls",
+                    &self.aia_issuing_certificate_urls,
+                )?;
+            }
+            if !self.crl_access_urls.is_empty() {
+                state.serialize_entry("crlAccessUrls", &self.crl_access_urls)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
         }
     }
 
@@ -1766,7 +2048,7 @@ pub mod certificate_authority {
 #[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CaPool {
-    /// Output only. The resource name for this
+    /// Identifier. The resource name for this
     /// [CaPool][google.cloud.security.privateca.v1.CaPool] in the format
     /// `projects/*/locations/*/caPools/*`.
     ///
@@ -2446,6 +2728,17 @@ pub mod ca_pool {
         pub allowed_key_types:
             std::vec::Vec<crate::model::ca_pool::issuance_policy::AllowedKeyType>,
 
+        /// Optional. The duration to backdate all certificates issued from this
+        /// [CaPool][google.cloud.security.privateca.v1.CaPool]. If not set, the
+        /// certificates will be issued with a not_before_time of the issuance time
+        /// (i.e. the current time). If set, the certificates will be issued with a
+        /// not_before_time of the issuance time minus the backdate_duration. The
+        /// not_after_time will be adjusted to preserve the requested lifetime. The
+        /// backdate_duration must be less than or equal to 48 hours.
+        ///
+        /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
+        pub backdate_duration: std::option::Option<wkt::Duration>,
+
         /// Optional. The maximum lifetime allowed for issued
         /// [Certificates][google.cloud.security.privateca.v1.Certificate]. Note that
         /// if the issuing
@@ -2536,6 +2829,24 @@ pub mod ca_pool {
         {
             use std::iter::Iterator;
             self.allowed_key_types = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [backdate_duration][crate::model::ca_pool::IssuancePolicy::backdate_duration].
+        pub fn set_backdate_duration<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.backdate_duration = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backdate_duration][crate::model::ca_pool::IssuancePolicy::backdate_duration].
+        pub fn set_or_clear_backdate_duration<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.backdate_duration = v.map(|x| x.into());
             self
         }
 
@@ -2647,6 +2958,7 @@ pub mod ca_pool {
             #[derive(PartialEq, Eq, Hash)]
             enum __FieldTag {
                 __allowed_key_types,
+                __backdate_duration,
                 __maximum_lifetime,
                 __allowed_issuance_modes,
                 __baseline_values,
@@ -2677,6 +2989,8 @@ pub mod ca_pool {
                             match value {
                                 "allowedKeyTypes" => Ok(__FieldTag::__allowed_key_types),
                                 "allowed_key_types" => Ok(__FieldTag::__allowed_key_types),
+                                "backdateDuration" => Ok(__FieldTag::__backdate_duration),
+                                "backdate_duration" => Ok(__FieldTag::__backdate_duration),
                                 "maximumLifetime" => Ok(__FieldTag::__maximum_lifetime),
                                 "maximum_lifetime" => Ok(__FieldTag::__maximum_lifetime),
                                 "allowedIssuanceModes" => Ok(__FieldTag::__allowed_issuance_modes),
@@ -2729,6 +3043,15 @@ pub mod ca_pool {
                                         >,
                                     >>()?
                                     .unwrap_or_default();
+                            }
+                            __FieldTag::__backdate_duration => {
+                                if !fields.insert(__FieldTag::__backdate_duration) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for backdate_duration",
+                                    ));
+                                }
+                                result.backdate_duration =
+                                    map.next_value::<std::option::Option<wkt::Duration>>()?;
                             }
                             __FieldTag::__maximum_lifetime => {
                                 if !fields.insert(__FieldTag::__maximum_lifetime) {
@@ -2806,6 +3129,9 @@ pub mod ca_pool {
             let mut state = serializer.serialize_map(std::option::Option::None)?;
             if !self.allowed_key_types.is_empty() {
                 state.serialize_entry("allowedKeyTypes", &self.allowed_key_types)?;
+            }
+            if self.backdate_duration.is_some() {
+                state.serialize_entry("backdateDuration", &self.backdate_duration)?;
             }
             if self.maximum_lifetime.is_some() {
                 state.serialize_entry("maximumLifetime", &self.maximum_lifetime)?;
@@ -4029,7 +4355,7 @@ pub mod ca_pool {
 #[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CertificateRevocationList {
-    /// Output only. The resource name for this
+    /// Identifier. The resource name for this
     /// [CertificateRevocationList][google.cloud.security.privateca.v1.CertificateRevocationList]
     /// in the format `projects/*/locations/*/caPools/*certificateAuthorities/*/
     /// certificateRevocationLists/*`.
@@ -4823,7 +5149,7 @@ pub mod certificate_revocation_list {
 #[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Certificate {
-    /// Output only. The resource name for this
+    /// Identifier. The resource name for this
     /// [Certificate][google.cloud.security.privateca.v1.Certificate] in the format
     /// `projects/*/locations/*/caPools/*/certificates/*`.
     ///
@@ -5667,7 +5993,7 @@ pub mod certificate {
 #[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CertificateTemplate {
-    /// Output only. The resource name for this
+    /// Identifier. The resource name for this
     /// [CertificateTemplate][google.cloud.security.privateca.v1.CertificateTemplate]
     /// in the format `projects/*/locations/*/certificateTemplates/*`.
     ///
@@ -6161,7 +6487,9 @@ pub struct X509Parameters {
 
     /// Optional. Describes options in this
     /// [X509Parameters][google.cloud.security.privateca.v1.X509Parameters] that
-    /// are relevant in a CA certificate.
+    /// are relevant in a CA certificate. If not specified, a default basic
+    /// constraints extension with `is_ca=false` will be added for leaf
+    /// certificates.
     ///
     /// [google.cloud.security.privateca.v1.X509Parameters]: crate::model::X509Parameters
     pub ca_options: std::option::Option<crate::model::x_509_parameters::CaOptions>,
@@ -6463,21 +6791,21 @@ pub mod x_509_parameters {
     #[allow(unused_imports)]
     use super::*;
 
-    /// Describes values that are relevant in a CA certificate.
+    /// Describes the X.509 basic constraints extension, per [RFC 5280
+    /// section 4.2.1.9](https://tools.ietf.org/html/rfc5280#section-4.2.1.9)
     #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CaOptions {
-        /// Optional. Refers to the "CA" X.509 extension, which is a boolean value.
-        /// When this value is missing, the extension will be omitted from the CA
-        /// certificate.
+        /// Optional. Refers to the "CA" boolean field in the X.509 extension.
+        /// When this value is missing, the basic constraints extension will be
+        /// omitted from the certificate.
         pub is_ca: std::option::Option<bool>,
 
-        /// Optional. Refers to the path length restriction X.509 extension. For a CA
-        /// certificate, this value describes the depth of subordinate CA
-        /// certificates that are allowed.
-        /// If this value is less than 0, the request will fail.
-        /// If this value is missing, the max path length will be omitted from the
-        /// CA certificate.
+        /// Optional. Refers to the path length constraint field in the X.509
+        /// extension. For a CA certificate, this value describes the depth of
+        /// subordinate CA certificates that are allowed. If this value is less than
+        /// 0, the request will fail. If this value is missing, the max path length
+        /// will be omitted from the certificate.
         pub max_issuer_path_length: std::option::Option<i32>,
 
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -8430,6 +8758,12 @@ pub struct CertificateDescription {
     pub cert_fingerprint:
         std::option::Option<crate::model::certificate_description::CertificateFingerprint>,
 
+    /// The hash of the pre-signed certificate, which will be signed by the CA.
+    /// Corresponds to the TBS Certificate in
+    /// <https://tools.ietf.org/html/rfc5280#section-4.1.2>. The field will always be
+    /// populated.
+    pub tbs_certificate_digest: std::string::String,
+
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -8567,6 +8901,15 @@ impl CertificateDescription {
         self.cert_fingerprint = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [tbs_certificate_digest][crate::model::CertificateDescription::tbs_certificate_digest].
+    pub fn set_tbs_certificate_digest<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.tbs_certificate_digest = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for CertificateDescription {
@@ -8593,6 +8936,7 @@ impl<'de> serde::de::Deserialize<'de> for CertificateDescription {
             __crl_distribution_points,
             __aia_issuing_certificate_urls,
             __cert_fingerprint,
+            __tbs_certificate_digest,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -8633,6 +8977,8 @@ impl<'de> serde::de::Deserialize<'de> for CertificateDescription {
                             }
                             "certFingerprint" => Ok(__FieldTag::__cert_fingerprint),
                             "cert_fingerprint" => Ok(__FieldTag::__cert_fingerprint),
+                            "tbsCertificateDigest" => Ok(__FieldTag::__tbs_certificate_digest),
+                            "tbs_certificate_digest" => Ok(__FieldTag::__tbs_certificate_digest),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -8735,6 +9081,16 @@ impl<'de> serde::de::Deserialize<'de> for CertificateDescription {
                                 crate::model::certificate_description::CertificateFingerprint,
                             >>()?;
                         }
+                        __FieldTag::__tbs_certificate_digest => {
+                            if !fields.insert(__FieldTag::__tbs_certificate_digest) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for tbs_certificate_digest",
+                                ));
+                            }
+                            result.tbs_certificate_digest = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -8784,6 +9140,9 @@ impl serde::ser::Serialize for CertificateDescription {
         }
         if self.cert_fingerprint.is_some() {
             state.serialize_entry("certFingerprint", &self.cert_fingerprint)?;
+        }
+        if !self.tbs_certificate_digest.is_empty() {
+            state.serialize_entry("tbsCertificateDigest", &self.tbs_certificate_digest)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -10604,6 +10963,417 @@ pub mod key_usage {
     }
 }
 
+/// [AttributeTypeAndValue][google.cloud.security.privateca.v1.AttributeTypeAndValue]
+/// specifies an attribute type and value. It can use either a OID or enum value
+/// to specify the attribute type.
+///
+/// [google.cloud.security.privateca.v1.AttributeTypeAndValue]: crate::model::AttributeTypeAndValue
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AttributeTypeAndValue {
+    /// The value for the attribute type.
+    pub value: std::string::String,
+
+    /// The attribute type for the attribute and value pair.
+    pub attribute_type: std::option::Option<crate::model::attribute_type_and_value::AttributeType>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AttributeTypeAndValue {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [value][crate::model::AttributeTypeAndValue::value].
+    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.value = v.into();
+        self
+    }
+
+    /// Sets the value of [attribute_type][crate::model::AttributeTypeAndValue::attribute_type].
+    ///
+    /// Note that all the setters affecting `attribute_type` are mutually
+    /// exclusive.
+    pub fn set_attribute_type<
+        T: std::convert::Into<
+                std::option::Option<crate::model::attribute_type_and_value::AttributeType>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.attribute_type = v.into();
+        self
+    }
+
+    /// The value of [attribute_type][crate::model::AttributeTypeAndValue::attribute_type]
+    /// if it holds a `Type`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn r#type(&self) -> std::option::Option<&crate::model::AttributeType> {
+        #[allow(unreachable_patterns)]
+        self.attribute_type.as_ref().and_then(|v| match v {
+            crate::model::attribute_type_and_value::AttributeType::Type(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [attribute_type][crate::model::AttributeTypeAndValue::attribute_type]
+    /// to hold a `Type`.
+    ///
+    /// Note that all the setters affecting `attribute_type` are
+    /// mutually exclusive.
+    pub fn set_type<T: std::convert::Into<crate::model::AttributeType>>(mut self, v: T) -> Self {
+        self.attribute_type = std::option::Option::Some(
+            crate::model::attribute_type_and_value::AttributeType::Type(v.into()),
+        );
+        self
+    }
+
+    /// The value of [attribute_type][crate::model::AttributeTypeAndValue::attribute_type]
+    /// if it holds a `ObjectId`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn object_id(&self) -> std::option::Option<&std::boxed::Box<crate::model::ObjectId>> {
+        #[allow(unreachable_patterns)]
+        self.attribute_type.as_ref().and_then(|v| match v {
+            crate::model::attribute_type_and_value::AttributeType::ObjectId(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [attribute_type][crate::model::AttributeTypeAndValue::attribute_type]
+    /// to hold a `ObjectId`.
+    ///
+    /// Note that all the setters affecting `attribute_type` are
+    /// mutually exclusive.
+    pub fn set_object_id<T: std::convert::Into<std::boxed::Box<crate::model::ObjectId>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.attribute_type = std::option::Option::Some(
+            crate::model::attribute_type_and_value::AttributeType::ObjectId(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for AttributeTypeAndValue {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.security.privateca.v1.AttributeTypeAndValue"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for AttributeTypeAndValue {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __type,
+            __object_id,
+            __value,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for AttributeTypeAndValue")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "type" => Ok(__FieldTag::__type),
+                            "objectId" => Ok(__FieldTag::__object_id),
+                            "object_id" => Ok(__FieldTag::__object_id),
+                            "value" => Ok(__FieldTag::__value),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = AttributeTypeAndValue;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct AttributeTypeAndValue")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__type => {
+                            if !fields.insert(__FieldTag::__type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for type",
+                                ));
+                            }
+                            if result.attribute_type.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `attribute_type`, a oneof with full ID .google.cloud.security.privateca.v1.AttributeTypeAndValue.type, latest field was type",
+                                ));
+                            }
+                            result.attribute_type = std::option::Option::Some(
+                                crate::model::attribute_type_and_value::AttributeType::Type(
+                                    map.next_value::<std::option::Option<crate::model::AttributeType>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__object_id => {
+                            if !fields.insert(__FieldTag::__object_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for object_id",
+                                ));
+                            }
+                            if result.attribute_type.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `attribute_type`, a oneof with full ID .google.cloud.security.privateca.v1.AttributeTypeAndValue.object_id, latest field was objectId",
+                                ));
+                            }
+                            result.attribute_type = std::option::Option::Some(
+                                crate::model::attribute_type_and_value::AttributeType::ObjectId(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::ObjectId>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__value => {
+                            if !fields.insert(__FieldTag::__value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for value",
+                                ));
+                            }
+                            result.value = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for AttributeTypeAndValue {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.r#type() {
+            state.serialize_entry("type", value)?;
+        }
+        if let Some(value) = self.object_id() {
+            state.serialize_entry("objectId", value)?;
+        }
+        if !self.value.is_empty() {
+            state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// Defines additional types related to [AttributeTypeAndValue].
+pub mod attribute_type_and_value {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The attribute type for the attribute and value pair.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum AttributeType {
+        /// The attribute type of the attribute and value pair.
+        Type(crate::model::AttributeType),
+        /// Object ID for an attribute type of an attribute and value pair.
+        ObjectId(std::boxed::Box<crate::model::ObjectId>),
+    }
+}
+
+/// [RelativeDistinguishedName][google.cloud.security.privateca.v1.RelativeDistinguishedName]
+/// specifies a relative distinguished name which will be used to build a
+/// distinguished name.
+///
+/// [google.cloud.security.privateca.v1.RelativeDistinguishedName]: crate::model::RelativeDistinguishedName
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RelativeDistinguishedName {
+    /// Attributes describes the attribute value assertions in the RDN.
+    pub attributes: std::vec::Vec<crate::model::AttributeTypeAndValue>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RelativeDistinguishedName {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [attributes][crate::model::RelativeDistinguishedName::attributes].
+    pub fn set_attributes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AttributeTypeAndValue>,
+    {
+        use std::iter::Iterator;
+        self.attributes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for RelativeDistinguishedName {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.security.privateca.v1.RelativeDistinguishedName"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for RelativeDistinguishedName {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __attributes,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for RelativeDistinguishedName")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "attributes" => Ok(__FieldTag::__attributes),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = RelativeDistinguishedName;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct RelativeDistinguishedName")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__attributes => {
+                            if !fields.insert(__FieldTag::__attributes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for attributes",
+                                ));
+                            }
+                            result.attributes = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::AttributeTypeAndValue>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for RelativeDistinguishedName {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.attributes.is_empty() {
+            state.serialize_entry("attributes", &self.attributes)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// [Subject][google.cloud.security.privateca.v1.Subject] describes parts of a
 /// distinguished name that, in turn, describes the subject of the certificate.
 ///
@@ -10634,6 +11404,9 @@ pub struct Subject {
 
     /// The postal code of the subject.
     pub postal_code: std::string::String,
+
+    /// This field can be used in place of the named subject fields.
+    pub rdn_sequence: std::vec::Vec<crate::model::RelativeDistinguishedName>,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -10693,6 +11466,17 @@ impl Subject {
         self.postal_code = v.into();
         self
     }
+
+    /// Sets the value of [rdn_sequence][crate::model::Subject::rdn_sequence].
+    pub fn set_rdn_sequence<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::RelativeDistinguishedName>,
+    {
+        use std::iter::Iterator;
+        self.rdn_sequence = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for Subject {
@@ -10719,6 +11503,7 @@ impl<'de> serde::de::Deserialize<'de> for Subject {
             __province,
             __street_address,
             __postal_code,
+            __rdn_sequence,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -10752,6 +11537,8 @@ impl<'de> serde::de::Deserialize<'de> for Subject {
                             "street_address" => Ok(__FieldTag::__street_address),
                             "postalCode" => Ok(__FieldTag::__postal_code),
                             "postal_code" => Ok(__FieldTag::__postal_code),
+                            "rdnSequence" => Ok(__FieldTag::__rdn_sequence),
+                            "rdn_sequence" => Ok(__FieldTag::__rdn_sequence),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -10857,6 +11644,18 @@ impl<'de> serde::de::Deserialize<'de> for Subject {
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__rdn_sequence => {
+                            if !fields.insert(__FieldTag::__rdn_sequence) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for rdn_sequence",
+                                ));
+                            }
+                            result.rdn_sequence = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::RelativeDistinguishedName>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -10903,6 +11702,9 @@ impl serde::ser::Serialize for Subject {
         }
         if !self.postal_code.is_empty() {
             state.serialize_entry("postalCode", &self.postal_code)?;
+        }
+        if !self.rdn_sequence.is_empty() {
+            state.serialize_entry("rdnSequence", &self.rdn_sequence)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -11822,10 +12624,12 @@ pub struct CreateCertificateRequest {
     /// Optional. It must be unique within a location and match the regular
     /// expression `[a-zA-Z0-9_-]{1,63}`. This field is required when using a
     /// [CertificateAuthority][google.cloud.security.privateca.v1.CertificateAuthority]
-    /// in the Enterprise [CertificateAuthority.Tier][], but is optional and its
-    /// value is ignored otherwise.
+    /// in the Enterprise
+    /// [CertificateAuthority.tier][google.cloud.security.privateca.v1.CertificateAuthority.tier],
+    /// but is optional and its value is ignored otherwise.
     ///
     /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
+    /// [google.cloud.security.privateca.v1.CertificateAuthority.tier]: crate::model::CertificateAuthority::tier
     pub certificate_id: std::string::String,
 
     /// Required. A [Certificate][google.cloud.security.privateca.v1.Certificate]
@@ -12566,8 +13370,10 @@ pub struct ListCertificatesResponse {
     pub certificates: std::vec::Vec<crate::model::Certificate>,
 
     /// A token to retrieve next page of results. Pass this value in
-    /// [ListCertificatesRequest.next_page_token][] to retrieve the
-    /// next page of results.
+    /// [ListCertificatesRequest.page_token][google.cloud.security.privateca.v1.ListCertificatesRequest.page_token]
+    /// to retrieve the next page of results.
+    ///
+    /// [google.cloud.security.privateca.v1.ListCertificatesRequest.page_token]: crate::model::ListCertificatesRequest::page_token
     pub next_page_token: std::string::String,
 
     /// A list of locations (e.g. "us-west1") that could not be reached.
@@ -14748,8 +15554,10 @@ pub struct ListCertificateAuthoritiesResponse {
     pub certificate_authorities: std::vec::Vec<crate::model::CertificateAuthority>,
 
     /// A token to retrieve next page of results. Pass this value in
-    /// [ListCertificateAuthoritiesRequest.next_page_token][] to retrieve the next
-    /// page of results.
+    /// [ListCertificateAuthoritiesRequest.page_token][google.cloud.security.privateca.v1.ListCertificateAuthoritiesRequest.page_token]
+    /// to retrieve the next page of results.
+    ///
+    /// [google.cloud.security.privateca.v1.ListCertificateAuthoritiesRequest.page_token]: crate::model::ListCertificateAuthoritiesRequest::page_token
     pub next_page_token: std::string::String,
 
     /// A list of locations (e.g. "us-west1") that could not be reached.
@@ -17148,8 +17956,10 @@ pub struct ListCaPoolsResponse {
     pub ca_pools: std::vec::Vec<crate::model::CaPool>,
 
     /// A token to retrieve next page of results. Pass this value in
-    /// [ListCertificateAuthoritiesRequest.next_page_token][] to retrieve the next
-    /// page of results.
+    /// [ListCertificateAuthoritiesRequest.page_token][google.cloud.security.privateca.v1.ListCertificateAuthoritiesRequest.page_token]
+    /// to retrieve the next page of results.
+    ///
+    /// [google.cloud.security.privateca.v1.ListCertificateAuthoritiesRequest.page_token]: crate::model::ListCertificateAuthoritiesRequest::page_token
     pub next_page_token: std::string::String,
 
     /// A list of locations (e.g. "us-west1") that could not be reached.
@@ -17764,8 +18574,10 @@ pub struct ListCertificateRevocationListsResponse {
     pub certificate_revocation_lists: std::vec::Vec<crate::model::CertificateRevocationList>,
 
     /// A token to retrieve next page of results. Pass this value in
-    /// [ListCertificateRevocationListsRequest.next_page_token][] to retrieve the
-    /// next page of results.
+    /// [ListCertificateRevocationListsRequest.page_token][google.cloud.security.privateca.v1.ListCertificateRevocationListsRequest.page_token]
+    /// to retrieve the next page of results.
+    ///
+    /// [google.cloud.security.privateca.v1.ListCertificateRevocationListsRequest.page_token]: crate::model::ListCertificateRevocationListsRequest::page_token
     pub next_page_token: std::string::String,
 
     /// A list of locations (e.g. "us-west1") that could not be reached.
@@ -19037,8 +19849,10 @@ pub struct ListCertificateTemplatesResponse {
     pub certificate_templates: std::vec::Vec<crate::model::CertificateTemplate>,
 
     /// A token to retrieve next page of results. Pass this value in
-    /// [ListCertificateTemplatesRequest.next_page_token][] to retrieve
-    /// the next page of results.
+    /// [ListCertificateTemplatesRequest.page_token][google.cloud.security.privateca.v1.ListCertificateTemplatesRequest.page_token]
+    /// to retrieve the next page of results.
+    ///
+    /// [google.cloud.security.privateca.v1.ListCertificateTemplatesRequest.page_token]: crate::model::ListCertificateTemplatesRequest::page_token
     pub next_page_token: std::string::String,
 
     /// A list of locations (e.g. "us-west1") that could not be reached.
@@ -19478,10 +20292,12 @@ pub struct OperationMetadata {
 
     /// Output only. Identifies whether the user has requested cancellation
     /// of the operation. Operations that have successfully been cancelled
-    /// have [Operation.error][] value with a
-    /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
-    /// `Code.CANCELLED`.
+    /// have
+    /// [google.longrunning.Operation.error][google.longrunning.Operation.error]
+    /// value with a [google.rpc.Status.code][google.rpc.Status.code] of 1,
+    /// corresponding to `Code.CANCELLED`.
     ///
+    /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
     /// [google.rpc.Status.code]: rpc::model::Status::code
     pub requested_cancellation: bool,
 
@@ -19764,6 +20580,183 @@ impl serde::ser::Serialize for OperationMetadata {
     }
 }
 
+/// [AttributeType][google.cloud.security.privateca.v1.AttributeType] specifies
+/// the type of Attribute in a relative distinguished name.
+///
+/// [google.cloud.security.privateca.v1.AttributeType]: crate::model::AttributeType
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum AttributeType {
+    /// Attribute type is unspecified.
+    Unspecified,
+    /// The "common name" of the subject.
+    CommonName,
+    /// The country code of the subject.
+    CountryCode,
+    /// The organization of the subject.
+    Organization,
+    /// The organizational unit of the subject.
+    OrganizationalUnit,
+    /// The locality or city of the subject.
+    Locality,
+    /// The province, territory, or regional state of the subject.
+    Province,
+    /// The street address of the subject.
+    StreetAddress,
+    /// The postal code of the subject.
+    PostalCode,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [AttributeType::value] or
+    /// [AttributeType::name].
+    UnknownValue(attribute_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod attribute_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl AttributeType {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::CommonName => std::option::Option::Some(1),
+            Self::CountryCode => std::option::Option::Some(2),
+            Self::Organization => std::option::Option::Some(3),
+            Self::OrganizationalUnit => std::option::Option::Some(4),
+            Self::Locality => std::option::Option::Some(5),
+            Self::Province => std::option::Option::Some(6),
+            Self::StreetAddress => std::option::Option::Some(7),
+            Self::PostalCode => std::option::Option::Some(8),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("ATTRIBUTE_TYPE_UNSPECIFIED"),
+            Self::CommonName => std::option::Option::Some("COMMON_NAME"),
+            Self::CountryCode => std::option::Option::Some("COUNTRY_CODE"),
+            Self::Organization => std::option::Option::Some("ORGANIZATION"),
+            Self::OrganizationalUnit => std::option::Option::Some("ORGANIZATIONAL_UNIT"),
+            Self::Locality => std::option::Option::Some("LOCALITY"),
+            Self::Province => std::option::Option::Some("PROVINCE"),
+            Self::StreetAddress => std::option::Option::Some("STREET_ADDRESS"),
+            Self::PostalCode => std::option::Option::Some("POSTAL_CODE"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for AttributeType {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for AttributeType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for AttributeType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::CommonName,
+            2 => Self::CountryCode,
+            3 => Self::Organization,
+            4 => Self::OrganizationalUnit,
+            5 => Self::Locality,
+            6 => Self::Province,
+            7 => Self::StreetAddress,
+            8 => Self::PostalCode,
+            _ => Self::UnknownValue(attribute_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for AttributeType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "ATTRIBUTE_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "COMMON_NAME" => Self::CommonName,
+            "COUNTRY_CODE" => Self::CountryCode,
+            "ORGANIZATION" => Self::Organization,
+            "ORGANIZATIONAL_UNIT" => Self::OrganizationalUnit,
+            "LOCALITY" => Self::Locality,
+            "PROVINCE" => Self::Province,
+            "STREET_ADDRESS" => Self::StreetAddress,
+            "POSTAL_CODE" => Self::PostalCode,
+            _ => Self::UnknownValue(attribute_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for AttributeType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::CommonName => serializer.serialize_i32(1),
+            Self::CountryCode => serializer.serialize_i32(2),
+            Self::Organization => serializer.serialize_i32(3),
+            Self::OrganizationalUnit => serializer.serialize_i32(4),
+            Self::Locality => serializer.serialize_i32(5),
+            Self::Province => serializer.serialize_i32(6),
+            Self::StreetAddress => serializer.serialize_i32(7),
+            Self::PostalCode => serializer.serialize_i32(8),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for AttributeType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<AttributeType>::new(
+            ".google.cloud.security.privateca.v1.AttributeType",
+        ))
+    }
+}
+
 /// A [RevocationReason][google.cloud.security.privateca.v1.RevocationReason]
 /// indicates whether a
 /// [Certificate][google.cloud.security.privateca.v1.Certificate] has been
@@ -20017,6 +21010,20 @@ pub enum SubjectRequestMode {
     /// [google.cloud.security.privateca.v1.Subject]: crate::model::Subject
     /// [google.cloud.security.privateca.v1.SubjectAltNames]: crate::model::SubjectAltNames
     Default,
+    /// A mode used to get an accurate representation of the Subject
+    /// field's distinguished name. Indicates that the certificate's
+    /// [Subject][google.cloud.security.privateca.v1.Subject] and/or
+    /// [SubjectAltNames][google.cloud.security.privateca.v1.SubjectAltNames] are
+    /// specified in the certificate request. When parsing a PEM CSR this mode will
+    /// maintain the sequence of RDNs found in the CSR's subject field in the
+    /// issued [Certificate][google.cloud.security.privateca.v1.Certificate]. This
+    /// mode requires the caller to have the `privateca.certificates.create`
+    /// permission.
+    ///
+    /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
+    /// [google.cloud.security.privateca.v1.Subject]: crate::model::Subject
+    /// [google.cloud.security.privateca.v1.SubjectAltNames]: crate::model::SubjectAltNames
+    RdnSequence,
     /// A mode reserved for special cases. Indicates that the certificate should
     /// have one SPIFFE
     /// [SubjectAltNames][google.cloud.security.privateca.v1.SubjectAltNames] set
@@ -20054,6 +21061,7 @@ impl SubjectRequestMode {
         match self {
             Self::Unspecified => std::option::Option::Some(0),
             Self::Default => std::option::Option::Some(1),
+            Self::RdnSequence => std::option::Option::Some(3),
             Self::ReflectedSpiffe => std::option::Option::Some(2),
             Self::UnknownValue(u) => u.0.value(),
         }
@@ -20067,6 +21075,7 @@ impl SubjectRequestMode {
         match self {
             Self::Unspecified => std::option::Option::Some("SUBJECT_REQUEST_MODE_UNSPECIFIED"),
             Self::Default => std::option::Option::Some("DEFAULT"),
+            Self::RdnSequence => std::option::Option::Some("RDN_SEQUENCE"),
             Self::ReflectedSpiffe => std::option::Option::Some("REFLECTED_SPIFFE"),
             Self::UnknownValue(u) => u.0.name(),
         }
@@ -20092,6 +21101,7 @@ impl std::convert::From<i32> for SubjectRequestMode {
             0 => Self::Unspecified,
             1 => Self::Default,
             2 => Self::ReflectedSpiffe,
+            3 => Self::RdnSequence,
             _ => Self::UnknownValue(subject_request_mode::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -20105,6 +21115,7 @@ impl std::convert::From<&str> for SubjectRequestMode {
         match value {
             "SUBJECT_REQUEST_MODE_UNSPECIFIED" => Self::Unspecified,
             "DEFAULT" => Self::Default,
+            "RDN_SEQUENCE" => Self::RdnSequence,
             "REFLECTED_SPIFFE" => Self::ReflectedSpiffe,
             _ => Self::UnknownValue(subject_request_mode::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
@@ -20121,6 +21132,7 @@ impl serde::ser::Serialize for SubjectRequestMode {
         match self {
             Self::Unspecified => serializer.serialize_i32(0),
             Self::Default => serializer.serialize_i32(1),
+            Self::RdnSequence => serializer.serialize_i32(3),
             Self::ReflectedSpiffe => serializer.serialize_i32(2),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }

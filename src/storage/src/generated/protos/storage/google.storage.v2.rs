@@ -830,6 +830,8 @@ pub struct ListObjectsRequest {
     pub include_folders_as_prefixes: bool,
     #[prost(string, tag = "14")]
     pub match_glob: ::prost::alloc::string::String,
+    #[prost(string, tag = "15")]
+    pub filter: ::prost::alloc::string::String,
 }
 impl ::prost::Name for ListObjectsRequest {
     const NAME: &'static str = "ListObjectsRequest";
@@ -1333,10 +1335,10 @@ pub mod bucket {
     }
     /// Nested message and enum types in `Encryption`.
     pub mod encryption {
-        #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+        #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct GoogleManagedEncryptionEnforcementConfig {
-            #[prost(bool, optional, tag = "1")]
-            pub restricted: ::core::option::Option<bool>,
+            #[prost(string, optional, tag = "3")]
+            pub restriction_mode: ::core::option::Option<::prost::alloc::string::String>,
             #[prost(message, optional, tag = "2")]
             pub effective_time: ::core::option::Option<::prost_types::Timestamp>,
         }
@@ -1352,10 +1354,10 @@ pub mod bucket {
                     .into()
             }
         }
-        #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+        #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct CustomerManagedEncryptionEnforcementConfig {
-            #[prost(bool, optional, tag = "1")]
-            pub restricted: ::core::option::Option<bool>,
+            #[prost(string, optional, tag = "3")]
+            pub restriction_mode: ::core::option::Option<::prost::alloc::string::String>,
             #[prost(message, optional, tag = "2")]
             pub effective_time: ::core::option::Option<::prost_types::Timestamp>,
         }
@@ -1371,10 +1373,10 @@ pub mod bucket {
                     .into()
             }
         }
-        #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+        #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct CustomerSuppliedEncryptionEnforcementConfig {
-            #[prost(bool, optional, tag = "1")]
-            pub restricted: ::core::option::Option<bool>,
+            #[prost(string, optional, tag = "3")]
+            pub restriction_mode: ::core::option::Option<::prost::alloc::string::String>,
             #[prost(message, optional, tag = "2")]
             pub effective_time: ::core::option::Option<::prost_types::Timestamp>,
         }
@@ -1843,6 +1845,43 @@ impl ::prost::Name for ObjectChecksums {
     }
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ObjectCustomContextPayload {
+    #[prost(string, tag = "1")]
+    pub value: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "2")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    #[prost(message, optional, tag = "3")]
+    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+}
+impl ::prost::Name for ObjectCustomContextPayload {
+    const NAME: &'static str = "ObjectCustomContextPayload";
+    const PACKAGE: &'static str = "google.storage.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.v2.ObjectCustomContextPayload".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.v2.ObjectCustomContextPayload".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ObjectContexts {
+    #[prost(map = "string, message", tag = "1")]
+    pub custom: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ObjectCustomContextPayload,
+    >,
+}
+impl ::prost::Name for ObjectContexts {
+    const NAME: &'static str = "ObjectContexts";
+    const PACKAGE: &'static str = "google.storage.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.v2.ObjectContexts".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.v2.ObjectContexts".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CustomerEncryption {
     #[prost(string, tag = "1")]
     pub encryption_algorithm: ::prost::alloc::string::String,
@@ -1914,6 +1953,8 @@ pub struct Object {
         ::prost::alloc::string::String,
         ::prost::alloc::string::String,
     >,
+    #[prost(message, optional, tag = "38")]
+    pub contexts: ::core::option::Option<ObjectContexts>,
     #[prost(bool, optional, tag = "23")]
     pub event_based_hold: ::core::option::Option<bool>,
     #[prost(message, optional, tag = "24")]

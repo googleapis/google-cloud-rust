@@ -30136,6 +30136,10 @@ pub struct ServiceLbPolicy {
     /// Optional. Configuration related to health based failover.
     pub failover_config: std::option::Option<crate::model::service_lb_policy::FailoverConfig>,
 
+    /// Optional. Configuration to provide isolation support for the associated
+    /// Backend Service.
+    pub isolation_config: std::option::Option<crate::model::service_lb_policy::IsolationConfig>,
+
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -30250,6 +30254,24 @@ impl ServiceLbPolicy {
         self.failover_config = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [isolation_config][crate::model::ServiceLbPolicy::isolation_config].
+    pub fn set_isolation_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::service_lb_policy::IsolationConfig>,
+    {
+        self.isolation_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [isolation_config][crate::model::ServiceLbPolicy::isolation_config].
+    pub fn set_or_clear_isolation_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::service_lb_policy::IsolationConfig>,
+    {
+        self.isolation_config = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for ServiceLbPolicy {
@@ -30276,6 +30298,7 @@ impl<'de> serde::de::Deserialize<'de> for ServiceLbPolicy {
             __load_balancing_algorithm,
             __auto_capacity_drain,
             __failover_config,
+            __isolation_config,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -30311,6 +30334,8 @@ impl<'de> serde::de::Deserialize<'de> for ServiceLbPolicy {
                             "auto_capacity_drain" => Ok(__FieldTag::__auto_capacity_drain),
                             "failoverConfig" => Ok(__FieldTag::__failover_config),
                             "failover_config" => Ok(__FieldTag::__failover_config),
+                            "isolationConfig" => Ok(__FieldTag::__isolation_config),
+                            "isolation_config" => Ok(__FieldTag::__isolation_config),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -30421,6 +30446,16 @@ impl<'de> serde::de::Deserialize<'de> for ServiceLbPolicy {
                                 crate::model::service_lb_policy::FailoverConfig,
                             >>()?;
                         }
+                        __FieldTag::__isolation_config => {
+                            if !fields.insert(__FieldTag::__isolation_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for isolation_config",
+                                ));
+                            }
+                            result.isolation_config = map.next_value::<std::option::Option<
+                                crate::model::service_lb_policy::IsolationConfig,
+                            >>()?;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -30467,6 +30502,9 @@ impl serde::ser::Serialize for ServiceLbPolicy {
         }
         if self.failover_config.is_some() {
             state.serialize_entry("failoverConfig", &self.failover_config)?;
+        }
+        if self.isolation_config.is_some() {
+            state.serialize_entry("isolationConfig", &self.isolation_config)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -30787,6 +30825,180 @@ pub mod service_lb_policy {
         }
     }
 
+    /// Configuration to provide isolation support for the associated Backend
+    /// Service.
+    #[derive(Clone, Debug, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct IsolationConfig {
+        /// Optional. The isolation granularity of the load balancer.
+        pub isolation_granularity: crate::model::service_lb_policy::IsolationGranularity,
+
+        /// Optional. The isolation mode of the load balancer.
+        pub isolation_mode: crate::model::service_lb_policy::IsolationMode,
+
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl IsolationConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [isolation_granularity][crate::model::service_lb_policy::IsolationConfig::isolation_granularity].
+        pub fn set_isolation_granularity<
+            T: std::convert::Into<crate::model::service_lb_policy::IsolationGranularity>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.isolation_granularity = v.into();
+            self
+        }
+
+        /// Sets the value of [isolation_mode][crate::model::service_lb_policy::IsolationConfig::isolation_mode].
+        pub fn set_isolation_mode<
+            T: std::convert::Into<crate::model::service_lb_policy::IsolationMode>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.isolation_mode = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for IsolationConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networkservices.v1.ServiceLbPolicy.IsolationConfig"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for IsolationConfig {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __isolation_granularity,
+                __isolation_mode,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for IsolationConfig")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "isolationGranularity" => Ok(__FieldTag::__isolation_granularity),
+                                "isolation_granularity" => Ok(__FieldTag::__isolation_granularity),
+                                "isolationMode" => Ok(__FieldTag::__isolation_mode),
+                                "isolation_mode" => Ok(__FieldTag::__isolation_mode),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = IsolationConfig;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct IsolationConfig")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__isolation_granularity => {
+                                if !fields.insert(__FieldTag::__isolation_granularity) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for isolation_granularity",
+                                    ));
+                                }
+                                result.isolation_granularity = map
+                                    .next_value::<std::option::Option<
+                                        crate::model::service_lb_policy::IsolationGranularity,
+                                    >>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__isolation_mode => {
+                                if !fields.insert(__FieldTag::__isolation_mode) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for isolation_mode",
+                                    ));
+                                }
+                                result.isolation_mode = map
+                                    .next_value::<std::option::Option<
+                                        crate::model::service_lb_policy::IsolationMode,
+                                    >>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for IsolationConfig {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !wkt::internal::is_default(&self.isolation_granularity) {
+                state.serialize_entry("isolationGranularity", &self.isolation_granularity)?;
+            }
+            if !wkt::internal::is_default(&self.isolation_mode) {
+                state.serialize_entry("isolationMode", &self.isolation_mode)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
     /// The global load balancing algorithm to be used.
     ///
     /// # Working with unknown values
@@ -30938,6 +31150,266 @@ pub mod service_lb_policy {
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<LoadBalancingAlgorithm>::new(
                 ".google.cloud.networkservices.v1.ServiceLbPolicy.LoadBalancingAlgorithm",
+            ))
+        }
+    }
+
+    /// The granularity of this isolation restriction.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum IsolationGranularity {
+        /// No isolation is configured for the backend service. Traffic can overflow
+        /// based on the load balancing algorithm.
+        Unspecified,
+        /// Traffic for this service will be isolated at the cloud region level.
+        Region,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [IsolationGranularity::value] or
+        /// [IsolationGranularity::name].
+        UnknownValue(isolation_granularity::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod isolation_granularity {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl IsolationGranularity {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Region => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("ISOLATION_GRANULARITY_UNSPECIFIED"),
+                Self::Region => std::option::Option::Some("REGION"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for IsolationGranularity {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for IsolationGranularity {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for IsolationGranularity {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Region,
+                _ => Self::UnknownValue(isolation_granularity::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for IsolationGranularity {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ISOLATION_GRANULARITY_UNSPECIFIED" => Self::Unspecified,
+                "REGION" => Self::Region,
+                _ => Self::UnknownValue(isolation_granularity::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for IsolationGranularity {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Region => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for IsolationGranularity {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<IsolationGranularity>::new(
+                ".google.cloud.networkservices.v1.ServiceLbPolicy.IsolationGranularity",
+            ))
+        }
+    }
+
+    /// The mode of this isolation restriction, defining whether clients in a given
+    /// region are allowed to reach out to another region.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum IsolationMode {
+        /// No isolation mode is configured for the backend service.
+        Unspecified,
+        /// Traffic will be sent to the nearest region.
+        Nearest,
+        /// Traffic will fail if no serving backends are available in the same region
+        /// as the load balancer.
+        Strict,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [IsolationMode::value] or
+        /// [IsolationMode::name].
+        UnknownValue(isolation_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod isolation_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl IsolationMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Nearest => std::option::Option::Some(1),
+                Self::Strict => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("ISOLATION_MODE_UNSPECIFIED"),
+                Self::Nearest => std::option::Option::Some("NEAREST"),
+                Self::Strict => std::option::Option::Some("STRICT"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for IsolationMode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for IsolationMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for IsolationMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Nearest,
+                2 => Self::Strict,
+                _ => Self::UnknownValue(isolation_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for IsolationMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ISOLATION_MODE_UNSPECIFIED" => Self::Unspecified,
+                "NEAREST" => Self::Nearest,
+                "STRICT" => Self::Strict,
+                _ => Self::UnknownValue(isolation_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for IsolationMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Nearest => serializer.serialize_i32(1),
+                Self::Strict => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for IsolationMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<IsolationMode>::new(
+                ".google.cloud.networkservices.v1.ServiceLbPolicy.IsolationMode",
             ))
         }
     }

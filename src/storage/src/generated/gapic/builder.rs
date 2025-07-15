@@ -2129,6 +2129,12 @@ pub mod storage_control {
             self.0.request.match_glob = v.into();
             self
         }
+
+        /// Sets the value of [filter][crate::model::ListObjectsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]

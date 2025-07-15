@@ -121,7 +121,7 @@ where
 
 #[cfg(test)]
 mod tests {
-    use super::super::client::tests::{create_key_helper, test_inner_client};
+    use super::super::client::tests::{create_key_helper, test_builder, test_inner_client};
     use super::*;
     use crate::upload_source::tests::VecStream;
     use gax::retry_policy::RetryPolicyExt;
@@ -240,7 +240,7 @@ mod tests {
 
     #[tokio::test]
     async fn upload_object_bytes() -> Result {
-        let inner = test_inner_client(gaxi::options::ClientConfig::default());
+        let inner = test_inner_client(test_builder());
         let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
             .single_shot_builder()
             .await?
@@ -258,7 +258,7 @@ mod tests {
 
     #[tokio::test]
     async fn upload_object_metadata() -> Result {
-        let inner = test_inner_client(gaxi::options::ClientConfig::default());
+        let inner = test_inner_client(test_builder());
         let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
             .with_metadata([("k0", "v0"), ("k1", "v1")])
             .single_shot_builder()
@@ -286,7 +286,7 @@ mod tests {
             .map(|x| bytes::Bytes::from_static(x.as_bytes()))
             .to_vec(),
         );
-        let inner = test_inner_client(gaxi::options::ClientConfig::default());
+        let inner = test_inner_client(test_builder());
         let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", stream)
             .single_shot_builder()
             .await?
@@ -304,11 +304,9 @@ mod tests {
 
     #[tokio::test]
     async fn upload_object_error_credentials() -> Result {
-        let config = gaxi::options::ClientConfig {
-            cred: Some(auth::credentials::testing::error_credentials(false)),
-            ..Default::default()
-        };
-        let inner = test_inner_client(config);
+        let inner = test_inner_client(
+            test_builder().with_credentials(auth::credentials::testing::error_credentials(false)),
+        );
         let _ = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
             .single_shot_builder()
             .await
@@ -319,7 +317,7 @@ mod tests {
 
     #[tokio::test]
     async fn upload_object_bad_bucket() -> Result {
-        let inner = test_inner_client(gaxi::options::ClientConfig::default());
+        let inner = test_inner_client(test_builder());
         UploadObject::new(inner, "malformed", "object", "hello")
             .single_shot_builder()
             .await
@@ -332,7 +330,7 @@ mod tests {
         // Make a 32-byte key.
         let (key, key_base64, _, key_sha256_base64) = create_key_helper();
 
-        let inner = test_inner_client(gaxi::options::ClientConfig::default());
+        let inner = test_inner_client(test_builder());
         let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
             .with_key(KeyAes256::new(&key)?)
             .single_shot_builder()
@@ -376,10 +374,8 @@ mod tests {
                 .respond_with(cycle![status_code(503).body("try-again"),]),
         );
 
-        let inner = test_inner_client(gaxi::options::ClientConfig {
-            endpoint: Some(format!("http://{}", server.addr())),
-            ..Default::default()
-        });
+        let inner =
+            test_inner_client(test_builder().with_endpoint(format!("http://{}", server.addr())));
         let err = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "hello")
             .send_unbuffered()
             .await
@@ -405,10 +401,8 @@ mod tests {
             json_encoded(response_body()).append_header("content-type", "application/json"),
         ]));
 
-        let inner = test_inner_client(gaxi::options::ClientConfig {
-            endpoint: Some(format!("http://{}", server.addr())),
-            ..Default::default()
-        });
+        let inner =
+            test_inner_client(test_builder().with_endpoint(format!("http://{}", server.addr())));
         let got = UploadObject::new(
             inner,
             "projects/_/buckets/test-bucket",
@@ -440,10 +434,8 @@ mod tests {
             status_code(403).body("uh-oh"),
         ]));
 
-        let inner = test_inner_client(gaxi::options::ClientConfig {
-            endpoint: Some(format!("http://{}", server.addr())),
-            ..Default::default()
-        });
+        let inner =
+            test_inner_client(test_builder().with_endpoint(format!("http://{}", server.addr())));
         let err = UploadObject::new(
             inner,
             "projects/_/buckets/test-bucket",
@@ -475,10 +467,8 @@ mod tests {
                 .respond_with(status_code(503).body("try-again")),
         );
 
-        let inner = test_inner_client(gaxi::options::ClientConfig {
-            endpoint: Some(format!("http://{}", server.addr())),
-            ..Default::default()
-        });
+        let inner =
+            test_inner_client(test_builder().with_endpoint(format!("http://{}", server.addr())));
         let err = UploadObject::new(
             inner,
             "projects/_/buckets/test-bucket",

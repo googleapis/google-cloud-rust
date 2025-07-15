@@ -15,7 +15,9 @@
 use crate::Result;
 use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
 
-pub async fn run(builder: ta::builder::telco_automation::ClientBuilder) -> Result<()> {
+pub async fn error_details_http(
+    builder: ta::builder::telco_automation::ClientBuilder,
+) -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
     // verify tracing is doing something.
     #[cfg(feature = "log-integration-tests")]
@@ -45,7 +47,37 @@ pub async fn run(builder: ta::builder::telco_automation::ClientBuilder) -> Resul
     let err = response
         .expect_err("expect an error, the service should be disabled in integration test projects");
     assert!(
-        !err.status().map(|s| s.details.is_empty()).unwrap_or(false),
+        err.status().map(|s| !s.details.is_empty()).unwrap_or(false),
+        "expected at least some error details {err:?}"
+    );
+
+    Ok(())
+}
+
+pub async fn error_details_grpc(
+    builder: storage::builder::storage_control::ClientBuilder,
+) -> Result<()> {
+    #[cfg(feature = "log-integration-tests")]
+    let _guard = {
+        use tracing_subscriber::fmt::format::FmtSpan;
+        let subscriber = tracing_subscriber::fmt()
+            .with_level(true)
+            .with_thread_ids(true)
+            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+            .finish();
+
+        tracing::subscriber::set_default(subscriber)
+    };
+
+    let client = builder.build().await?;
+    let err = client
+        .get_bucket()
+        .set_name("malformed/_/bucket/name")
+        .send()
+        .await
+        .expect_err("should fail");
+    assert!(
+        err.status().map(|s| !s.details.is_empty()).unwrap_or(false),
         "expected at least some error details {err:?}"
     );
 

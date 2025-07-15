@@ -12,6 +12,62 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! [Workload Identity Federation] (or External Account) credentials.
+//!
+//! Workload identity federation allows applications running outside of Google Cloud
+//! to access Google Cloud resources without using a [Service Account Key]. Instead of
+//! a long-lived credential (like a service account key), you can exchange a credential
+//! from your workload's identity provider for a short-lived Google Cloud access token.
+//! As per [best practices], Workload Identity Federation is the recommended method of
+//! authentication if your workload is using an external identity provider.
+//!
+//! Refer to [Obtain short-lived tokens for Workforce Identity Federation] for
+//! creating configurations that can be used with this library for loading credentials
+//! using various external toke provider sources such as file, URL, or an executable.
+//!
+//! # Example
+//! ```
+//! # use google_cloud_auth::credentials::external_account;
+//! # use http::Extensions;
+//! #
+//! # tokio_test::block_on(async {
+//! let project_id = "your-gcp-project-id";
+//! let pool_id = "your-workload-identity-pool-id";
+//! let provider_id = "your-provider-id";
+//!
+//! let audience = format!(
+//!     "//iam.googleapis.com/projects/{}/locations/global/workloadIdentityPools/{}/providers/{}",
+//!     project_id, pool_id, provider_id
+//! );
+//!
+//! // This is an example of a configuration for a file-sourced credential.
+//! // The actual configuration will depend on your identity provider.
+//! let external_account_config = serde_json::json!({
+//!     "type": "external_account",
+//!     "audience": audience,
+//!     "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+//!     "token_url": "https://sts.googleapis.com/v1/token",
+//!     "credential_source": {
+//!         "file": "/path/to/your/oidc/token.jwt"
+//!     }
+//! });
+//!
+//! let credentials = external_account::Builder::new(external_account_config)
+//!     .build()
+//!     .unwrap();
+//! let headers = credentials.headers(Extensions::new()).await?;
+//! println!("Headers: {headers:?}");
+//! # Ok::<(), anyhow::Error>(())
+//! # });
+
+//! ```
+//!
+//! [Workload Identity Federation]: https://cloud.google.com/iam/docs/workload-identity-federation
+//! [AIP-4117]: https://google.aip.dev/auth/4117
+//! [Service Account Key]: https://cloud.google.com/iam/docs/service-account-creds#key-types
+//! [best practices]: https://cloud.google.com/docs/authentication#auth-decision-tree
+//! [Obtain short-lived tokens for Workforce Identity Federation]: https://cloud.google.com/iam/docs/workforce-obtaining-short-lived-credentials#use_configuration_files_for_sign-in
+
 use super::dynamic::CredentialsProvider;
 use super::external_account_sources::executable_sourced::ExecutableSourcedCredentials;
 use super::external_account_sources::file_sourced::FileSourcedCredentials;
