@@ -46,9 +46,6 @@ type modelAnnotations struct {
 	Services          []*api.Service
 	NameToLower       string
 	NotForPublication bool
-	// When bootstrapping the well-known types crate the templates add some
-	// ad-hoc code.
-	IsWktCrate bool
 	// If true, disable rustdoc warnings known to be triggered by our generated
 	// documentation.
 	DisabledRustdocWarnings []string
@@ -58,6 +55,12 @@ type modelAnnotations struct {
 	PerServiceFeatures bool
 	// If true, at lease one service has a method we cannot wrap (yet).
 	Incomplete bool
+}
+
+// When bootstrapping the well-known types crate the templates add some
+// ad-hoc code.
+func (m *modelAnnotations) IsWktCrate() bool {
+	return m.PackageName == "google-cloud-wkt"
 }
 
 // HasServices returns true if there are any services in the model
@@ -483,7 +486,6 @@ func annotateModel(model *api.API, codec *codec) *modelAnnotations {
 		Services:                servicesSubset,
 		NameToLower:             strings.ToLower(model.Name),
 		NotForPublication:       codec.doNotPublish,
-		IsWktCrate:              model.PackageName == "google.protobuf",
 		DisabledRustdocWarnings: codec.disabledRustdocWarnings,
 		PerServiceFeatures:      codec.perServiceFeatures && len(servicesSubset) > 0,
 		Incomplete: slices.ContainsFunc(model.Services, func(s *api.Service) bool {
