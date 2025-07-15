@@ -16,8 +16,8 @@ limitations under the License.
 
 # Generate text using the Vertex AI Gemini API
 
-In this guide, you send a text prompt request and a multimodal text-and-image
-prompt request to the Vertex AI Gemini API, and you print the responses.
+In this guide, you send a text prompt request, and then a multimodal prompt and
+image request to the Vertex AI Gemini API and view the responses.
 
 ## Prerequisites
 
