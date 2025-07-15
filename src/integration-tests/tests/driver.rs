@@ -156,10 +156,20 @@ mod driver {
 
     #[test_case(ta::client::TelcoAutomation::builder().with_tracing(); "with tracing enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_error_details(
+    async fn run_error_details_http(
         builder: ta::builder::telco_automation::ClientBuilder,
     ) -> integration_tests::Result<()> {
-        integration_tests::error_details::run(builder)
+        integration_tests::error_details::error_details_http(builder)
+            .await
+            .map_err(integration_tests::report_error)
+    }
+
+    #[test_case(StorageControl::builder().with_tracing(); "with tracing enabled")]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_error_details_grpc(
+        builder: storage::builder::storage_control::ClientBuilder,
+    ) -> integration_tests::Result<()> {
+        integration_tests::error_details::error_details_grpc(builder)
             .await
             .map_err(integration_tests::report_error)
     }

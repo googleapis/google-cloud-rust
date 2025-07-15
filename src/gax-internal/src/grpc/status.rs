@@ -13,15 +13,13 @@
 // limitations under the License.
 
 use crate::google;
-use crate::prost::{ConvertError, FromProto, ToProto};
+use crate::prost::{FromProto, ToProto};
 
-// TODO(#1699) - use to convert a `tonic::Status`
-#[allow(dead_code)]
-fn status_from_proto(s: google::rpc::Status) -> Result<rpc::model::Status, ConvertError> {
-    Ok(rpc::model::Status::new()
+pub(crate) fn status_from_proto(s: google::rpc::Status) -> rpc::model::Status {
+    rpc::model::Status::new()
         .set_code(s.code)
         .set_message(s.message)
-        .set_details(s.details.into_iter().filter_map(any_from_prost)))
+        .set_details(s.details.into_iter().filter_map(any_from_prost))
 }
 
 pub fn any_to_prost(value: wkt::Any) -> Option<prost_types::Any> {
