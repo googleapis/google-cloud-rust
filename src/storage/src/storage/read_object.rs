@@ -16,6 +16,7 @@ use serde_with::DeserializeAs;
 
 use super::client::*;
 use super::*;
+use base64::Engine;
 #[cfg(feature = "unstable-stream")]
 use futures::Stream;
 
@@ -443,7 +444,7 @@ fn headers_to_md5_hash(headers: &http::HeaderMap) -> Vec<u8> {
             let hash = hash.trim_start_matches("md5=");
             base64::prelude::BASE64_STANDARD.decode(hash).ok()
         })
-        .unwrap_or(Vec::new())
+        .unwrap_or_default()
 }
 
 /// A response to a [Storage::read_object] request.
@@ -523,13 +524,11 @@ impl ReadObjectResponse {
             .iter()
             .fold(obj, |obj, ce| obj.set_content_encoding(*ce));
 
-        let obj = obj.set_checksums(
-            control::model::ObjectChecksums::new()
+        obj.set_checksums(
+            crate::generated::gapic::model::ObjectChecksums::new()
                 .set_or_clear_crc32c(headers_to_crc32c(headers))
                 .set_md5_hash(headers_to_md5_hash(headers)),
-        );
-
-        obj
+        )
     }
 
     // Get the full object as bytes.
@@ -749,7 +748,6 @@ mod resume_tests;
 mod tests {
     use super::client::tests::{create_key_helper, test_builder, test_inner_client};
     use super::*;
-    use base64::Engine as _;
     use futures::TryStreamExt;
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use std::collections::HashMap;
