@@ -71,9 +71,13 @@ use crate::credentials::dynamic::CredentialsProvider;
 use crate::credentials::{CacheableResource, Credentials};
 use crate::errors::{self, CredentialsError};
 use crate::headers_util::build_cacheable_headers;
+use crate::retry::Builder as RetryTokenProviderBuilder;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use crate::{BuildResult, Result};
+use gax::backoff_policy::BackoffPolicyArg;
+use gax::retry_policy::RetryPolicyArg;
+use gax::retry_throttler::RetryThrottlerArg;
 use http::header::CONTENT_TYPE;
 use http::{Extensions, HeaderMap, HeaderValue};
 use reqwest::{Client, Method};
@@ -98,6 +102,7 @@ pub struct Builder {
     scopes: Option<Vec<String>>,
     quota_project_id: Option<String>,
     token_uri: Option<String>,
+    retry_builder: RetryTokenProviderBuilder,
 }
 
 impl Builder {
@@ -113,6 +118,7 @@ impl Builder {
             scopes: None,
             quota_project_id: None,
             token_uri: None,
+            retry_builder: RetryTokenProviderBuilder::default(),
         }
     }
 
@@ -188,6 +194,87 @@ impl Builder {
         self
     }
 
+    /// Configure the retry policy for fetching tokens.
+    ///
+    /// The retry policy controls how to handle retries, and sets limits on
+    /// the number of attempts or the total time spent retrying.
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::user_account::Builder;
+    /// use gax::retry_policy::{self, RetryPolicyExt};
+    /// # tokio_test::block_on(async {
+    /// let authorized_user = serde_json::json!({
+    ///     "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com",
+    ///     "client_secret": "YOUR_CLIENT_SECRET",
+    ///     "refresh_token": "YOUR_REFRESH_TOKEN",
+    ///     "type": "authorized_user",
+    /// });
+    /// let credentials = Builder::new(authorized_user)
+    ///     .with_retry_policy(retry_policy::AlwaysRetry.with_attempt_limit(3))
+    ///     .build();
+    /// # });
+    /// ```
+    pub fn with_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
+        self.retry_builder = self.retry_builder.with_retry_policy(v.into());
+        self
+    }
+
+    /// Configure the retry backoff policy.
+    ///
+    /// The backoff policy controls how long to wait in between retry attempts.
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::user_account::Builder;
+    /// use gax::exponential_backoff::ExponentialBackoff;
+    /// # use std::time::Duration;
+    /// # tokio_test::block_on(async {
+    /// let authorized_user = serde_json::json!({
+    ///     "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com",
+    ///     "client_secret": "YOUR_CLIENT_SECRET",
+    ///     "refresh_token": "YOUR_REFRESH_TOKEN",
+    ///     "type": "authorized_user",
+    /// });
+    /// let credentials = Builder::new(authorized_user)
+    ///     .with_backoff_policy(ExponentialBackoff::default())
+    ///     .build();
+    /// # });
+    /// ```
+    pub fn with_backoff_policy<V: Into<BackoffPolicyArg>>(mut self, v: V) -> Self {
+        self.retry_builder = self.retry_builder.with_backoff_policy(v.into());
+        self
+    }
+
+    /// Configure the retry throttler.
+    ///
+    /// Advanced applications may want to configure a retry throttler to
+    /// [Address Cascading Failures] and when [Handling Overload] conditions.
+    /// The authentication library throttles its retry loop, using a policy to
+    /// control the throttling algorithm. Use this method to fine tune or
+    /// customize the default retry throttler.
+    ///
+    /// [Handling Overload]: https://sre.google/sre-book/handling-overload/
+    /// [Address Cascading Failures]: https://sre.google/sre-book/addressing-cascading-failures/
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::user_account::Builder;
+    /// use gax::retry_throttler::AdaptiveThrottler;
+    /// # tokio_test::block_on(async {
+    /// let authorized_user = serde_json::json!({
+    ///     "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com",
+    ///     "client_secret": "YOUR_CLIENT_SECRET",
+    ///     "refresh_token": "YOUR_REFRESH_TOKEN",
+    ///     "type": "authorized_user",
+    /// });
+    /// let credentials = Builder::new(authorized_user)
+    ///     .with_retry_throttler(AdaptiveThrottler::default())
+    ///     .build();
+    /// # });
+    /// ```
+    pub fn with_retry_throttler<V: Into<RetryThrottlerArg>>(mut self, v: V) -> Self {
+        self.retry_builder = self.retry_builder.with_retry_throttler(v.into());
+        self
+    }
+
     /// Returns a [Credentials] instance with the configured settings.
     ///
     /// # Errors
@@ -216,7 +303,8 @@ impl Builder {
             endpoint,
             scopes: self.scopes.map(|scopes| scopes.join(" ")),
         };
-        let token_provider = TokenCache::new(token_provider);
+
+        let token_provider = TokenCache::new(self.retry_builder.build(token_provider));
 
         Ok(Credentials {
             inner: Arc::new(UserCredentials {
@@ -361,7 +449,8 @@ struct Oauth2RefreshResponse {
 mod tests {
     use super::*;
     use crate::credentials::tests::{
-        get_headers_from_cache, get_token_from_headers, get_token_type_from_headers,
+        get_headers_from_cache, get_mock_auth_retry_policy, get_mock_backoff_policy,
+        get_mock_retry_throttler, get_token_from_headers, get_token_type_from_headers,
     };
     use crate::credentials::{DEFAULT_UNIVERSE_DOMAIN, QUOTA_PROJECT_KEY};
     use crate::token::tests::MockTokenProvider;
@@ -369,10 +458,98 @@ mod tests {
     use http::header::AUTHORIZATION;
     use httptest::matchers::{all_of, json_decoded, request};
     use httptest::responders::{json_encoded, status_code};
-    use httptest::{Expectation, Server};
+    use httptest::{Expectation, Server, cycle};
     use std::error::Error;
 
     type TestResult = anyhow::Result<()>;
+
+    fn authorized_user_json(token_uri: String) -> Value {
+        serde_json::json!({
+            "client_id": "test-client-id",
+            "client_secret": "test-client-secret",
+            "refresh_token": "test-refresh-token",
+            "type": "authorized_user",
+            "token_uri": token_uri,
+        })
+    }
+
+    #[tokio::test]
+    async fn test_user_account_retries_on_transient_failures() -> TestResult {
+        let mut server = Server::run();
+        server.expect(
+            Expectation::matching(request::path("/token"))
+                .times(3)
+                .respond_with(status_code(503)),
+        );
+
+        let credentials = Builder::new(authorized_user_json(server.url("/token").to_string()))
+            .with_retry_policy(get_mock_auth_retry_policy(3))
+            .with_backoff_policy(get_mock_backoff_policy())
+            .with_retry_throttler(get_mock_retry_throttler())
+            .build()?;
+
+        let err = credentials.headers(Extensions::new()).await.unwrap_err();
+        assert!(err.is_transient());
+        server.verify_and_clear();
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_user_account_does_not_retry_on_non_transient_failures() -> TestResult {
+        let mut server = Server::run();
+        server.expect(
+            Expectation::matching(request::path("/token"))
+                .times(1)
+                .respond_with(status_code(401)),
+        );
+
+        let credentials = Builder::new(authorized_user_json(server.url("/token").to_string()))
+            .with_retry_policy(get_mock_auth_retry_policy(1))
+            .with_backoff_policy(get_mock_backoff_policy())
+            .with_retry_throttler(get_mock_retry_throttler())
+            .build()?;
+
+        let err = credentials.headers(Extensions::new()).await.unwrap_err();
+        assert!(!err.is_transient());
+        server.verify_and_clear();
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_user_account_retries_for_success() -> TestResult {
+        let mut server = Server::run();
+        let response = Oauth2RefreshResponse {
+            access_token: "test-access-token".to_string(),
+            expires_in: Some(3600),
+            refresh_token: Some("test-refresh-token".to_string()),
+            scope: Some("scope1 scope2".to_string()),
+            token_type: "test-token-type".to_string(),
+        };
+
+        server.expect(
+            Expectation::matching(request::path("/token"))
+                .times(3)
+                .respond_with(cycle![
+                    status_code(503).body("try-again"),
+                    status_code(503).body("try-again"),
+                    status_code(200)
+                        .append_header("Content-Type", "application/json")
+                        .body(serde_json::to_string(&response).unwrap()),
+                ]),
+        );
+
+        let credentials = Builder::new(authorized_user_json(server.url("/token").to_string()))
+            .with_retry_policy(get_mock_auth_retry_policy(3))
+            .with_backoff_policy(get_mock_backoff_policy())
+            .with_retry_throttler(get_mock_retry_throttler())
+            .build()?;
+
+        let token = get_token_from_headers(credentials.headers(Extensions::new()).await.unwrap());
+        assert_eq!(token.unwrap(), "test-access-token");
+
+        server.verify_and_clear();
+        Ok(())
+    }
 
     #[test]
     fn debug_token_provider() {
