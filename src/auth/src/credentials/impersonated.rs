@@ -85,7 +85,6 @@ use time::OffsetDateTime;
 use tokio::time::Instant;
 
 const IMPERSONATED_CREDENTIAL_TYPE: &str = "imp";
-
 pub(crate) const DEFAULT_LIFETIME: Duration = Duration::from_secs(3600);
 const MSG: &str = "failed to fetch token";
 
@@ -303,7 +302,7 @@ impl Builder {
     /// the number of attempts or the total time spent retrying.
     ///
     /// ```
-    /// # use google_cloud_auth::credentials::impersonated;
+    /// # use google_cloud_auth::credentials::impersonated::Builder;
     /// # use serde_json::json;
     /// # tokio_test::block_on(async {
     /// use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
@@ -323,7 +322,7 @@ impl Builder {
     /// The backoff policy controls how long to wait in between retry attempts.
     ///
     /// ```
-    /// # use google_cloud_auth::credentials::impersonated;
+    /// # use google_cloud_auth::credentials::impersonated::Builder;
     /// # use serde_json::json;
     /// # use std::time::Duration;
     /// # tokio_test::block_on(async {
@@ -352,7 +351,7 @@ impl Builder {
     /// [Address Cascading Failures]: https://sre.google/sre-book/addressing-cascading-failures/
     ///
     /// ```
-    /// # use google_cloud_auth::credentials::impersonated;
+    /// # use google_cloud_auth::credentials::impersonated::Builder;
     /// # use serde_json::json;
     /// # tokio_test::block_on(async {
     /// use gax::retry_throttler::AdaptiveThrottler;
@@ -605,12 +604,12 @@ struct GenerateAccessTokenResponse {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use httptest::{Expectation, Server, matchers::*, responders::*};
-    use serde_json::json;
     use crate::credentials::tests::{
         get_mock_auth_retry_policy, get_mock_backoff_policy, get_mock_retry_throttler,
     };
     use httptest::cycle;
+    use httptest::{Expectation, Server, matchers::*, responders::*};
+    use serde_json::json;
 
     type TestResult = anyhow::Result<()>;
 
@@ -1404,9 +1403,7 @@ mod tests {
             .unwrap();
 
         assert_eq!(
-            token_provider
-                .inner
-                .service_account_impersonation_url,
+            token_provider.inner.service_account_impersonation_url,
             "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal@example.iam.gserviceaccount.com:generateAccessToken"
         );
     }
