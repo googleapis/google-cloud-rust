@@ -31315,6 +31315,9 @@ pub struct Fulfillment {
     /// [google.cloud.dialogflow.cx.v3.Fulfillment.messages]: crate::model::Fulfillment::messages
     pub enable_generative_fallback: bool,
 
+    /// A list of Generators to be called during this fulfillment.
+    pub generators: std::vec::Vec<crate::model::fulfillment::GeneratorSettings>,
+
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -31404,6 +31407,17 @@ impl Fulfillment {
         self.enable_generative_fallback = v.into();
         self
     }
+
+    /// Sets the value of [generators][crate::model::Fulfillment::generators].
+    pub fn set_generators<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::fulfillment::GeneratorSettings>,
+    {
+        use std::iter::Iterator;
+        self.generators = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
 }
 
 #[cfg(any(
@@ -31444,6 +31458,7 @@ impl<'de> serde::de::Deserialize<'de> for Fulfillment {
             __conditional_cases,
             __advanced_settings,
             __enable_generative_fallback,
+            __generators,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -31483,6 +31498,7 @@ impl<'de> serde::de::Deserialize<'de> for Fulfillment {
                             "enable_generative_fallback" => {
                                 Ok(__FieldTag::__enable_generative_fallback)
                             }
+                            "generators" => Ok(__FieldTag::__generators),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -31594,6 +31610,18 @@ impl<'de> serde::de::Deserialize<'de> for Fulfillment {
                                 .next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__generators => {
+                            if !fields.insert(__FieldTag::__generators) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for generators",
+                                ));
+                            }
+                            result.generators = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::fulfillment::GeneratorSettings>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -31647,6 +31675,9 @@ impl serde::ser::Serialize for Fulfillment {
         }
         if !wkt::internal::is_default(&self.enable_generative_fallback) {
             state.serialize_entry("enableGenerativeFallback", &self.enable_generative_fallback)?;
+        }
+        if !self.generators.is_empty() {
+            state.serialize_entry("generators", &self.generators)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -32612,6 +32643,252 @@ pub mod fulfillment {
                     AdditionalCases(std::boxed::Box<crate::model::fulfillment::ConditionalCases>),
                 }
             }
+        }
+    }
+
+    /// Generator settings used by the LLM to generate a text response.
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
+    #[derive(Clone, Debug, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct GeneratorSettings {
+        /// Required. The generator to call.
+        /// Format:
+        /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/generators/<GeneratorID>`.
+        pub generator: std::string::String,
+
+        /// Map from [placeholder parameter][Generator.Parameter.id] in the
+        /// [Generator][google.cloud.dialogflow.cx.v3.Generator] to corresponding
+        /// session parameters. By default, Dialogflow uses the session parameter
+        /// with the same name to fill in the generator template. e.g. If there is a
+        /// placeholder parameter `city` in the Generator, Dialogflow default to fill
+        /// in the `$city` with
+        /// `$session.params.city`. However, you may choose to fill `$city` with
+        /// `$session.params.desination-city`.
+        ///
+        /// - Map key: [parameter ID][Genrator.Parameter.id]
+        /// - Map value: session parameter name
+        ///
+        /// [google.cloud.dialogflow.cx.v3.Generator]: crate::model::Generator
+        pub input_parameters: std::collections::HashMap<std::string::String, std::string::String>,
+
+        /// Required. Output parameter which should contain the generator response.
+        pub output_parameter: std::string::String,
+
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
+    impl GeneratorSettings {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [generator][crate::model::fulfillment::GeneratorSettings::generator].
+        pub fn set_generator<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.generator = v.into();
+            self
+        }
+
+        /// Sets the value of [input_parameters][crate::model::fulfillment::GeneratorSettings::input_parameters].
+        pub fn set_input_parameters<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.input_parameters = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [output_parameter][crate::model::fulfillment::GeneratorSettings::output_parameter].
+        pub fn set_output_parameter<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.output_parameter = v.into();
+            self
+        }
+    }
+
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
+    impl wkt::message::Message for GeneratorSettings {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.cx.v3.Fulfillment.GeneratorSettings"
+        }
+    }
+
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for GeneratorSettings {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __generator,
+                __input_parameters,
+                __output_parameter,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for GeneratorSettings")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "generator" => Ok(__FieldTag::__generator),
+                                "inputParameters" => Ok(__FieldTag::__input_parameters),
+                                "input_parameters" => Ok(__FieldTag::__input_parameters),
+                                "outputParameter" => Ok(__FieldTag::__output_parameter),
+                                "output_parameter" => Ok(__FieldTag::__output_parameter),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = GeneratorSettings;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct GeneratorSettings")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__generator => {
+                                if !fields.insert(__FieldTag::__generator) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for generator",
+                                    ));
+                                }
+                                result.generator = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__input_parameters => {
+                                if !fields.insert(__FieldTag::__input_parameters) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for input_parameters",
+                                    ));
+                                }
+                                result.input_parameters = map
+                                    .next_value::<std::option::Option<
+                                        std::collections::HashMap<
+                                            std::string::String,
+                                            std::string::String,
+                                        >,
+                                    >>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__output_parameter => {
+                                if !fields.insert(__FieldTag::__output_parameter) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for output_parameter",
+                                    ));
+                                }
+                                result.output_parameter = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
+    #[doc(hidden)]
+    impl serde::ser::Serialize for GeneratorSettings {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.generator.is_empty() {
+                state.serialize_entry("generator", &self.generator)?;
+            }
+            if !self.input_parameters.is_empty() {
+                state.serialize_entry("inputParameters", &self.input_parameters)?;
+            }
+            if !self.output_parameter.is_empty() {
+                state.serialize_entry("outputParameter", &self.output_parameter)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
         }
     }
 }

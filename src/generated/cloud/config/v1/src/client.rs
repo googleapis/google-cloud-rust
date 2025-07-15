@@ -342,6 +342,26 @@ impl Config {
         super::builder::config::GetTerraformVersion::new(self.inner.clone())
     }
 
+    /// Lists ResourceChanges for a given preview.
+    pub fn list_resource_changes(&self) -> super::builder::config::ListResourceChanges {
+        super::builder::config::ListResourceChanges::new(self.inner.clone())
+    }
+
+    /// Get a ResourceChange for a given preview.
+    pub fn get_resource_change(&self) -> super::builder::config::GetResourceChange {
+        super::builder::config::GetResourceChange::new(self.inner.clone())
+    }
+
+    /// List ResourceDrifts for a given preview.
+    pub fn list_resource_drifts(&self) -> super::builder::config::ListResourceDrifts {
+        super::builder::config::ListResourceDrifts::new(self.inner.clone())
+    }
+
+    /// Get a ResourceDrift for a given preview.
+    pub fn get_resource_drift(&self) -> super::builder::config::GetResourceDrift {
+        super::builder::config::GetResourceDrift::new(self.inner.clone())
+    }
+
     /// Lists information about the supported locations for this service.
     pub fn list_locations(&self) -> super::builder::config::ListLocations {
         super::builder::config::ListLocations::new(self.inner.clone())
