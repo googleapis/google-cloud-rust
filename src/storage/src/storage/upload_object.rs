@@ -636,6 +636,74 @@ impl<T> UploadObject<T> {
         self
     }
 
+    /// Changes the threshold for resumable uploads.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .with_resumable_upload_threshold(0_usize) // Forces a resumable upload.
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// The client library can perform uploads using [single-shot] or
+    /// [resumable] uploads. For small objects, single-shot uploads offer better
+    /// performance, as they require a single HTTP transfer. For larger objects,
+    /// the additional request latency is not significant, and resumable uploads
+    /// offer better recovery on errors.
+    ///
+    /// The exact threshold depends on where the application is deployed and
+    /// destination bucket location with respect to where the application is
+    /// running. The library defaults should work well in most cases, but some
+    /// applications may benefit from fine-tuning.
+    ///
+    /// [single-shot]: https://cloud.google.com/storage/docs/uploading-objects
+    /// [resumable]: https://cloud.google.com/storage/docs/resumable-uploads
+    pub fn with_resumable_upload_threshold<V: Into<usize>>(mut self, v: V) -> Self {
+        self.options.resumable_upload_threshold = v.into();
+        self
+    }
+
+    /// Changes the buffer size for some resumable uploads.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .with_resumable_upload_buffer_size(32 * 1024 * 1024_usize)
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// When performing [resumable uploads] from sources without [Seek] the
+    /// client library needs to buffer data in memory until it is persisted by
+    /// the service. Otherwise the data would be lost if the upload fails.
+    /// Applications may want to tune this buffer size:
+    ///
+    /// - Use smaller buffer sizes to support more concurrent uploads in the
+    ///   same application.
+    /// - Use larger buffer sizes for better throughput. Sending many small
+    ///   buffers stalls the upload until the client receives a successful
+    ///   response from the service.
+    ///
+    /// Keep in mind that there are diminishing returns on using larger buffers.
+    ///
+    /// [resumable uploads]: https://cloud.google.com/storage/docs/resumable-uploads
+    /// [Seek]: crate::upload_source::Seek
+    pub fn with_resumable_upload_buffer_size<V: Into<usize>>(mut self, v: V) -> Self {
+        self.options.resumable_upload_buffer_size = v.into();
+        self
+    }
+
     fn mut_resource(&mut self) -> &mut crate::model::Object {
         self.spec
             .resource
@@ -866,6 +934,24 @@ mod tests {
         );
 
         Ok(())
+    }
+
+    #[test]
+    fn upload_object_options() {
+        let inner = test_inner_client(
+            test_builder()
+                .with_resumable_upload_threshold(123_usize)
+                .with_resumable_upload_buffer_size(234_usize),
+        );
+        let request = UploadObject::new(inner.clone(), "projects/_/buckets/bucket", "object", "");
+        assert_eq!(request.options.resumable_upload_threshold, 123);
+        assert_eq!(request.options.resumable_upload_buffer_size, 234);
+
+        let request = UploadObject::new(inner, "projects/_/buckets/bucket", "object", "")
+            .with_resumable_upload_threshold(345_usize)
+            .with_resumable_upload_buffer_size(456_usize);
+        assert_eq!(request.options.resumable_upload_threshold, 345);
+        assert_eq!(request.options.resumable_upload_buffer_size, 456);
     }
 
     #[tokio::test]
