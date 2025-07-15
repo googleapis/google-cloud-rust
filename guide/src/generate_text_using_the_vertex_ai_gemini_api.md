@@ -42,8 +42,8 @@ First, initialize the client using the default settings:
 {{#include ../samples/src/gemini.rs:text-prompt-client}}
 ```
 
-Then build the model name. For simplicity, this example receives the
-project ID as an argument and uses a fixed location (`global`) and model id
+Then build the model name. For simplicity, this example receives the project ID
+as an argument and uses a fixed location (`global`) and model id
 (`gemini-2.0-flash-001`).
 
 ```rust,ignore,noplayground
