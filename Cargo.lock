@@ -4750,7 +4750,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-wkt"
-version = "0.5.1"
+version = "0.5.1-rc1"
 dependencies = [
  "anyhow",
  "base64",
