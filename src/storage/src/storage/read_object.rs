@@ -476,6 +476,10 @@ impl ReadObjectResponse {
     }
 
     /// Get the object metadata.
+    /// Get the highlights of the object metadata included in the
+    /// response.
+    ///
+    /// To get full metadata about this object, use [crate::client::StorageControl::get_object].
     ///
     /// # Example
     /// ```
@@ -493,42 +497,35 @@ impl ReadObjectResponse {
     /// println!("object content encoding={}", object.content_encoding);
     /// # Ok::<(), anyhow::Error>(()) });
     /// ```
-    pub fn object(&self) -> Object {
+    pub fn object(&self) -> ObjectHighlights {
         let headers = self.inner.headers();
-
-        let obj = Object::new();
-        let obj = headers
-            .get("x-goog-generation")
-            .and_then(|g| g.to_str().ok())
-            .and_then(|g| g.parse::<i64>().ok())
-            .iter()
-            .fold(obj, |obj, g| obj.set_generation(*g));
-
-        let obj = headers
-            .get("x-goog-metageneration")
-            .and_then(|m| m.to_str().ok())
-            .and_then(|m| m.parse::<i64>().ok())
-            .iter()
-            .fold(obj, |obj, m| obj.set_metageneration(*m));
-
-        let obj = headers
-            .get("x-goog-stored-content-length")
-            .and_then(|s| s.to_str().ok())
-            .and_then(|s| s.parse::<i64>().ok())
-            .iter()
-            .fold(obj, |obj, s| obj.set_size(*s));
-
-        let obj = headers
-            .get("x-goog-stored-content-encoding")
-            .and_then(|ce| ce.to_str().ok())
-            .iter()
-            .fold(obj, |obj, ce| obj.set_content_encoding(*ce));
-
-        obj.set_checksums(
-            crate::generated::gapic::model::ObjectChecksums::new()
-                .set_or_clear_crc32c(headers_to_crc32c(headers))
-                .set_md5_hash(headers_to_md5_hash(headers)),
-        )
+        ObjectHighlights {
+            generation: headers
+                .get("x-goog-generation")
+                .and_then(|g| g.to_str().ok())
+                .and_then(|g| g.parse::<i64>().ok())
+                .unwrap_or_default(),
+            metageneration: headers
+                .get("x-goog-metageneration")
+                .and_then(|m| m.to_str().ok())
+                .and_then(|m| m.parse::<i64>().ok())
+                .unwrap_or_default(),
+            size: headers
+                .get("x-goog-stored-content-length")
+                .and_then(|s| s.to_str().ok())
+                .and_then(|s| s.parse::<i64>().ok())
+                .unwrap_or_default(),
+            content_encoding: headers
+                .get("x-goog-stored-content-encoding")
+                .and_then(|ce| ce.to_str().ok())
+                .map(|ce| ce.to_string())
+                .unwrap_or_default(),
+            checksums: headers.get("x-goog-hash").map(|_| {
+                crate::model::ObjectChecksums::new()
+                    .set_or_clear_crc32c(headers_to_crc32c(headers))
+                    .set_md5_hash(headers_to_md5_hash(headers))
+            }),
+        }
     }
 
     // Get the full object as bytes.
@@ -608,6 +605,28 @@ impl ReadObjectResponse {
             None
         }))
     }
+}
+
+/// ObjectHighlights contains select metadata from a [crate::model::Object].
+pub struct ObjectHighlights {
+    /// The content generation of this object. Used for object versioning.
+    pub generation: i64,
+    /// The version of the metadata for this generation of this
+    /// object. Used for preconditions and for detecting changes in metadata. A
+    /// metageneration number is only meaningful in the context of a particular
+    /// generation of a particular object.
+    pub metageneration: i64,
+    /// Content-Length of the object data in bytes, matching
+    /// [<https://tools.ietf.org/html/rfc7230#section-3.3.2>][RFC 7230 §3.3.2].
+    pub size: i64,
+    /// Content-Encoding of the object data, matching
+    /// [<https://tools.ietf.org/html/rfc7231#section-3.1.2.2>][RFC 7231 §3.1.2.2]
+    pub content_encoding: String,
+    /// Hashes for the data part of this object. The checksums of the complete
+    /// object regardless of data range. If the object is downloaded in full,
+    /// the client should compute one of these checksums over the downloaded
+    /// object and compare it against the value provided here.
+    pub checksums: std::option::Option<crate::model::ObjectChecksums>,
 }
 
 /// Represents an error that can occur when reading response data.
