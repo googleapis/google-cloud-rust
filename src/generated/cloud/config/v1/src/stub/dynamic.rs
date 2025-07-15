@@ -155,6 +155,30 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::TerraformVersion>>;
 
+    async fn list_resource_changes(
+        &self,
+        req: crate::model::ListResourceChangesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListResourceChangesResponse>>;
+
+    async fn get_resource_change(
+        &self,
+        req: crate::model::GetResourceChangeRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ResourceChange>>;
+
+    async fn list_resource_drifts(
+        &self,
+        req: crate::model::ListResourceDriftsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListResourceDriftsResponse>>;
+
+    async fn get_resource_drift(
+        &self,
+        req: crate::model::GetResourceDriftRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ResourceDrift>>;
+
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
@@ -428,6 +452,42 @@ impl<T: super::Config> Config for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::TerraformVersion>> {
         T::get_terraform_version(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_resource_changes(
+        &self,
+        req: crate::model::ListResourceChangesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListResourceChangesResponse>> {
+        T::list_resource_changes(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_resource_change(
+        &self,
+        req: crate::model::GetResourceChangeRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ResourceChange>> {
+        T::get_resource_change(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_resource_drifts(
+        &self,
+        req: crate::model::ListResourceDriftsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListResourceDriftsResponse>> {
+        T::list_resource_drifts(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_resource_drift(
+        &self,
+        req: crate::model::GetResourceDriftRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ResourceDrift>> {
+        T::get_resource_drift(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

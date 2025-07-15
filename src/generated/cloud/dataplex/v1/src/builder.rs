@@ -2486,6 +2486,12 @@ pub mod catalog_service {
             self.0.request.scope = v.into();
             self
         }
+
+        /// Sets the value of [semantic_search][crate::model::SearchEntriesRequest::semantic_search].
+        pub fn set_semantic_search<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.semantic_search = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
