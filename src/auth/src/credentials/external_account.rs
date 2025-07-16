@@ -196,7 +196,7 @@ struct ExternalAccountConfig {
     credential_source: CredentialSource,
 }
 
-#[derive(Debug, Default, Clone)]
+#[derive(Debug, Default)]
 struct ExternalAccountConfigBuilder {
     audience: Option<String>,
     subject_token_type: Option<String>,
@@ -1178,12 +1178,39 @@ impl ProgrammaticBuilder {
     /// Returns a [BuilderError] if any of the required fields (such as
     /// `audience` or `subject_token_type`) have not been set.
     pub fn build(self) -> BuildResult<Credentials> {
-        let quota_project_id = self.quota_project_id.clone();
-        let config = self.build_config()?;
-        Ok(config.make_credentials(quota_project_id, self.retry_builder))
+        let (config, quota_project_id, retry_builder) = self.into_parts()?;
+        Ok(config.make_credentials(quota_project_id, retry_builder))
     }
 
-    fn build_config(&self) -> BuildResult<ExternalAccountConfig> {
+    /// Consumes the builder and returns its configured components.
+    fn into_parts(
+        self,
+    ) -> BuildResult<(
+        ExternalAccountConfig,
+        Option<String>,
+        RetryTokenProviderBuilder,
+    )> {
+        let Self {
+            quota_project_id,
+            config,
+            retry_builder,
+        } = self;
+
+        let mut config_builder = config;
+        if config_builder.scopes.is_none() {
+            config_builder = config_builder.with_scopes(vec![DEFAULT_SCOPE.to_string()]);
+        }
+        if config_builder.token_url.is_none() {
+            config_builder = config_builder.with_token_url(STS_TOKEN_URL.to_string());
+        }
+        let final_config = config_builder.build()?;
+
+        Ok((final_config, quota_project_id, retry_builder))
+    }
+
+    /// Builds the configuration for inspection during tests, without consuming the builder.
+    #[cfg(test)]
+    pub(crate) fn build_components(&self) -> BuildResult<ExternalAccountConfig> {
         let mut config_builder = self.config.clone();
         if config_builder.scopes.is_none() {
             config_builder = config_builder.with_scopes(vec![DEFAULT_SCOPE.to_string()]);
@@ -1657,7 +1684,7 @@ mod tests {
             builder = builder.with_token_url(token_url);
         }
 
-        let config = builder.build_config().unwrap();
+        let config = builder.build_components().unwrap();
 
         assert_eq!(config.audience, "test-audience");
         assert_eq!(config.subject_token_type, "test-token-type");
