@@ -50,7 +50,7 @@
 use crate::backoff_policy::{BackoffPolicy, BackoffPolicyArg};
 use crate::polling_backoff_policy::{PollingBackoffPolicy, PollingBackoffPolicyArg};
 use crate::polling_error_policy::{PollingErrorPolicy, PollingErrorPolicyArg};
-use crate::retry_policy::{RetryPolicy, RetryPolicyArg};
+use crate::retry_policy::{DontRetryAuthPolicy, RetryPolicy, RetryPolicyArg};
 use crate::retry_throttler::{RetryThrottlerArg, SharedRetryThrottler};
 use std::sync::Arc;
 
@@ -269,7 +269,8 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// # Result::<()>::Ok(()) });
     /// ```
     pub fn with_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
-        self.config.retry_policy = Some(v.into().into());
+        let user_policy: Arc<dyn RetryPolicy> = v.into().into();
+        self.config.retry_policy = Some(Arc::new(DontRetryAuthPolicy(user_policy)));
         self
     }
 
