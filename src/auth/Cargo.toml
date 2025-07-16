@@ -14,7 +14,7 @@
 
 [package]
 name        = "google-cloud-auth"
-version     = "0.22.0-rc2"
+version     = "0.22.0"
 description = "Google Cloud Client Libraries for Rust - Authentication"
 build       = "build.rs"
 # Inherit other attributes from the workspace.

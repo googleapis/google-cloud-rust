@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-logging-v2"
-version                = "0.4.1-rc2"
+version                = "0.4.1"
 description            = "Google Cloud Client Libraries for Rust - Cloud Logging API"
 edition.workspace      = true
 authors.workspace      = true

@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-showcase-v1beta1"
-version                = "0.4.1-rc2"
+version                = "0.4.1"
 description            = "Google Cloud Client Libraries for Rust - Client Libraries Showcase API"
 edition.workspace      = true
 authors.workspace      = true

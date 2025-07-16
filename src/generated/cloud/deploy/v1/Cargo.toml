@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-deploy-v1"
-version                = "0.4.1-rc2"
+version                = "0.4.1"
 description            = "Google Cloud Client Libraries for Rust - Cloud Deploy API"
 edition.workspace      = true
 authors.workspace      = true
