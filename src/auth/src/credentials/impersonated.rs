@@ -60,10 +60,9 @@
 //! # use serde_json::json;
 //! # use std::time::Duration;
 //! # use http::Extensions;
-//! # use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
-//! # use gax::exponential_backoff::ExponentialBackoff;
-//! #
 //! # tokio_test::block_on(async {
+//! use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+//! use gax::exponential_backoff::ExponentialBackoff;
 //! # let source_credentials = json!({
 //! #     "type": "authorized_user",
 //! #     "client_id": "test-client-id",

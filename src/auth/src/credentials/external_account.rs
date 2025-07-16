@@ -68,10 +68,9 @@
 //! # use google_cloud_auth::credentials::external_account;
 //! # use http::Extensions;
 //! # use std::time::Duration;
-//! # use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
-//! # use gax::exponential_backoff::ExponentialBackoff;
-//! #
 //! # tokio_test::block_on(async {
+//! use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+//! use gax::exponential_backoff::ExponentialBackoff;
 //! # let project_id = "your-gcp-project-id";
 //! # let pool_id = "your-workload-identity-pool-id";
 //! # let provider_id = "your-provider-id";

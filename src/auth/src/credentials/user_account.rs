@@ -66,9 +66,9 @@
 //! # use google_cloud_auth::credentials::Credentials;
 //! # use http::Extensions;
 //! # use std::time::Duration;
-//! # use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
-//! # use gax::exponential_backoff::ExponentialBackoff;
 //! # tokio_test::block_on(async {
+//! use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+//! use gax::exponential_backoff::ExponentialBackoff;
 //! let authorized_user = serde_json::json!({
 //!     "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com",
 //!     "client_secret": "YOUR_CLIENT_SECRET",

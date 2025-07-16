@@ -53,9 +53,9 @@
 //! # use google_cloud_auth::credentials::Credentials;
 //! # use http::Extensions;
 //! # use std::time::Duration;
-//! # use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
-//! # use gax::exponential_backoff::ExponentialBackoff;
 //! # tokio_test::block_on(async {
+//! use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+//! use gax::exponential_backoff::ExponentialBackoff;
 //! let backoff = ExponentialBackoff::default();
 //! let credentials: Credentials = Builder::default()
 //!     .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
