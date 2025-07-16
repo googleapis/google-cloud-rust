@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-type"
-version                = "0.4.1-rc1"
+version                = "0.4.1-rc2"
 description            = "Google Cloud Client Libraries for Rust - Common Types"
 edition.workspace      = true
 authors.workspace      = true
