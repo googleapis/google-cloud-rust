@@ -95,7 +95,7 @@ jobs:
             cargo "${sub}" --package google-cloud-wkt --no-default-features --features _internal-semver
             cargo "${sub}" --package google-cloud-wkt --all-features
           done
-          cargo clippy --no-deps --package google-cloud-wkt -- --deny warnings
+          cargo clippy --no-deps --package google-cloud-wkt --all-targets -- --deny warnings
           cargo clippy --no-deps --package google-cloud-wkt --all-features --all-targets --profile=test -- --deny warnings
 
           cargo clean
@@ -106,7 +106,7 @@ jobs:
             cargo "${sub}" --package google-cloud-gax --no-default-features --features _internal-semver
             cargo "${sub}" --package google-cloud-gax --all-features
           done
-          cargo clippy --no-deps --package google-cloud-gax -- --deny warnings
+          cargo clippy --no-deps --package google-cloud-gax --all-targets -- --deny warnings
           cargo clippy --no-deps --package google-cloud-gax --all-features --all-targets --profile=test -- --deny warnings
 
           cargo clean
@@ -118,7 +118,7 @@ jobs:
             cargo "${sub}" --package google-cloud-gax-internal --no-default-features --features _internal-grpc-client
             cargo "${sub}" --package google-cloud-gax-internal --all-features
           done
-          cargo clippy --no-deps --package google-cloud-gax-internal -- --deny warnings
+          cargo clippy --no-deps --package google-cloud-gax-internal --all-targets -- --deny warnings
           cargo clippy --no-deps --package google-cloud-gax-internal --all-features --all-targets --profile=test -- --deny warnings
 
           cargo clean
@@ -129,7 +129,7 @@ jobs:
             cargo "${sub}" --profile=ci --package google-cloud-lro --no-default-features --features _internal-semver
             cargo "${sub}" --profile=ci --package google-cloud-lro --all-features
           done
-          cargo clippy --no-deps --package google-cloud-lro -- --deny warnings
+          cargo clippy --no-deps --package google-cloud-lro --all-targets -- --deny warnings
           cargo clippy --no-deps --package google-cloud-lro --all-features --all-targets --profile=test -- --deny warnings
 
           # We use google-cloud-aiplatform-v1 to test the generator w.r.t.
@@ -149,10 +149,9 @@ jobs:
           for sub in test doc; do
             cargo "${sub}" --profile=ci --package google-cloud-storage --no-default-features
             cargo "${sub}" --profile=ci --package google-cloud-storage --no-default-features --features unstable-stream
-            cargo "${sub}" --profile=ci --package google-cloud-storage --no-default-features --features _internal-semver
             cargo "${sub}" --profile=ci --package google-cloud-storage --all-features
           done
-          cargo clippy --no-deps --package google-cloud-storage -- --deny warnings
+          cargo clippy --no-deps --package google-cloud-storage --all-targets -- --deny warnings
           cargo clippy --no-deps --package google-cloud-storage --all-features --all-targets --profile=test -- --deny warnings
 
   coverage:
