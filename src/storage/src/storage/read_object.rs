@@ -20,6 +20,7 @@ use std::pin::Pin;
 
 use super::client::*;
 use super::*;
+use base64::Engine;
 
 /// The request builder for [Storage::read_object][crate::client::Storage::read_object] calls.
 ///
@@ -349,6 +350,18 @@ fn headers_to_crc32c(headers: &http::HeaderMap) -> Option<u32> {
         })
 }
 
+fn headers_to_md5_hash(headers: &http::HeaderMap) -> Vec<u8> {
+    headers
+        .get("x-goog-hash")
+        .and_then(|hash| hash.to_str().ok())
+        .and_then(|hash| hash.split(",").find(|v| v.starts_with("md5")))
+        .and_then(|hash| {
+            let hash = hash.trim_start_matches("md5=");
+            base64::prelude::BASE64_STANDARD.decode(hash).ok()
+        })
+        .unwrap_or_default()
+}
+
 /// A response to a [Storage::read_object] request.
 #[derive(Debug)]
 pub struct ReadObjectResponse {
@@ -359,8 +372,60 @@ pub struct ReadObjectResponse {
 }
 
 impl ReadObjectResponse {
-    // Get the full object as bytes.
-    //
+    /// Get the highlights of the object metadata included in the
+    /// response.
+    ///
+    /// To get full metadata about this object, use [crate::client::StorageControl::get_object].
+    ///
+    /// # Example
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_storage::client::Storage;
+    /// # let client = Storage::builder().build().await?;
+    /// let object = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .send()
+    ///     .await?
+    ///     .object();
+    /// println!("object generation={}", object.generation);
+    /// println!("object metageneration={}", object.metageneration);
+    /// println!("object size={}", object.size);
+    /// println!("object content encoding={}", object.content_encoding);
+    /// # Ok::<(), anyhow::Error>(()) });
+    /// ```
+    pub fn object(&self) -> ObjectHighlights {
+        let headers = self.inner.headers();
+        ObjectHighlights {
+            generation: headers
+                .get("x-goog-generation")
+                .and_then(|g| g.to_str().ok())
+                .and_then(|g| g.parse::<i64>().ok())
+                .unwrap_or_default(),
+            metageneration: headers
+                .get("x-goog-metageneration")
+                .and_then(|m| m.to_str().ok())
+                .and_then(|m| m.parse::<i64>().ok())
+                .unwrap_or_default(),
+            size: headers
+                .get("x-goog-stored-content-length")
+                .and_then(|s| s.to_str().ok())
+                .and_then(|s| s.parse::<i64>().ok())
+                .unwrap_or_default(),
+            content_encoding: headers
+                .get("x-goog-stored-content-encoding")
+                .and_then(|ce| ce.to_str().ok())
+                .map(|ce| ce.to_string())
+                .unwrap_or_default(),
+            checksums: headers.get("x-goog-hash").map(|_| {
+                crate::model::ObjectChecksums::new()
+                    .set_or_clear_crc32c(headers_to_crc32c(headers))
+                    .set_md5_hash(headers_to_md5_hash(headers))
+            }),
+        }
+    }
+
+    /// Get the full object as bytes.
+    ///
     /// # Example
     /// ```
     /// # tokio_test::block_on(async {
@@ -434,6 +499,28 @@ impl ReadObjectResponse {
             self.crc32c,
         )
     }
+}
+
+/// ObjectHighlights contains select metadata from a [crate::model::Object].
+pub struct ObjectHighlights {
+    /// The content generation of this object. Used for object versioning.
+    pub generation: i64,
+    /// The version of the metadata for this generation of this
+    /// object. Used for preconditions and for detecting changes in metadata. A
+    /// metageneration number is only meaningful in the context of a particular
+    /// generation of a particular object.
+    pub metageneration: i64,
+    /// Content-Length of the object data in bytes, matching
+    /// [<https://tools.ietf.org/html/rfc7230#section-3.3.2>][RFC 7230 §3.3.2].
+    pub size: i64,
+    /// Content-Encoding of the object data, matching
+    /// [<https://tools.ietf.org/html/rfc7231#section-3.1.2.2>][RFC 7231 §3.1.2.2]
+    pub content_encoding: String,
+    /// Hashes for the data part of this object. The checksums of the complete
+    /// object regardless of data range. If the object is downloaded in full,
+    /// the client should compute one of these checksums over the downloaded
+    /// object and compare it against the value provided here.
+    pub checksums: std::option::Option<crate::model::ObjectChecksums>,
 }
 
 #[pin_project]
@@ -543,7 +630,6 @@ fn check_crc32c_match(crc32c: u32, response: Option<u32>) -> Result<()> {
 mod tests {
     use super::client::tests::{create_key_helper, test_builder, test_inner_client};
     use super::*;
-    use base64::Engine as _;
     use futures::TryStreamExt;
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use std::collections::HashMap;
@@ -575,6 +661,56 @@ mod tests {
             .await?;
         let got = reader.all_bytes().await?;
         assert_eq!(got, "hello world");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn read_object_metadata() -> Result {
+        const CONTENTS: &str = "the quick brown fox jumps over the lazy dog";
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("GET", "//storage/v1/b/test-bucket/o/test-object"),
+                request::query(url_decoded(contains(("alt", "media")))),
+            ])
+            .respond_with(
+                status_code(200)
+                    .body(CONTENTS)
+                    .append_header(
+                        "x-goog-hash",
+                        "crc32c=PBj01g==,md5=d63R1fQSI9VYL8pzalyzNQ==",
+                    )
+                    .append_header("x-goog-generation", 500)
+                    .append_header("x-goog-metageneration", "1")
+                    .append_header("x-goog-stored-content-length", 30)
+                    .append_header("x-goog-stored-content-encoding", "identity"),
+            ),
+        );
+
+        let endpoint = server.url("");
+        let client = Storage::builder()
+            .with_endpoint(endpoint.to_string())
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+        let reader = client
+            .read_object("projects/_/buckets/test-bucket", "test-object")
+            .send()
+            .await?;
+        let object = reader.object();
+        assert_eq!(object.generation, 500);
+        assert_eq!(object.metageneration, 1);
+        assert_eq!(object.size, 30);
+        assert_eq!(object.content_encoding, "identity");
+        assert_eq!(
+            object.checksums.as_ref().unwrap().crc32c.unwrap(),
+            crc32c::crc32c(CONTENTS.as_bytes())
+        );
+        assert_eq!(
+            object.checksums.as_ref().unwrap().md5_hash,
+            base64::prelude::BASE64_STANDARD.decode("d63R1fQSI9VYL8pzalyzNQ==")?
+        );
 
         Ok(())
     }
@@ -1002,6 +1138,25 @@ mod tests {
         }
         let got = headers_to_crc32c(&headers);
         assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test_case("", None; "no header")]
+    #[test_case("md5=invalid", None; "invalid value")]
+    #[test_case("md5=AAAAAAAAAAAAAAAAAA==",Some("AAAAAAAAAAAAAAAAAA=="); "zero value")]
+    #[test_case("md5=d63R1fQSI9VYL8pzalyzNQ==", Some("d63R1fQSI9VYL8pzalyzNQ=="); "value")]
+    #[test_case("crc32c=something,md5=d63R1fQSI9VYL8pzalyzNQ==", Some("d63R1fQSI9VYL8pzalyzNQ=="); "md5 after crc32c")]
+    #[test_case("md5=d63R1fQSI9VYL8pzalyzNQ==,crc32c=something", Some("d63R1fQSI9VYL8pzalyzNQ=="); "md5 before crc32c")]
+    fn test_headers_to_md5(val: &str, want: Option<&str>) -> Result {
+        let mut headers = http::HeaderMap::new();
+        if !val.is_empty() {
+            headers.insert("x-goog-hash", http::HeaderValue::from_str(val)?);
+        }
+        let got = headers_to_md5_hash(&headers);
+        match want {
+            Some(w) => assert_eq!(got, base64::prelude::BASE64_STANDARD.decode(w)?),
+            None => assert!(got.is_empty()),
+        }
         Ok(())
     }
 
