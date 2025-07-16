@@ -12,14 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use futures::Stream;
-use futures::task::{Context, Poll};
-use pin_project::pin_project;
 use serde_with::DeserializeAs;
-use std::pin::Pin;
 
 use super::client::*;
 use super::*;
+#[cfg(feature = "unstable-stream")]
+use futures::Stream;
 
 /// The request builder for [Storage::read_object][crate::client::Storage::read_object] calls.
 ///
@@ -426,64 +424,16 @@ impl ReadObjectResponse {
     #[cfg(feature = "unstable-stream")]
     #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
     /// Convert the response to a [Stream].
-    pub fn into_stream(self) -> impl Stream<Item = Result<bytes::Bytes>> {
-        use futures::TryStreamExt;
-        Crc32CStream::new(
-            self.inner.bytes_stream().map_err(Error::io),
-            self.response_crc32c,
-            self.crc32c,
-        )
-    }
-}
-
-#[pin_project]
-struct Crc32CStream<S>
-where
-    S: Stream<Item = Result<bytes::Bytes>>,
-{
-    #[pin]
-    inner_stream: S,
-    response_crc32c: Option<u32>,
-    crc32c: u32,
-}
-
-impl<S> Crc32CStream<S>
-where
-    S: Stream<Item = Result<bytes::Bytes>>,
-{
-    pub fn new(inner_stream: S, response_crc32c: Option<u32>, crc32c: u32) -> Self {
-        Self {
-            inner_stream,
-            response_crc32c,
-            crc32c,
-        }
-    }
-}
-
-// Implement the Stream trait for our wrapper struct.
-impl<S> Stream for Crc32CStream<S>
-where
-    S: Stream<Item = Result<bytes::Bytes>>,
-{
-    type Item = Result<bytes::Bytes>;
-
-    fn poll_next(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Option<Self::Item>> {
-        // Poll the inner stream.
-        let this = self.project();
-        let inner_stream_pin = this.inner_stream;
-        match inner_stream_pin.poll_next(cx) {
-            Poll::Ready(Some(Ok(chunk))) => {
-                if this.response_crc32c.is_some() {
-                    *this.crc32c = crc32c::crc32c_append(*this.crc32c, &chunk);
+    pub fn into_stream(self) -> impl Stream<Item = Result<bytes::Bytes>> + Unpin {
+        use futures::stream::unfold;
+        Box::pin(unfold(Some(self), move |state| async move {
+            if let Some(mut this) = state {
+                if let Some(chunk) = this.next().await {
+                    return Some((chunk, Some(this)));
                 }
-                Poll::Ready(Some(Ok(chunk)))
-            }
-            Poll::Ready(None) => match check_crc32c_match(*this.crc32c, *this.response_crc32c) {
-                Ok(()) => Poll::Ready(None),
-                Err(e) => Poll::Ready(Some(Err(e))),
-            },
-            poll => poll,
-        }
+            };
+            None
+        }))
     }
 }
 
