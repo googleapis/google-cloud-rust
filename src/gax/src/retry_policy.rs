@@ -608,6 +608,10 @@ where
     }
 }
 
+const AUTH_ERROR_MESSAGE: &str = "Authentication error: This will not be retried. To configure retries for authentication, \
+                please construct the credential instance directly using its builder (e.g., user_account::Builder) \
+                and provide the retry policy there.";
+
 /// A retry policy that wraps another policy and prevents retrying authentication errors.
 #[derive(Debug, Clone)]
 pub(crate) struct DontRetryAuthPolicy(pub(crate) Arc<dyn RetryPolicy>);
@@ -623,9 +627,7 @@ impl RetryPolicy for DontRetryAuthPolicy {
         if error.is_authentication() {
             let new_error = Error::authentication(CredentialsError::new(
                 false,
-                "Authentication error: This will not be retried. To configure retries for authentication, \
-                please construct the credential instance directly using its builder (e.g., user_account::Builder) \
-                and provide the retry policy there.",
+                AUTH_ERROR_MESSAGE,
                 error,
             ));
             return RetryResult::Permanent(new_error);

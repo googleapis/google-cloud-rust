@@ -111,7 +111,7 @@ impl RequestOptions {
 
     /// Sets the retry policy configuration.
     pub fn set_retry_policy<V: Into<RetryPolicyArg>>(&mut self, v: V) {
-        let user_policy: Arc<dyn RetryPolicy> = v.into().into();
+        let user_policy = v.into().into();
         self.retry_policy = Some(Arc::new(DontRetryAuthPolicy(user_policy)));
     }
 

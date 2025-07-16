@@ -269,7 +269,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// # Result::<()>::Ok(()) });
     /// ```
     pub fn with_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
-        let user_policy: Arc<dyn RetryPolicy> = v.into().into();
+        let user_policy = v.into().into();
         self.config.retry_policy = Some(Arc::new(DontRetryAuthPolicy(user_policy)));
         self
     }
