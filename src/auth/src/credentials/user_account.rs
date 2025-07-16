@@ -35,8 +35,9 @@
 //! * Override the OAuth 2.0 **scopes** being requested for the access token.
 //! * Override the **quota project ID** for billing and quota management.
 //! * Override the **token URI** used to fetch access tokens.
+//! * Customize the **retry behavior** when fetching access tokens.
 //!
-//! Example usage:
+//! ## Example: Creating credentials from a JSON object
 //!
 //! ```
 //! # use google_cloud_auth::credentials::user_account::Builder;
@@ -52,6 +53,35 @@
 //!     // "token_uri" : "test-token-uri", // Optional: Set if needed
 //! });
 //! let credentials: Credentials = Builder::new(authorized_user).build()?;
+//! let headers = credentials.headers(Extensions::new()).await?;
+//! println!("Headers: {headers:?}");
+//! # Ok::<(), anyhow::Error>(())
+//! # });
+//! ```
+//!
+//! ## Example: customizing token fetch retries
+//!
+//! ```
+//! # use google_cloud_auth::credentials::user_account::Builder;
+//! # use google_cloud_auth::credentials::Credentials;
+//! # use http::Extensions;
+//! # use std::time::Duration;
+//! # use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+//! # use gax::exponential_backoff::ExponentialBackoff;
+//! # tokio_test::block_on(async {
+//! let authorized_user = serde_json::json!({
+//!     "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com",
+//!     "client_secret": "YOUR_CLIENT_SECRET",
+//!     "refresh_token": "YOUR_REFRESH_TOKEN",
+//!     "type": "authorized_user",
+//! });
+//! let backoff = ExponentialBackoff::default();
+//! let credentials: Credentials = Builder::new(authorized_user)
+//!     .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
+//!     .with_backoff_policy(backoff)
+//!     .build()?;
+//! // This will now retry up to 3 times with exponential backoff if fetching
+//! // the token fails.
 //! let headers = credentials.headers(Extensions::new()).await?;
 //! println!("Headers: {headers:?}");
 //! # Ok::<(), anyhow::Error>(())
