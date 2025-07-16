@@ -185,7 +185,7 @@ impl From<CredentialSourceFile> for CredentialSource {
 }
 
 #[derive(Debug, Clone)]
-pub(crate) struct ExternalAccountConfig {
+struct ExternalAccountConfig {
     audience: String,
     subject_token_type: String,
     token_url: String,
@@ -475,7 +475,7 @@ impl Builder {
             external_account_config,
             quota_project_id: None,
             scopes: None,
-            retry_builder: Default::default(),
+            retry_builder: RetryTokenProviderBuilder::default(),
         }
     }
 
@@ -710,7 +710,7 @@ impl ProgrammaticBuilder {
         Self {
             quota_project_id: None,
             config,
-            retry_builder: Default::default(),
+            retry_builder: RetryTokenProviderBuilder::default(),
         }
     }
 
@@ -1183,7 +1183,7 @@ impl ProgrammaticBuilder {
         Ok(config.make_credentials(quota_project_id, self.retry_builder))
     }
 
-    pub(crate) fn build_config(&self) -> BuildResult<ExternalAccountConfig> {
+    fn build_config(&self) -> BuildResult<ExternalAccountConfig> {
         let mut config_builder = self.config.clone();
         if config_builder.scopes.is_none() {
             config_builder = config_builder.with_scopes(vec![DEFAULT_SCOPE.to_string()]);
@@ -1902,5 +1902,98 @@ mod tests {
         }
         sts_server.verify_and_clear();
         subject_token_server.verify_and_clear();
+    }
+
+    #[tokio::test]
+    async fn test_programmatic_builder_retries_on_transient_failures() {
+        let provider = Arc::new(TestSubjectTokenProvider);
+        let mut sts_server = Server::run();
+
+        sts_server.expect(
+            Expectation::matching(request::method_path("POST", "/token"))
+                .times(3)
+                .respond_with(status_code(503)),
+        );
+
+        let creds = ProgrammaticBuilder::new(provider)
+            .with_audience("test-audience")
+            .with_subject_token_type("test-token-type")
+            .with_token_url(sts_server.url("/token").to_string())
+            .with_retry_policy(get_mock_auth_retry_policy(3))
+            .with_backoff_policy(get_mock_backoff_policy())
+            .with_retry_throttler(get_mock_retry_throttler())
+            .build()
+            .unwrap();
+
+        let err = creds.headers(Extensions::new()).await.unwrap_err();
+        assert!(err.is_transient());
+        sts_server.verify_and_clear();
+    }
+
+    #[tokio::test]
+    async fn test_programmatic_builder_does_not_retry_on_non_transient_failures() {
+        let provider = Arc::new(TestSubjectTokenProvider);
+        let mut sts_server = Server::run();
+
+        sts_server.expect(
+            Expectation::matching(request::method_path("POST", "/token"))
+                .times(1)
+                .respond_with(status_code(401)),
+        );
+
+        let creds = ProgrammaticBuilder::new(provider)
+            .with_audience("test-audience")
+            .with_subject_token_type("test-token-type")
+            .with_token_url(sts_server.url("/token").to_string())
+            .with_retry_policy(get_mock_auth_retry_policy(1))
+            .with_backoff_policy(get_mock_backoff_policy())
+            .with_retry_throttler(get_mock_retry_throttler())
+            .build()
+            .unwrap();
+
+        let err = creds.headers(Extensions::new()).await.unwrap_err();
+        assert!(!err.is_transient());
+        sts_server.verify_and_clear();
+    }
+
+    #[tokio::test]
+    async fn test_programmatic_builder_retries_for_success() {
+        let provider = Arc::new(TestSubjectTokenProvider);
+        let mut sts_server = Server::run();
+
+        sts_server.expect(
+            Expectation::matching(request::method_path("POST", "/token"))
+                .times(3)
+                .respond_with(cycle![
+                    status_code(503).body("try-again"),
+                    status_code(503).body("try-again"),
+                    json_encoded(json!({
+                        "access_token": "sts-only-token",
+                        "issued_token_type": "urn:ietf:params:oauth:token-type:access_token",
+                        "token_type": "Bearer",
+                        "expires_in": 3600,
+                    }))
+                ]),
+        );
+
+        let creds = ProgrammaticBuilder::new(provider)
+            .with_audience("test-audience")
+            .with_subject_token_type("test-token-type")
+            .with_token_url(sts_server.url("/token").to_string())
+            .with_retry_policy(get_mock_auth_retry_policy(3))
+            .with_backoff_policy(get_mock_backoff_policy())
+            .with_retry_throttler(get_mock_retry_throttler())
+            .build()
+            .unwrap();
+
+        let headers = creds.headers(Extensions::new()).await.unwrap();
+        match headers {
+            CacheableResource::New { data, .. } => {
+                let token = data.get("authorization").unwrap().to_str().unwrap();
+                assert_eq!(token, "Bearer sts-only-token");
+            }
+            CacheableResource::NotModified => panic!("Expected new headers"),
+        }
+        sts_server.verify_and_clear();
     }
 }
