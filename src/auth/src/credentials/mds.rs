@@ -46,7 +46,7 @@
 //! # });
 //! ```
 //!
-//! # Example: customizing token fetch retries
+//! ## Example: Creating credentials with custom retry behavior
 //!
 //! ```
 //! # use google_cloud_auth::credentials::mds::Builder;
@@ -61,8 +61,6 @@
 //!     .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
 //!     .with_backoff_policy(backoff)
 //!     .build()?;
-//! // This will now retry up to 3 times with exponential backoff if fetching
-//! // the token fails.
 //! let headers = credentials.headers(Extensions::new()).await?;
 //! println!("Headers: {headers:?}");
 //! # Ok::<(), anyhow::Error>(())

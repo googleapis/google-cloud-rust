@@ -62,7 +62,7 @@
 //! # });
 //! ```
 //!
-//! ## Example: customizing token fetch retries
+//! ## Example: Creating credentials with custom retry behavior
 //!
 //! ```
 //! # use google_cloud_auth::credentials::external_account;
@@ -92,13 +92,10 @@
 //! # });
 //! let backoff = ExponentialBackoff::default();
 //! let credentials = external_account::Builder::new(external_account_config)
-//!     // Note: retries are not yet implemented for external_account
-//!     // .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
-//!     // .with_backoff_policy(backoff)
+//!     .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
+//!     .with_backoff_policy(backoff)
 //!     .build()
 //!     .unwrap();
-//! // This will now retry up to 3 times with exponential backoff if fetching
-//! // the token fails.
 //! let headers = credentials.headers(Extensions::new()).await?;
 //! println!("Headers: {headers:?}");
 //! # Ok::<(), anyhow::Error>(())
