@@ -45,11 +45,16 @@ func Generate(model *api.API, outdir string, cfg *config.Config) error {
 	codec.annotateModel(model, cfg)
 	provider := templatesProvider()
 	generatedFiles := language.WalkTemplatesDir(templates, "templates/prost")
-	if err := language.GenerateFromModel(outdir, model, provider, generatedFiles); err != nil {
+	tmpDir, err := os.MkdirTemp("", "rust-prost-*")
+	if err != nil {
+		return fmt.Errorf("cannot create temporary directory for rust+prost output: %w", err)
+	}
+	defer os.RemoveAll(tmpDir)
+	if err := language.GenerateFromModel(tmpDir, model, provider, generatedFiles); err != nil {
 		return err
 	}
 	rootName := cfg.Source[codec.RootName]
-	return buildRS(rootName, outdir)
+	return buildRS(rootName, tmpDir, outdir)
 }
 
 func templatesProvider() language.TemplateProvider {
@@ -62,14 +67,19 @@ func templatesProvider() language.TemplateProvider {
 	}
 }
 
-func buildRS(rootName, outdir string) error {
-	absolute, err := filepath.Abs(rootName)
+func buildRS(rootName, tmpDir, outDir string) error {
+	absRoot, err := filepath.Abs(rootName)
+	if err != nil {
+		return err
+	}
+	absOutDir, err := filepath.Abs(outDir)
 	if err != nil {
 		return err
 	}
 	cmd := exec.Command("cargo", "build", "--features", "_generate-protos")
-	cmd.Dir = outdir
-	cmd.Env = append(os.Environ(), fmt.Sprintf("SOURCE_ROOT=%s", absolute))
+	cmd.Dir = tmpDir
+	cmd.Env = append(os.Environ(), fmt.Sprintf("SOURCE_ROOT=%s", absRoot))
+	cmd.Env = append(cmd.Env, fmt.Sprintf("DEST=%s", absOutDir))
 	return runAndCaptureErrors(cmd)
 }
 

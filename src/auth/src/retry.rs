@@ -25,7 +25,7 @@ use std::sync::{Arc, Mutex};
 
 #[derive(Debug)]
 pub(crate) struct TokenProviderWithRetry<T: TokenProvider> {
-    inner: Arc<T>,
+    pub(crate) inner: Arc<T>,
     retry_policy: Option<Arc<dyn RetryPolicy>>,
     backoff_policy: Arc<dyn BackoffPolicy>,
     retry_throttler: SharedRetryThrottler,
