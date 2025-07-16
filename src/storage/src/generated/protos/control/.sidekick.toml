@@ -20,8 +20,8 @@ specification-source = 'google/storage/control/v2'
 copyright-year      = '2025'
 template-override   = 'templates/prost'
 post-process-protos = """\
-let name = "google.storage.control.v2.rs";
-let content = std::fs::read_to_string(name)
+let name = format!("{destination}/google.storage.control.v2.rs");
+let content = std::fs::read_to_string(&name)
     .expect(format!("should be able to read '{name}'").as_str());
 // Rename CloudStorageLocations
 let content = content.replace(
@@ -45,5 +45,5 @@ let content = content.replace(
     "pub cloud_storage_buckets: ::core::option::Option<filter::CloudStorageBuckets>",
     "pub cloud_storage_buckets: ::core::option::Option<filter::CloudStorageBucketsOneOf>",
 );
-std::fs::write(name, content.as_bytes())
+std::fs::write(&name, content.as_bytes())
     .expect(format!("should be able to write '{name}'").as_str());"""
