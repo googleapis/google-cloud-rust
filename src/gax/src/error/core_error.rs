@@ -672,7 +672,7 @@ impl std::error::Error for Error {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
         self.source
             .as_ref()
-            .map(|e| e.as_ref() as &(dyn std::error::Error))
+            .map(|e| e.as_ref() as &dyn std::error::Error)
     }
 }
 

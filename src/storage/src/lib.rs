@@ -68,6 +68,7 @@ pub use crate::control::stub;
 #[allow(dead_code)]
 pub(crate) mod generated;
 
+#[allow(dead_code)]
 pub(crate) mod google {
     pub mod iam {
         pub mod v1 {
