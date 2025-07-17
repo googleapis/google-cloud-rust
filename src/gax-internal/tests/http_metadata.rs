@@ -14,16 +14,17 @@
 
 #[cfg(all(test, feature = "_internal-http-client"))]
 mod tests {
-    use axum::http::{HeaderName, HeaderValue, StatusCode};
     use gax::options::RequestOptions;
     use google_cloud_gax_internal::http::ReqwestClient;
     use google_cloud_gax_internal::options::ClientConfig;
+    use http::HeaderValue;
+    use httptest::{Expectation, Server, matchers::*, responders::*};
     use serde_json::json;
-    use tokio::task::JoinHandle;
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn capture_headers() -> anyhow::Result<()> {
-        let (endpoint, _server) = start().await?;
+        let server = start();
+        let endpoint = format!("http://{}", server.addr());
 
         let client = ReqwestClient::new(test_config(), &endpoint).await?;
         let builder = client.builder(reqwest::Method::GET, "/hello".into());
@@ -46,27 +47,15 @@ mod tests {
         Ok(())
     }
 
-    pub async fn start() -> anyhow::Result<(String, JoinHandle<()>)> {
-        let app = axum::Router::new().route("/hello", axum::routing::get(hello));
-        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await?;
-        let addr = listener.local_addr()?;
-        let server = tokio::spawn(async {
-            axum::serve(listener, app).await.unwrap();
-        });
-
-        Ok((format!("http://{}:{}", addr.ip(), addr.port()), server))
-    }
-
-    async fn hello() -> impl axum::response::IntoResponse {
-        use axum::response::Json;
-        (
-            StatusCode::OK,
-            [(
-                HeaderName::from_static("x-test-header"),
-                HeaderValue::from_static("test-only"),
-            )],
-            Json(json!({"greeting": "Hello World!"})),
-        )
+    pub fn start() -> Server {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(request::method_path("GET", "/hello")).respond_with(
+                json_encoded(json!({"greeting": "Hello World!"}))
+                    .insert_header("x-test-header", "test-only"),
+            ),
+        );
+        server
     }
 
     fn test_config() -> ClientConfig {

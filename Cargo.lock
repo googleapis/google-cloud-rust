@@ -2475,7 +2475,6 @@ name = "google-cloud-gax-internal"
 version = "0.4.0"
 dependencies = [
  "anyhow",
- "axum",
  "bytes",
  "echo-server",
  "google-cloud-auth",
@@ -2485,6 +2484,7 @@ dependencies = [
  "grpc-server",
  "http",
  "http-body-util",
+ "httptest",
  "mockall",
  "percent-encoding",
  "prost",
