@@ -82,7 +82,7 @@ wkt  = { workspace = true, optional = true }
 
 [dev-dependencies]
 anyhow.workspace      = true
-axum                  = { workspace = true, features = ["http2", "json", "query", "tokio"] }
+httptest.workspace    = true
 bytes.workspace       = true
 mockall.workspace     = true
 scoped-env.workspace  = true
