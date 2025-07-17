@@ -120,15 +120,12 @@ where
 
     async fn send_buffered_single_shot(self) -> Result<Object> {
         let mut stream = self.payload.lock().await;
-        let payload = {
-            let mut chunk = Vec::new();
-            while let Some(b) = stream.next().await.transpose().map_err(Error::io)? {
-                chunk.push(b);
-            }
-            chunk
-        };
+        let mut collected = Vec::new();
+        while let Some(b) = stream.next().await.transpose().map_err(Error::io)? {
+            collected.push(b);
+        }
         let upload = UploadObject {
-            payload: Arc::new(Mutex::new(InsertPayload::from(payload))),
+            payload: Arc::new(Mutex::new(InsertPayload::from(collected))),
             inner: self.inner,
             spec: self.spec,
             params: self.params,
