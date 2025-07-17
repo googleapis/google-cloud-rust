@@ -25,7 +25,8 @@
 //! creating configurations that can be used with this library for loading credentials
 //! using various external toke provider sources such as file, URL, or an executable.
 //!
-//! # Example
+//! ## Example: Creating credentials from a JSON object
+//!
 //! ```
 //! # use google_cloud_auth::credentials::external_account;
 //! # use http::Extensions;
@@ -59,7 +60,45 @@
 //! println!("Headers: {headers:?}");
 //! # Ok::<(), anyhow::Error>(())
 //! # });
-
+//! ```
+//!
+//! ## Example: Creating credentials with custom retry behavior
+//!
+//! ```
+//! # use google_cloud_auth::credentials::external_account;
+//! # use http::Extensions;
+//! # use std::time::Duration;
+//! # tokio_test::block_on(async {
+//! use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+//! use gax::exponential_backoff::ExponentialBackoff;
+//! # let project_id = "your-gcp-project-id";
+//! # let pool_id = "your-workload-identity-pool-id";
+//! # let provider_id = "your-provider-id";
+//! #
+//! # let audience = format!(
+//! #     "//iam.googleapis.com/projects/{}/locations/global/workloadIdentityPools/{}/providers/{}",
+//! #     project_id, pool_id, provider_id
+//! # );
+//! #
+//! # let external_account_config = serde_json::json!({
+//! #     "type": "external_account",
+//! #     "audience": audience,
+//! #     "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+//! #     "token_url": "https://sts.googleapis.com/v1/token",
+//! #     "credential_source": {
+//! #         "file": "/path/to/your/oidc/token.jwt"
+//! #     }
+//! # });
+//! let backoff = ExponentialBackoff::default();
+//! let credentials = external_account::Builder::new(external_account_config)
+//!     .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
+//!     .with_backoff_policy(backoff)
+//!     .build()
+//!     .unwrap();
+//! let headers = credentials.headers(Extensions::new()).await?;
+//! println!("Headers: {headers:?}");
+//! # Ok::<(), anyhow::Error>(())
+//! # });
 //! ```
 //!
 //! [Workload Identity Federation]: https://cloud.google.com/iam/docs/workload-identity-federation
