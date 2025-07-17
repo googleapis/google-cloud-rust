@@ -24,7 +24,15 @@ pub(crate) struct RequestOptions {
     pub retry_policy: Arc<dyn RetryPolicy>,
     pub backoff_policy: Arc<dyn BackoffPolicy>,
     pub retry_throttler: SharedRetryThrottler,
+    pub resumable_upload_threshold: usize,
+    pub resumable_upload_buffer_size: usize,
 }
+
+const MIB: usize = 1024 * 1024_usize;
+// There is some justification for these magic numbers at:
+//     https://github.com/googleapis/google-cloud-cpp/issues/2657
+const RESUMABLE_UPLOAD_THRESHOLD: usize = 16 * MIB;
+const RESUMABLE_UPLOAD_TARGET_CHUNK: usize = 8 * MIB;
 
 impl RequestOptions {
     pub(crate) fn new() -> Self {
@@ -35,6 +43,8 @@ impl RequestOptions {
             retry_policy,
             backoff_policy,
             retry_throttler,
+            resumable_upload_threshold: RESUMABLE_UPLOAD_THRESHOLD,
+            resumable_upload_buffer_size: RESUMABLE_UPLOAD_TARGET_CHUNK,
         }
     }
 }

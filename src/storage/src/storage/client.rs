@@ -423,6 +423,84 @@ impl ClientBuilder {
         self.default_options.retry_throttler = v.into().into();
         self
     }
+
+    /// Sets the payload size threshold to switch from single-shot to resumable uploads.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = Storage::builder()
+    ///     .with_resumable_upload_threshold(0_usize) // Forces a resumable upload.
+    ///     .build()
+    ///     .await?;
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// The client library can perform uploads using [single-shot] or
+    /// [resumable] uploads. For small objects, single-shot uploads offer better
+    /// performance, as they require a single HTTP transfer. For larger objects,
+    /// the additional request latency is not significant, and resumable uploads
+    /// offer better recovery on errors.
+    ///
+    /// The library automatically selects resumable uploads when the payload is
+    /// equal to or larger than this option. For smaller uploads the client
+    /// library uses single-shot uploads.
+    ///
+    /// The exact threshold depends on where the application is deployed and
+    /// destination bucket location with respect to where the application is
+    /// running. The library defaults should work well in most cases, but some
+    /// applications may benefit from fine-tuning.
+    ///
+    /// [single-shot]: https://cloud.google.com/storage/docs/uploading-objects
+    /// [resumable]: https://cloud.google.com/storage/docs/resumable-uploads
+    pub fn with_resumable_upload_threshold<V: Into<usize>>(mut self, v: V) -> Self {
+        self.default_options.resumable_upload_threshold = v.into();
+        self
+    }
+
+    /// Changes the buffer size for some resumable uploads.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = Storage::builder()
+    ///     .with_resumable_upload_buffer_size(32 * 1024 * 1024_usize)
+    ///     .build()
+    ///     .await?;
+    /// let response = client
+    ///     .upload_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// When performing [resumable uploads] from sources without [Seek] the
+    /// client library needs to buffer data in memory until it is persisted by
+    /// the service. Otherwise the data would be lost if the upload fails.
+    /// Applications may want to tune this buffer size:
+    ///
+    /// - Use smaller buffer sizes to support more concurrent uploads in the
+    ///   same application.
+    /// - Use larger buffer sizes for better throughput. Sending many small
+    ///   buffers stalls the upload until the client receives a successful
+    ///   response from the service.
+    ///
+    /// Keep in mind that there are diminishing returns on using larger buffers.
+    ///
+    /// [resumable uploads]: https://cloud.google.com/storage/docs/resumable-uploads
+    /// [Seek]: crate::upload_source::Seek
+    pub fn with_resumable_upload_buffer_size<V: Into<usize>>(mut self, v: V) -> Self {
+        self.default_options.resumable_upload_buffer_size = v.into();
+        self
+    }
 }
 
 /// The default host used by the service.
