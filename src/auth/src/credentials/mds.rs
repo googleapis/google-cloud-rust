@@ -449,7 +449,7 @@ mod tests {
             .build_token_provider();
 
         let err = provider.token().await.unwrap_err();
-        assert!(err.is_transient());
+        assert!(!err.is_transient());
         server.verify_and_clear();
         Ok(())
     }

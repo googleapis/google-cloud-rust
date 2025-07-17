@@ -489,7 +489,7 @@ mod tests {
             .build()?;
 
         let err = credentials.headers(Extensions::new()).await.unwrap_err();
-        assert!(err.is_transient());
+        assert!(!err.is_transient());
         server.verify_and_clear();
         Ok(())
     }

@@ -113,21 +113,20 @@ where
     }
 
     fn map_retry_error(e: gax::error::Error) -> CredentialsError {
-        match e {
-            auth_error if auth_error.is_authentication() => {
-                let (is_transient, msg) = if auth_error
-                    .source()
-                    .and_then(|s| s.downcast_ref::<CredentialsError>())
-                    .is_some_and(|ce| ce.is_transient())
-                {
-                    (true, constants::RETRY_EXHAUSTED_ERROR)
-                } else {
-                    (false, constants::TOKEN_FETCH_FAILED_ERROR)
-                };
-                CredentialsError::new(is_transient, msg, auth_error)
-            }
-            other_error => CredentialsError::from_source(false, other_error),
+        if !e.is_authentication() {
+            return CredentialsError::from_source(false, e);
         }
+
+        let msg = if e
+            .source()
+            .and_then(|s| s.downcast_ref::<CredentialsError>())
+            .is_some_and(|ce| ce.is_transient())
+        {
+            constants::RETRY_EXHAUSTED_ERROR
+        } else {
+            constants::TOKEN_FETCH_FAILED_ERROR
+        };
+        CredentialsError::new(false, msg, e)
     }
 }
 
@@ -279,11 +278,11 @@ mod tests {
             .build(mock_provider);
 
         let error = provider.token().await.unwrap_err();
-        assert!(error.is_transient());
+        assert!(!error.is_transient());
         assert_eq!(
             error.to_string(),
             format!(
-                "{} but future attempts may succeed",
+                "{} and future attempts will not succeed",
                 constants::RETRY_EXHAUSTED_ERROR
             )
         );

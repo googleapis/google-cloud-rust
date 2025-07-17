@@ -1815,7 +1815,7 @@ mod tests {
             .unwrap();
 
         let err = creds.headers(Extensions::new()).await.unwrap_err();
-        assert!(err.is_transient());
+        assert!(!err.is_transient());
         sts_server.verify_and_clear();
         subject_token_server.verify_and_clear();
     }
@@ -1940,7 +1940,7 @@ mod tests {
             .unwrap();
 
         let err = creds.headers(Extensions::new()).await.unwrap_err();
-        assert!(err.is_transient());
+        assert!(!err.is_transient());
         sts_server.verify_and_clear();
     }
 
