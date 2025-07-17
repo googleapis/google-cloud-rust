@@ -33,13 +33,19 @@ where
     /// # Ok(()) }
     /// ```
     pub async fn send(self) -> crate::Result<Object> {
-        // TODO(#2043) - make the target size for each chunk configurable.
         let hint = self.payload.lock().await.size_hint().1;
         if hint.is_none_or(|max| max >= self.options.resumable_upload_threshold as u64) {
             let upload_url = self.start_resumable_upload().await?;
-            return self
-                .upload_by_chunks(&upload_url, RESUMABLE_UPLOAD_QUANTUM)
-                .await;
+            // The buffer size must be a multiple of the upload quantum. The
+            // upload is finalized on the first PUT request with a size that is
+            // not such.
+            let target_size = self
+                .options
+                .resumable_upload_buffer_size
+                .div_ceil(RESUMABLE_UPLOAD_QUANTUM)
+                * RESUMABLE_UPLOAD_QUANTUM;
+            let target_size = target_size.max(RESUMABLE_UPLOAD_QUANTUM);
+            return self.upload_by_chunks(&upload_url, target_size).await;
         }
         self.send_buffered_single_shot().await
     }
@@ -481,6 +487,110 @@ mod tests {
             .await
             .expect_err("expected a not found error");
         assert_eq!(err.http_status_code(), Some(404), "{err:?}");
+
+        Ok(())
+    }
+
+    #[test_case(0, RESUMABLE_UPLOAD_QUANTUM)]
+    #[test_case(RESUMABLE_UPLOAD_QUANTUM / 2, RESUMABLE_UPLOAD_QUANTUM)]
+    #[test_case(RESUMABLE_UPLOAD_QUANTUM, RESUMABLE_UPLOAD_QUANTUM)]
+    #[test_case(3 * RESUMABLE_UPLOAD_QUANTUM + 1, 4 * RESUMABLE_UPLOAD_QUANTUM)]
+    #[tokio::test]
+    async fn upload_object_buffered_resumable_multiple_chunks(
+        configured_buffer_size: usize,
+        actual_buffer_size: usize,
+    ) -> Result {
+        assert!(
+            actual_buffer_size % RESUMABLE_UPLOAD_QUANTUM == 0,
+            "{actual_buffer_size}"
+        );
+        assert!(
+            configured_buffer_size <= actual_buffer_size,
+            "{configured_buffer_size} should be <= {actual_buffer_size}"
+        );
+        let payload = serde_json::json!({
+            "name": "test-object",
+            "bucket": "test-bucket",
+            "metadata": {
+                "is-test-object": "true",
+            }
+        })
+        .to_string();
+        let server = Server::run();
+        let session = server.url("/upload/session/test-only-001");
+        let path = session.path().to_string();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
+                request::query(url_decoded(contains(("name", "test-object")))),
+                request::query(url_decoded(contains(("uploadType", "resumable")))),
+            ])
+            .respond_with(
+                status_code(200)
+                    .append_header("location", session.to_string())
+                    .body(""),
+            ),
+        );
+
+        let start0 = 0;
+        let end0 = actual_buffer_size - 1;
+        let start1 = actual_buffer_size;
+        let end1 = 2 * actual_buffer_size - 1;
+        let end2 = 2 * actual_buffer_size;
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("PUT", path.clone()),
+                request::headers(contains((
+                    "content-range",
+                    format!("bytes {start0}-{end0}/*")
+                )))
+            ])
+            .respond_with(status_code(308).append_header("range", format!("bytes=0-{end0}"))),
+        );
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("PUT", path.clone()),
+                request::headers(contains((
+                    "content-range",
+                    format!("bytes {start1}-{end1}/*")
+                )))
+            ])
+            .respond_with(status_code(308).append_header("range", format!("bytes=0-{end1}"))),
+        );
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("PUT", path.clone()),
+                request::headers(contains(("content-range", format!("bytes */{end2}"))))
+            ])
+            .respond_with(
+                status_code(200)
+                    .append_header("content-type", "application/json")
+                    .body(payload),
+            ),
+        );
+
+        let client = Storage::builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .with_resumable_upload_threshold(0_usize)
+            .with_resumable_upload_buffer_size(configured_buffer_size)
+            .build()
+            .await?;
+        let contents = (0..4)
+            .map(|i| vec![i as u8; actual_buffer_size / 2])
+            .map(bytes::Bytes::from_owner)
+            .collect::<Vec<_>>();
+        let response = client
+            .upload_object("projects/_/buckets/test-bucket", "test-object", contents)
+            .send()
+            .await;
+        let response = response?;
+        assert_eq!(response.name, "test-object");
+        assert_eq!(response.bucket, "projects/_/buckets/test-bucket");
+        assert_eq!(
+            response.metadata.get("is-test-object").map(String::as_str),
+            Some("true")
+        );
 
         Ok(())
     }
