@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-talent-v4"
-version                = "0.4.1"
+version                = "0.4.2"
 description            = "Google Cloud Client Libraries for Rust - Cloud Talent Solution API"
 edition.workspace      = true
 authors.workspace      = true
