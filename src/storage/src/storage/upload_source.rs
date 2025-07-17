@@ -434,17 +434,17 @@ pub(crate) mod tests {
         buf.extend_from_slice(&[2_u8; N]);
         buf.extend_from_slice(&[3_u8; N]);
         let b = bytes::Bytes::from_owner(buf);
-        
-        let mut stream = IterSource::new(vec![
-            b.slice(0..N), b.slice(N..(2*N)), b.slice((2*N)..)]);
+
+        let mut stream =
+            IterSource::new(vec![b.slice(0..N), b.slice(N..(2 * N)), b.slice((2 * N)..)]);
         assert_eq!(stream.size_hint(), (3 * N as u64, Some(3 * N as u64)));
 
         // test_case() is not appropriate here: we want to verify seek() works
         // multiple times over the *same* stream.
-        for offset in [0, N / 2, 0, N, 0, 2 * N + N/2] {
+        for offset in [0, N / 2, 0, N, 0, 2 * N + N / 2] {
             stream.seek(offset as u64).await?;
             let got = collect_mut(&mut stream).await?;
-            assert_eq!(got[..], b[offset..(3*N)]);
+            assert_eq!(got[..], b[offset..(3 * N)]);
         }
 
         Ok(())
