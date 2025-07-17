@@ -22,7 +22,7 @@ on:
   release:
     types: [published]
 env:
-  GHA_RUST_VERSIONS: '{ "rust:msrv": "1.85", "rust:current": "1.88" }'
+  GHA_RUST_VERSIONS: '{ "rust:msrv": "1.85", "rust:current": "1.88", "rust:nightly": "nightly" }'
   GHA_GO_VERSIONS: '{ "go:current": "1.23.8" }'
 jobs:
   build:
@@ -260,7 +260,7 @@ jobs:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
-        rust-version: ['rust:current']
+        rust-version: ['rust:current', 'rust:nightly']
     steps:
       - uses: actions/checkout@v4
       - uses: actions/cache@v4
@@ -287,6 +287,7 @@ jobs:
       - run: mdbook build guide
       - run: mdbook test guide
       - name: Upload user guide
+        if: ${{ matrix.rust-version == 'rust:current' }}
         id: deployment
         uses: actions/upload-pages-artifact@v3 # or specific "vX.X.X" version tag for this action
         with:
