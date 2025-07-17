@@ -636,7 +636,7 @@ impl<T> UploadObject<T> {
         self
     }
 
-    /// Changes the threshold for resumable uploads.
+    /// Sets the payload size threshold to switch from single-shot to resumable uploads.
     ///
     /// # Example
     /// ```
@@ -656,6 +656,10 @@ impl<T> UploadObject<T> {
     /// performance, as they require a single HTTP transfer. For larger objects,
     /// the additional request latency is not significant, and resumable uploads
     /// offer better recovery on errors.
+    ///
+    /// The library automatically selects resumable uploads when the payload is
+    /// equal to or larger than this option. For smaller uploads the client
+    /// library uses single-shot uploads.
     ///
     /// The exact threshold depends on where the application is deployed and
     /// destination bucket location with respect to where the application is
