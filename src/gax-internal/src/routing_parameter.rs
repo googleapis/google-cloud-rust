@@ -167,7 +167,7 @@ const UNRESERVED: percent_encoding::AsciiSet = NON_ALPHANUMERIC
 ///
 /// A very short name as this is a private function, and only exists to simplify
 /// testing.
-fn enc(value: &str) -> percent_encoding::PercentEncode {
+fn enc(value: &str) -> percent_encoding::PercentEncode<'_> {
     percent_encoding::utf8_percent_encode(value, &UNRESERVED)
 }
 

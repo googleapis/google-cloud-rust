@@ -313,13 +313,6 @@ where
 }
 
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-struct ServiceAccountInfo {
-    email: String,
-    scopes: Option<Vec<String>>,
-    aliases: Option<Vec<String>>,
-}
-
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 struct MDSTokenResponse {
     access_token: String,
     #[serde(skip_serializing_if = "Option::is_none")]

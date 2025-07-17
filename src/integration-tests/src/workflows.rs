@@ -203,10 +203,10 @@ async fn cleanup_stale_workflows(
     let mut stale_workflows = Vec::new();
     while let Some(workflow) = paginator.next().await {
         let item = workflow?;
-        if let Some("true") = item.labels.get("integration-test").map(String::as_str) {
-            if let Some(true) = item.create_time.map(|v| v < stale_deadline) {
-                stale_workflows.push(item.name);
-            }
+        if let Some("true") = item.labels.get("integration-test").map(String::as_str)
+            && let Some(true) = item.create_time.map(|v| v < stale_deadline)
+        {
+            stale_workflows.push(item.name);
         }
     }
     let pending = stale_workflows
