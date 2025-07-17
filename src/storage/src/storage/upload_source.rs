@@ -279,12 +279,19 @@ pub(crate) mod tests {
     const CONTENTS: &[u8] = b"how vexingly quick daft zebras jump";
 
     /// A helper function to simplify the tests.
-    async fn collect<S>(source: S) -> anyhow::Result<Vec<u8>>
+    async fn collect<S>(mut source: S) -> anyhow::Result<Vec<u8>>
+    where
+        S: StreamingSource,
+    {
+        collect_mut(&mut source).await
+    }
+
+    /// A helper function to simplify the tests.
+    async fn collect_mut<S>(source: &mut S) -> anyhow::Result<Vec<u8>>
     where
         S: StreamingSource,
     {
         let mut vec = Vec::new();
-        let mut source = source;
         while let Some(bytes) = source.next().await.transpose()? {
             vec.extend_from_slice(&bytes);
         }
@@ -416,6 +423,30 @@ pub(crate) mod tests {
         want.extend_from_slice(&[2_u8; READ_SIZE]);
         want.extend_from_slice(&[3_u8; READ_SIZE]);
         assert_eq!(got[..], want[..], "{got:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn iter_source_full() -> Result {
+        const N: usize = 32;
+        let mut buf = Vec::new();
+        buf.extend_from_slice(&[1_u8; N]);
+        buf.extend_from_slice(&[2_u8; N]);
+        buf.extend_from_slice(&[3_u8; N]);
+        let b = bytes::Bytes::from_owner(buf);
+        
+        let mut stream = IterSource::new(vec![
+            b.slice(0..N), b.slice(N..(2*N)), b.slice((2*N)..)]);
+        assert_eq!(stream.size_hint(), (3 * N as u64, Some(3 * N as u64)));
+
+        // test_case() is not appropriate here: we want to verify seek() works
+        // multiple times over the *same* stream.
+        for offset in [0, N / 2, 0, N, 0, 2 * N + N/2] {
+            stream.seek(offset as u64).await?;
+            let got = collect_mut(&mut stream).await?;
+            assert_eq!(got[..], b[offset..(3*N)]);
+        }
+
         Ok(())
     }
 }
