@@ -53,7 +53,7 @@
 //!
 //! [idempotent]: https://en.wikipedia.org/wiki/Idempotence
 
-use crate::error::{CredentialsError, Error};
+use crate::error::Error;
 use crate::retry_result::RetryResult;
 use crate::throttle_result::ThrottleResult;
 use std::sync::Arc;
@@ -608,54 +608,6 @@ where
     }
 }
 
-const AUTH_ERROR_MESSAGE: &str = "Authentication error: This will not be retried. To configure retries for authentication, \
-                please construct the credential instance directly using its builder (e.g., user_account::Builder) \
-                and provide the retry policy there.";
-
-/// A retry policy that wraps another policy and prevents retrying authentication errors.
-#[derive(Debug, Clone)]
-pub(crate) struct DontRetryAuthPolicy(pub(crate) Arc<dyn RetryPolicy>);
-
-impl RetryPolicy for DontRetryAuthPolicy {
-    fn on_error(
-        &self,
-        loop_start: std::time::Instant,
-        attempt_count: u32,
-        idempotent: bool,
-        error: Error,
-    ) -> RetryResult {
-        if error.is_authentication() {
-            let new_error = Error::authentication(CredentialsError::new(
-                false,
-                AUTH_ERROR_MESSAGE,
-                error,
-            ));
-            return RetryResult::Permanent(new_error);
-        }
-        self.0
-            .on_error(loop_start, attempt_count, idempotent, error)
-    }
-
-
-    fn on_throttle(
-        &self,
-        loop_start: std::time::Instant,
-        attempt_count: u32,
-        error: Error,
-    ) -> ThrottleResult {
-        self.0.on_throttle(loop_start, attempt_count, error)
-    }
-
-    fn remaining_time(
-        &self,
-        loop_start: std::time::Instant,
-        attempt_count: u32,
-    ) -> Option<Duration> {
-        self.0.remaining_time(loop_start, attempt_count)
-    }
-}
-
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -797,8 +749,7 @@ mod tests {
     }
 
     fn pre_rpc_transient() -> Error {
-        use crate::error::CredentialsError;
-        Error::authentication(CredentialsError::from_msg(true, "err"))
+        Error::authentication(crate::error::CredentialsError::from_msg(true, "err"))
     }
 
     fn http_unavailable() -> Error {
@@ -1118,31 +1069,5 @@ mod tests {
                 .set_code(Code::Unavailable)
                 .set_message("try-again"),
         )
-    }
-
-    #[test]
-    fn test_dont_retry_auth_policy() {
-        let mut mock = MockPolicy::new();
-        mock.expect_on_error()
-            .times(1)
-            .returning(|_, _, _, e| RetryResult::Continue(e));
-
-        let policy = DontRetryAuthPolicy(Arc::new(mock));
-        let now = std::time::Instant::now();
-
-        // Test with an authentication error
-        let auth_error = Error::authentication(CredentialsError::from_msg(true, "auth error"));
-        let result = policy.on_error(now, 1, true, auth_error);
-        assert!(result.is_permanent());
-        if let RetryResult::Permanent(e) = result {
-            assert!(e.to_string().contains("Authentication error"));
-        } else {
-            panic!("Expected a permanent error");
-        }
-
-        // Test with a non-authentication error
-        let other_error = transient_error();
-        let result = policy.on_error(now, 1, true, other_error);
-        assert!(result.is_continue());
     }
 }
