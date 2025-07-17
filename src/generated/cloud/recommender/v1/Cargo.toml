@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-recommender-v1"
-version                = "0.4.1"
+version                = "0.4.2"
 description            = "Google Cloud Client Libraries for Rust - Recommender API"
 edition.workspace      = true
 authors.workspace      = true

@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-gkeconnect-gateway-v1"
-version                = "0.4.1"
+version                = "0.4.2"
 description            = "Google Cloud Client Libraries for Rust - Connect Gateway API"
 edition.workspace      = true
 authors.workspace      = true

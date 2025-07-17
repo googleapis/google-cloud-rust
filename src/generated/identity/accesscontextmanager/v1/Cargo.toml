@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-identity-accesscontextmanager-v1"
-version                = "0.4.1"
+version                = "0.4.2"
 description            = "Google Cloud Client Libraries for Rust - Access Context Manager API"
 edition.workspace      = true
 authors.workspace      = true
