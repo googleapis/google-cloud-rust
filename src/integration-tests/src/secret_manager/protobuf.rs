@@ -442,10 +442,10 @@ async fn cleanup_stale_secrets(
             ));
         }
 
-        if let Some("true") = secret.labels.get("integration-test").map(String::as_str)
-            && let Some(true) = secret.create_time.map(|v| v < stale_deadline)
-        {
-            stale_secrets.push(secret.name);
+        if let Some("true") = secret.labels.get("integration-test").map(String::as_str) {
+            if let Some(true) = secret.create_time.map(|v| v < stale_deadline) {
+                stale_secrets.push(secret.name);
+            }
         }
     }
 
