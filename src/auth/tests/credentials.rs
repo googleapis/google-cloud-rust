@@ -23,7 +23,6 @@ mod tests {
     };
     use google_cloud_auth::errors::SubjectTokenProviderError;
 
-    use gax::error::Error as GaxError;
     use google_cloud_auth::credentials::EntityTag;
     use google_cloud_auth::credentials::mds::Builder as MdsBuilder;
     use google_cloud_auth::credentials::service_account::Builder as ServiceAccountBuilder;

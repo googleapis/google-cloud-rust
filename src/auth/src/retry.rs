@@ -284,6 +284,7 @@ mod tests {
         assert!(!error.is_transient());
         let original_error = find_source_error::<CredentialsError>(&error).unwrap();
         assert!(original_error.is_transient());
+        assert!(error.to_string().contains(constants::RETRY_EXHAUSTED_ERROR));
     }
 
     #[tokio::test]
@@ -302,6 +303,11 @@ mod tests {
         assert!(!error.is_transient());
         let original_error = find_source_error::<CredentialsError>(&error).unwrap();
         assert!(!original_error.is_transient());
+        assert!(
+            error
+                .to_string()
+                .contains(constants::TOKEN_FETCH_FAILED_ERROR)
+        );
     }
 
     #[tokio::test]
