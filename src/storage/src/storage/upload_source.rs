@@ -30,7 +30,7 @@ use std::collections::VecDeque;
 /// use google_cloud_storage::upload_source::StreamingSource;
 /// let buffer : &[u8] = b"the quick brown fox jumps over the lazy dog";
 /// let mut size = 0_usize;
-/// let mut payload = InsertPayload::from(buffer);
+/// let mut payload = InsertPayload::from(bytes::Bytes::from_static(buffer));
 /// while let Some(bytes) = payload.next().await.transpose()? {
 ///     size += bytes.len();
 /// }
