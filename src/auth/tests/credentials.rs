@@ -45,6 +45,19 @@ mod tests {
     type Result<T> = anyhow::Result<T>;
     type TestResult = anyhow::Result<(), Box<dyn std::error::Error>>;
 
+    fn find_source_error<'a, T: Error + 'static>(
+        error: &'a (dyn Error + 'static),
+    ) -> Option<&'a T> {
+        let mut source = error.source();
+        while let Some(err) = source {
+            if let Some(target_err) = err.downcast_ref::<T>() {
+                return Some(target_err);
+            }
+            source = err.source();
+        }
+        None
+    }
+
     fn write_cred_json(contents: &str) -> tempfile::TempPath {
         let file = tempfile::NamedTempFile::new().unwrap();
         let path = file.into_temp_path();
@@ -383,13 +396,7 @@ mod tests {
         let creds = AccessTokenCredentialBuilder::default().build().unwrap();
 
         let error = creds.headers(Extensions::new()).await.unwrap_err();
-        let original_error = error
-            .source()
-            .and_then(|e| e.downcast_ref::<GaxError>())
-            .and_then(|e| e.source())
-            .and_then(|e| e.downcast_ref::<CredentialsError>())
-            .and_then(|e| e.source())
-            .and_then(|e| e.downcast_ref::<CredentialsError>())
+        let original_error = find_source_error::<CredentialsError>(&error)
             .expect("source should be a CredentialsError");
         assert!(original_error.to_string().contains("invalid_token"));
         assert!(!original_error.is_transient());
@@ -669,13 +676,7 @@ mod tests {
         let error = creds.headers(Extensions::new()).await.unwrap_err();
 
         assert!(!error.is_transient(), "Error should not be transient");
-        let original_error = error
-            .source()
-            .and_then(|e| e.downcast_ref::<GaxError>())
-            .and_then(|e| e.source())
-            .and_then(|e| e.downcast_ref::<CredentialsError>())
-            .and_then(|e| e.source())
-            .and_then(|e| e.downcast_ref::<TestProviderError>())
+        let original_error = find_source_error::<TestProviderError>(&error)
             .expect("source should be a TestProviderError");
         assert!(original_error.to_string().contains("TestProviderError"));
         Ok(())
