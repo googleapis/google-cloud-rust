@@ -418,7 +418,6 @@ mod tests {
     use crate::errors;
     use crate::errors::CredentialsError;
     use crate::token::tests::MockTokenProvider;
-    use gax::error::Error as GaxError;
     use http::HeaderValue;
     use http::header::AUTHORIZATION;
     use httptest::cycle;

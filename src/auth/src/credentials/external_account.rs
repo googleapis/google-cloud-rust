@@ -1234,9 +1234,8 @@ mod tests {
         get_mock_retry_throttler,
     };
     use crate::errors::{CredentialsError, SubjectTokenProviderError};
-    use gax::error::Error as GaxError;
     use httptest::{
-        cycle, Expectation, Server,
+        Expectation, Server, cycle,
         matchers::{all_of, contains, request, url_decoded},
         responders::{json_encoded, status_code},
     };

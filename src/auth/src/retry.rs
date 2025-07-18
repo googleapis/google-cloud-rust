@@ -135,14 +135,14 @@ where
 mod tests {
     use super::*;
     use crate::credentials::tests::find_source_error;
-    use crate::token::{tests::MockTokenProvider, Token, TokenProvider};
+    use crate::token::{Token, TokenProvider, tests::MockTokenProvider};
     use gax::retry_policy::RetryPolicy;
     use gax::retry_result::RetryResult;
     use gax::retry_throttler::RetryThrottler;
-    use mockall::{mock, Sequence};
+    use mockall::{Sequence, mock};
     use std::error::Error;
-    use std::sync::atomic::{AtomicBool, Ordering};
     use std::sync::Arc;
+    use std::sync::atomic::{AtomicBool, Ordering};
     use test_case::test_case;
 
     mock! {

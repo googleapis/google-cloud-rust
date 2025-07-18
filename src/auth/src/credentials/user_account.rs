@@ -456,13 +456,13 @@ mod tests {
     use crate::credentials::{DEFAULT_UNIVERSE_DOMAIN, QUOTA_PROJECT_KEY};
     use crate::errors::CredentialsError;
     use crate::token::tests::MockTokenProvider;
-    use gax::error::Error as GaxError;
     use http::StatusCode;
     use http::header::AUTHORIZATION;
+    use httptest::cycle;
     use httptest::matchers::{all_of, json_decoded, request};
     use httptest::responders::{json_encoded, status_code};
-    use httptest::{Expectation, Server, cycle};
-    use std::error::Error;
+    use httptest::{Expectation, Server};
+    use serde_json::json;
 
     type TestResult = anyhow::Result<()>;
 

@@ -631,7 +631,7 @@ pub mod testing {
 }
 
 #[cfg(test)]
-mod tests {
+pub(crate) mod tests {
     use super::*;
     use base64::Engine;
     use gax::backoff_policy::BackoffPolicy;
