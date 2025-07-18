@@ -33,7 +33,14 @@ where
     /// # Ok(()) }
     /// ```
     pub async fn send(self) -> crate::Result<Object> {
-        let hint = self.payload.lock().await.size_hint().1;
+        let hint = self
+            .payload
+            .lock()
+            .await
+            .size_hint()
+            .await
+            .map_err(Error::io)?
+            .1;
         if hint.is_none_or(|max| max >= self.options.resumable_upload_threshold as u64) {
             let upload_url = self.start_resumable_upload().await?;
             // The buffer size must be a multiple of the upload quantum. The
@@ -146,7 +153,7 @@ async fn next_chunk<T>(
     target_size: usize,
 ) -> Result<NextChunk>
 where
-    T: StreamingSource,
+    T: StreamingSource + Send + Sync,
 {
     let mut partial = VecDeque::new();
     let mut size = 0;
@@ -397,8 +404,9 @@ mod tests {
         async fn next(&mut self) -> Option<std::result::Result<bytes::Bytes, Self::Error>> {
             self.inner.next().await
         }
-        fn size_hint(&self) -> (u64, Option<u64>) {
-            (self.inner.size_hint().0, None)
+        async fn size_hint(&self) -> std::result::Result<(u64, Option<u64>), Self::Error> {
+            let hint = self.inner.size_hint().await?;
+            Ok((hint.0, None))
         }
     }
 
