@@ -862,6 +862,50 @@ mod tests {
 
     type Result = anyhow::Result<()>;
 
+    // Verify `upload_object()` can be used with a source that implements `StreamingSource` **and** `Seek`
+    #[tokio::test]
+    async fn test_upload_streaming_source_and_seek() -> Result {
+        struct Source;
+        impl crate::upload_source::StreamingSource for Source {
+            type Error = std::io::Error;
+            async fn next(&mut self) -> Option<std::result::Result<bytes::Bytes, Self::Error>> {
+                None
+            }
+        }
+        impl crate::upload_source::Seek for Source {
+            type Error = std::io::Error;
+            async fn seek(&mut self, _offset: u64) -> std::result::Result<(), Self::Error> {
+                Ok(())
+            }
+        }
+
+        let client = Storage::builder()
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+        let _ = client.upload_object("projects/_/buckets/test-bucket", "test-object", Source);
+        Ok(())
+    }
+
+    // Verify `upload_object()` can be used with a source that **only** implements `StreamingSource`.
+    #[tokio::test]
+    async fn test_upload_only_streaming_source() -> Result {
+        struct Source;
+        impl crate::upload_source::StreamingSource for Source {
+            type Error = std::io::Error;
+            async fn next(&mut self) -> Option<std::result::Result<bytes::Bytes, Self::Error>> {
+                None
+            }
+        }
+
+        let client = Storage::builder()
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+        let _ = client.upload_object("projects/_/buckets/test-bucket", "test-object", Source);
+        Ok(())
+    }
+
     #[test]
     fn upload_object_unbuffered_metadata() -> Result {
         use crate::model::ObjectAccessControl;

@@ -41,6 +41,15 @@ pub struct InsertPayload<T> {
     payload: T,
 }
 
+impl<T> InsertPayload<T>
+where
+    T: StreamingSource,
+{
+    pub fn from_stream(payload: T) -> Self {
+        Self { payload }
+    }
+}
+
 impl<T> StreamingSource for InsertPayload<T>
 where
     T: StreamingSource + Send + Sync,
@@ -81,13 +90,6 @@ impl From<&'static str> for InsertPayload<BytesSource> {
     }
 }
 
-impl From<&'static [u8]> for InsertPayload<BytesSource> {
-    fn from(value: &'static [u8]) -> Self {
-        let b = bytes::Bytes::from_static(value);
-        InsertPayload::from(b)
-    }
-}
-
 impl From<Vec<bytes::Bytes>> for InsertPayload<IterSource> {
     fn from(value: Vec<bytes::Bytes>) -> Self {
         let payload = IterSource::new(value);
@@ -97,7 +99,7 @@ impl From<Vec<bytes::Bytes>> for InsertPayload<IterSource> {
 
 impl<S> From<S> for InsertPayload<S>
 where
-    S: StreamingSource + Seek,
+    S: StreamingSource,
 {
     fn from(value: S) -> Self {
         Self { payload: value }
@@ -318,16 +320,6 @@ pub mod tests {
     }
 
     #[tokio::test]
-    async fn simple_u8() -> Result {
-        let buffer = InsertPayload::from(CONTENTS);
-        let range = buffer.size_hint().await?;
-        assert_eq!(range, (CONTENTS.len() as u64, Some(CONTENTS.len() as u64)));
-        let got = collect(buffer).await?;
-        assert_eq!(got[..], CONTENTS[..], "{got:?}");
-        Ok(())
-    }
-
-    #[tokio::test]
     async fn simple_str() -> Result {
         const LAZY: &str = "the quick brown fox jumps over the lazy dog";
         let buffer = InsertPayload::from(LAZY);
@@ -365,7 +357,7 @@ pub mod tests {
             ["how ", "vexingly ", "quick ", "daft ", "zebras ", "jump"]
                 .map(|v| bytes::Bytes::from_static(v.as_bytes())),
         );
-        let payload = InsertPayload::from(source);
+        let payload = InsertPayload::from_stream(source);
         let got = collect(payload).await?;
         assert_eq!(got[..], CONTENTS[..]);
 

@@ -16,7 +16,7 @@ use super::request_options::RequestOptions;
 use crate::Error;
 use crate::builder::storage::ReadObject;
 use crate::builder::storage::UploadObject;
-use crate::upload_source::{InsertPayload, Seek, StreamingSource};
+use crate::upload_source::InsertPayload;
 use auth::credentials::CacheableResource;
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
@@ -154,12 +154,13 @@ impl Storage {
     ///   `projects/_/buckets/{bucket_id}` format.
     /// * `object` - the object name.
     /// * `payload` - the object data.
+    ///
+    /// [Seek]: crate::upload_source::Seek
     pub fn upload_object<B, O, T, P>(&self, bucket: B, object: O, payload: T) -> UploadObject<P>
     where
         B: Into<String>,
         O: Into<String>,
         T: Into<InsertPayload<P>>,
-        InsertPayload<P>: StreamingSource + Seek,
     {
         UploadObject::new(self.inner.clone(), bucket, object, payload)
     }
@@ -673,7 +674,7 @@ pub(crate) mod tests {
     use std::{sync::Arc, time::Duration};
     use test_case::test_case;
 
-    type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+    type Result = anyhow::Result<()>;
 
     pub(crate) fn test_builder() -> ClientBuilder {
         ClientBuilder::new()
