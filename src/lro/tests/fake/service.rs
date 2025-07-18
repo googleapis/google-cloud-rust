@@ -14,7 +14,7 @@
 
 use anyhow::Result;
 use httptest::http::{Response, StatusCode};
-use httptest::{matchers::*, Expectation, Server};
+use httptest::{Expectation, Server, matchers::*};
 use std::sync::{Arc, Mutex};
 
 pub struct ServerState {
@@ -24,50 +24,47 @@ pub struct ServerState {
 
 type SharedServerState = Arc<Mutex<ServerState>>;
 
-pub fn start(initial_state: ServerState) -> Result<(String, Server)> {    
+pub fn start(initial_state: ServerState) -> Result<(String, Server)> {
     let num_create = initial_state.create.len() + 1;
     let num_poll = initial_state.poll.len() + 1;
     let state: SharedServerState = Arc::new(Mutex::new(initial_state));
     let server = Server::run();
 
-    let create_state = Arc::clone(&state);    
+    let create_state = Arc::clone(&state);
     server.expect(
-        Expectation::matching(all_of![
-            request::method("POST"),
-            request::path("/create")
-        ])
-        .times(0..num_create)
-        .respond_with(move || {
-            let mut state = create_state.lock().expect("shared state is poisoned");
-            let (status, body) = state.create.pop_front().unwrap_or_else(|| {
-                (
-                    StatusCode::BAD_REQUEST,
-                    "exhausted create responses".to_string(),
-                )
-            });
-            Response::builder().status(status).body(body.into_bytes()).unwrap()
-        }),
+        Expectation::matching(all_of![request::method("POST"), request::path("/create")])
+            .times(0..num_create)
+            .respond_with(move || {
+                let mut state = create_state.lock().expect("shared state is poisoned");
+                let (status, body) = state.create.pop_front().unwrap_or_else(|| {
+                    (
+                        StatusCode::BAD_REQUEST,
+                        "exhausted create responses".to_string(),
+                    )
+                });
+                Response::builder()
+                    .status(status)
+                    .body(body.into_bytes())
+                    .unwrap()
+            }),
     );
 
     let poll_state = Arc::clone(&state);
     server.expect(
-        Expectation::matching(all_of![
-            request::method("GET"),
-            request::path("/poll")
-        ])
-        .times(0..num_poll)
-        .respond_with(move || {
-            let mut state = poll_state.lock().expect("shared state is poisoned");
-            let (status, body) = state.poll.pop_front().unwrap_or_else(|| {
-                (
-                    StatusCode::BAD_REQUEST,
-                    "exhausted poll data".to_string(),
-                )
-            });
-            Response::builder().status(status).body(body.into_bytes()).unwrap()
-        }),
+        Expectation::matching(all_of![request::method("GET"), request::path("/poll")])
+            .times(0..num_poll)
+            .respond_with(move || {
+                let mut state = poll_state.lock().expect("shared state is poisoned");
+                let (status, body) = state.poll.pop_front().unwrap_or_else(|| {
+                    (StatusCode::BAD_REQUEST, "exhausted poll data".to_string())
+                });
+                Response::builder()
+                    .status(status)
+                    .body(body.into_bytes())
+                    .unwrap()
+            }),
     );
 
-    let endpoint = format!("http://{}",server.addr());
+    let endpoint = format!("http://{}", server.addr());
     Ok((endpoint, server))
 }
