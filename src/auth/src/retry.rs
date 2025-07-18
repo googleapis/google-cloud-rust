@@ -117,14 +117,12 @@ where
             return CredentialsError::from_source(false, e);
         }
 
-        let msg = if e
+        let msg = match e
             .source()
             .and_then(|s| s.downcast_ref::<CredentialsError>())
-            .is_some_and(|ce| ce.is_transient())
         {
-            constants::RETRY_EXHAUSTED_ERROR
-        } else {
-            constants::TOKEN_FETCH_FAILED_ERROR
+            Some(cred_error) if cred_error.is_transient() => constants::RETRY_EXHAUSTED_ERROR,
+            _ => constants::TOKEN_FETCH_FAILED_ERROR,
         };
         CredentialsError::new(false, msg, e)
     }

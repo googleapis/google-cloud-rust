@@ -749,7 +749,8 @@ mod tests {
     }
 
     fn pre_rpc_transient() -> Error {
-        Error::authentication(crate::error::CredentialsError::from_msg(true, "err"))
+        use crate::error::CredentialsError;
+        Error::authentication(CredentialsError::from_msg(true, "err"))
     }
 
     fn http_unavailable() -> Error {
