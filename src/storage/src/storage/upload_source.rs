@@ -384,8 +384,8 @@ pub mod tests {
     #[tokio::test]
     async fn empty_file() -> Result {
         let file = NamedTempFile::new()?;
-        let read = file.reopen()?;
-        let payload = InsertPayload::from(tokio::fs::File::from(read));
+        let read = tokio::fs::File::from(file.reopen()?);
+        let payload = InsertPayload::from(read);
         let hint = payload.size_hint().await?;
         assert_eq!(hint, (0_u64, Some(0_u64)));
         let got = collect(payload).await?;
@@ -398,8 +398,8 @@ pub mod tests {
         let mut file = NamedTempFile::new()?;
         assert_eq!(file.write(CONTENTS)?, CONTENTS.len());
         file.flush()?;
-        let read = file.reopen()?;
-        let payload = InsertPayload::from(tokio::fs::File::from(read));
+        let read = tokio::fs::File::from(file.reopen()?);
+        let payload = InsertPayload::from(read);
         let hint = payload.size_hint().await?;
         let s = CONTENTS.len() as u64;
         assert_eq!(hint, (s, Some(s)));
@@ -414,7 +414,7 @@ pub mod tests {
         assert_eq!(file.write(CONTENTS)?, CONTENTS.len());
         file.flush()?;
         let read = tokio::fs::File::from(file.reopen()?);
-        let mut payload = InsertPayload::from(tokio::fs::File::from(read));
+        let mut payload = InsertPayload::from(read);
         payload.seek(8).await?;
         let got = collect(payload).await?;
         assert_eq!(got[..], CONTENTS[8..], "{got:?}");
@@ -431,7 +431,7 @@ pub mod tests {
         file.flush()?;
         assert_eq!(READ_SIZE % 2, 0);
         let read = tokio::fs::File::from(file.reopen()?);
-        let mut payload = InsertPayload::from(tokio::fs::File::from(read));
+        let mut payload = InsertPayload::from(read);
         payload.seek((READ_SIZE + READ_SIZE / 2) as u64).await?;
         let got = collect(payload).await?;
         let mut want = Vec::new();
