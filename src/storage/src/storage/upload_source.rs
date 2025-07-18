@@ -43,16 +43,16 @@ pub struct InsertPayload<T> {
 
 impl<T> StreamingSource for InsertPayload<T>
 where
-    T: StreamingSource,
+    T: StreamingSource + Send + Sync,
 {
     type Error = T::Error;
 
-    fn next(&mut self) -> impl Future<Output = Option<Result<bytes::Bytes, Self::Error>>> + Send {
-        self.payload.next()
+    async fn next(&mut self) -> Option<Result<bytes::Bytes, Self::Error>> {
+        self.payload.next().await
     }
 
-    fn size_hint(&self) -> (u64, Option<u64>) {
-        self.payload.size_hint()
+    async fn size_hint(&self) -> Result<(u64, Option<u64>), Self::Error> {
+        self.payload.size_hint().await
     }
 }
 
@@ -117,10 +117,10 @@ pub trait StreamingSource {
     /// Returns the expected size as a [min, max) range. Where `None` represents
     /// an unknown limit for the upload.
     ///
-    /// If the upper limit is known and sufficiently small, the client library
+    /// If the maximum size is known and sufficiently small, the client library
     /// may be able to use a more efficient protocol for the upload.
-    fn size_hint(&self) -> (u64, Option<u64>) {
-        (0_u64, None)
+    fn size_hint(&self) -> impl Future<Output = Result<(u64, Option<u64>), Self::Error>> + Send {
+        std::future::ready(Ok((0_u64, None)))
     }
 }
 
@@ -198,9 +198,9 @@ impl StreamingSource for BytesSource {
         self.current.take().map(Result::Ok)
     }
 
-    fn size_hint(&self) -> (u64, Option<u64>) {
+    async fn size_hint(&self) -> Result<(u64, Option<u64>), Self::Error> {
         let s = self.contents.len() as u64;
-        (s, Some(s))
+        Ok((s, Some(s)))
     }
 }
 
@@ -237,9 +237,9 @@ impl StreamingSource for IterSource {
         self.current.pop_front().map(Ok)
     }
 
-    fn size_hint(&self) -> (u64, Option<u64>) {
+    async fn size_hint(&self) -> Result<(u64, Option<u64>), Self::Error> {
         let s = self.contents.iter().fold(0_u64, |a, i| a + i.len() as u64);
-        (s, Some(s))
+        Ok((s, Some(s)))
     }
 }
 
@@ -299,7 +299,7 @@ pub mod tests {
     #[tokio::test]
     async fn empty_bytes() -> Result {
         let buffer = InsertPayload::from(bytes::Bytes::default());
-        let range = buffer.size_hint();
+        let range = buffer.size_hint().await?;
         assert_eq!(range, (0, Some(0)));
         let got = collect(buffer).await?;
         assert!(got.is_empty(), "{got:?}");
@@ -310,7 +310,7 @@ pub mod tests {
     #[tokio::test]
     async fn simple_bytes() -> Result {
         let buffer = InsertPayload::from(bytes::Bytes::from_static(CONTENTS));
-        let range = buffer.size_hint();
+        let range = buffer.size_hint().await?;
         assert_eq!(range, (CONTENTS.len() as u64, Some(CONTENTS.len() as u64)));
         let got = collect(buffer).await?;
         assert_eq!(got[..], CONTENTS[..], "{got:?}");
@@ -320,7 +320,7 @@ pub mod tests {
     #[tokio::test]
     async fn simple_u8() -> Result {
         let buffer = InsertPayload::from(CONTENTS);
-        let range = buffer.size_hint();
+        let range = buffer.size_hint().await?;
         assert_eq!(range, (CONTENTS.len() as u64, Some(CONTENTS.len() as u64)));
         let got = collect(buffer).await?;
         assert_eq!(got[..], CONTENTS[..], "{got:?}");
@@ -331,7 +331,7 @@ pub mod tests {
     async fn simple_str() -> Result {
         const LAZY: &str = "the quick brown fox jumps over the lazy dog";
         let buffer = InsertPayload::from(LAZY);
-        let range = buffer.size_hint();
+        let range = buffer.size_hint().await?;
         assert_eq!(range, (LAZY.len() as u64, Some(LAZY.len() as u64)));
         let got = collect(buffer).await?;
         assert_eq!(&got, LAZY.as_bytes(), "{got:?}");
@@ -351,7 +351,7 @@ pub mod tests {
     async fn empty_stream() -> Result {
         let source = IterSource::new(vec![]);
         let payload = InsertPayload::from(source);
-        let range = payload.size_hint();
+        let range = payload.size_hint().await?;
         assert_eq!(range, (0, Some(0)));
         let got = collect(payload).await?;
         assert!(got.is_empty(), "{got:?}");
@@ -435,7 +435,10 @@ pub mod tests {
 
         let mut stream =
             IterSource::new(vec![b.slice(0..N), b.slice(N..(2 * N)), b.slice((2 * N)..)]);
-        assert_eq!(stream.size_hint(), (3 * N as u64, Some(3 * N as u64)));
+        assert_eq!(
+            stream.size_hint().await?,
+            (3 * N as u64, Some(3 * N as u64))
+        );
 
         // test_case() is not appropriate here: we want to verify seek() works
         // multiple times over the *same* stream.
