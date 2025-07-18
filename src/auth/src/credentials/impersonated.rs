@@ -607,9 +607,12 @@ mod tests {
     use crate::credentials::tests::{
         get_mock_auth_retry_policy, get_mock_backoff_policy, get_mock_retry_throttler,
     };
+    use crate::errors::CredentialsError;
+    use gax::error::Error as GaxError;
     use httptest::cycle;
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use serde_json::json;
+    use std::error::Error;
 
     type TestResult = anyhow::Result<()>;
 
@@ -974,7 +977,13 @@ mod tests {
         let (token_provider, _) = Builder::new(impersonated_credential).build_components()?;
 
         let err = token_provider.token().await.unwrap_err();
-        assert!(err.is_transient());
+        let original_err = err
+            .source()
+            .and_then(|e| e.downcast_ref::<GaxError>())
+            .and_then(|e| e.source())
+            .and_then(|e| e.downcast_ref::<CredentialsError>())
+            .unwrap();
+        assert!(original_err.is_transient());
 
         Ok(())
     }

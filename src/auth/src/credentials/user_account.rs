@@ -453,7 +453,9 @@ mod tests {
         get_mock_retry_throttler, get_token_from_headers, get_token_type_from_headers,
     };
     use crate::credentials::{DEFAULT_UNIVERSE_DOMAIN, QUOTA_PROJECT_KEY};
+    use crate::errors::CredentialsError;
     use crate::token::tests::MockTokenProvider;
+    use gax::error::Error as GaxError;
     use http::StatusCode;
     use http::header::AUTHORIZATION;
     use httptest::matchers::{all_of, json_decoded, request};
@@ -1094,8 +1096,15 @@ mod tests {
 
         let uc = Builder::new(authorized_user).build()?;
         let err = uc.headers(Extensions::new()).await.unwrap_err();
-        assert!(err.is_transient(), "{err}");
-        let source = err
+        let original_err = err
+            .source()
+            .and_then(|e| e.downcast_ref::<GaxError>())
+            .and_then(|e| e.source())
+            .and_then(|e| e.downcast_ref::<CredentialsError>())
+            .unwrap();
+        assert!(original_err.is_transient());
+
+        let source = original_err
             .source()
             .and_then(|e| e.downcast_ref::<reqwest::Error>());
         assert!(
@@ -1122,8 +1131,15 @@ mod tests {
 
         let uc = Builder::new(authorized_user).build()?;
         let err = uc.headers(Extensions::new()).await.unwrap_err();
-        assert!(!err.is_transient(), "{err:?}");
-        let source = err
+        let original_err = err
+            .source()
+            .and_then(|e| e.downcast_ref::<GaxError>())
+            .and_then(|e| e.source())
+            .and_then(|e| e.downcast_ref::<CredentialsError>())
+            .unwrap();
+        assert!(!original_err.is_transient());
+
+        let source = original_err
             .source()
             .and_then(|e| e.downcast_ref::<reqwest::Error>());
         assert!(

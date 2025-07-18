@@ -415,7 +415,9 @@ mod tests {
         get_mock_retry_throttler, get_token_from_headers, get_token_type_from_headers,
     };
     use crate::errors;
+    use crate::errors::CredentialsError;
     use crate::token::tests::MockTokenProvider;
+    use gax::error::Error as GaxError;
     use http::HeaderValue;
     use http::header::AUTHORIZATION;
     use httptest::cycle;
@@ -614,12 +616,18 @@ mod tests {
             .await
             .unwrap_err();
 
-        assert!(err.is_transient(), "{err:?}");
+        let original_err = err
+            .source()
+            .and_then(|e| e.downcast_ref::<GaxError>())
+            .and_then(|e| e.source())
+            .and_then(|e| e.downcast_ref::<CredentialsError>())
+            .unwrap();
+        assert!(original_err.is_transient());
         assert!(
-            err.to_string().contains("application-default"),
+            original_err.to_string().contains("application-default"),
             "display={err}, debug={err:?}"
         );
-        let source = err
+        let source = original_err
             .source()
             .and_then(|e| e.downcast_ref::<reqwest::Error>());
         assert!(matches!(source, Some(e) if e.status().is_none()), "{err:?}");
@@ -640,12 +648,18 @@ mod tests {
 
         let _e = ScopedEnv::remove(super::GCE_METADATA_HOST_ENV_VAR);
 
-        assert!(err.is_transient(), "{err:?}");
+        let original_err = err
+            .source()
+            .and_then(|e| e.downcast_ref::<GaxError>())
+            .and_then(|e| e.source())
+            .and_then(|e| e.downcast_ref::<CredentialsError>())
+            .unwrap();
+        assert!(original_err.is_transient());
         assert!(
-            !err.to_string().contains("application-default"),
+            !original_err.to_string().contains("application-default"),
             "display={err}, debug={err:?}"
         );
-        let source = err
+        let source = original_err
             .source()
             .and_then(|e| e.downcast_ref::<reqwest::Error>());
         assert!(matches!(source, Some(e) if e.status().is_none()), "{err:?}");
@@ -663,9 +677,15 @@ mod tests {
             .err()
             .unwrap();
 
-        assert!(e.is_transient(), "{e:?}");
+        let original_err = e
+            .source()
+            .and_then(|e| e.downcast_ref::<GaxError>())
+            .and_then(|e| e.source())
+            .and_then(|e| e.downcast_ref::<CredentialsError>())
+            .unwrap();
+        assert!(original_err.is_transient());
         assert!(
-            !format!("{:?}", e.source()).contains("application-default"),
+            !format!("{:?}", original_err.source()).contains("application-default"),
             "{e:?}"
         );
 
@@ -908,8 +928,14 @@ mod tests {
             .with_scopes(scopes)
             .build()?;
         let err = mdsc.headers(Extensions::new()).await.unwrap_err();
-        assert!(err.is_transient());
-        let source = err
+        let original_err = err
+            .source()
+            .and_then(|e| e.downcast_ref::<GaxError>())
+            .and_then(|e| e.source())
+            .and_then(|e| e.downcast_ref::<CredentialsError>())
+            .unwrap();
+        assert!(original_err.is_transient());
+        let source = original_err
             .source()
             .and_then(|e| e.downcast_ref::<reqwest::Error>());
         assert!(
@@ -939,8 +965,14 @@ mod tests {
             .build()?;
 
         let err = mdsc.headers(Extensions::new()).await.unwrap_err();
-        assert!(!err.is_transient());
-        let source = err
+        let original_err = err
+            .source()
+            .and_then(|e| e.downcast_ref::<GaxError>())
+            .and_then(|e| e.source())
+            .and_then(|e| e.downcast_ref::<CredentialsError>())
+            .unwrap();
+        assert!(!original_err.is_transient());
+        let source = original_err
             .source()
             .and_then(|e| e.downcast_ref::<reqwest::Error>());
         assert!(

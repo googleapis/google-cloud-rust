@@ -1232,7 +1232,8 @@ mod tests {
     use crate::credentials::tests::{
         get_mock_auth_retry_policy, get_mock_backoff_policy, get_mock_retry_throttler,
     };
-    use crate::errors::SubjectTokenProviderError;
+    use crate::errors::{CredentialsError, SubjectTokenProviderError};
+    use gax::error::Error as GaxError;
     use httptest::{
         Expectation, Server, cycle,
         matchers::{all_of, contains, request, url_decoded},
@@ -1586,8 +1587,18 @@ mod tests {
 
         let creds = Builder::new(contents).build().unwrap();
         let err = creds.headers(Extensions::new()).await.unwrap_err();
-        assert!(err.to_string().contains("failed to exchange token"));
-        assert!(err.is_transient());
+        let original_err = err
+            .source()
+            .and_then(|e| e.downcast_ref::<GaxError>())
+            .and_then(|e| e.source())
+            .and_then(|e| e.downcast_ref::<CredentialsError>())
+            .unwrap();
+        assert!(
+            original_err
+                .to_string()
+                .contains("failed to exchange token")
+        );
+        assert!(original_err.is_transient());
     }
 
     #[tokio::test]
@@ -1638,8 +1649,14 @@ mod tests {
 
         let creds = Builder::new(contents).build().unwrap();
         let err = creds.headers(Extensions::new()).await.unwrap_err();
-        assert!(err.to_string().contains("failed to fetch token"));
-        assert!(!err.is_transient());
+        let original_err = err
+            .source()
+            .and_then(|e| e.downcast_ref::<GaxError>())
+            .and_then(|e| e.source())
+            .and_then(|e| e.downcast_ref::<CredentialsError>())
+            .unwrap();
+        assert!(original_err.to_string().contains("failed to fetch token"));
+        assert!(!original_err.is_transient());
     }
 
     #[test_case(Some(vec!["scope1", "scope2"]), Some("http://custom.com/token") ; "with custom scopes and token_url")]

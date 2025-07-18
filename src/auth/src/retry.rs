@@ -18,7 +18,7 @@ use crate::{Result, constants};
 use gax::backoff_policy::{BackoffPolicy, BackoffPolicyArg};
 use gax::exponential_backoff::ExponentialBackoff;
 use gax::retry_loop_internal::retry_loop;
-use gax::retry_policy::{RetryPolicy, RetryPolicyArg};
+use gax::retry_policy::{AlwaysRetry, RetryPolicy, RetryPolicyArg, RetryPolicyExt};
 use gax::retry_throttler::{AdaptiveThrottler, RetryThrottlerArg, SharedRetryThrottler};
 use std::error::Error;
 use std::sync::{Arc, Mutex};
@@ -26,7 +26,7 @@ use std::sync::{Arc, Mutex};
 #[derive(Debug)]
 pub(crate) struct TokenProviderWithRetry<T: TokenProvider> {
     pub(crate) inner: Arc<T>,
-    retry_policy: Option<Arc<dyn RetryPolicy>>,
+    retry_policy: Arc<dyn RetryPolicy>,
     backoff_policy: Arc<dyn BackoffPolicy>,
     retry_throttler: SharedRetryThrottler,
 }
@@ -64,9 +64,15 @@ impl Builder {
             None => Arc::new(Mutex::new(AdaptiveThrottler::default())),
         };
 
+        let retry_policy = match self.retry_policy {
+            Some(p) => p,
+            None => AlwaysRetry.with_attempt_limit(1).into(),
+        }
+        .into();
+
         TokenProviderWithRetry {
             inner: Arc::new(token_provider),
-            retry_policy: self.retry_policy.map(|p| p.into()),
+            retry_policy,
             backoff_policy,
             retry_throttler,
         }
@@ -76,10 +82,7 @@ impl Builder {
 #[async_trait::async_trait]
 impl<T: TokenProvider + 'static> TokenProvider for TokenProviderWithRetry<T> {
     async fn token(&self) -> Result<Token> {
-        match self.retry_policy.clone() {
-            None => self.inner.token().await,
-            Some(policy) => self.execute_retry_loop(policy).await,
-        }
+        self.execute_retry_loop(self.retry_policy.clone()).await
     }
 }
 
@@ -331,22 +334,45 @@ mod tests {
         assert_eq!(token.token, "test_token");
     }
 
-    #[test_case(true, "but future attempts may succeed" ; "transient_error")]
-    #[test_case(false, "and future attempts will not succeed" ; "non_transient_error")]
     #[tokio::test]
-    async fn test_no_retry_policy_failure(is_transient: bool, expected_suffix: &str) {
+    async fn test_no_retry_policy_failure_transient_error() {
         let mut mock_provider = MockTokenProvider::new();
-        const ERROR_MESSAGE: &str = "underlying provider error";
-        mock_provider
-            .expect_token()
-            .times(1)
-            .returning(move || Err(CredentialsError::from_msg(is_transient, ERROR_MESSAGE)));
+        mock_provider.expect_token().times(1).returning(move || {
+            Err(CredentialsError::from_msg(
+                true,
+                "underlying provider error",
+            ))
+        });
 
         let provider = Builder::default().build(mock_provider);
 
         let error = provider.token().await.unwrap_err();
-        assert_eq!(error.is_transient(), is_transient);
-        let expected_message = format!("{ERROR_MESSAGE} {expected_suffix}");
+        assert!(!error.is_transient());
+        let expected_message = format!(
+            "{} and future attempts will not succeed",
+            constants::RETRY_EXHAUSTED_ERROR
+        );
+        assert_eq!(error.to_string(), expected_message);
+    }
+
+    #[tokio::test]
+    async fn test_no_retry_policy_failure_non_transient_error() {
+        let mut mock_provider = MockTokenProvider::new();
+        mock_provider.expect_token().times(1).returning(move || {
+            Err(CredentialsError::from_msg(
+                false,
+                "underlying provider error",
+            ))
+        });
+
+        let provider = Builder::default().build(mock_provider);
+
+        let error = provider.token().await.unwrap_err();
+        assert!(!error.is_transient());
+        let expected_message = format!(
+            "{} and future attempts will not succeed",
+            constants::TOKEN_FETCH_FAILED_ERROR
+        );
         assert_eq!(error.to_string(), expected_message);
     }
 
@@ -357,7 +383,7 @@ mod tests {
     )]
     #[test_case(
         false,
-        &["retry_policy: None", "ExponentialBackoff", "AdaptiveThrottler", "factor: 2.0"];
+        &["LimitedAttemptCount", "ExponentialBackoff", "AdaptiveThrottler", "factor: 2.0"];
         "with_default_values"
     )]
     fn test_builder(use_custom_config: bool, expected_substrings: &[&str]) {
