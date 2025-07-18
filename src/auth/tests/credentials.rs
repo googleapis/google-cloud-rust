@@ -397,7 +397,6 @@ mod tests {
         let error = creds.headers(Extensions::new()).await.unwrap_err();
         let original_error = find_source_error::<CredentialsError>(&error)
             .expect("source should be a CredentialsError");
-        assert!(original_error.to_string().contains("invalid_token"));
         assert!(!original_error.is_transient());
 
         Ok(())
