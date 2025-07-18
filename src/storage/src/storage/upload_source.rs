@@ -149,15 +149,30 @@ pub trait Seek {
 
 const READ_SIZE: usize = 256 * 1024;
 
-impl<S> StreamingSource for S
-where
-    S: tokio::io::AsyncRead + Unpin + Send,
-{
+impl From<tokio::fs::File> for InsertPayload<FileSource> {
+    fn from(value: tokio::fs::File) -> Self {
+        Self {
+            payload: FileSource::new(value),
+        }
+    }
+}
+
+struct FileSource {
+    inner: tokio::fs::File,
+}
+
+impl FileSource {
+    fn new(inner: tokio::fs::File) -> Self {
+        Self { inner }
+    }
+}
+
+impl StreamingSource for FileSource {
     type Error = std::io::Error;
 
     async fn next(&mut self) -> Option<Result<bytes::Bytes, Self::Error>> {
         let mut buffer = vec![0_u8; READ_SIZE];
-        match tokio::io::AsyncReadExt::read(self, &mut buffer).await {
+        match tokio::io::AsyncReadExt::read(&mut self.inner, &mut buffer).await {
             Err(e) => Some(Err(e)),
             Ok(0) => None,
             Ok(n) => {
@@ -166,16 +181,18 @@ where
             }
         }
     }
+    async fn size_hint(&self) -> Result<(u64, Option<u64>), Self::Error> {
+        let m = self.inner.metadata().await?;
+        Ok((m.len(), Some(m.len())))
+    }
 }
 
-impl<S> Seek for S
-where
-    S: tokio::io::AsyncSeek + Unpin + Send,
-{
+impl Seek for FileSource {
     type Error = std::io::Error;
 
     async fn seek(&mut self, offset: u64) -> Result<(), Self::Error> {
-        let _ = tokio::io::AsyncSeekExt::seek(self, std::io::SeekFrom::Start(offset)).await?;
+        use tokio::io::AsyncSeekExt;
+        let _ = self.inner.seek(std::io::SeekFrom::Start(offset)).await?;
         Ok(())
     }
 }
@@ -368,7 +385,10 @@ pub mod tests {
     async fn empty_file() -> Result {
         let file = NamedTempFile::new()?;
         let read = file.reopen()?;
-        let got = collect(tokio::fs::File::from(read)).await?;
+        let payload = InsertPayload::from(tokio::fs::File::from(read));
+        let hint = payload.size_hint().await?;
+        assert_eq!(hint, (0_u64, Some(0_u64)));
+        let got = collect(payload).await?;
         assert!(got.is_empty(), "{got:?}");
         Ok(())
     }
@@ -379,7 +399,11 @@ pub mod tests {
         assert_eq!(file.write(CONTENTS)?, CONTENTS.len());
         file.flush()?;
         let read = file.reopen()?;
-        let got = collect(tokio::fs::File::from(read)).await?;
+        let payload = InsertPayload::from(tokio::fs::File::from(read));
+        let hint = payload.size_hint().await?;
+        let s = CONTENTS.len() as u64;
+        assert_eq!(hint, (s, Some(s)));
+        let got = collect(payload).await?;
         assert_eq!(got[..], CONTENTS[..], "{got:?}");
         Ok(())
     }
@@ -389,9 +413,10 @@ pub mod tests {
         let mut file = NamedTempFile::new()?;
         assert_eq!(file.write(CONTENTS)?, CONTENTS.len());
         file.flush()?;
-        let mut read = tokio::fs::File::from(file.reopen()?);
-        read.seek(8).await?;
-        let got = collect(read).await?;
+        let read = tokio::fs::File::from(file.reopen()?);
+        let mut payload = InsertPayload::from(tokio::fs::File::from(read));
+        payload.seek(8).await?;
+        let got = collect(payload).await?;
         assert_eq!(got[..], CONTENTS[8..], "{got:?}");
         Ok(())
     }
@@ -405,9 +430,10 @@ pub mod tests {
         assert_eq!(file.write(&[3_u8; READ_SIZE])?, READ_SIZE);
         file.flush()?;
         assert_eq!(READ_SIZE % 2, 0);
-        let mut read = tokio::fs::File::from(file.reopen()?);
-        read.seek((READ_SIZE + READ_SIZE / 2) as u64).await?;
-        let got = collect(read).await?;
+        let read = tokio::fs::File::from(file.reopen()?);
+        let mut payload = InsertPayload::from(tokio::fs::File::from(read));
+        payload.seek((READ_SIZE + READ_SIZE / 2) as u64).await?;
+        let got = collect(payload).await?;
         let mut want = Vec::new();
         want.extend_from_slice(&[1_u8; READ_SIZE / 2]);
         want.extend_from_slice(&[2_u8; READ_SIZE]);
