@@ -246,22 +246,20 @@ impl StreamingSource for IterSource {
 impl Seek for IterSource {
     type Error = std::io::Error;
     async fn seek(&mut self, offset: u64) -> std::result::Result<(), Self::Error> {
-        let mut current: VecDeque<_> = self.contents.iter().cloned().collect();
+        let mut current = VecDeque::new();
         let mut offset = offset as usize;
-        while offset > 0 {
-            match current.pop_front() {
-                None => break,
-                Some(mut b) if b.len() > offset => {
-                    current.push_front(b.split_off(offset));
-                    break;
+        for b in self.contents.iter() {
+            offset = match (offset, b.len()) {
+                (0, _) => {
+                    current.push_back(b.clone());
+                    0
                 }
-                Some(b) if b.len() == offset => {
-                    break;
+                (o, n) if o >= n => o - n,
+                (o, n) => {
+                    current.push_back(b.clone().split_off(n - o));
+                    0
                 }
-                Some(b) => {
-                    offset -= b.len();
-                }
-            };
+            }
         }
         self.current = current;
         Ok(())
@@ -269,7 +267,7 @@ impl Seek for IterSource {
 }
 
 #[cfg(test)]
-pub(crate) mod tests {
+pub mod tests {
     use super::*;
     use std::io::Write;
     use tempfile::NamedTempFile;

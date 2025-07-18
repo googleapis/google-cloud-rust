@@ -33,10 +33,9 @@ where
     /// # Ok(()) }
     /// ```
     pub async fn send(self) -> crate::Result<Object> {
-        // TODO(#2043) - make the threshold to use resumable uploads and the
-        //    target size for each chunk configurable.
+        // TODO(#2043) - make the target size for each chunk configurable.
         let hint = self.payload.lock().await.size_hint().1;
-        if hint.is_some_and(|max| max >= self.options.resumable_upload_threshold as u64) {
+        if hint.is_none_or(|max| max >= self.options.resumable_upload_threshold as u64) {
             let upload_url = self.start_resumable_upload().await?;
             return self
                 .upload_by_chunks(&upload_url, RESUMABLE_UPLOAD_QUANTUM)
