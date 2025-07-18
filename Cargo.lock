@@ -5199,7 +5199,6 @@ name = "integration-tests"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "axum",
  "bytes",
  "crc32c",
  "futures",

@@ -95,8 +95,7 @@ path    = "../../src/generated/cloud/workflows/executions/v1"
 
 [dev-dependencies]
 anyhow.workspace     = true
-axum                 = { workspace = true, features = ["http2", "json", "query", "tokio"] }
-httptest             = { workspace = true }
+httptest.workspace   = true
 mockall.workspace    = true
 reqwest.workspace    = true
 serde.workspace      = true
